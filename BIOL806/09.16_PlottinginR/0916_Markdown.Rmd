@@ -1,0 +1,144 @@
+---
+title: "Gapminder HW"
+author: "Sophie Wulfing"
+date: "9/16/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+
+setwd("C:/Users/sophi/Documents/BIOL806")
+
+getwd()
+
+gapminder <- read.csv("09.16_PlottinginR/data/gapminder_data.csv", stringsAsFactors = TRUE)
+
+library(ggplot2)
+
+```
+
+# Gapminder Data
+
+
+## How does life expectancy change as populations increase?
+
+I first wanted to see how the Life Expectancy changed as population grew (Figure 1a). Lines of datapoints became apparent, with a generally positive relationship. This is why I decided to add black lines to Figure 1b in order to track each country's general trend. Although it's very clustered in the middle, it is apparent that there are some exceptions to this trend and that a look into each country's history during the years where population increases don't increase life expectancy would be interesting (for example, I did look into the low life expectancy data point for Rwanda and it did coincide with the genocide in that country). I also wonder how this graph will look in future years, as overpopulation may saturate earth's resources and we are currently seeing the first decrease in life expectancy for the first time in history.
+
+```{r, echo=FALSE, fig.cap = "Population vs. life expectancy. Lines in figure 1b follow each country's trajectory as population increased over the 55 year survey period. The population axis is on a log scale", out.width = "50%", fig.show="hold"}
+#load data and ggplot and make plots
+#Can change things about figure by putting "echo" next to r setup so that it hides code
+#fig.cap = caption
+#fig.width = figure width
+ggplot(data = gapminder, aes(x = pop, y = lifeExp, color = continent, by = country)) +
+  scale_x_log10() +
+  geom_point() +
+  ggtitle("a)") +
+  xlab("Population") + ylab("Life Expectancy")
+
+ggplot(data = gapminder, aes(x = pop, y = lifeExp, color = continent, by = country)) +
+  scale_x_log10() +
+  geom_point() +
+  geom_line(color = "black") +
+  ggtitle("b)") +
+  xlab("Population") + ylab("Life Expectancy")
+
+```
+
+## How has GDP per capita changed over time
+
+I also graphed how the GDP per capita trends have changed over time (Figure 2). It makes sense that European countries tend to have higher GDP's as Europe has generally wealthier contries than other continents as a whole. Further, I looked into which country had the increadibly high GDP until the 1980s and it's Kuwait. This may have something to do with oil production although I wonder why the GDP per capita generally decreased until it no longer led the world in the mid 1980's. The Gulf War didn't start until early nineties so that can't be a cause.
+
+```{r, echo=FALSE, fig.cap = "GDP Per Capita over the 55 year survey period"}
+ggplot(data = gapminder, aes(x = year, y = gdpPercap, color = continent, by = country)) +
+  geom_point() +
+  ylab("GDP Per Capita") + xlab("Year")
+```
+
+## How are population sizes distributed in each continent?
+
+Finally, I wanted to look at the distribution of population sizes in each continent. I started with a box plot (Figure 3a) and it appeared that Oceana had the smallest range and Asia the highest, which made sense as these have the lowest and highest number of countries within them, respectively. Further, it appeared that Oceana had a binomial distribution of population sizes, and Europe (although I don't think this counts as binomial) also seemed to be concentrated at two different points which is why I added the violin plot (Figure 3b) to show that distribution.
+
+
+```{r, echo=FALSE, fig.cap = "Distribution of population sizes in each continent. Population is represented on a log scale", out.width = "50%", fig.show="hold"}
+
+
+ggplot(data = gapminder, aes(x = continent, y = pop, fill = continent)) +
+  scale_y_log10() +
+  geom_boxplot() +
+  scale_fill_brewer(palette="Set2") +
+  geom_jitter(color="black", size=0.4, alpha=0.9) +
+  ggtitle("a)") +
+  ylab("Population") + xlab("Continent")
+
+ggplot(data = gapminder, aes(x = continent, y = pop, fill = continent)) +
+  scale_y_log10() +
+  geom_violin() +
+  scale_fill_brewer(palette="Set2") +
+  geom_jitter(color="black", size=0.4, alpha=0.9) +
+  ggtitle("b)") +
+  ylab("Population") + xlab("Continent")
+
+```
+# Water Quality Data
+
+## Data sources
+
+For my next series of graphs I'm using data from the National Rivers Assesment, a semi-annual survey by USGS assessing the water quality of different streams and rivers in the United States (Figure 4). They take a wide variety of chemical analytes, such as TSS, DOC, Nitrate, Phosphorus, etc. 
+
+```{r, echo = FALSE, fig.cap = "Locations of sample collection from 2004 National Streams Assessment", warning = FALSE, message = FALSE}
+
+PointData <- read.csv("data/Points_NLAs2004.csv", stringsAsFactors = TRUE)
+
+library("rnaturalearth")
+library("rnaturalearthdata")
+
+world <- ne_countries(scale = "medium", returnclass = "sf")
+#class(world)
+
+
+ggplot(data = world) +
+  geom_sf() +
+  coord_sf(xlim = c(-125, -65), ylim = c(25, 50), expand = FALSE) +
+  geom_point(data = PointData, aes(x = LON_DD, y = LAT_DD), size = .5, 
+             shape = 23, fill = "green") +
+  ylab("Latitude") + xlab("Longitude")
+
+```
+
+## What is the relationship between DOC and Nitrate
+
+One thing we used this data to discuss was the relationship between NO3 and DOC. It is known that as DOC increases in an aquatic ecosystem, this promotes organism growth, a process that also requires nitrate. Therefore, at high concentrations of DOC, Nitrate is almost depleted (Figure 5). However, one thing that we explored was why at such low concentrations of DOC do we see a huge variability in the amount of nitrate.
+
+
+```{r, echo = FALSE, fig.cap = "Relationship between NO3 and DOC", warning = FALSE}
+
+ChemData <- read.csv("data/ChemData_NLAs2004.csv", stringsAsFactors = TRUE)
+
+ggplot(data = ChemData, aes(x = DOC, y = NO3)) +
+  geom_point(color = "green", shape = 1)
+
+```
+
+## How has water quality changed over time?
+
+Further, nitrate and phosphate concentrations in aquatic ecosystems promote growth of microbes such as zooplankton and cyanobacteria. Both can be extremely harmful to other organisms and sometimes humans (especially cyanobacteria), as well as make the water dangerous for consumption. Researchers have noticed a general increase in the amount of phosphate and nitrate in our natural water sources and water supply so I decided to see how this trend was exemplified in the 4 year period that this data set encompases (Figure 6).
+
+```{r, echo=FALSE, fig.cap = "Concentration of a) Phosphate and b) Nitrate in streams over time. Data points are fitted with a generalized linear model and the y axis are on a log scale", out.width = "50%", fig.show="hold", warning = FALSE, message = FALSE}
+
+ChemData <- read.csv("data/ChemData_NLAs2004.csv", stringsAsFactors = TRUE)
+
+ggplot(data = ChemData, aes(x = YEAR, y = PTL)) +
+  scale_y_log10() +
+  ggtitle("a)") +
+  ylab("Total Phosphorus (ug/L)") + xlab("Year") + 
+ geom_smooth(method = "glm")
+
+ggplot(data = ChemData, aes(x = YEAR, y = NO3)) +
+  scale_y_log10() +
+  ggtitle("b)") + 
+  ylab("Nitrate (mg/L)") + xlab("Year") + 
+ geom_smooth(method = "glm")
+```
