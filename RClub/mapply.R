@@ -129,7 +129,47 @@ my_fxn <- function (x) {
   return(x)
 }
 
-lapply(NestedList1, )
+lapply(NestedList1, function(x){
+  lapply(x, nrow)
+})
+
+lapply(NestedList1, function(x){
+  lapply(x, colnames)
+})
+
+### Copied from class notes###
+lapply(NestedList1, function (x) {
+  lapply(x, function (y) {
+    y$C_to_N_Ratio <- y$carbon_mg_per_kg / y$nitrogen_mg_per_kg
+    return (y)
+  })
+})
+
+# The final challenge:
+
+# What if we have two nested lists that we want to perform
+# operations on? For example:
+
+NestedList1
+MetadataNested <- list(Metadata, Metadata, Metadata)
+
+# Can you figure out how to use the 'mapply' function to
+# create a 'C_to_P_Ratio' column in each of the data
+# frames? This operation will be similar to the one we
+# did previously, but now we are working with one more
+# level of nesting than we were previously.
+
+# Answer:
+
+fxn2 <- function (x, y) {
+  x$C_to_P_Ratio <- x$carbon_mg_per_kg / y$phosphorus_mg_per_kg
+  return (x)
+}
+
+mapply(function (a, b) {
+  mapply(fxn2, x = a, y = b, SIMPLIFY = F)
+}, a = NestedList1, b = MetadataNested, SIMPLIFY = F)
+
 
 
 
