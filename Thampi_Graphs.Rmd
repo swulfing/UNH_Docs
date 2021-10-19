@@ -137,6 +137,8 @@ out2 %>%
   labs(title = "K(C) = 1-zC", x='Time(Years)', y='Proportion of Population')
 
 ```
+a) When the parrotfsh growth rate s is zero (Fig. 3a,b), dependent  on the initial conditions, the system enters an undesirable equilibrium state of high macroalgal cover and no live coral. Conservationism is strong, but because the parrotfsh population is not viable, the coral reefs cannot survive.
+
 
 ```{r, echo=FALSE, fig.cap = "Fig 3b in Thampi paper. S = 0, sigma = 0.15", out.width = "50%", fig.show="hold"}
 #paper changes sigma and s
@@ -181,6 +183,7 @@ out2 %>%
   labs(title = "K(C) = 1-zC", x='Time(Years)', y='Proportion of Population')
 
 ```
+b) When the parrotfsh growth rate s is zero (Fig. 3a,b), dependent  on the initial conditions, the system enters an undesirable equilibrium state of high macroalgal cover and no live coral. Conservationism is strong, but because the parrotfsh population is not viable, the coral reefs cannot survive.
 
 ```{r, echo=FALSE, fig.cap = "Fig 3c in Thampi paper. S = 0.3, sigma = 0.05", out.width = "50%", fig.show="hold"}
 #paper changes sigma and s
@@ -225,6 +228,7 @@ out2 %>%
   labs(title = "K(C) = 1-zC", x='Time(Years)', y='Proportion of Population')
 
 ```
+under parameter conditions where parrotfsh growth rate sufciently outweighs the rate  of parrotfsh exploitation σ, the system is predicted to recover and achieve stability. Te system stabilizes as a ‘Macroalgae-Free Equilibrium’ (MFE). Tis can occur with human assistance via marine protected areas as in the baseline scenario - MFE-A (s=0.35, σ=0.5), (Fig. 3(f)) or without anthropogenic assistance, if the fshing rate even at maximal levels is not enough to overcome the parrotfsh growth rate even in the absence of marine protected areas - MFE-NA (s=0.3, σ=0.05), Fig. 3(c)).
 
 ```{r, echo=FALSE, fig.cap = "Fig 3d in Thampi paper. S = 0.2, sigma = 0.5", out.width = "50%", fig.show="hold"}
 #paper changes sigma and s
@@ -269,6 +273,7 @@ out2 %>%
   labs(title = "K(C) = 1-zC", x='Time(Years)', y='Proportion of Population')
 
 ```
+d). During periods of sufcientconservationism in the human population, the system successfully recovers. During periods of sustained recovery, coral reef cover becomes high again, which means that parrotfsh exploitation becomes attractive compared to continued conservationism (the human popula-tion becomes complacent about conservationism). As a result, conservation eventually becomes less popular and coral reefs correspondingly begin to decline again (s=0.5, σ=0.2) (Fig. 3(d)).
 
 ```{r, echo=FALSE, fig.cap = "Fig 3e in Thampi paper. S = 0.4, sigma = 0.4", out.width = "50%", fig.show="hold"}
 #paper changes sigma and s
@@ -313,6 +318,7 @@ out2 %>%
   labs(title = "K(C) = 1-zC", x='Time(Years)', y='Proportion of Population')
 
 ```
+e) In some cases, this oscillatory behaviour is predicted to wane, and the utility to protect permanently outweighs the utility to not protect, yielding an MFE-A over the long term (FIG3e)
 
 ```{r, echo=FALSE, fig.cap = "Fig 3f in Thampi paper. S = 0.35, sigma = 0.5", out.width = "50%", fig.show="hold"}
 #paper changes sigma and s
@@ -357,3 +363,4 @@ out2 %>%
   labs(title = "K(C) = 1-zC", x='Time(Years)', y='Proportion of Population')
 
 ```
+f) Under parameter conditions where parrotfsh growth rate sufciently outweighs the rate of parrotfsh exploitation σ, the system is predicted to recover and achieve stability. Te system stabilizes as a ‘Macroalgae-Free Equilibrium’ (MFE). Tis can occur with human assistance via marine protected areas as in the baseline scenario - MFE-A (s=0.35, σ=0.5), (Fig. 3(f))
