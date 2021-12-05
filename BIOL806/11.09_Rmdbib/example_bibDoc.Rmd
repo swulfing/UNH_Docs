@@ -1,0 +1,51 @@
+---
+title: "BibExample"
+author: "Sophie Wulfing"
+date: "11/9/2021"
+output: pdf_document
+bibliography: example_bib.bib
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Ways to use Markdown like Latex:
+
+I was reading this awesome paper [@Shea2014]. Citer package can help you search for citations in zotero. Can export bib file from zotero.
+
+```{r cars}
+summary(cars)
+plot(cars$speed, cars$dist)
+
+my_mod <- lm(cars$dist~cars$speed)
+my_mod_summary <- summary(my_mod)
+abline(my_mod)
+
+my_mod_summary$coefficients #str() gives you structure (i.e. you can exrract residuals and coefficients form summaries of linear regression)
+
+my_mod_summary$coefficients[2, 4] #extract info
+
+avg_dist <- mean(cars$dist)
+```
+
+
+I like the number `r 2+2`
+
+I found that the average stopping distance was `r round(avg_dist)`
+
+Got to settings, Chunk output in console to make it stop plotting in line.
+
+Distance was `r ifelse(my_mod_summary$coefficients[2, 4] < 0.05, '', 'not')` significantly (p=value = `r my_mod_summary$coefficients[2, 4]`) correlated with speed.
+
+
+
+```{r pressure, echo=FALSE, fig.cap = "blah blah blee blah blah blah \\label{fig:pressure}"}
+plot(pressure)
+```
+
+
+As you can see, in Figure \ref{fig:pressure}
+\newpage
