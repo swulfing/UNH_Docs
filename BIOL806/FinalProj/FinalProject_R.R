@@ -24,12 +24,20 @@
 #Future directions: What to fix model (what a stage based model looks like and which assumptions this eliminates), need to consider that just because something is at this weight doesn't mean it's at that stage (show benbow table) and eqn with weird name could fix this AND tell is if the pop is actually stable, if there is continuous spawning or diannual like the discourse I've read about
 
 library(dplyr)
+library(ggplot2)
 #library(modelr)
 setwd("~/UNH_Docs/BIOL806/FinalProj")
 CatchData <- read.csv("SalaryIIvilage2010_2016.csv")
 CatchData <- data.frame(CatchData)
 
+CatchData$Sex <- as.character(CatchData$Sex)
+CatchData$Date <- as.Date(CatchData$Date, format = "%d-%b-%y")
+CatchData$Number_of_individuals <- as.numeric(CatchData$Number_of_individuals)
+CatchData$Kilos <- as.numeric(CatchData$Kilos)
+CatchData$Average_Size <- as.numeric(CatchData$Average_Size)
+CatchData$USD_Price <- as.numeric(CatchData$USD_Price)
 CephData <- CatchData %>% filter(Marine_product == "H")
+
 #   Cost of oct over time
 #   wt over time
 #   No over time
@@ -39,9 +47,41 @@ CephData <- CatchData %>% filter(Marine_product == "H")
   # group_by(country) %>% #Doesn't quite do anything yet, just secretly stores as different data sets.
   # summarize(mean_pop = mean(pop), sd_pop = sd(pop))
 
-CephData_dates <- CephData %>% group_by(Date)
 
+CephData_dates <- CephData %>% 
+  select(Date, Age, Sex, Number_of_individuals, Kilos, Average_Size, Price_Ar, USD_Price, When_returned_to_shore, Corresponding_time_interval_for_Arrival_time) %>%
+  group_by(Date) %>%
+  summarise(mean_number = mean(Number_of_individuals, na.rm=TRUE), mean_wt = mean(Kilos, na.rm=TRUE), mean_size = mean(Average_Size, na.rm=TRUE), mean_price = mean(USD_Price, na.rm=TRUE))
+CephData_dates  
+# summarize(mean_price = mean(Price_Ar), mean_wt_tot = mean(Kilos), 
+  #           mean_count = mean(Number_of_individuals), mean_avg_size = mean(Average_Size))
 
+ggplot(data = CephData_dates, aes(x = Date, y = mean_number)) +
+  geom_point(color = "black") +
+  geom_smooth(method="glm") +
+  ylab("No. of Individuals")
+
+ggplot(data = CephData_dates, aes(x = Date, y = mean_wt)) +
+  geom_point(color = "black") +
+  geom_smooth(method="glm") +
+  ylab("Weight")
+
+ggplot(data = CephData_dates, aes(x = Date, y = mean_price)) +
+  geom_point(color = "black") +
+  geom_smooth(method="glm") +
+  ylab("Price (USD)")
+
+CephData_sex <- CephData %>% 
+  select(Date, Sex, Age, Number_of_individuals, Kilos, Average_Size, Price_Ar, USD_Price, When_returned_to_shore, Corresponding_time_interval_for_Arrival_time) %>%
+  filter(Sex == "L" | Sex == "A") %>%
+  mutate(Sex = replace(Sex, Sex == "L", "Male")) %>%
+  mutate(Sex = replace(Sex, Sex == "A", "Female"))
+
+ggplot(CephData_sex, aes(x=Sex, y=Kilos, fill = Sex)) + 
+  geom_boxplot() +
+  scale_fill_brewer(palette="Paired") +
+  geom_jitter(color="black", size=0.4, alpha=0.9) +
+  theme(legend.position="none")
 
 #Mtx stuff
 my_matrix <- matrix(c(0, 1.992, 0, 0, 0,
@@ -58,5 +98,32 @@ eigyBois
 (vectors <- eigyBois$vectors)
 
 pop <- c(490, 976, 97, 12, 3)
-pop1 <- my_matrix %*% pop
-pop1
+N <- list()
+ 
+for (i in 1:6){
+   N[[1]] <- pop
+   N[[i+1]] <-my_matrix %*% N[[i]]
+ }
+
+modeled_data <- t(as.data.frame(do.call(cbind, N)))
+colnames(modeled_data) <- c("Stage_1", "Stage_2", "Stage_3", "Stage_4", "Stage_5")
+modeled_data <- cbind(modeled_data, month = 0:6)
+
+write.csv(modeled_data, "testing.csv",row.names = TRUE)
+modeled_data <- data.frame(modeled_data)
+
+ggplot(modeled_data) + 
+  geom_line(aes(y = Stage_1, x = month, color = "Stage 1"), size = 1.5) + 
+  geom_line(aes(y = Stage_2, x = month, color= "Stage 2"), size = 1.5) +
+  geom_line(aes(y = Stage_3, x = month, color = "Stage 3"), size = 1.5) + 
+  geom_line(aes(y = Stage_4, x = month, color= "Stage 4"), size = 1.5) +
+  geom_line(aes(y = Stage_5, x = month, color = "Stage 5"), size = 1.5) +
+  scale_color_manual(name = "", values = c("Stage 1" = "#009E73",
+                                                "Stage 2" = "#F0E442",
+                                                "Stage 3" = "#0072B2",
+                                                "Stage 4" = "#D55E00",
+                                                "Stage 5" = "#CC79A7")) +
+  xlab("Month") +
+  ylab("No. Individuals")
+  
+
