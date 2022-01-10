@@ -166,7 +166,7 @@ ggplot(CephData_sex, aes(x=Sex, y=USD_Price, fill = Sex)) +
 ## Population Projection
 Population matrix models are a common way to predict future population dynamics by splitting the life history of the study organism up into a Leslie Matrix [@leslie_use_2021] where a population is split up into groups of ages, and a transformation matrix is applied to predict what the population makeup will be in future years. There are two types of population projection matrices: Age based and stage based. In an age based matrix, each stage corresponds with a year (or some other set unit of time) of the organism’s life. Probabilities of survival and reproductive output are therefore calculated per year of the life history, and the probability of remaining in the same stage only applies if the time interval selected (i.e. if the matrix is based on yearly growth, and we evaluate the matrix 1/year, the growth probability will be 1, as each group therefore moves up one stage/year). Here, we used data from a 2012 study [@raberinary_reproductive_2012] that observed *Octopus cyanea* fishing data in Madagascar and classified each catch into 5 life stages (Table \@ref(tab:Rdata)). We then used the Stable stage-distribution methods outlined in Caswell et al. to calculate the age-based matrix (Table \@ref(tab:mtxPrint)). However, as we projected the matrix just six months further (Fig. \@ref(fig:mtxCalc)), we found that we were making assumptions about this population that do not accurately reflect the reality of their life history and reproductive patterns as projecting this even further results in trillions of octopus in the small fishing range of the Vezo people.
 
-```{r Rdata, results = "asis", echo = FALSE, warning = FALSE, message = FALSE}
+```{r Rdata, eval = FALSE, results = "asis", echo = FALSE, warning = FALSE, message = FALSE}
 
 Stage <- 1:5
 Classification <- c("Immature", "Incipient Maturity", "Mature", "Fully mature", "Post Laying")
@@ -181,18 +181,18 @@ kable(Raberinary_Data, caption = "Data collected by Raberinary, Benbow 2012")
 
 ```{r mtxPrint, results = 'asis', echo = FALSE, warning = FALSE, message = FALSE}
 #Mtx stuff
-my_matrix <- matrix(c(0, 1.992, 0, 0, 0,
-                      0, 0, 0.099, 0, 0,
-                      .124*70000, 0, 0, .124, 0,
-                      .25*70000, 0, 0, 0, .25,
-                      0, 0, 0, 0, 0), ncol = 5)
+my_matrix <- matrix(c(0.00000000, 0, 5.16667633, 37.781672,
+                      0.70899885, 0, 2.75426885,  0.000000,
+                      0.02196359, 0, 0.01755941,  4.153712,
+                      0.00000000, 0, 0.39977954,  1.441390
+                      ), byrow = TRUE, ncol = 5)
 #print(my_matrix)
 
-knitr::kable(my_matrix ,  caption = "O. cyanea Age-Based Matrix")
+knitr::kable(my_matrix ,  caption = "O. cyanea Stage-Based Matrix")
 
 ```
 
-```{r mtxCalc, echo = FALSE, warning = FALSE, message = FALSE, fig.cap = "Projected *O. Cyanea* population based on Age-Matrix"}
+```{r mtxCalc, eval = FALSE, echo = FALSE, warning = FALSE, message = FALSE, fig.cap = "Projected *O. Cyanea* population based on Age-Matrix"}
 
 #eigyBois <- eigen(my_matrix)
 #eigyBois

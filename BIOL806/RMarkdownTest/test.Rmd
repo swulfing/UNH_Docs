@@ -1,9 +1,9 @@
 ---
 title: "Test"
 output:
-  word_document: default
-  html_document: default
   pdf_document: default
+  html_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -42,7 +42,7 @@ So I'm the second youngest of six kids:
 
 Below is a table of each sibling's information for reference:
 
-```{r Fam}
+```{r Fam, out.extra='angle=90'}
 
 library(knitr)
 
