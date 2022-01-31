@@ -1,0 +1,1030 @@
+<?xml version="1.0" encoding="ASCII"?>
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_d8jCUHiCEeygeZRHIwl1vQ" elementId="org.eclipse.e4.legacy.ide.application" contributorURI="platform:/plugin/org.eclipse.ui.workbench" selectedElement="_d8jCUXiCEeygeZRHIwl1vQ" bindingContexts="_d8jp03iCEeygeZRHIwl1vQ">
+  <tags>activeSchemeId:org.eclipse.ui.defaultAcceleratorConfiguration</tags>
+  <tags>ModelMigrationProcessor.001</tags>
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_d8jCUXiCEeygeZRHIwl1vQ" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.ui.workbench" selectedElement="_d8jCUniCEeygeZRHIwl1vQ" x="4490" y="-11" width="1024" height="768">
+    <persistedState key="coolBarVisible" value="true"/>
+    <persistedState key="perspectiveBarVisible" value="true"/>
+    <persistedState key="isRestored" value="true"/>
+    <tags>topLevel</tags>
+    <children xsi:type="basic:PartSashContainer" xmi:id="_d8jCUniCEeygeZRHIwl1vQ" selectedElement="_d8jCU3iCEeygeZRHIwl1vQ" horizontal="true">
+      <children xsi:type="advanced:PerspectiveStack" xmi:id="_d8jCU3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.ide.perspectivestack" containerData="7500" selectedElement="_d8jCVHiCEeygeZRHIwl1vQ">
+        <children xsi:type="advanced:Perspective" xmi:id="_d8jCVHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.perspective.main" selectedElement="_d8jCVXiCEeygeZRHIwl1vQ" label="Main Perspective" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/fishstatj/FishStat.ico">
+          <persistedState key="persp.hiddenItems" value="persp.hideToolbarSC:print,persp.hideToolbarSC:org.eclipse.ui.edit.undo,persp.hideToolbarSC:org.eclipse.ui.edit.redo,persp.hideToolbarSC:org.eclipse.ui.edit.text.toggleShowSelectedElementOnly,"/>
+          <tags>persp.actionSet:org.eclipse.ui.cheatsheets.actionSet</tags>
+          <tags>persp.actionSet:org.eclipse.ui.actionSet.keyBindings</tags>
+          <tags>persp.actionSet:org.eclipse.ui.actionSet.openFiles</tags>
+          <children xsi:type="basic:PartSashContainer" xmi:id="_d8jCVXiCEeygeZRHIwl1vQ" selectedElement="_d8jCV3iCEeygeZRHIwl1vQ">
+            <children xsi:type="advanced:Placeholder" xmi:id="_d8jCVniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.emptyview" toBeRendered="false" containerData="9500" ref="_d8jCpniCEeygeZRHIwl1vQ" closeable="true">
+              <tags>View</tags>
+              <tags>categoryTag:Other</tags>
+              <tags>NoRestore</tags>
+              <tags>Standalone</tags>
+            </children>
+            <children xsi:type="basic:PartSashContainer" xmi:id="_d8jCV3iCEeygeZRHIwl1vQ" containerData="500" selectedElement="_d8jCZ3iCEeygeZRHIwl1vQ">
+              <children xsi:type="basic:PartStack" xmi:id="_d8jCWHiCEeygeZRHIwl1vQ" elementId="HigherFolder" containerData="8700" selectedElement="_d8jCZXiCEeygeZRHIwl1vQ">
+                <tags>noFocus</tags>
+                <children xsi:type="advanced:Placeholder" xmi:id="_d8jCWXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable" toBeRendered="false" ref="_d8jCqXiCEeygeZRHIwl1vQ" closeable="true">
+                  <tags>View</tags>
+                  <tags>categoryTag:Other</tags>
+                </children>
+                <children xsi:type="advanced:Placeholder" xmi:id="_d8jCWniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-0d004829-1137-4898-b229-097e2ae51e33" toBeRendered="false" ref="_d8jCr3iCEeygeZRHIwl1vQ" closeable="true">
+                  <tags>View</tags>
+                  <tags>categoryTag:Other</tags>
+                </children>
+                <children xsi:type="advanced:Placeholder" xmi:id="_d8jCW3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-ab8a2815-7aaf-452a-9cc6-3a9e1a1eeaf8" toBeRendered="false" ref="_d8jCsniCEeygeZRHIwl1vQ" closeable="true">
+                  <tags>View</tags>
+                  <tags>categoryTag:Other</tags>
+                </children>
+                <children xsi:type="advanced:Placeholder" xmi:id="_d8jCXHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-49980310-18b4-4b40-9964-cbf356f21183" toBeRendered="false" ref="_d8jCtXiCEeygeZRHIwl1vQ" closeable="true">
+                  <tags>View</tags>
+                  <tags>categoryTag:Other</tags>
+                </children>
+                <children xsi:type="advanced:Placeholder" xmi:id="_d8jCXXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-ff872e92-8ef7-4ca1-aec0-23473b65edc7" toBeRendered="false" ref="_d8jCuHiCEeygeZRHIwl1vQ" closeable="true">
+                  <tags>View</tags>
+                  <tags>categoryTag:Other</tags>
+                </children>
+                <children xsi:type="advanced:Placeholder" xmi:id="_d8jCXniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-9b627300-1599-4e98-8ccc-707604c4b6ce" toBeRendered="false" ref="_d8jCu3iCEeygeZRHIwl1vQ" closeable="true">
+                  <tags>View</tags>
+                  <tags>categoryTag:Other</tags>
+                </children>
+                <children xsi:type="advanced:Placeholder" xmi:id="_d8jCX3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-4c4271f6-f041-422a-b328-4c31e3a40514" toBeRendered="false" ref="_d8jCvniCEeygeZRHIwl1vQ" closeable="true">
+                  <tags>View</tags>
+                  <tags>categoryTag:Other</tags>
+                </children>
+                <children xsi:type="advanced:Placeholder" xmi:id="_d8jCYHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-68601c71-e728-4750-99f4-4c197f6c4031" ref="_d8jCwXiCEeygeZRHIwl1vQ" closeable="true">
+                  <tags>View</tags>
+                  <tags>categoryTag:Other</tags>
+                </children>
+                <children xsi:type="advanced:Placeholder" xmi:id="_d8jCYXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-3484b80b-d4a0-4ce8-bce1-fbb4a603e7e4" toBeRendered="false" ref="_d8jCxHiCEeygeZRHIwl1vQ" closeable="true">
+                  <tags>View</tags>
+                  <tags>categoryTag:Other</tags>
+                </children>
+                <children xsi:type="advanced:Placeholder" xmi:id="_d8jCYniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-3af5f4c5-be74-4aad-8e5f-cdaea2087b41" ref="_d8jCx3iCEeygeZRHIwl1vQ" closeable="true">
+                  <tags>View</tags>
+                  <tags>categoryTag:Other</tags>
+                </children>
+                <children xsi:type="advanced:Placeholder" xmi:id="_d8jCY3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-45296589-607b-46fc-8476-adc115205708" ref="_d8jC1XiCEeygeZRHIwl1vQ" closeable="true">
+                  <tags>View</tags>
+                  <tags>categoryTag:Other</tags>
+                </children>
+                <children xsi:type="advanced:Placeholder" xmi:id="_d8jCZHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-2f0aaa3f-8f6e-400e-bece-5ebd43029f58" ref="_d8jC43iCEeygeZRHIwl1vQ" closeable="true">
+                  <tags>View</tags>
+                  <tags>categoryTag:Other</tags>
+                </children>
+                <children xsi:type="advanced:Placeholder" xmi:id="_d8jCZXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-b6a0cbab-0e6c-4537-a937-92de55872e4f" ref="_d8jC8XiCEeygeZRHIwl1vQ" closeable="true">
+                  <tags>View</tags>
+                  <tags>categoryTag:Other</tags>
+                </children>
+                <children xsi:type="advanced:Placeholder" xmi:id="_d8jCZniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:*" toBeRendered="false" ref="_d8jCqniCEeygeZRHIwl1vQ" closeable="true">
+                  <tags>View</tags>
+                  <tags>categoryTag:Other</tags>
+                </children>
+              </children>
+              <children xsi:type="basic:PartSashContainer" xmi:id="_d8jCZ3iCEeygeZRHIwl1vQ" containerData="1300" selectedElement="_d8jCaXiCEeygeZRHIwl1vQ">
+                <children xsi:type="advanced:Placeholder" xmi:id="_d8jCaHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.editorss" toBeRendered="false" containerData="1300" ref="_d8jCpHiCEeygeZRHIwl1vQ"/>
+                <children xsi:type="basic:PartStack" xmi:id="_d8jCaXiCEeygeZRHIwl1vQ" elementId="LowerFolder" containerData="8700" selectedElement="_d8jCaniCEeygeZRHIwl1vQ">
+                  <tags>active</tags>
+                  <tags>noFocus</tags>
+                  <children xsi:type="advanced:Placeholder" xmi:id="_d8jCaniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.recorddetails" ref="_d8jCq3iCEeygeZRHIwl1vQ" closeable="true">
+                    <tags>View</tags>
+                    <tags>categoryTag:Other</tags>
+                    <tags>NoClose</tags>
+                  </children>
+                  <children xsi:type="advanced:Placeholder" xmi:id="_d8jCa3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.grandtotals:*" toBeRendered="false" ref="_d8jCrniCEeygeZRHIwl1vQ" closeable="true">
+                    <tags>View</tags>
+                    <tags>categoryTag:Other</tags>
+                    <tags>NoRestore</tags>
+                    <tags>NoClose</tags>
+                  </children>
+                </children>
+              </children>
+            </children>
+          </children>
+        </children>
+      </children>
+      <children xsi:type="basic:PartStack" xmi:id="_d8jCbHiCEeygeZRHIwl1vQ" elementId="stickyFolderRight" toBeRendered="false" containerData="2500">
+        <children xsi:type="advanced:Placeholder" xmi:id="_d8jCbXiCEeygeZRHIwl1vQ" elementId="org.eclipse.help.ui.HelpView" toBeRendered="false" ref="_d8jCoXiCEeygeZRHIwl1vQ" closeable="true">
+          <tags>View</tags>
+          <tags>categoryTag:Help</tags>
+        </children>
+        <children xsi:type="advanced:Placeholder" xmi:id="_d8jCbniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.internal.introview" toBeRendered="false" ref="_d8jConiCEeygeZRHIwl1vQ" closeable="true">
+          <tags>View</tags>
+          <tags>categoryTag:General</tags>
+        </children>
+        <children xsi:type="advanced:Placeholder" xmi:id="_d8jCb3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.cheatsheets.views.CheatSheetView" toBeRendered="false" ref="_d8jCo3iCEeygeZRHIwl1vQ" closeable="true">
+          <tags>View</tags>
+          <tags>categoryTag:Help</tags>
+        </children>
+      </children>
+    </children>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jCoXiCEeygeZRHIwl1vQ" elementId="org.eclipse.help.ui.HelpView" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Help" iconURI="platform:/plugin/org.eclipse.help.ui/icons/view16/help_view.png" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.eclipse.help.ui.internal.views.HelpView"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.help.ui"/>
+      <tags>View</tags>
+      <tags>categoryTag:Help</tags>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jConiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.internal.introview" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Welcome" iconURI="platform:/plugin/org.eclipse.ui/icons/full/eview16/defaultview_misc.png" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.eclipse.ui.internal.ViewIntroAdapterPart"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.ui"/>
+      <tags>View</tags>
+      <tags>categoryTag:General</tags>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jCo3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.cheatsheets.views.CheatSheetView" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Cheat Sheets" iconURI="platform:/plugin/org.eclipse.ui.cheatsheets/icons/view16/cheatsheet_view.png" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.eclipse.ui.internal.cheatsheets.views.CheatSheetView"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.ui.cheatsheets"/>
+      <tags>View</tags>
+      <tags>categoryTag:Help</tags>
+    </sharedElements>
+    <sharedElements xsi:type="advanced:Area" xmi:id="_d8jCpHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.editorss">
+      <children xsi:type="basic:PartStack" xmi:id="_d8jCpXiCEeygeZRHIwl1vQ" elementId="org.eclipse.e4.primaryDataStack">
+        <tags>org.eclipse.e4.primaryDataStack</tags>
+        <tags>EditorStack</tags>
+      </children>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jCpniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.emptyview" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="No time series" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/fishstatj/FishStat.ico" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.EmptyView"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
+      <tags>View</tags>
+      <tags>categoryTag:Other</tags>
+      <tags>NoRestore</tags>
+      <menus xmi:id="_d8jCp3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.emptyview">
+        <tags>ViewMenu</tags>
+        <tags>menuContribution:menu</tags>
+      </menus>
+      <toolbar xmi:id="_d8jCqHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.emptyview"/>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jCqXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Multitable View" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/actions/series.png" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.multitable.MultiTableView"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+      <tags>View</tags>
+      <tags>categoryTag:Other</tags>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jCqniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:*" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Multitable View" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/actions/series.png" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.multitable.MultiTableView"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+      <tags>View</tags>
+      <tags>categoryTag:Other</tags>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jCq3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.recorddetails" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Row Details" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/base/16-image.png" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.RecordDetailsView"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
+      <tags>View</tags>
+      <tags>categoryTag:Other</tags>
+      <tags>active</tags>
+      <menus xmi:id="_d8jCrHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.recorddetails">
+        <tags>ViewMenu</tags>
+        <tags>menuContribution:menu</tags>
+      </menus>
+      <toolbar xmi:id="_d8jCrXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.recorddetails"/>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jCrniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.grandtotals:*" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Grand totals" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/actions/aggregation.png" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.GrandTotalsView"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+      <tags>View</tags>
+      <tags>categoryTag:Other</tags>
+      <tags>NoRestore</tags>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jCr3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-0d004829-1137-4898-b229-097e2ae51e33" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Global capture production - Quantity (1950 - 2019)" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/actions/series.png" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.multitable.MultiTableView"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
+      <tags>View</tags>
+      <tags>categoryTag:Other</tags>
+      <menus xmi:id="_d8jCsHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable">
+        <tags>ViewMenu</tags>
+        <tags>menuContribution:menu</tags>
+      </menus>
+      <toolbar xmi:id="_d8jCsXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable" visible="false"/>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jCsniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-ab8a2815-7aaf-452a-9cc6-3a9e1a1eeaf8" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Global capture production - Quantity (1950 - 2019)" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/actions/series.png" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.multitable.MultiTableView"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
+      <tags>View</tags>
+      <tags>categoryTag:Other</tags>
+      <menus xmi:id="_d8jCs3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable">
+        <tags>ViewMenu</tags>
+        <tags>menuContribution:menu</tags>
+      </menus>
+      <toolbar xmi:id="_d8jCtHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable" visible="false"/>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jCtXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-49980310-18b4-4b40-9964-cbf356f21183" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="World population - Number (1961 - 2017)" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/actions/series.png" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.multitable.MultiTableView"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
+      <tags>View</tags>
+      <tags>categoryTag:Other</tags>
+      <menus xmi:id="_d8jCtniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable">
+        <tags>ViewMenu</tags>
+        <tags>menuContribution:menu</tags>
+      </menus>
+      <toolbar xmi:id="_d8jCt3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable" visible="false"/>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jCuHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-ff872e92-8ef7-4ca1-aec0-23473b65edc7" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Global Fish Processed Products Production Statistics - Quantity (1976 - 2019)" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/actions/series.png" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.multitable.MultiTableView"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
+      <tags>View</tags>
+      <tags>categoryTag:Other</tags>
+      <menus xmi:id="_d8jCuXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable">
+        <tags>ViewMenu</tags>
+        <tags>menuContribution:menu</tags>
+      </menus>
+      <toolbar xmi:id="_d8jCuniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable" visible="false"/>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jCu3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-9b627300-1599-4e98-8ccc-707604c4b6ce" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Global production by production source - Quantity (1950 - 2019)" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/actions/series.png" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.multitable.MultiTableView"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
+      <tags>View</tags>
+      <tags>categoryTag:Other</tags>
+      <menus xmi:id="_d8jCvHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable">
+        <tags>ViewMenu</tags>
+        <tags>menuContribution:menu</tags>
+      </menus>
+      <toolbar xmi:id="_d8jCvXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable" visible="false"/>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jCvniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-4c4271f6-f041-422a-b328-4c31e3a40514" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Global capture production - Quantity (1950 - 2019)" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/actions/series.png" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.multitable.MultiTableView"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
+      <tags>View</tags>
+      <tags>categoryTag:Other</tags>
+      <menus xmi:id="_d8jCv3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable">
+        <tags>ViewMenu</tags>
+        <tags>menuContribution:menu</tags>
+      </menus>
+      <toolbar xmi:id="_d8jCwHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable" visible="false"/>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jCwXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-68601c71-e728-4750-99f4-4c197f6c4031" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Global aquaculture production - Value (1984 - 2019)" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/actions/series.png" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.multitable.MultiTableView"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
+      <tags>View</tags>
+      <tags>categoryTag:Other</tags>
+      <menus xmi:id="_d8jCwniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable">
+        <tags>ViewMenu</tags>
+        <tags>menuContribution:menu</tags>
+      </menus>
+      <toolbar xmi:id="_d8jCw3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable"/>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jCxHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-3484b80b-d4a0-4ce8-bce1-fbb4a603e7e4" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Global aquaculture production - Quantity (1950 - 2019)" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/actions/series.png" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.multitable.MultiTableView"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
+      <tags>View</tags>
+      <tags>categoryTag:Other</tags>
+      <menus xmi:id="_d8jCxXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable">
+        <tags>ViewMenu</tags>
+        <tags>menuContribution:menu</tags>
+      </menus>
+      <toolbar xmi:id="_d8jCxniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable" visible="false"/>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jCx3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-3af5f4c5-be74-4aad-8e5f-cdaea2087b41" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Global fish trade - By partner country - Value (2019)" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/actions/series.png" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.multitable.MultiTableView"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
+      <tags>View</tags>
+      <tags>categoryTag:Other</tags>
+      <menus xmi:id="_d8jCyHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable">
+        <tags>ViewMenu</tags>
+        <tags>menuContribution:menu</tags>
+      </menus>
+      <toolbar xmi:id="_d8jCyniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable" visible="false"/>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jC1XiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-45296589-607b-46fc-8476-adc115205708" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Global fish trade - By partner country - Quantity (2019)" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/actions/series.png" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.multitable.MultiTableView"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
+      <tags>View</tags>
+      <tags>categoryTag:Other</tags>
+      <menus xmi:id="_d8jC1niCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable">
+        <tags>ViewMenu</tags>
+        <tags>menuContribution:menu</tags>
+      </menus>
+      <toolbar xmi:id="_d8jC2HiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable" visible="false"/>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jC43iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-2f0aaa3f-8f6e-400e-bece-5ebd43029f58" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Global fish trade - All partners aggregated - Quantity (1976 - 2019)" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/actions/series.png" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.multitable.MultiTableView"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
+      <tags>View</tags>
+      <tags>categoryTag:Other</tags>
+      <menus xmi:id="_d8jC5HiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable">
+        <tags>ViewMenu</tags>
+        <tags>menuContribution:menu</tags>
+      </menus>
+      <toolbar xmi:id="_d8jC5niCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable" visible="false"/>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_d8jC8XiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable:org.fao.fi.fishstat.gui.display.views.multitable-b6a0cbab-0e6c-4537-a937-92de55872e4f" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Global fish trade - All partners aggregated - Value (1976 - 2019)" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/actions/series.png" tooltip="" closeable="true">
+      <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.multitable.MultiTableView"/>
+      <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
+      <tags>View</tags>
+      <tags>categoryTag:Other</tags>
+      <menus xmi:id="_d8jC8niCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable">
+        <tags>ViewMenu</tags>
+        <tags>menuContribution:menu</tags>
+      </menus>
+      <toolbar xmi:id="_d8jC9HiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable"/>
+    </sharedElements>
+    <trimBars xmi:id="_d8jC_3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.main.toolbar" contributorURI="platform:/plugin/org.eclipse.ui.workbench">
+      <children xsi:type="menu:ToolBar" xmi:id="_d8jDEXiCEeygeZRHIwl1vQ" elementId="additions" toBeRendered="false">
+        <tags>toolbarSeparator</tags>
+        <children xsi:type="menu:ToolBarSeparator" xmi:id="_d8jDEniCEeygeZRHIwl1vQ" elementId="additions" toBeRendered="false"/>
+      </children>
+      <children xsi:type="menu:ToolControl" xmi:id="_d8jDE3iCEeygeZRHIwl1vQ" elementId="PerspectiveSpacer" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.LayoutModifierToolControl">
+        <tags>stretch</tags>
+        <tags>SHOW_RESTORE_MENU</tags>
+      </children>
+    </trimBars>
+    <trimBars xmi:id="_d8jDFHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.trim.status" contributorURI="platform:/plugin/org.eclipse.ui.workbench" side="Bottom">
+      <children xsi:type="menu:ToolControl" xmi:id="_d8jDFXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.StatusLine" contributorURI="platform:/plugin/org.eclipse.ui.workbench" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.StandardTrim">
+        <tags>stretch</tags>
+      </children>
+      <children xsi:type="menu:ToolControl" xmi:id="_d8jDFniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.HeapStatus" contributorURI="platform:/plugin/org.eclipse.ui.workbench" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.StandardTrim">
+        <tags>Draggable</tags>
+      </children>
+      <children xsi:type="menu:ToolControl" xmi:id="_d8jDF3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.ProgressBar" contributorURI="platform:/plugin/org.eclipse.ui.workbench" toBeRendered="false" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.StandardTrim">
+        <tags>Draggable</tags>
+      </children>
+    </trimBars>
+    <trimBars xmi:id="_d8jDGHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.trim.vertical1" contributorURI="platform:/plugin/org.eclipse.ui.workbench" side="Left"/>
+    <trimBars xmi:id="_d8jDGXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.trim.vertical2" contributorURI="platform:/plugin/org.eclipse.ui.workbench" side="Right"/>
+  </children>
+  <bindingTables xmi:id="_d8jDGniCEeygeZRHIwl1vQ" contributorURI="platform:/plugin/org.eclipse.ui.workbench" bindingContext="_d8jp03iCEeygeZRHIwl1vQ">
+    <bindings xmi:id="_d8jDG3iCEeygeZRHIwl1vQ" keySequence="CTRL+F10" command="_d8jrRniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDHHiCEeygeZRHIwl1vQ" keySequence="CTRL+INSERT" command="_d8jq5XiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDHXiCEeygeZRHIwl1vQ" keySequence="CTRL+PAGE_UP" command="_d8jrSniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDHniCEeygeZRHIwl1vQ" keySequence="CTRL+PAGE_DOWN" command="_d8jq0HiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDH3iCEeygeZRHIwl1vQ" keySequence="ALT+SHIFT+F3" command="_d8jrOHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDIHiCEeygeZRHIwl1vQ" keySequence="CTRL+1" command="_d8jr8niCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDIXiCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+L" command="_d8jrbniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDIniCEeygeZRHIwl1vQ" keySequence="CTRL+SPACE" command="_d8jq-XiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDI3iCEeygeZRHIwl1vQ" keySequence="SHIFT+DEL" command="_d8jrH3iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDJHiCEeygeZRHIwl1vQ" keySequence="CTRL+V" command="_d8jrIXiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDJXiCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+SPACE" command="_d8jq6XiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDJniCEeygeZRHIwl1vQ" keySequence="CTRL+A" command="_d8jrmHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDJ3iCEeygeZRHIwl1vQ" keySequence="CTRL+C" command="_d8jq5XiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDKHiCEeygeZRHIwl1vQ" keySequence="CTRL+X" command="_d8jrH3iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDKXiCEeygeZRHIwl1vQ" keySequence="CTRL+Y" command="_d8jr0niCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDKniCEeygeZRHIwl1vQ" keySequence="CTRL+Z" command="_d8jrFniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDK3iCEeygeZRHIwl1vQ" keySequence="ALT+PAGE_UP" command="_d8jr4HiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDLHiCEeygeZRHIwl1vQ" keySequence="ALT+PAGE_DOWN" command="_d8jrq3iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDLXiCEeygeZRHIwl1vQ" keySequence="SHIFT+INSERT" command="_d8jrIXiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDLniCEeygeZRHIwl1vQ" keySequence="ALT+F11" command="_d8jreXiCEeygeZRHIwl1vQ">
+      <tags>platform:win32</tags>
+    </bindings>
+  </bindingTables>
+  <bindingTables xmi:id="_d8jDL3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.contexts.window" bindingContext="_d8jp1HiCEeygeZRHIwl1vQ">
+    <bindings xmi:id="_d8jDMHiCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+F7" command="_d8jrkHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDMXiCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+F8" command="_d8jq7XiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDMniCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+F4" command="_d8jrHniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDM3iCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+F6" command="_d8jrdHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDNHiCEeygeZRHIwl1vQ" keySequence="CTRL+F7" command="_d8jq5niCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDNXiCEeygeZRHIwl1vQ" keySequence="CTRL+F8" command="_d8jr9XiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jDNniCEeygeZRHIwl1vQ" keySequence="CTRL+F4" command="_d8jr23iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpYHiCEeygeZRHIwl1vQ" keySequence="CTRL+F6" command="_d8jre3iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpYXiCEeygeZRHIwl1vQ" keySequence="ALT+SHIFT+F7" command="_d8jrv3iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpYniCEeygeZRHIwl1vQ" keySequence="ALT+SHIFT+Q O" command="_d8jrlHiCEeygeZRHIwl1vQ">
+      <parameters xmi:id="_d8jpY3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.views.showView.viewId" name="org.eclipse.ui.views.showView.viewId" value="org.eclipse.ui.views.ContentOutline"/>
+    </bindings>
+    <bindings xmi:id="_d8jpZHiCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+R" command="_d8jr-niCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpZXiCEeygeZRHIwl1vQ" keySequence="ALT+SHIFT+Q Q" command="_d8jrlHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpZniCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+S" command="_d8jrbHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpZ3iCEeygeZRHIwl1vQ" keySequence="CTRL+3" command="_d8jq0niCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpaHiCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+W" command="_d8jrHniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpaXiCEeygeZRHIwl1vQ" keySequence="ALT+SHIFT+Q H" command="_d8jrlHiCEeygeZRHIwl1vQ">
+      <parameters xmi:id="_d8jpaniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.views.showView.viewId" name="org.eclipse.ui.views.showView.viewId" value="org.eclipse.ui.cheatsheets.views.CheatSheetView"/>
+    </bindings>
+    <bindings xmi:id="_d8jpa3iCEeygeZRHIwl1vQ" keySequence="CTRL+," command="_d8jrJXiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpbHiCEeygeZRHIwl1vQ" keySequence="CTRL+." command="_d8jrwniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpbXiCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+E" command="_d8jrqXiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpbniCEeygeZRHIwl1vQ" keySequence="ALT+SHIFT+Q X" command="_d8jrlHiCEeygeZRHIwl1vQ">
+      <parameters xmi:id="_d8jpb3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.views.showView.viewId" name="org.eclipse.ui.views.showView.viewId" value="org.eclipse.ui.views.ProblemView"/>
+    </bindings>
+    <bindings xmi:id="_d8jpcHiCEeygeZRHIwl1vQ" keySequence="CTRL+P" command="_d8jrMHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpcXiCEeygeZRHIwl1vQ" keySequence="CTRL+Q" command="_d8jrQXiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpcniCEeygeZRHIwl1vQ" keySequence="CTRL+S" command="_d8jrc3iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpc3iCEeygeZRHIwl1vQ" keySequence="CTRL+W" command="_d8jr23iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpdHiCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+NUMPAD_MULTIPLY" command="_d8jraHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpdXiCEeygeZRHIwl1vQ" keySequence="CTRL+M" command="_d8jq9HiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpdniCEeygeZRHIwl1vQ" keySequence="CTRL+N" command="_d8jr1niCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpd3iCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+NUMPAD_DIVIDE" command="_d8jq8XiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpeHiCEeygeZRHIwl1vQ" keySequence="CTRL+B" command="_d8jrKXiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpeXiCEeygeZRHIwl1vQ" keySequence="ALT+SHIFT+Q C" command="_d8jrlHiCEeygeZRHIwl1vQ">
+      <parameters xmi:id="_d8jpeniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.views.showView.viewId" name="org.eclipse.ui.views.showView.viewId" value="org.eclipse.ui.console.ConsoleView"/>
+    </bindings>
+    <bindings xmi:id="_d8jpe3iCEeygeZRHIwl1vQ" keySequence="CTRL+E" command="_d8jrD3iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpfHiCEeygeZRHIwl1vQ" keySequence="CTRL+F" command="_d8jrdXiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpfXiCEeygeZRHIwl1vQ" keySequence="ALT+SHIFT+W" command="_d8jrwHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpfniCEeygeZRHIwl1vQ" keySequence="ALT+SHIFT+N" command="_d8jrG3iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpf3iCEeygeZRHIwl1vQ" keySequence="DEL" command="_d8jrhXiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpgHiCEeygeZRHIwl1vQ" keySequence="CTRL+_" command="_d8jq7niCEeygeZRHIwl1vQ">
+      <parameters xmi:id="_d8jpgXiCEeygeZRHIwl1vQ" elementId="Splitter.isHorizontal" name="Splitter.isHorizontal" value="true"/>
+    </bindings>
+    <bindings xmi:id="_d8jpgniCEeygeZRHIwl1vQ" keySequence="CTRL+{" command="_d8jq7niCEeygeZRHIwl1vQ">
+      <parameters xmi:id="_d8jpg3iCEeygeZRHIwl1vQ" elementId="Splitter.isHorizontal" name="Splitter.isHorizontal" value="false"/>
+    </bindings>
+    <bindings xmi:id="_d8jphHiCEeygeZRHIwl1vQ" keySequence="ALT+-" command="_d8jq_XiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jphXiCEeygeZRHIwl1vQ" keySequence="ALT+ARROW_LEFT" command="_d8jrSXiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jphniCEeygeZRHIwl1vQ" keySequence="ALT+ARROW_RIGHT" command="_d8jrN3iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jph3iCEeygeZRHIwl1vQ" keySequence="ALT+F7" command="_d8jrIniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpiHiCEeygeZRHIwl1vQ" keySequence="ALT+CR" command="_d8jq4XiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpiXiCEeygeZRHIwl1vQ" keySequence="ALT+F5" command="_d8jrjniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpiniCEeygeZRHIwl1vQ" keySequence="F12" command="_d8jq-3iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpi3iCEeygeZRHIwl1vQ" keySequence="F2" command="_d8jrJ3iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpjHiCEeygeZRHIwl1vQ" keySequence="F5" command="_d8jrWHiCEeygeZRHIwl1vQ"/>
+  </bindingTables>
+  <bindingTables xmi:id="_d8jpjXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.textEditorScope" bindingContext="_d8jp2HiCEeygeZRHIwl1vQ">
+    <bindings xmi:id="_d8jpjniCEeygeZRHIwl1vQ" keySequence="ALT+CTRL+ARROW_UP" command="_d8jrwXiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpj3iCEeygeZRHIwl1vQ" keySequence="ALT+CTRL+ARROW_DOWN" command="_d8jrrXiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpkHiCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+INSERT" command="_d8jrrniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpkXiCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+CR" command="_d8jrNniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpkniCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+ARROW_LEFT" command="_d8jrgniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpk3iCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+ARROW_RIGHT" command="_d8jrvHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jplHiCEeygeZRHIwl1vQ" keySequence="CTRL+F10" command="_d8jrMniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jplXiCEeygeZRHIwl1vQ" keySequence="CTRL+END" command="_d8jrvniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jplniCEeygeZRHIwl1vQ" keySequence="CTRL+BS" command="_d8jq33iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpl3iCEeygeZRHIwl1vQ" keySequence="CTRL+ARROW_UP" command="_d8jrj3iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpmHiCEeygeZRHIwl1vQ" keySequence="CTRL+ARROW_DOWN" command="_d8jr93iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpmXiCEeygeZRHIwl1vQ" keySequence="CTRL+ARROW_LEFT" command="_d8jq4HiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpmniCEeygeZRHIwl1vQ" keySequence="CTRL+ARROW_RIGHT" command="_d8jr03iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpm3iCEeygeZRHIwl1vQ" keySequence="CTRL+HOME" command="_d8jrIHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpnHiCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+J" command="_d8jrxniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpnXiCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+K" command="_d8jriHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpnniCEeygeZRHIwl1vQ" keySequence="CTRL++" command="_d8jrdniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpn3iCEeygeZRHIwl1vQ" keySequence="CTRL+-" command="_d8jrcXiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpoHiCEeygeZRHIwl1vQ" keySequence="ALT+CTRL+J" command="_d8jr7HiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpoXiCEeygeZRHIwl1vQ" keySequence="ALT+SHIFT+A" command="_d8jrEniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jponiCEeygeZRHIwl1vQ" keySequence="CTRL+J" command="_d8jrVXiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpo3iCEeygeZRHIwl1vQ" keySequence="CTRL+K" command="_d8jroXiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jppHiCEeygeZRHIwl1vQ" keySequence="CTRL+L" command="_d8jrEHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jppXiCEeygeZRHIwl1vQ" keySequence="CTRL+D" command="_d8jrZ3iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jppniCEeygeZRHIwl1vQ" keySequence="CTRL+=" command="_d8jrdniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpp3iCEeygeZRHIwl1vQ" keySequence="ALT+SHIFT+Y" command="_d8jq1XiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpqHiCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+DEL" command="_d8jq_3iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpqXiCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+X" command="_d8jq8HiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpqniCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+Y" command="_d8jrb3iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpq3iCEeygeZRHIwl1vQ" keySequence="CTRL+DEL" command="_d8jrEXiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jprHiCEeygeZRHIwl1vQ" keySequence="ALT+/" command="_d8jrhHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jprXiCEeygeZRHIwl1vQ" keySequence="ALT+ARROW_UP" command="_d8jr33iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jprniCEeygeZRHIwl1vQ" keySequence="ALT+ARROW_DOWN" command="_d8jruHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpr3iCEeygeZRHIwl1vQ" keySequence="SHIFT+END" command="_d8jreniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpsHiCEeygeZRHIwl1vQ" keySequence="SHIFT+CR" command="_d8jrfXiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpsXiCEeygeZRHIwl1vQ" keySequence="SHIFT+HOME" command="_d8jrYXiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpsniCEeygeZRHIwl1vQ" keySequence="END" command="_d8jrVniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jps3iCEeygeZRHIwl1vQ" keySequence="INSERT" command="_d8jrPniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jptHiCEeygeZRHIwl1vQ" keySequence="F2" command="_d8jq03iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jptXiCEeygeZRHIwl1vQ" keySequence="HOME" command="_d8jrgHiCEeygeZRHIwl1vQ"/>
+  </bindingTables>
+  <bindingTables xmi:id="_d8jptniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.context" bindingContext="_d8jp1niCEeygeZRHIwl1vQ">
+    <bindings xmi:id="_d8jpt3iCEeygeZRHIwl1vQ" keySequence="CTRL+F6" command="_d8jrQ3iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpuHiCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+W" command="_d8jrV3iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpuXiCEeygeZRHIwl1vQ" keySequence="CTRL+P" command="_d8jq4niCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpuniCEeygeZRHIwl1vQ" keySequence="CTRL+S" command="_d8jrGHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpu3iCEeygeZRHIwl1vQ" keySequence="CTRL+T" command="_d8jroniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpvHiCEeygeZRHIwl1vQ" keySequence="CTRL+W" command="_d8jrjXiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpvXiCEeygeZRHIwl1vQ" keySequence="CTRL+I" command="_d8jrDXiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpvniCEeygeZRHIwl1vQ" keySequence="CTRL+N" command="_d8jrNHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpv3iCEeygeZRHIwl1vQ" keySequence="CTRL+O" command="_d8jra3iCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpwHiCEeygeZRHIwl1vQ" keySequence="CTRL+A" command="_d8jrBHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpwXiCEeygeZRHIwl1vQ" keySequence="CTRL+C" command="_d8jrsniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpwniCEeygeZRHIwl1vQ" keySequence="CTRL+D" command="_d8jq3XiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpw3iCEeygeZRHIwl1vQ" keySequence="CTRL+G" command="_d8jq0XiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpxHiCEeygeZRHIwl1vQ" keySequence="F7" command="_d8jrtHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpxXiCEeygeZRHIwl1vQ" keySequence="F8" command="_d8jrJHiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpxniCEeygeZRHIwl1vQ" keySequence="F4" command="_d8jr-XiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpx3iCEeygeZRHIwl1vQ" keySequence="F5" command="_d8jrAniCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpyHiCEeygeZRHIwl1vQ" keySequence="F6" command="_d8jrAXiCEeygeZRHIwl1vQ"/>
+  </bindingTables>
+  <bindingTables xmi:id="_d8jpyXiCEeygeZRHIwl1vQ" elementId="org.eclipse.core.runtime.xml" bindingContext="_d8jp3HiCEeygeZRHIwl1vQ">
+    <bindings xmi:id="_d8jpyniCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+P" command="_d8jq_HiCEeygeZRHIwl1vQ"/>
+    <bindings xmi:id="_d8jpy3iCEeygeZRHIwl1vQ" keySequence="CTRL+SHIFT+D" command="_d8jrzniCEeygeZRHIwl1vQ"/>
+  </bindingTables>
+  <bindingTables xmi:id="_d8jpzHiCEeygeZRHIwl1vQ" bindingContext="_d8jp3XiCEeygeZRHIwl1vQ"/>
+  <bindingTables xmi:id="_d8jpzXiCEeygeZRHIwl1vQ" bindingContext="_d8jp3niCEeygeZRHIwl1vQ"/>
+  <bindingTables xmi:id="_d8jpzniCEeygeZRHIwl1vQ" bindingContext="_d8jp33iCEeygeZRHIwl1vQ"/>
+  <bindingTables xmi:id="_d8jpz3iCEeygeZRHIwl1vQ" bindingContext="_d8jp4HiCEeygeZRHIwl1vQ"/>
+  <bindingTables xmi:id="_d8jp0HiCEeygeZRHIwl1vQ" bindingContext="_d8jp4XiCEeygeZRHIwl1vQ"/>
+  <bindingTables xmi:id="_d8jp0XiCEeygeZRHIwl1vQ" bindingContext="_d8jp4niCEeygeZRHIwl1vQ"/>
+  <bindingTables xmi:id="_d8jp0niCEeygeZRHIwl1vQ" bindingContext="_d8jp43iCEeygeZRHIwl1vQ"/>
+  <rootContext xmi:id="_d8jp03iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" contributorURI="platform:/plugin/org.eclipse.ui.workbench" name="In Dialogs and Windows" description="Either a dialog or a window is open">
+    <children xmi:id="_d8jp1HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.contexts.window" contributorURI="platform:/plugin/org.eclipse.ui.workbench" name="In Windows" description="A window is open">
+      <children xmi:id="_d8jp1XiCEeygeZRHIwl1vQ" elementId="org.eclipse.e4.ui.contexts.views" contributorURI="platform:/plugin/org.eclipse.ui.workbench" name="%bindingcontext.name.bindingView"/>
+      <children xmi:id="_d8jp1niCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.context" name="Default context" description="FishStatJ"/>
+      <children xmi:id="_d8jp13iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.console.ConsoleView" name="In Console View" description="In Console View"/>
+      <children xmi:id="_d8jp2HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.textEditorScope" name="Editing Text" description="Editing Text Context"/>
+    </children>
+    <children xmi:id="_d8jp2XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.contexts.dialog" contributorURI="platform:/plugin/org.eclipse.ui.workbench" name="In Dialogs" description="A dialog is open"/>
+  </rootContext>
+  <rootContext xmi:id="_d8jp2niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.contexts.workbenchMenu" name="Workbench Menu" description="When no Workbench windows are active"/>
+  <rootContext xmi:id="_d8jp23iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.contexts.actionSet" name="Action Set" description="Parent context for action sets"/>
+  <rootContext xmi:id="_d8jp3HiCEeygeZRHIwl1vQ" elementId="org.eclipse.core.runtime.xml" name="Auto::org.eclipse.core.runtime.xml"/>
+  <rootContext xmi:id="_d8jp3XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.cheatsheets.actionSet" name="Auto::org.eclipse.ui.cheatsheets.actionSet"/>
+  <rootContext xmi:id="_d8jp3niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.NavigateActionSet" name="Auto::org.eclipse.ui.NavigateActionSet"/>
+  <rootContext xmi:id="_d8jp33iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.actionSet.keyBindings" name="Auto::org.eclipse.ui.actionSet.keyBindings"/>
+  <rootContext xmi:id="_d8jp4HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.WorkingSetModificationActionSet" name="Auto::org.eclipse.ui.WorkingSetModificationActionSet"/>
+  <rootContext xmi:id="_d8jp4XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.WorkingSetActionSet" name="Auto::org.eclipse.ui.WorkingSetActionSet"/>
+  <rootContext xmi:id="_d8jp4niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.actionSet.openFiles" name="Auto::org.eclipse.ui.actionSet.openFiles"/>
+  <rootContext xmi:id="_d8jp43iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.actionSet.presentation" name="Auto::org.eclipse.ui.edit.text.actionSet.presentation"/>
+  <descriptors xmi:id="_d8jp5HiCEeygeZRHIwl1vQ" elementId="org.eclipse.e4.ui.compatibility.editor" allowMultiple="true" category="org.eclipse.e4.primaryDataStack" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor">
+    <tags>Editor</tags>
+    <tags>removeOnHide</tags>
+  </descriptors>
+  <descriptors xmi:id="_d8jp5XiCEeygeZRHIwl1vQ" elementId="org.eclipse.help.ui.HelpView" label="Help" iconURI="platform:/plugin/org.eclipse.help.ui/icons/view16/help_view.png" tooltip="" category="Help" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="org.eclipse.help.ui.internal.views.HelpView"/>
+    <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.help.ui"/>
+    <tags>View</tags>
+    <tags>categoryTag:Help</tags>
+  </descriptors>
+  <descriptors xmi:id="_d8jp5niCEeygeZRHIwl1vQ" elementId="org.eclipse.m2e.core.views.MavenRepositoryView" label="Maven Repositories" iconURI="platform:/plugin/org.eclipse.m2e.core.ui/icons/maven_indexes.gif" tooltip="" category="Maven" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="org.eclipse.m2e.core.ui.internal.views.MavenRepositoryView"/>
+    <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.m2e.core.ui"/>
+    <tags>View</tags>
+    <tags>categoryTag:Maven</tags>
+  </descriptors>
+  <descriptors xmi:id="_d8jp53iCEeygeZRHIwl1vQ" elementId="org.eclipse.m2e.core.views.MavenBuild" label="Maven Workspace Build" iconURI="platform:/plugin/org.eclipse.ui/icons/full/eview16/defaultview_misc.png" tooltip="" category="Maven" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="org.eclipse.m2e.core.ui.internal.views.build.BuildDebugView"/>
+    <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.m2e.core.ui"/>
+    <tags>View</tags>
+    <tags>categoryTag:Maven</tags>
+  </descriptors>
+  <descriptors xmi:id="_d8jp6HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.internal.introview" label="Welcome" iconURI="platform:/plugin/org.eclipse.ui/icons/full/eview16/defaultview_misc.png" tooltip="" category="General" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="org.eclipse.ui.internal.ViewIntroAdapterPart"/>
+    <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.ui"/>
+    <tags>View</tags>
+    <tags>categoryTag:General</tags>
+  </descriptors>
+  <descriptors xmi:id="_d8jp6XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="Cheat Sheets" iconURI="platform:/plugin/org.eclipse.ui.cheatsheets/icons/view16/cheatsheet_view.png" tooltip="" category="Help" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="org.eclipse.ui.internal.cheatsheets.views.CheatSheetView"/>
+    <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.ui.cheatsheets"/>
+    <tags>View</tags>
+    <tags>categoryTag:Help</tags>
+  </descriptors>
+  <descriptors xmi:id="_d8jp6niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.console.ConsoleView" label="Console" iconURI="platform:/plugin/org.eclipse.ui.console/icons/full/cview16/console_view.png" tooltip="" allowMultiple="true" category="General" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="org.eclipse.ui.internal.console.ConsoleView"/>
+    <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.ui.console"/>
+    <tags>View</tags>
+    <tags>categoryTag:General</tags>
+  </descriptors>
+  <descriptors xmi:id="_d8jp63iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.views.ProgressView" label="Progress" iconURI="platform:/plugin/org.eclipse.ui.ide/icons/full/eview16/pview.png" tooltip="" category="General" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="org.eclipse.ui.internal.progress.ProgressView"/>
+    <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.ui.ide"/>
+    <tags>View</tags>
+    <tags>categoryTag:General</tags>
+  </descriptors>
+  <descriptors xmi:id="_d8jp7HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.views.ResourceNavigator" label="Navigator (Deprecated)" iconURI="platform:/plugin/org.eclipse.ui.ide/icons/full/eview16/filenav_nav.png" tooltip="" category="General" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="org.eclipse.ui.views.navigator.ResourceNavigator"/>
+    <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.ui.ide"/>
+    <tags>View</tags>
+    <tags>categoryTag:General</tags>
+  </descriptors>
+  <descriptors xmi:id="_d8jp7XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.views.BookmarkView" label="Bookmarks" iconURI="platform:/plugin/org.eclipse.ui.ide/icons/full/eview16/bkmrk_nav.png" tooltip="" allowMultiple="true" category="General" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="org.eclipse.ui.internal.views.markers.BookmarksView"/>
+    <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.ui.ide"/>
+    <tags>View</tags>
+    <tags>categoryTag:General</tags>
+  </descriptors>
+  <descriptors xmi:id="_d8jp7niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.views.TaskList" label="Tasks" iconURI="platform:/plugin/org.eclipse.ui.ide/icons/full/eview16/tasks_tsk.png" tooltip="" allowMultiple="true" category="General" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="org.eclipse.ui.internal.views.markers.TasksView"/>
+    <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.ui.ide"/>
+    <tags>View</tags>
+    <tags>categoryTag:General</tags>
+  </descriptors>
+  <descriptors xmi:id="_d8jp73iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.views.ProblemView" label="Problems" iconURI="platform:/plugin/org.eclipse.ui.ide/icons/full/eview16/problems_view.png" tooltip="" allowMultiple="true" category="General" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="org.eclipse.ui.internal.views.markers.ProblemsView"/>
+    <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.ui.ide"/>
+    <tags>View</tags>
+    <tags>categoryTag:General</tags>
+  </descriptors>
+  <descriptors xmi:id="_d8jp8HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.views.AllMarkersView" label="Markers" iconURI="platform:/plugin/org.eclipse.ui.ide/icons/full/eview16/problems_view.png" tooltip="" allowMultiple="true" category="General" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="org.eclipse.ui.internal.views.markers.AllMarkersView"/>
+    <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.ui.ide"/>
+    <tags>View</tags>
+    <tags>categoryTag:General</tags>
+  </descriptors>
+  <descriptors xmi:id="_d8jp8XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.views.PropertySheet" label="Properties" iconURI="platform:/plugin/org.eclipse.ui.views/icons/full/eview16/prop_ps.png" tooltip="" allowMultiple="true" category="General" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="org.eclipse.ui.views.properties.PropertySheet"/>
+    <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.ui.views"/>
+    <tags>View</tags>
+    <tags>categoryTag:General</tags>
+  </descriptors>
+  <descriptors xmi:id="_d8jp8niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.views.ContentOutline" label="Outline" iconURI="platform:/plugin/org.eclipse.ui.views/icons/full/eview16/outline_co.png" tooltip="" category="General" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="org.eclipse.ui.views.contentoutline.ContentOutline"/>
+    <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.ui.views"/>
+    <tags>View</tags>
+    <tags>categoryTag:General</tags>
+  </descriptors>
+  <descriptors xmi:id="_d8jp83iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.views.minimap.MinimapView" label="Minimap" iconURI="platform:/plugin/org.eclipse.ui.workbench.texteditor/icons/full/eview16/minimap.png" tooltip="" category="General" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="org.eclipse.ui.internal.views.minimap.MinimapView"/>
+    <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.ui.workbench.texteditor"/>
+    <tags>View</tags>
+    <tags>categoryTag:General</tags>
+  </descriptors>
+  <descriptors xmi:id="_d8jp9HiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.multitable" label="Multitable View" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/actions/series.png" tooltip="" allowMultiple="true" category="Other" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.multitable.MultiTableView"/>
+    <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+    <tags>View</tags>
+    <tags>categoryTag:Other</tags>
+  </descriptors>
+  <descriptors xmi:id="_d8jp9XiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.recorddetails" label="Row Details" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/base/16-image.png" tooltip="" category="Other" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.RecordDetailsView"/>
+    <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+    <tags>View</tags>
+    <tags>categoryTag:Other</tags>
+  </descriptors>
+  <descriptors xmi:id="_d8jp9niCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.emptyview" label="No time series" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/fishstatj/FishStat.ico" tooltip="" category="Other" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.EmptyView"/>
+    <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+    <tags>View</tags>
+    <tags>categoryTag:Other</tags>
+    <tags>NoRestore</tags>
+  </descriptors>
+  <descriptors xmi:id="_d8jp93iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.display.views.grandtotals" label="Grand totals" iconURI="platform:/plugin/org.fao.fi.fishstat.gui/icons/actions/aggregation.png" tooltip="" allowMultiple="true" category="Other" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <persistedState key="originalCompatibilityViewClass" value="org.fao.fi.fishstat.gui.views.GrandTotalsView"/>
+    <persistedState key="originalCompatibilityViewBundle" value="org.fao.fi.fishstat.gui"/>
+    <tags>View</tags>
+    <tags>categoryTag:Other</tags>
+    <tags>NoRestore</tags>
+  </descriptors>
+  <commands xmi:id="_d8jqz3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.pinEditor" commandName="Pin Editor" description="Pin the current editor" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq0HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.nextTab" commandName="Next Tab" description="Switch to the next tab" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq0XiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.tools.customgroups" commandName="tools.customgroups" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq0niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.quickAccess" commandName="Find Actions" description="Quickly access UI elements" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq03iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.showInformation" commandName="Show Tooltip Description" description="Displays information for the current caret location in a focused hover" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq1HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.select.pageUp" commandName="Select Page Up" description="Select to the top of the page" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq1XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.toggleWordWrap" commandName="Toggle Word Wrap" description="Toggle word wrap in the current text editor" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq1niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.goto.pageUp" commandName="Page Up" description="Go up one page" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq13iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.goto.columnPrevious" commandName="Previous Column" description="Go to the previous column" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq2HiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.dynamic.switch.workspace" commandName="dynamic.switch.workspace" category="_d8jsIniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jq2XiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.dataset.switch.workspace.parameter.id" name="id" optional="false"/>
+  </commands>
+  <commands xmi:id="_d8jq2niCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.edit.csv.copy.totals.headers" commandName="edit.csv.copy.totals.headers" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq23iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.view.showcitation" commandName="view.showmetadata" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq3HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.ide.copyBuildIdCommand" commandName="Copy Build Id Information To Clipboard" description="Copies the build identification information to the clipboard." category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq3XiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.view.show.details" commandName="view.show.details" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq3niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.select.textEnd" commandName="Select Text End" description="Select to the end of the text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq33iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.deletePreviousWord" commandName="Delete Previous Word" description="Delete the previous word" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq4HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.goto.wordPrevious" commandName="Previous Word" description="Go to the previous word" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq4XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.file.properties" commandName="Properties" description="Display the properties of the selected item" category="_d8jsHniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq4niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.preferences" commandName="Preferences" description="Open the preferences dialog" category="_d8jsIXiCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jq43iCEeygeZRHIwl1vQ" elementId="preferencePageId" name="Preference Page"/>
+  </commands>
+  <commands xmi:id="_d8jq5HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.activeContextInfo" commandName="Show activeContext Info" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq5XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.copy" commandName="Copy" description="Copy the selection to the clipboard" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq5niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.nextView" commandName="Next View" description="Switch to the next view" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq53iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.select.textStart" commandName="Select Text Start" description="Select to the beginning of the text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq6HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.revertToSaved" commandName="Revert to Saved" description="Revert to the last saved state" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq6XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.contentAssist.contextInformation" commandName="Context Information" description="Show Context Information" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq6niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.views.properties.NewPropertySheetCommand" commandName="Properties" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq63iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.file.saveAs" commandName="Save As" description="Save the current contents to another location" category="_d8jsHniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq7HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.addToWorkingSet" commandName="Add to Working Set" description="Adds the selected object to a working set." category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq7XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.previousPerspective" commandName="Previous Perspective" description="Switch to the previous perspective" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq7niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.splitEditor" commandName="Toggle Split Editor" description="Split or join the currently active editor." category="_d8jsIXiCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jq73iCEeygeZRHIwl1vQ" elementId="Splitter.isHorizontal" name="Orientation" optional="false"/>
+  </commands>
+  <commands xmi:id="_d8jq8HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.upperCase" commandName="To Upper Case" description="Changes the selection to upper case" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq8XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.collapseAll" commandName="Collapse All" description="Collapse the current tree" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq8niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.goInto" commandName="Go Into" description="Navigate into the selected item" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq83iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dataset.close.workspace" commandName="dataset.close.workspace" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq9HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.maximizePart" commandName="Maximize Active View or Editor" description="Toggles maximize/restore state of active view or editor" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq9XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.lockToolBar" commandName="Toggle Lock Toolbars" description="Toggle the Lock on the Toolbars" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq9niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.select.windowEnd" commandName="Select Window End" description="Select to the end of the window" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq93iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.newEditor" commandName="Clone Editor" description="Open another editor on the active editor's input" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq-HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.minimizePart" commandName="Minimize Active View or Editor" description="Minimizes the active view or editor" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq-XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.contentAssist.proposals" commandName="Content Assist" description="Content Assist" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq-niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.up" commandName="Up" description="Navigate up one level" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq-3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.activateEditor" commandName="Activate Editor" description="Activate the editor" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq_HiCEeygeZRHIwl1vQ" elementId="org.eclipse.m2e.core.ui.command.addPlugin" commandName="Add Maven Plugin" description="Add Maven plugin" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq_XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.showSystemMenu" commandName="Show System Menu" description="Show the system menu" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq_niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.removeFromWorkingSet" commandName="Remove From Working Set" description="Removes the selected object from a working set." category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jq_3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.delete.line.to.end" commandName="Delete to End of Line" description="Delete to the end of a line of text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrAHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.view.shownotes" commandName="view.showmetadata" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrAXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.view.columns.natural" commandName="view.columns.natural" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrAniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.data.aggregation" commandName="data.aggregation" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrA3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.handler.tools.manual" commandName="help.open.manual" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrBHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.edit.select.all" commandName="edit.select.all" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrBXiCEeygeZRHIwl1vQ" elementId="org.eclipse.help.ui.ignoreMissingPlaceholders" commandName="Do not warn of missing documentation" description="Sets the help preferences to no longer report a warning about the current set of missing documents." category="_d8jsJHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrBniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.savePerspective" commandName="Save Perspective As" description="Save the current perspective" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrB3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.ide.deleteCompleted" commandName="Delete Completed Tasks" description="Delete the tasks marked as completed" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrCHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.move" commandName="Move..." description="Move the selected item" category="_d8jsHniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrCXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.goto.windowEnd" commandName="Window End" description="Go to the end of the window" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrCniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.perspectives.showPerspective" commandName="Show Perspective" description="Show a particular perspective" category="_d8jsGniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jrC3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.perspectives.showPerspective.perspectiveId" name="Parameter"/>
+    <parameters xmi:id="_d8jrDHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.perspectives.showPerspective.newWindow" name="In New Window"/>
+  </commands>
+  <commands xmi:id="_d8jrDXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.edit.select.invert" commandName="edit.select.invert" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrDniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.linkWithEditor" commandName="Toggle Link with Editor" description="Toggles linking of a view's selection with the active editor's selection" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrD3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.openEditorDropDown" commandName="Quick Switch Editor" description="Open the editor drop down list" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrEHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.goto.line" commandName="Go to Line" description="Go to a specified line of text" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrEXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.deleteNextWord" commandName="Delete Next Word" description="Delete the next word" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrEniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.toggleBlockSelectionMode" commandName="Toggle Block Selection" description="Toggle block / column selection in the current text editor" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrE3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.goToResource" commandName="Go to Resource" description="Go to a particular resource in the active view" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrFHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.resetPerspective" commandName="Reset Perspective" description="Reset the current perspective to its default state" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrFXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.select.lineUp" commandName="Select Line Up" description="Extend the selection to the previous line of text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrFniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.undo" commandName="Undo" description="Undo the last operation" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrF3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.project.buildLast" commandName="Repeat Working Set Build" description="Repeat the last working set build" category="_d8jsG3iCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrGHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.edit.csv.save.details" commandName="edit.csv.save.details" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrGXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.project.buildProject" commandName="Build Project" description="Build the selected project" category="_d8jsG3iCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrGniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.cut.line.to.end" commandName="Cut to End of Line" description="Cut to the end of a line of text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrG3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.file.newQuickMenu" commandName="New menu" description="Open the New menu" category="_d8jsHniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrHHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.project.openProject" commandName="Open Project" description="Open a project" category="_d8jsG3iCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrHXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.file.openWorkspace" commandName="Switch Workspace" description="Open the workspace selection dialog" category="_d8jsHniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrHniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.file.closeAll" commandName="Close All" description="Close all editors" category="_d8jsHniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrH3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.cut" commandName="Cut" description="Cut the selection to the clipboard" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrIHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.goto.textStart" commandName="Text Start" description="Go to the beginning of the text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrIXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.paste" commandName="Paste" description="Paste from the clipboard" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrIniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.part.nextPage" commandName="Next Page" description="Switch to the next page" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrI3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.handler.tools.quickref" commandName="help.open.quickref" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrJHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.data.topother" commandName="data.topother" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrJXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.previous" commandName="Previous" description="Navigate to the previous item" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrJniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.project.properties" commandName="Properties" description="Display the properties of the selected item's project " category="_d8jsG3iCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrJ3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.rename" commandName="Rename" description="Rename the selected item" category="_d8jsHniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrKHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.clear.mark" commandName="Clear Mark" description="Clear the mark" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrKXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.project.buildAll" commandName="Build All" description="Build all projects" category="_d8jsG3iCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrKniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.select.columnPrevious" commandName="Select Previous Column" description="Select the previous column" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrK3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly" commandName="Show Selected Element Only" description="Show Selected Element Only" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrLHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.cut.line.to.beginning" commandName="Cut to Beginning of Line" description="Cut to the beginning of a line of text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrLXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.file.export" commandName="Export" description="Export" category="_d8jsHniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jrLniCEeygeZRHIwl1vQ" elementId="exportWizardId" name="Export Wizard"/>
+  </commands>
+  <commands xmi:id="_d8jrL3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.handler.prefs.highlight" commandName="prefs.highlight.open" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrMHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.file.print" commandName="Print" description="Print" category="_d8jsHniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrMXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dataset.close.all" commandName="dataset.close.all" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrMniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.showRulerContextMenu" commandName="Show Ruler Context Menu" description="Show the context menu for the ruler" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrM3iCEeygeZRHIwl1vQ" elementId="org.eclipse.help.ui.closeTray" commandName="Close User Assistance Tray" description="Close the user assistance tray containing context help information and cheat sheets." category="_d8jsJHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrNHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.edit.select.none" commandName="edit.select.none" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrNXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.ide.copyConfigCommand" commandName="Copy Configuration Data To Clipboard" description="Copies the configuration data (system properties, installed bundles, etc) to the clipboard." category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrNniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.smartEnterInverse" commandName="Insert Line Above Current Line" description="Adds a new line above the current line" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrN3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.forwardHistory" commandName="Forward History" description="Move forward in the editor navigation history" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrOHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.spy" commandName="Show Contributing Plug-in" description="Shows contribution information for the currently selected element" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrOXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.help.helpSearch" commandName="Help Search" description="Open the help search" category="_d8jsJHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrOniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.file.restartWorkbench" commandName="Restart" description="Restart the workbench" category="_d8jsHniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrO3iCEeygeZRHIwl1vQ" elementId="org.eclipse.e4.ui.importer.openDirectory" commandName="Open Projects from File System..." category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrPHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.attachment" commandName="dynamic.contextual.attachment" category="_d8jsIniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jrPXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.attachment.id" name="attachment.id" optional="false"/>
+  </commands>
+  <commands xmi:id="_d8jrPniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.toggleOverwrite" commandName="Toggle Overwrite" description="Toggle overwrite mode" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrP3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.goto.lineDown" commandName="Line Down" description="Go down one line of text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrQHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.project.rebuildAll" commandName="Rebuild All" description="Rebuild all projects" category="_d8jsG3iCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrQXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.gotoLastEditPosition" commandName="Last Edit Location" description="Last edit location" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrQniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.open.hyperlink" commandName="Open Hyperlink" description="Opens the hyperlink at the caret location or opens a chooser if more than one hyperlink is available" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrQ3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.view.columns.calculated" commandName="view.columns.calculated" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrRHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.openLocalFile" commandName="Open File..." description="Open a file" category="_d8jsHniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrRXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.filter" commandName="dynamic.contextual.filter" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrRniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.showViewMenu" commandName="Show View Menu" description="Show the view menu" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrR3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.ide.configureFilters" commandName="Filters..." description="Configure the filters to apply to the markers view" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrSHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.shiftRight" commandName="Shift Right" description="Shift a block of text to the right" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrSXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.backwardHistory" commandName="Backward History" description="Move backward in the editor navigation history" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrSniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.previousTab" commandName="Previous Tab" description="Switch to the previous tab" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrS3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.dialogs.openMessageDialog" commandName="Open Message Dialog" description="Open a Message Dialog" category="_d8jsI3iCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jrTHiCEeygeZRHIwl1vQ" elementId="title" name="Title"/>
+    <parameters xmi:id="_d8jrTXiCEeygeZRHIwl1vQ" elementId="message" name="Message"/>
+    <parameters xmi:id="_d8jrTniCEeygeZRHIwl1vQ" elementId="imageType" name="Image Type Constant" typeId="org.eclipse.ui.dialogs.Integer"/>
+    <parameters xmi:id="_d8jrT3iCEeygeZRHIwl1vQ" elementId="defaultIndex" name="Default Button Index" typeId="org.eclipse.ui.dialogs.Integer"/>
+    <parameters xmi:id="_d8jrUHiCEeygeZRHIwl1vQ" elementId="buttonLabel0" name="First Button Label"/>
+    <parameters xmi:id="_d8jrUXiCEeygeZRHIwl1vQ" elementId="buttonLabel1" name="Second Button Label"/>
+    <parameters xmi:id="_d8jrUniCEeygeZRHIwl1vQ" elementId="buttonLabel2" name="Third Button Label"/>
+    <parameters xmi:id="_d8jrU3iCEeygeZRHIwl1vQ" elementId="buttonLabel3" name="Fourth Button Label"/>
+    <parameters xmi:id="_d8jrVHiCEeygeZRHIwl1vQ" elementId="cancelReturns" name="Return Value on Cancel"/>
+  </commands>
+  <commands xmi:id="_d8jrVXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.findIncremental" commandName="Incremental Find" description="Incremental find" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrVniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.goto.lineEnd" commandName="Line End" description="Go to the end of the line of text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrV3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.tools.import.workspace" commandName="tools.install.workspace" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrWHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.file.refresh" commandName="Refresh" description="Refresh the selected items" category="_d8jsHniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrWXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.swap.mark" commandName="Swap Mark" description="Swap the mark with the cursor position" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrWniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.format.reference" commandName="dynamic.contextual.format.reference" category="_d8jsIniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jrW3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.format.reference.param.attribute" name="attribute" optional="false"/>
+    <parameters xmi:id="_d8jrXHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.format.reference.param.concept" name="concept" optional="false"/>
+    <parameters xmi:id="_d8jrXXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.format.reference.param.column" name="column" optional="false"/>
+  </commands>
+  <commands xmi:id="_d8jrXniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.closeAllPerspectives" commandName="Close All Perspectives" description="Close all open perspectives" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrX3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.deletePrevious" commandName="Delete Previous" description="Delete the previous character" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrYHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.shiftLeft" commandName="Shift Left" description="Shift a block of text to the left" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrYXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.select.lineStart" commandName="Select Line Start" description="Select to the beginning of the line of text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrYniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.groupby" commandName="dynamic.contextual.groupby" category="_d8jsIniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jrY3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.groupby.param.column" name="column" optional="false"/>
+    <parameters xmi:id="_d8jrZHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.groupby.param.child" name="child" optional="false"/>
+    <parameters xmi:id="_d8jrZXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.groupby.param.parent" name="parent" optional="false"/>
+  </commands>
+  <commands xmi:id="_d8jrZniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.select.columnNext" commandName="Select Next Column" description="Select the next column" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrZ3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.delete.line" commandName="Delete Line" description="Delete a line of text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jraHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.expandAll" commandName="Expand All" description="Expand the current tree" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jraXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.ide.showInSystemExplorer" commandName="Show In (System Explorer)" description="Show in system's explorer (file manager)" category="_d8jsHHiCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jraniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.ide.showInSystemExplorer.path" name="Resource System Path Parameter"/>
+  </commands>
+  <commands xmi:id="_d8jra3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dataset.open" commandName="dataset.open" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrbHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.file.saveAll" commandName="Save All" description="Save all current contents" category="_d8jsHniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrbXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.select.lineDown" commandName="Select Line Down" description="Extend the selection to the next line of text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrbniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.showKeyAssist" commandName="Show Key Assist" description="Show the key assist dialog" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrb3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.lowerCase" commandName="To Lower Case" description="Changes the selection to lower case" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrcHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.view.showmetadata" commandName="view.showmetadata" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrcXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.zoomOut" commandName="Zoom Out" description="Zoom out text, decrease default font size for text editors" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrcniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.file.closeOthers" commandName="Close Others" description="Close all editors except the one that is active" category="_d8jsHniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrc3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.file.save" commandName="Save" description="Save the current contents" category="_d8jsHniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrdHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.previousEditor" commandName="Previous Editor" description="Switch to the previous editor" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrdXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.findReplace" commandName="Find and Replace" description="Find and replace text" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrdniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.zoomIn" commandName="Zoom In" description="Zoom in text, increase default font size for text editors" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrd3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.ide.OpenMarkersView" commandName="Open Another" description="Open another view" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jreHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.help.tipsAndTricksAction" commandName="Tips and Tricks" description="Open the tips and tricks help page" category="_d8jsJHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jreXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.fullscreenmode" commandName="Toggle Full Screen" description="Toggles the window between full screen and normal" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jreniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.select.lineEnd" commandName="Select Line End" description="Select to the end of the line of text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jre3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.nextEditor" commandName="Next Editor" description="Switch to the next editor" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrfHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.project.closeUnrelatedProjects" commandName="Close Unrelated Projects" description="Close unrelated projects" category="_d8jsG3iCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrfXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.smartEnter" commandName="Insert Line Below Current Line" description="Adds a new line below the current line" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrfniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.view.showallnotes" commandName="show.attachments" category="_d8jsIniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jrf3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.attchment.open.parameter" name="folder"/>
+  </commands>
+  <commands xmi:id="_d8jrgHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.goto.lineStart" commandName="Line Start" description="Go to the start of the line of text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrgXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.ide.markers.copyMarkerResourceQualifiedName" commandName="Copy Resource Qualified Name To Clipboard" description="Copies markers resource qualified name to the clipboard" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrgniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.select.wordPrevious" commandName="Select Previous Word" description="Select the previous word" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrg3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.help.helpContents" commandName="Help Contents" description="Open the help contents" category="_d8jsJHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrhHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.hippieCompletion" commandName="Word Completion" description="Context insensitive completion" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrhXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.delete" commandName="Delete" description="Delete the selection" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrhniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.delete.line.to.beginning" commandName="Delete to Beginning of Line" description="Delete to the beginning of a line of text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrh3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.ide.configureColumns" commandName="Configure Columns..." description="Configure the columns in the markers view" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jriHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.findPrevious" commandName="Find Previous" description="Find previous item" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jriXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.file.exit" commandName="Exit" description="Exit the application" category="_d8jsHniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jriniCEeygeZRHIwl1vQ" elementId="mayPrompt" name="may prompt"/>
+  </commands>
+  <commands xmi:id="_d8jri3iCEeygeZRHIwl1vQ" elementId="org.eclipse.m2e.core.ui.command.openPom" commandName="Open Maven POM" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrjHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.addBookmark" commandName="Add Bookmark" description="Add a bookmark" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrjXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.tools.browse.workspaces" commandName="tools.browse.workspaces" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrjniCEeygeZRHIwl1vQ" elementId="org.eclipse.m2e.core.ui.command.updateProject" commandName="Update Project" description="Update Maven project configuration and dependencies" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrj3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.scroll.lineUp" commandName="Scroll Line Up" description="Scroll up one line of text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrkHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.previousView" commandName="Previous View" description="Switch to the previous view" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrkXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.set.mark" commandName="Set Mark" description="Set the mark" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrkniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.toggleShowWhitespaceCharacters" commandName="Show Whitespace Characters" description="Shows whitespace characters in current text editor" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrk3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.file.revert" commandName="Revert" description="Revert to the last saved state" category="_d8jsHniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrlHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.views.showView" commandName="Show View" description="Shows a particular view" category="_d8jsGXiCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jrlXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.views.showView.viewId" name="View"/>
+    <parameters xmi:id="_d8jrlniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.views.showView.secondaryId" name="Secondary Id"/>
+    <parameters xmi:id="_d8jrl3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.views.showView.makeFast" name="As FastView"/>
+  </commands>
+  <commands xmi:id="_d8jrmHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.selectAll" commandName="Select All" description="Select all" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrmXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.ide.markers.copyDescription" commandName="Copy Description To Clipboard" description="Copies markers description field to the clipboard" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrmniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.referenceobject" commandName="dynamic.contextual.referenceobject" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrm3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.showResourceByPath" commandName="Show Resource in Navigator" description="Show a resource in the Navigator given its path" category="_d8jsHHiCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jrnHiCEeygeZRHIwl1vQ" elementId="resourcePath" name="Resource Path" typeId="org.eclipse.ui.ide.resourcePath" optional="false"/>
+  </commands>
+  <commands xmi:id="_d8jrnXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.view.showattachments" commandName="show.attachments" category="_d8jsIniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jrnniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.attchment.open.parameter" name="folder"/>
+  </commands>
+  <commands xmi:id="_d8jrn3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.handler.prefs.numbers" commandName="prefs.numbers.open" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jroHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.view.showmap" commandName="view.showmetadata" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jroXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.findNext" commandName="Find Next" description="Find next item" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jroniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.view.show.grandtotals" commandName="view.show.grandtotals" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jro3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.hidetrimbars" commandName="Toggle visibility of the window toolbars" description="Toggle the visibility of the toolbars of the current window" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrpHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.project.rebuildProject" commandName="Rebuild Project" description="Rebuild the selected projects" category="_d8jsG3iCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrpXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.project.buildAutomatically" commandName="Build Automatically" description="Toggle the workspace build automatically function" category="_d8jsG3iCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrpniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.file.import" commandName="Import" description="Import" category="_d8jsHniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jrp3iCEeygeZRHIwl1vQ" elementId="importWizardId" name="Import Wizard"/>
+  </commands>
+  <commands xmi:id="_d8jrqHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.handler.prefs.columnwidth" commandName="prefs.columnwidth.open" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrqXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.switchToEditor" commandName="Switch to Editor" description="Switch to an editor" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrqniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.help.dynamicHelp" commandName="Show Contextual Help" description="Open the contextual help" category="_d8jsJHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrq3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.nextSubTab" commandName="Next Sub-Tab" description="Switch to the next sub-tab" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrrHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.addTask" commandName="Add Task..." description="Add a task" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrrXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.copyLineDown" commandName="Copy Lines" description="Duplicates the selected lines and moves the selection to the copy" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrrniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.toggleInsertMode" commandName="Toggle Insert Mode" description="Toggle insert mode" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrr3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.togglestatusbar" commandName="Toggle Statusbar" description="Toggle the visibility of the bottom status bar" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrsHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.cheatsheets.openCheatSheet" commandName="Open Cheat Sheet" description="Open a Cheat Sheet." category="_d8jsJHiCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jrsXiCEeygeZRHIwl1vQ" elementId="cheatSheetId" name="Identifier"/>
+  </commands>
+  <commands xmi:id="_d8jrsniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.edit.csv.copy.details" commandName="edit.csv.copy.details" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrs3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.file.closePart" commandName="Close Part" description="Close the active workbench part" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrtHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.data.sort" commandName="data.sort" category="_d8jsIniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jrtXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.data.sort.par" name="%command.showView.makeFastParameter"/>
+  </commands>
+  <commands xmi:id="_d8jrtniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.project.cleanAction" commandName="Build Clean" description="Discard old built state" category="_d8jsG3iCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrt3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.help.installationDialog" commandName="Installation Information" description="Open the installation dialog" category="_d8jsJHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jruHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.moveLineDown" commandName="Move Lines Down" description="Moves the selected lines down" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jruXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.goto.lineUp" commandName="Line Up" description="Go up one line of text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jruniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.goto.windowStart" commandName="Window Start" description="Go to the start of the window" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jru3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.back" commandName="Back" description="Navigate back" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrvHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.select.wordNext" commandName="Select Next Word" description="Select the next word" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrvXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.goto.pageDown" commandName="Page Down" description="Go down one page" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrvniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.goto.textEnd" commandName="Text End" description="Go to the end of the text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrv3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.part.previousPage" commandName="Previous Page" description="Switch to the previous page" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrwHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.showInQuickMenu" commandName="Show In..." description="Open the Show In menu" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrwXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.copyLineUp" commandName="Duplicate Lines" description="Duplicates the selected lines and leaves the selection unchanged" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrwniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.next" commandName="Next" description="Navigate to the next item" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrw3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.closePerspective" commandName="Close Perspective" description="Close the current perspective" category="_d8jsIXiCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jrxHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.closePerspective.perspectiveId" name="Perspective Id"/>
+  </commands>
+  <commands xmi:id="_d8jrxXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.project.closeProject" commandName="Close Project" description="Close the selected project" category="_d8jsG3iCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrxniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.findIncrementalReverse" commandName="Incremental Find Reverse" description="Incremental find reverse" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrx3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.cheatsheets.openCheatSheetURL" commandName="Open Cheat Sheet from URL" description="Open a Cheat Sheet from file at a specified URL." category="_d8jsJHiCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jryHiCEeygeZRHIwl1vQ" elementId="cheatSheetId" name="Identifier" optional="false"/>
+    <parameters xmi:id="_d8jryXiCEeygeZRHIwl1vQ" elementId="name" name="Name" optional="false"/>
+    <parameters xmi:id="_d8jryniCEeygeZRHIwl1vQ" elementId="url" name="URL" optional="false"/>
+  </commands>
+  <commands xmi:id="_d8jry3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.browser.openBundleResource" commandName="Open Resource in Browser" description="Opens a bundle resource in the default web browser." category="_d8jsIXiCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jrzHiCEeygeZRHIwl1vQ" elementId="plugin" name="Plugin"/>
+    <parameters xmi:id="_d8jrzXiCEeygeZRHIwl1vQ" elementId="path" name="Path"/>
+  </commands>
+  <commands xmi:id="_d8jrzniCEeygeZRHIwl1vQ" elementId="org.eclipse.m2e.core.ui.command.addDependency" commandName="Add Maven Dependency" description="Add Maven dependency" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jrz3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.help.aboutAction" commandName="About" description="Open the about dialog" category="_d8jsJHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr0HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.goto.columnNext" commandName="Next Column" description="Go to the next column" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr0XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.file.closeAllSaved" commandName="Close All Saved" description="Close all saved editors" category="_d8jsHniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr0niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.redo" commandName="Redo" description="Redo the last operation" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr03iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.goto.wordNext" commandName="Next Word" description="Go to the next word" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr1HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.cut.line" commandName="Cut Line" description="Cut a line of text, or multiple lines when invoked again without interruption" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr1XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.selectWorkingSets" commandName="Select Working Sets" description="Select the working sets that are applicable for this window." category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr1niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.newWizard" commandName="New" description="Open the New item wizard" category="_d8jsHniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jr13iCEeygeZRHIwl1vQ" elementId="newWizardId" name="New Wizard"/>
+  </commands>
+  <commands xmi:id="_d8jr2HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.newWindow" commandName="New Window" description="Open another window" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr2XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.deleteNext" commandName="Delete Next" description="Delete the next character" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr2niCEeygeZRHIwl1vQ" elementId="org.eclipse.e4.ui.importer.configureProject" commandName="Configure and Detect Nested Projects..." category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr23iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.file.close" commandName="Close" description="Close the active editor" category="_d8jsHniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr3HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.customizePerspective" commandName="Customize Perspective" description="Customize the current perspective" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr3XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.toggleShowKeys" commandName="Toggle Show Key Bindings" description="Shows key binding when command is invoked" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr3niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.help.quickStartAction" commandName="Welcome" description="Show help for beginning users" category="_d8jsJHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr33iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.moveLineUp" commandName="Move Lines Up" description="Moves the selected lines up" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr4HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.previousSubTab" commandName="Previous Sub-Tab" description="Switch to the previous sub-tab" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr4XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.hideShowEditors" commandName="Toggle Shared Area Visibility" description="Toggles the visibility of the shared area" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr4niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.showIn" commandName="Show In" category="_d8jsHHiCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jr43iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.showIn.targetId" name="Show In Target Id" optional="false"/>
+  </commands>
+  <commands xmi:id="_d8jr5HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.help.displayHelp" commandName="Display Help" description="Display a Help topic" category="_d8jsJHiCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jr5XiCEeygeZRHIwl1vQ" elementId="href" name="Help topic href"/>
+  </commands>
+  <commands xmi:id="_d8jr5niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.select.pageDown" commandName="Select Page Down" description="Select to the bottom of the page" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr53iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.dialogs.openInputDialog" commandName="Open Input Dialog" description="Open an Input Dialog" category="_d8jsI3iCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jr6HiCEeygeZRHIwl1vQ" elementId="title" name="Title"/>
+    <parameters xmi:id="_d8jr6XiCEeygeZRHIwl1vQ" elementId="message" name="Message"/>
+    <parameters xmi:id="_d8jr6niCEeygeZRHIwl1vQ" elementId="initialValue" name="Initial Value"/>
+    <parameters xmi:id="_d8jr63iCEeygeZRHIwl1vQ" elementId="cancelReturns" name="Return Value on Cancel"/>
+  </commands>
+  <commands xmi:id="_d8jr7HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.join.lines" commandName="Join Lines" description="Join lines of text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr7XiCEeygeZRHIwl1vQ" elementId="org.eclipse.help.ui.indexcommand" commandName="Index" description="Show Keyword Index" category="_d8jsJHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr7niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.showContextMenu" commandName="Show Context Menu" description="Show the context menu" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr73iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.ide.markCompleted" commandName="Mark Completed" description="Mark the selected tasks as completed" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr8HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.recenter" commandName="Recenter" description="Scroll cursor line to center, top and bottom" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr8XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.forward" commandName="Forward" description="Navigate forward" category="_d8jsHHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr8niCEeygeZRHIwl1vQ" elementId="org.eclipse.jdt.ui.edit.text.java.correction.assist.proposals" commandName="Quick Fix" description="Suggest possible fixes for a problem" category="_d8jsHXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr83iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.select.windowStart" commandName="Select Window Start" description="Select to the start of the window" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr9HiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.aggregation" commandName="dynamic.contextual.aggregation" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr9XiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.window.nextPerspective" commandName="Next Perspective" description="Switch to the next perspective" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr9niCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dataset.close.current" commandName="dataset.close.current" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr93iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.edit.text.scroll.lineDown" commandName="Scroll Line Down" description="Scroll down one line of text" category="_d8jsIHiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr-HiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.ToggleCoolbarAction" commandName="Toggle Main Toolbar Visibility" description="Toggles the visibility of the window toolbar" category="_d8jsIXiCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr-XiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.data.filter" commandName="data.filter" category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr-niCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.navigate.openResource" commandName="Open Resource" description="Open an editor on a particular resource" category="_d8jsHHiCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jr-3iCEeygeZRHIwl1vQ" elementId="filePath" name="File Path" typeId="org.eclipse.ui.ide.resourcePath"/>
+  </commands>
+  <commands xmi:id="_d8jr_HiCEeygeZRHIwl1vQ" elementId="AUTOGEN:::org.eclipse.ui.cheatsheets.actionSet/org.eclipse.ui.cheatsheets.actions.CheatSheetHelpMenuAction" commandName="Cheat Sheets..." category="_d8jsIniCEeygeZRHIwl1vQ"/>
+  <commands xmi:id="_d8jr_XiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.attachment.CAPTURE" commandName="AttachmentPanelHandler()" description="custom handler for CAPTURE" category="_d8jsIniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jr_niCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.attachment.id" name="attachment.id" optional="false"/>
+  </commands>
+  <commands xmi:id="_d8jr_3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.attachment.FOOD_BALANCE" commandName="AttachmentPanelHandler()" description="custom handler for FOOD_BALANCE" category="_d8jsIniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jsAHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.attachment.id" name="attachment.id" optional="false"/>
+  </commands>
+  <commands xmi:id="_d8jsAXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.attachment.POPULATION" commandName="AttachmentPanelHandler()" description="custom handler for POPULATION" category="_d8jsIniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jsAniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.attachment.id" name="attachment.id" optional="false"/>
+  </commands>
+  <commands xmi:id="_d8jsA3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.attachment.TRADE_PP" commandName="AttachmentPanelHandler()" description="custom handler for TRADE_PP" category="_d8jsIniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jsBHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.attachment.id" name="attachment.id" optional="false"/>
+  </commands>
+  <commands xmi:id="_d8jsBXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.attachment.GLOBAL_PRODUCTION" commandName="AttachmentPanelHandler()" description="custom handler for GLOBAL_PRODUCTION" category="_d8jsIniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jsBniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.attachment.id" name="attachment.id" optional="false"/>
+  </commands>
+  <commands xmi:id="_d8jsB3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.attachment.AQUACULTURE" commandName="AttachmentPanelHandler()" description="custom handler for AQUACULTURE" category="_d8jsIniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jsCHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.attachment.id" name="attachment.id" optional="false"/>
+  </commands>
+  <commands xmi:id="_d8jsCXiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.attachment.TRADE_PARTNERS" commandName="AttachmentPanelHandler()" description="custom handler for TRADE_PARTNERS" category="_d8jsIniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jsCniCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.attachment.id" name="attachment.id" optional="false"/>
+  </commands>
+  <commands xmi:id="_d8jsC3iCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.attachment.TRADE" commandName="AttachmentPanelHandler()" description="custom handler for TRADE" category="_d8jsIniCEeygeZRHIwl1vQ">
+    <parameters xmi:id="_d8jsDHiCEeygeZRHIwl1vQ" elementId="org.fao.fi.fishstat.gui.command.dynamic.contextual.attachment.id" name="attachment.id" optional="false"/>
+  </commands>
+  <addons xmi:id="_d8jsDXiCEeygeZRHIwl1vQ" elementId="org.eclipse.e4.core.commands.service" contributorURI="platform:/plugin/org.eclipse.ui.workbench" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
+  <addons xmi:id="_d8jsDniCEeygeZRHIwl1vQ" elementId="org.eclipse.e4.ui.contexts.service" contributorURI="platform:/plugin/org.eclipse.ui.workbench" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
+  <addons xmi:id="_d8jsD3iCEeygeZRHIwl1vQ" elementId="org.eclipse.e4.ui.bindings.service" contributorURI="platform:/plugin/org.eclipse.ui.workbench" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
+  <addons xmi:id="_d8jsEHiCEeygeZRHIwl1vQ" elementId="org.eclipse.e4.ui.workbench.commands.model" contributorURI="platform:/plugin/org.eclipse.ui.workbench" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
+  <addons xmi:id="_d8jsEXiCEeygeZRHIwl1vQ" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributorURI="platform:/plugin/org.eclipse.ui.workbench" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_d8jsEniCEeygeZRHIwl1vQ" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributorURI="platform:/plugin/org.eclipse.ui.workbench" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
+  <addons xmi:id="_d8jsE3iCEeygeZRHIwl1vQ" elementId="Cleanup Addon" contributorURI="platform:/plugin/org.eclipse.ui.workbench" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.addons.swt/org.eclipse.e4.ui.workbench.addons.cleanupaddon.CleanupAddon"/>
+  <addons xmi:id="_d8jsFHiCEeygeZRHIwl1vQ" elementId="DnD Addon" contributorURI="platform:/plugin/org.eclipse.ui.workbench" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.addons.swt/org.eclipse.e4.ui.workbench.addons.dndaddon.DnDAddon"/>
+  <addons xmi:id="_d8jsFXiCEeygeZRHIwl1vQ" elementId="MinMax Addon" contributorURI="platform:/plugin/org.eclipse.ui.workbench" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.addons.swt/org.eclipse.e4.ui.workbench.addons.minmax.MinMaxAddon"/>
+  <addons xmi:id="_d8jsFniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.workbench.addon.0" contributorURI="platform:/plugin/org.eclipse.ui.workbench" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
+  <addons xmi:id="_d8jsF3iCEeygeZRHIwl1vQ" elementId="SplitterAddon" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.addons.swt/org.eclipse.e4.ui.workbench.addons.splitteraddon.SplitterAddon"/>
+  <addons xmi:id="_d8jsGHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.ide.addon.0" contributorURI="platform:/plugin/org.eclipse.ui.ide" contributionURI="bundleclass://org.eclipse.ui.ide/org.eclipse.ui.internal.ide.addons.SaveAllDirtyPartsAddon"/>
+  <categories xmi:id="_d8jsGXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.category.views" name="Views" description="Commands for opening views"/>
+  <categories xmi:id="_d8jsGniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.category.perspectives" name="Perspectives" description="Commands for opening perspectives"/>
+  <categories xmi:id="_d8jsG3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.category.project" name="Project"/>
+  <categories xmi:id="_d8jsHHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.category.navigate" name="Navigate"/>
+  <categories xmi:id="_d8jsHXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.category.edit" name="Edit"/>
+  <categories xmi:id="_d8jsHniCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.category.file" name="File"/>
+  <categories xmi:id="_d8jsH3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.ide.markerContents" name="Contents" description="The category for menu contents"/>
+  <categories xmi:id="_d8jsIHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.category.textEditor" name="Text Editing" description="Text Editing Commands"/>
+  <categories xmi:id="_d8jsIXiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.category.window" name="Window"/>
+  <categories xmi:id="_d8jsIniCEeygeZRHIwl1vQ" elementId="org.eclipse.core.commands.categories.autogenerated" name="Uncategorized" description="Commands that were either auto-generated or have no category"/>
+  <categories xmi:id="_d8jsI3iCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.category.dialogs" name="Dialogs" description="Commands for opening dialogs"/>
+  <categories xmi:id="_d8jsJHiCEeygeZRHIwl1vQ" elementId="org.eclipse.ui.category.help" name="Help"/>
+</application:Application>
