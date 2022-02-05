@@ -1,4 +1,4 @@
-setwd("C:/Users/sophi/Documents/UNH_Docs/Proposal")
+setwd("C:/Users/sophi/Documents/UNH_Docs/Proposal/Mtx_Model")
 
 library(matlib)
 
