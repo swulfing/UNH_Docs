@@ -15,7 +15,7 @@ library(matlib)
 library(ggplot2)
 
 observedData <- as.matrix(data.frame(read.csv("RaberinaryBenbow2012Calcs.csv")))
-observedStageMatrix <- observedData[1:13,2:5]
+observedStageMatrix <- observedData[1:13, 2:5]
 ```
 
 ```{r matrix print,results = 'asis', echo = FALSE}
@@ -33,25 +33,25 @@ write_matex <- function(x) {
 }
 ```
 ## Note
-Adapted from Levkovitch(1963, 1964 a,b) study on cigarette beetle. From page 142 in Caswell book
+Adapted from Levkovitch(1963, 1964 a,b) study on cigarette beetle. From page 142 in Caswell book. This method assumes a stable stage dist
 
 ```{r initial things, echo = FALSE}
-A <- matrix(, nrow = 4, ncol = 4)
+A_reg <- matrix(, nrow = 4, ncol = 5)
 SD <- matrix(, nrow = 4, ncol = 1)
 Var <- matrix(, nrow = 4, ncol = 1)
 
 #Creating x using first 10 months (11th will be our observed y)
 x <- matrix(observedStageMatrix[1:10,], nrow = 10, ncol = 4, byrow = FALSE)
-#x <- cbind(rep(1, 10),x) <- Creates an extra col of 1s at the beginning of x to calculate all the B0s. Going to omit for now because makes the y calcs weird and IDK how to deal with that
+x <- cbind(rep(1, 10), x) #Creates an extra col of 1s at the beginning of x to calculate all the B0s. Going to omit for now because makes the y calcs weird and IDK how to deal with that
 ```
 
 # Linear Regression
 ```{r multiple linear regression with matrices}
-for (i in 1:ncol(x)){
+for (i in 1:nrow(A_reg)){
   #calc each row of mtx and add to A
   y <- matrix(observedStageMatrix[2:11, i])
   arow <- inv((t(x) %*% x)) %*% t(x)  %*% y
-  A[i, ] <- arow
+  A_reg[i, ] <- arow
   
   #now make vectors for sd and var
   e <- matrix(y - x %*% arow)
@@ -64,8 +64,8 @@ for (i in 1:ncol(x)){
 
 
 Calculated A matrix
-```{r show A, results = 'asis', echo = FALSE, fig.cap = "Calculated Stage-Based Matrix"}
-write_matex(A)
+```{r show A_reg, results = 'asis', echo = FALSE, fig.cap = "Calculated Stage-Based Matrix"}
+write_matex(A_reg)
 ```
 
 SD of matrix
@@ -80,6 +80,7 @@ write_matex(Var)
 
 # Matrix and Predictions
 ```{r model and predictions, echo = FALSE}
+A <- matrix(A_reg[,2:5], nrow = 4, ncol = 4)
 pop <- observedStageMatrix[13,]
 N <- list()
  
@@ -117,10 +118,10 @@ print(ggplot(modeled_data) +
 ```{r model remove negs, echo = FALSE}
 
 #Remove Negs from model
-A_0 <- A
+A_0 <- A_reg
 for(i in 1:nrow(A_0)){
   
-  for( j in 1:ncol(A_0)){
+  for( j in 2:ncol(A_0)){
     if(A_0[i,j] < 0) {
       A_0[i,j] <- 0
       
@@ -132,7 +133,8 @@ for(i in 1:nrow(A_0)){
 
 SD_0 <- matrix(, nrow = 4, ncol = 1)
 Var_0 <- matrix(, nrow = 4, ncol = 1)
-for (i in 1:ncol(A_0)){
+
+for (i in 1:nrow(A_0)){
   #calc each row of mtx and add to A
   y <- matrix(observedStageMatrix[2:11, i])
   arow <- A_0[i,]
@@ -162,11 +164,12 @@ write_matex(Var_0)
 ```
 
 ```{r model negs removed, echo = FALSE}
+  A_0 <- matrix(A_0[,2:5], nrow = 4, ncol = 4)
   pop <- observedStageMatrix[13,]
   N <- list()
  
 #12 mo projection
-for (i in 1:12){
+for (i in 1:36){
      N[[1]] <- pop
     N[[i+1]] <- A_0 %*% N[[i]]
  }
@@ -196,7 +199,7 @@ print(ggplot(modeled_data) +
 \newpage
 Next Steps:
 
-1. This model doesn't include the b0 values by adding an extra column of 1's to beginning of X mtx
+1. This model doesn't include the b0 values by adding an extra column of 1's to beginning of X mtx XDONE
 2. Try Caswell and Twombly Method (1989) from 143 of Caswell book
 3. Try Wood's Quadratic Programming Method 6.2.2 from pg 144 of Caswell book
 4. Try to force certain aij's to be zero
