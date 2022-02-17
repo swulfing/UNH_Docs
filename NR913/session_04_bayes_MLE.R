@@ -171,59 +171,61 @@ library(R2jags)
 
 # Save JAGS description of the model to working directory. 
 # specify a mean and precision. Precision is 1/variance. Order does not matter.
-sink("penguins.txt")
+sink("penguins.txt") #write model as text file and then writve into WD and Jags will read that. That's what sink/cat does. Order btwn priors and whatever doesn't matter.
 cat("
-    model {
+    model { #always start JAGS with this model line
     
-    # Priors
-    beta0 ~ dnorm(0,0.01)		# precision inverse of variance
+    # Priors-all things we don't know
+    beta0 ~ dnorm(0,0.01)		# precision inverse of variance. This means huge variance
     beta1 ~ dnorm(0,0.01)
-    precision <- 1 / variance	
+    precision <- 1 / variance	#Priors are unknown. We only know #pengiuns and #krill
     variance <- sigma^2
-    sigma ~ dunif(0,15)
+    sigma ~ dunif(0,15) #sigma sq root of variance. We're saying anywhere btwn 1 and 15 (15 would be massive)
+    #No prior for mew. We will calc further down. We've covered mew using priors for b0 and b1
     
     
     # Likelihood
     for(i in 1:nobs){
-    penguins[i] ~ dnorm(mew[i], precision)
+    penguins[i] ~ dnorm(mew[i], precision) #This is the likelihood. From penguins data. Assuming it's normal with some expected mean mew. With precision (JAGS version of variance. precision = 1/variance). We're saying it depends on krill and we're ceating a model based off that V
     
-    mew[i] <- beta0 + beta1 * krill[i]
+    mew[i] <- beta0 + beta1 * krill[i] #obs drawn from mew which depends on krill with some random noise incorporated
     
     } # i loop
     
-    } # end of the model
+    } # end of the model. Penguins will now be saved in WD
     ",fill=TRUE)
 sink()
 
 # Bundle data
-win.data <- list(penguins = penguins_data, 
+win.data <- list(penguins = penguins_data, #bundle data to supply to jags model. needs to be in list form
                  krill = krill, 
                  nobs = length(penguins_data))
 
-# Function to generate starting values aka initial values
-inits <- function()list(beta0 = rnorm(1), 
+# Function to generate starting values aka initial values. Supply init vals
+inits <- function()list(beta0 = rnorm(1), #gievs beta dist w mean 0, sd1. If you don't supply it (like b1), it will just runt this as default
                         sigma = runif(1, 0, 15))
 
 # Parameters to be monitored (= to estimate)
 params <- c("beta0", 
             "beta1", 
-            "sigma")
+            "sigma")#Tells what we want outputs for
 
 # MCMC settings
-nc <- 3					# Number of chains
-ni <- 1000			# Number of draws from posterior (for each chain)
-nb <- 1					# Number of draws to discard as burn-in
-nt <- 1					# Thinning rate
+nc <- 3					# Number of chains. Conventional
+ni <- 1000			# Number of draws from posterior (for each chain). Will be more like 5/10/15,000 iterations
+nb <- 1					# Number of draws to discard as burn-in. Normally will be higher for more complex models
+nt <- 1					# Thinning rate. Ignore for now
 
-# prepare data
+# prepare data. out will run model
 out <- jags(win.data, inits, params, "penguins.txt", n.chains = nc, 
             n.thin = nt, n.iter = ni, n.burnin = nb, working.directory = getwd())
 
-print(out, dig =2)
+print(out, dig =2) #dig = 2 is rounding m vect is mean, sd vect is standard dev. from 2.5% to 97.5% iwll be 95% credible iterval
+#deviance and DIC is model selction. ignore for now
 
 # explore the output
 
-# plot
+# plot. Bayes vs linear mocel from above. Black is truth, blue is lm, red is bayes
 plot(penguins_data ~ krill, 
      ylab = "No. penguins (indiv/km2)", 
      xlab = "Krill density (indiv/m2)",
@@ -237,5 +239,16 @@ abline(a =out$BUGSoutput$mean$beta0,
        lwd = 4,lty = 3, col = "red")
 
 # look at convergence
+#out object tells you stuff abt model
+#out$model
+out$model
+out$BUGSoutput$sims.list$beta1#$list will tell you all the stuff bugs output can tell you
+
+#Run above code you get tons of numbers: raw output of MCMC
+dim(out$BUGSoutput$sims.list$beta1)
+hist(out$BUGSoutput$sims.list$beta1) #every value is mcmc value that was retained. Can do this for any param
+
+#Lets you inspect chain visually
 traceplot(out)
 
+#Explore this a little and see if you can break it lol

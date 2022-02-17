@@ -2,7 +2,9 @@
 title: "Caswell Twombly Method"
 author: "Sophie Wulfing"
 date: "2/9/2022"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -69,9 +71,12 @@ A <- matrix(c(p[1,7], 0, 0, f[1,7],
                       g[1,7], p[2,7], 0, 0,
                       0, g[2,7], p[3,7], 0,
                       0, 0, g[3,7], p[4,7]), byrow = TRUE, nrow = 4, ncol = 4)
-A
-
 ```
+
+```{r write A, results = 'asis', echo = FALSE, fig.cap = "Matrix calculated using Caswell Twombly Method"}
+write_matex(A)
+```
+
 ```{r projection}
 pop <- observedStageMatrix[13,]
 N <- list()
