@@ -1,0 +1,50 @@
+---
+title: "Wood's Quadratic Programming Method"
+author: "Sophie Wulfing"
+date: "2/17/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+setwd("C:/Users/sophi/Documents/UNH_Docs/Proposal/Mtx_Model")
+
+library(matlib)
+library(ggplot2)
+
+observedData <- as.matrix(data.frame(read.csv("RaberinaryBenbow2012Calcs.csv")))
+observedStageMatrix <- observedData[1:13, 2:5]
+```
+
+```{r matrix print,results = 'asis', echo = FALSE}
+write_matex <- function(x) {
+  begin <- "$$\\begin{bmatrix}"
+  end <- "\\end{bmatrix}$$"
+  X <-
+    apply(x, 1, function(x) {
+      paste(
+        paste(x, collapse = "&"),
+        "\\\\"
+      )
+    })
+  writeLines(c(begin, X, end))
+}
+```
+
+```{r initial things, echo = FALSE}
+#Make Z
+
+#Make 
+```
+
+
+Possible Helpful Links:
+
+https://stackoverflow.com/questions/55727368/how-to-minimize-a-function-in-r-with-two-constraints
+
+https://stackoverflow.com/questions/31301694/least-square-optimization-of-matrices-in-r?rq=1
+
+https://henrywang.nl/quadratic-programming-with-r/
+
+https://cran.r-project.org/web/packages/quadprog/quadprog.pdf
+

@@ -34,7 +34,7 @@ write_matex <- function(x) {
 ```
 
 ## Note
-Adapted from Caswell and Twombly(1989). From page 143 in Caswell book. This method is extremely sensitive to noise.
+Adapted from Caswell and Twombly(1989). From page 143 in Caswell book. This method is extremely sensitive to noise. Matrix calcs are outlined in this website: https://web.stanford.edu/~mrosenfe/soc_meth_proj3/matrix_OLS_NYU_notes.pdf
 
 ```{r initial setup, echo = FALSE}
 g <- matrix(, nrow = 3, ncol = 7)
