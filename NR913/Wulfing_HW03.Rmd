@@ -1,0 +1,154 @@
+---
+title: "Wulfing_HW03"
+author: "Sophie Wulfing"
+date: "2/21/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(R2jags)
+library(memisc)
+library(pander)
+
+setwd("~/UNH_Docs/NR913")
+
+mass   <- c(6, 8,5,7,9,11)
+pop    <- factor(c(1,1,2,2,3,3))
+region <- factor(c(1,1,1,1,2,2))
+hab    <- factor(c(1,2,3,1,2,3))
+svl    <- c(40, 45,39,50,52,57)
+
+data <- cbind(mass,pop,region,hab,svl)
+
+```
+
+**1. Recreate the model of the mean or the simple linear regression from the session_07 R 
+script as a Bayesian model. Were the results the same as the frequentist model?**
+
+Results were not the same, as the frequentist model (black linewhere beta = .2804 and a standard deviation of .06) resulted in a slightly steeper beta1 value than the Bayesian model (Red line where b1 = .27 with a standard deviation of .08). 
+
+```{r Q1, message = FALSE, warning = FALSE}
+# sink("HW3_model.txt") #Had to comment this out so markdown would knit
+ cat("
+     model { #always start JAGS with this model line
+
+     # Priors-all things we don't know
+     beta0 ~ dnorm(0,0.01)		# precision inverse of variance. This means huge variance
+     beta1 ~ dnorm(0,0.01)
+     precision <- 1 / variance	#Priors are unknown. We only know mass and svl
+     variance <- sigma^2
+     sigma ~ dunif(0,15) #sigma sq root of variance. We're saying anywhere btwn 1 and 15 (15 would be massive)
+     #No prior for mew. We will calc further down. We've covered mew using priors for b0 and b1
+
+
+     # Likelihood
+     for(i in 1:nobs){
+     mass[i] ~ dnorm(mew[i], precision) #This is the likelihood. From penguins data. Assuming it's normal with some expected mean mew. With precision (JAGS version of variance. precision = 1/variance). We're saying it depends on krill and we're ceating a model based off that V
+
+     mew[i] <- beta0 + beta1 * svl[i] #obs drawn from mew which depends on krill with some random noise incorporated
+
+     } # i loop
+
+     } # end of the model. Penguins will now be saved in WD
+     ",fill=TRUE)
+# sink() #I had to comment this out to get markdown to knit
+
+# Bundle data
+win.data <- list(mass = mass, 
+                 svl = svl, 
+                 nobs = nrow(data))
+
+# Function to generate starting values aka initial values. Supply init vals
+inits <- function()list(beta0 = rnorm(1), 
+                        sigma = runif(1, 0, 15))
+
+# Parameters to be monitored (= to estimate)
+params <- c("beta0", 
+            "beta1", 
+            "sigma")
+
+# MCMC settings
+nc <- 3
+ni <- 1000
+nb <- 1
+nt <- 1
+
+out <- jags(win.data, inits, params, "HW3_model.txt", n.chains = nc, 
+            n.thin = nt, n.iter = ni, n.burnin = nb, working.directory = getwd())
+
+print(out, dig =2) 
+
+m <- lm(mass ~ svl)
+summary(m)
+
+svl_p <- seq(min(svl),max(svl),length.out = length(svl))
+
+svl_preds <- m$coefficients[1] + m$coefficients[2]*svl_p
+
+
+
+plot(mass ~ svl, 
+     ylab = "Snake mass", 
+     xlab = "SVL",
+     pch = 20)
+lines(svl_preds ~ svl_p)
+abline(a =out$BUGSoutput$mean$beta0, 
+       b = out$BUGSoutput$mean$beta1,
+       lwd = 4,lty = 3, col = "red")
+```
+\newpage
+
+**2. Complete exercise 1 on page 89 of Kery 2010. Provide the model matrix. Note: there are 
+two correct answers: a means and an effects parameterization – either is fine. **
+
+Question: 1. Fitting a design matrix: The interaction-effects ANCOVA wasn’t a useful statistical model for the toy snake data set, since six fitted parameters perfectly explain six observations and we can’t estimate anymore the variability in the system. Use lm() to fit a custom-built design matrix, i.e., the design matrix of an ANCOVA with partial interaction effects, where the slopes of the mass length relationship are the same in population 1 and population 3. Build this design matrix in R, call it X, and fit the model by directly specifying X as the explanatory variable in function lm()
+
+```{r Q2}
+
+fm <- lm(mass ~ pop * svl)
+
+model.matrix(fm)
+
+#Now to make partial interaction effects
+X <- model.matrix(fm)[,2:5]
+X[3:4,3] <- 0
+#X[2,5] <- X[2,3]
+
+X
+new_m <- lm(mass~X)
+
+summary(new_m)
+model.matrix(new_m)
+
+```
+
+
+
+To be honest, I tried to graph this but couldn't get it to do it. Would you then take the average of the intercepts between pop1 and pop3 and then call that model the model for both of them? Or would you graph all three separately like you did in the original model still?
+
+\newpage
+
+**3. Fit a means and effects parameterization of a t-test or an ANOVA using either a) data you 
+simulate, b) the Swiss hare data, or c) your own data. Report the results from the two 
+methods either as a table or plot, and interpret them.
+**
+
+For this question, I used the Swiss hare data. I ran an ANOVA looking at the different effects that regions have on the density of hares. In the effects model, everything is being compared to the Aare region. The estimates report the DIFFERENCE between the number of hares you will expect to see at each site and that number of expected hares an the Aare region. The corresponding p values show us if these differences are stastically different from one another (we can say that Central and SW regions are the most stastically different). In the means model, each estimate is the number of expected hares in each region, without comparing the regions to eachother. The p values tell us if each expected number of hares is stastically signficant (which they all are, according to the model)
+
+```{r Q3a}
+
+hares <- read.delim("HW3_hareData.txt")
+
+model_effects <- lm(mean.density ~ region, hares)
+summary(model_effects)
+
+model_means <- lm(mean.density ~ region -1, hares)
+summary(model_means)
+
+
+
+```

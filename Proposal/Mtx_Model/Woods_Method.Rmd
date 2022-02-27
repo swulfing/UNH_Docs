@@ -33,12 +33,48 @@ write_matex <- function(x) {
 
 ```{r initial things, echo = FALSE}
 #Make Z
+z <- observedStageMatrix[2:11,]
+z
 
-#Make 
+#Make M
+m <- matrix(, nrow = (4 * nrow(z)) , ncol = 8)
+for(i in 1:(nrow(observedStageMatrix)-3)){
+  m[(4 * (i-1) + 1):(4 * i),] <- matrix(c(observedStageMatrix[i,1], 0, 0, 0, 0, 0, 0, observedStageMatrix[i,4],
+                                  0, observedStageMatrix[i,1], observedStageMatrix[i,2], 0, 0, 0, 0, 0,
+                                  0, 0, 0, observedStageMatrix[i,2], observedStageMatrix[i,3], 0, 0, 0,
+                                  0, 0, 0, 0, 0, observedStageMatrix[i,3], observedStageMatrix[i,4], 0),
+                                  nrow = 4, byrow = TRUE)
+  #m
+}
+
+#Make C
+c <- matrix(c(diag(8) * (-1), 
+              1, 1, 0, 0, 0, 0, 0, 0,
+              0, 0, 1, 1, 0, 0, 0, 0,
+              0, 0, 0, 0, 1, 1, 0, 0,
+              0, 0, 0, 0, 0, 0, 0, 1), nrow = 12, ncol = 8, byrow = TRUE)
+c
+#Make b
+b <- matrix(c(rep(0,8), rep(1,4)), nrow = 12, ncol = 1, byrow = TRUE)
+
+#Make P
+p <- matrix(, nrow = 8, ncol = 1, byrow = TRUE) #vector(p1, g1, p2, g2, p3, g3, f4, p4)
+
+#Make mtx G and vector x
+g <- t(m) %*% m
+f <- (t(-z) %*% m)
+
+
+test <- matrix(m %*% matrix(rep(1,8), nrow = 8, ncol = 1), nrow = 10, ncol = 4)
+z %*% test
+
+
 ```
 
 
 Possible Helpful Links:
+
+https://stackoverflow.com/questions/12349122/solving-quadratic-programming-using-r
 
 https://stackoverflow.com/questions/55727368/how-to-minimize-a-function-in-r-with-two-constraints
 

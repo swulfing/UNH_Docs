@@ -1,0 +1,43 @@
+ 
+    model {
+    
+    # PRIORS
+    a ~ dnorm(0,0.001)
+    b ~ dnorm(0,0.001)
+    tau <- 1/sigma^2
+    sigma ~ dunif(0,10)
+    
+    # LIKELIHOOD
+    for(i in 1:n){
+    y[i] ~ dnorm(mu[i],tau)
+    mu[i] <- a + b*x[i]
+    resid[i] <- y[i] - mu[i]   # residuals
+    
+    } # i
+    
+   # EXTRA FUN STUFF BRUH
+    # here, step evaluates if b is >= to 0. If model things beta is negative, will eval to 0. Probability of decline becomes 1. But calculates every at EVERY ITERATION. Will add them up so find prob pop is actually declining. Low slopes will have p < 1
+    p.decline <- 1 - step(b) # probability that population is declining
+    
+    # Assess model fit using sum-of-squares discrepancy measure ESSENTIALLY BAYES P VAL. How much does predicted vals from model look like the real data you collected
+    
+    for(i in 1:n){
+    
+    # squared residuals b/t model and observed data
+    sq[i] <- pow(resid[i],2) # use residual calculated above DISCREPENCY MEASURE-differnece btwn what model predicts and your data. This squares resid. can also use ^
+    
+    # Use model to generate new data MAKING NEW DATA norm dist with mean mu and precision tau
+    # And get squared residuals for that data set
+    y.new[i] ~ dnorm(mu[i], tau)
+    resid.new[i] <- y.new[i] - mu[i]
+    sq.new[i] <- pow(resid.new[i],2) #get sum of sqs for new data
+    }
+    
+    fit <- sum(sq[]) # sum of squares for observed data. the empty brackets are just C++ jargon
+    fit.new <- sum(sq.new[]) # sum of squares for model-generated data We're going to compare these. results in proprotion of times that model generated error is bigger than real data
+    test <- step(fit.new - fit)
+    bpvalue <- mean(test)
+    
+    
+    } # end of model  
+    
