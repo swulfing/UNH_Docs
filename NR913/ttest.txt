@@ -2,22 +2,16 @@
   model {
 
 # PRIORS
-mu1 ~ dnorm(0, 0.001)
-delta ~ dnorm(0, 0.001)
-sigma ~ dunif(0, 10)
-tau <- 1/sigma ^ 2
+beta0 ~ dnorm(0,0.001)
+beta1 ~ dnorm(0,0.001)
+tau <- 1/sigma^2
+sigma ~ dunif(0,10)
 
-# LIKELIHOOD Do these first adn then specify priors based on what you needed v
+# LIKELIHOOD
 for(i in 1:n){
-  y[i] ~ dnorm(mu[i], tau) #mean is linear predictor
-  mu[i] <- mu1 + delta * x[i] #x is the dummy variable we created (rows of 0s and 1s). Using mean of females (x = 0.) When x = 1, will add the difference btwn the mean of females and the difference btwn m/f to get males mean
-  
-  resid[i] <- y[i] - mu[i] #residuals, resudual error
+y[i] ~ dnorm(mu[i],tau)
+mu[i] <- beta0 + beta1*x[i]
+resid[i] <- y[i] - mu[i]   # residuals
 
 } # i
-
-# calculate mean for males
-mu2 <- mu1 +delta #outside loop so will calc mu2 once. Will then be updated in loop
-
-} # end of model  
-    
+} # end of model
