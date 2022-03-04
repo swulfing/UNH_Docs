@@ -1,0 +1,28 @@
+ 
+    model {
+
+    # PRIORS
+    for(j in 1:nsites){
+      alpha[j] ~ dnorm(0,0.001)
+      tau[j] <- 1/sigma[j]^2
+      sigma[j] ~ dunif(0,10)
+    }
+
+    # LIKELIHOOD
+    for(i in 1:n){
+      y[i] ~ dnorm(mu[i],tau[x[i]])
+
+      #mu[i] <- alpha0 + alpha1*x[i]
+      mu[i] <-  alpha[x[i]]
+
+    }
+    
+    diff12 <- alpha[2] - alpha[1]
+
+    for(i in 1:nsites){
+    avg[i] <- (alpha[i]*stdev_data) + mean_data
+    stan_dev[i] <- (sigma[i]*stdev_data) 
+
+    }
+    } # end of model  
+    

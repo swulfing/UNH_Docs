@@ -114,6 +114,10 @@ print(ggplot(modeled_data) +
 
 ```
 
+```{r analysis}
+eigen(A)
+```
+
 Possible Helpful Links:
 
 https://stackoverflow.com/questions/12349122/solving-quadratic-programming-using-r

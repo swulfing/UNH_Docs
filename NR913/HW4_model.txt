@@ -1,0 +1,21 @@
+model { #always start JAGS with this model line
+
+     # Priors-all things we don't know
+     beta0 ~ dnorm(0,0.01)		# precision inverse of variance. This means huge variance
+     beta1 ~ dnorm(0,0.01)
+     precision <- 1 / variance	#Priors are unknown. We only know mass and svl
+     variance <- sigma^2
+     sigma ~ dunif(0,15) #I just kept 15 cause that's what I've been using
+     #No prior for mew. We will calc further down. We've covered mew using priors for b0 and b1
+
+
+     # Likelihood
+     for(i in 1:nobs){
+     mean.density[i] ~ dnorm(mu[i], precision) #mass - > density
+
+     mu[i] <- beta0 + beta1 * elevation[i] #svl-> elevation
+
+     } # i loop
+
+     } # end of the model.
+     

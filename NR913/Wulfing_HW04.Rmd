@@ -1,0 +1,209 @@
+---
+title: "Wulfing_HW04"
+author: "Sophie Wulfing"
+date: "2/28/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(R2jags)
+library(tidyr)
+library(dplyr)
+
+setwd("~/UNH_Docs/NR913")
+
+hares_data <- read.delim("HW3_hareData.txt")
+
+```
+
+## R Question 1
+
+**Using either the Swiss hare dataset or your own data, run a Bayesian t-test OR a simple linear 
+regression using JAGS.**
+
+Hi sorry, I know you said to use our own data but I'm still in the middle of a data pull. I'll hopefully have some for next assignment but for now, hares. Also turns out elevation is not a very good predictor of hare density lol.
+
+```{r q1}
+hares <- hares_data %>% drop_na(elevation) %>% drop_na(mean.density)
+  
+
+#sink("HW4_model.txt") #Had to comment this out so markdown would knit
+ cat("model { #always start JAGS with this model line
+
+     # Priors-all things we don't know
+     beta0 ~ dnorm(0,0.01)		# precision inverse of variance. This means huge variance
+     beta1 ~ dnorm(0,0.01)
+     precision <- 1 / variance	#Priors are unknown. We only know mass and svl
+     variance <- sigma^2
+     sigma ~ dunif(0,15) #I just kept 15 cause that's what I've been using
+     #No prior for mew. We will calc further down. We've covered mew using priors for b0 and b1
+
+
+     # Likelihood
+     for(i in 1:nobs){
+     mean.density[i] ~ dnorm(mu[i], precision) #mass - > density
+
+     mu[i] <- beta0 + beta1 * elevation[i] #svl-> elevation
+
+     } # i loop
+
+     } # end of the model.
+     ",fill=TRUE)
+#sink() #I had to comment this out to get markdown to knit
+
+# Bundle data
+win.data <- list(mean.density = hares$mean.density, 
+                 elevation = hares$elevation, 
+                 nobs = nrow(hares))
+
+# Function to generate starting values aka initial values. Supply init vals
+inits <- function()list(beta0 = rnorm(1), 
+                        sigma = runif(1, 0, 15))
+
+# Parameters to be monitored (= to estimate)
+params <- c("beta0", 
+            "beta1", 
+            "sigma")
+
+# MCMC settings
+nc <- 3
+ni <- 1000
+nb <- 1
+nt <- 1
+
+out <- jags(win.data, inits, params, "HW4_model.txt", n.chains = nc, 
+            n.thin = nt, n.iter = ni, n.burnin = nb, working.directory = getwd())
+
+print(out, dig =2) 
+
+m <- lm(mean.density ~ elevation, hares)
+summary(m)
+
+elevation_p <- seq(min(hares$elevation), max(hares$elevation),length.out = length(hares$elevation))
+
+elevation_preds <- m$coefficients[1] + m$coefficients[2]*elevation_p
+
+
+
+plot(hares$mean.density ~ hares$elevation, 
+     ylab = "Hare Density", 
+     xlab = "Elevation",
+     pch = 20)
+lines(elevation_preds ~ elevation_p)
+abline(a =out$BUGSoutput$mean$beta0, 
+       b = out$BUGSoutput$mean$beta1,
+       lwd = 4,lty = 3, col = "red")
+# plot. Bayes vs linear mocel from above. Black is truth, blue is lm, red is bayes
+
+```
+
+\newpage
+
+## BONUS
+
+**Fit a means parameterization of a t-test in JAGS, either to the Swiss hares data, 
+simulation data, or your own data. Hint: see page 120-121 of Kéry 2010 regarding double indexing syntax**
+
+Ok I have no idea how to actually do this. I figured out the alpha indexing thing but couldn't get the equation quite right until class today. However, when I set up the matrix (d) it still down't look right. Is it a model issue or am I just setting up that matrix incorrectly?
+
+```{r bonus}
+bonus_hares <- hares_data %>% 
+        drop_na(landuse) %>% 
+        drop_na(mean.density )
+
+for(i in 1:nrow(bonus_hares)){
+        if(bonus_hares$landuse[i] == "arable"){
+                bonus_hares$x[i] <- 1
+        }
+        else{ # if(bonus_hares$landuse[i] == "grass")
+                bonus_hares$x[i] <- 2
+        }
+}
+
+# bonus_hares
+# 
+# data_sum <- bonus_hares  %>%
+#         group_by(landuse) %>%
+#         summarise_at(vars(mean.density), list(name = mean, sd))
+# 
+# mu1 <- as.numeric(data_sum[1,2]) #Arable land mean
+# mu2 <- as.numeric(data_sum[2,2]) #Grassland mean
+# 
+# sigma1 <- as.numeric(data_sum[1,3]) #Arable land sd
+# sigma2 <- as.numeric(data_sum[2,3]) #Grassland sd
+
+#sink("HW4_bonusModel.txt")
+cat(" 
+    model {
+
+    # PRIORS
+    for(j in 1:nsites){
+      alpha[j] ~ dnorm(0,0.001)
+      tau[j] <- 1/sigma[j]^2
+      sigma[j] ~ dunif(0,10)
+    }
+
+    # LIKELIHOOD
+    for(i in 1:n){
+      y[i] ~ dnorm(mu[i],tau[x[i]])
+
+      #mu[i] <- alpha0 + alpha1*x[i]
+      mu[i] <-  alpha[x[i]]
+
+    }
+    
+    diff12 <- alpha[2] - alpha[1]
+
+    for(i in 1:nsites){
+    avg[i] <- (alpha[i]*stdev_data) + mean_data
+    stan_dev[i] <- (sigma[i]*stdev_data) 
+
+    }
+    } # end of model  
+    ",fill = TRUE)
+#sink()
+
+win.data <- list(y= bonus_hares$mean.density,
+                 n = nrow(bonus_hares),
+                 x = bonus_hares$x,
+                 nsites = length(unique(bonus_hares$x)),#This is just going to be 2
+                 stdev_data = sd(bonus_hares$mean.density),
+                 mean_data = mean(bonus_hares$mean.density))
+
+# Initial values
+inits <- function()list(alpha = rnorm(length(unique(bonus_hares$x))), 
+                        sigma = rlnorm(length(unique(bonus_hares$x))))
+
+# Parameters monitored
+params <- c("alpha",
+            "sigma",
+            "diff12",
+            "avg",
+            "stan_dev"
+) 
+
+# MCMC settings
+ni <- 10000; nt <- 1; nb <- 1000; nc <- 3
+
+
+out <- jags(win.data, inits, params, "HW4_bonusModel.txt", 
+            n.chains = nc, n.thin = nt, n.iter = ni, n.burnin = nb, 
+            working.directory = getwd())
+print(out, dig = 2)
+
+# FIX THISsee the full columns of the design matrix and linear algebra
+d <- data.frame(density = round(bonus_hares$mean.density,1),
+           int = rep(1,length(bonus_hares$mean.density)),
+           alpha1 = round(rep(out$BUGSoutput$mean$alpha[1], length(bonus_hares$mean.density)),1),
+           landuse = bonus_hares$x,
+           alpha2 = round(rep(out$BUGSoutput$mean$alpha[2], length(bonus_hares$mean.density)),1))
+           #resid = round(out$BUGSoutput$mean$resid,1))
+
+print(d)
+
+```
+

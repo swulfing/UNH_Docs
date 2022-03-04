@@ -1,0 +1,26 @@
+ 
+    model {
+    
+    # PRIORS
+    for(i in 1:nsites){       #loop for alphas. can also do alpha[1] alpha[2]
+    alpha[i] ~ dnorm(0,0.001)
+    }
+    tau <- 1/sigma^2
+    sigma ~ dunif(0,100) #This gives only 1 variance across all sites
+    
+    # LIKELIHOOD
+    for(i in 1:n){
+    cpue[i] ~ dnorm(mu[i],tau)
+    mu[i] <- alpha[site[i]] #Mean will vary by site. 3 alphas, 1 per site. loop through every row of your dataset.
+    } # i
+    
+    # derived quantitites
+    diff23 <- alpha[3] - alpha[2]
+
+    # generate new data from the fitted model
+    for(i in 1:n){
+    y.new[i] ~ dnorm(mu[i],tau)   #Generates new data for each run of mcmc
+    }
+    
+    } # end of model  
+    
