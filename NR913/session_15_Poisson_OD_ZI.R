@@ -205,7 +205,7 @@ cat("
     hares[i] ~ dpois(lambda[i])
     log(lambda[i]) <- beta0 + beta1 * landuse[i] + eps[i]
 
-    eps[i] ~ dnorm(0,tau) # extra site-level variance not captured by the covariates
+    eps[i] ~ dnorm(0,tau) # extra site-level variance not captured by the covariates. new pit
     
     # CHECK MODEL FIT
     presid[i] <- (hares[i] - lambda[i])/sqrt(lambda[i]) 
@@ -254,7 +254,7 @@ out <- jags(win.data, inits, params, "poisson.txt",
             working.directory = getwd())
 print(out, dig = 2)
 
-# plot parameter posteriors
+# plot parameter posteriors. How we have a bayes p val of .5 which is the best. betas are actually similar. different estimated eps for each site
 o <- out$BUGSoutput$sims.list
 
 # convert to raw scale and plot
@@ -269,7 +269,7 @@ plot(d,
 polygon(d, col = rgb(255,255,181, alpha = 255, maxColorValue = 255), 
         border = "black", lwd = 3)
 polygon(d2, col = rgb(182,207,182, alpha = 155, maxColorValue = 255), 
-        border = "black", lwd = 3)
+        border = "black", lwd = 3) #means are a lot more diffused. model is more uncertain (this is good)
 
 # plot actual predictions of hare abundance
 d <- o$hares.new[,hares$landuse == "arable"]
@@ -311,7 +311,8 @@ hist(hares$count2[hares$landuse == "arable"],
      xlab = "Observed number of hares",
      main = "Arable")
 
-dev.off()
+dev.off() #this one site in arable is causing a small bump in the model. 
+#Can't use this model for a new site because the error term is not based on anything
 
 
 # zero-inflated Poisson data ---------------------------------------------------
@@ -322,14 +323,14 @@ n.site <- 40 # number of sites in each land use category
 x <- gl(n = 2, k = n.site, labels = c("grassland","arable"))
 
 # generate suitable and non-suitable sites
-w <- rbinom(n = 2*n.site, size = 1, prob = psi)
+w <- rbinom(n = 2*n.site, size = 1, prob = psi)#essentially a coin flip. bernoulli is special case of binomial
 w
 
 # linear predictor - counts depend upon land use as before
 lambda <- exp(0.69 + 0.92*(as.numeric(x)-1)) # means of 2 and 5 in grass and arable
 
 # now simulate zero-inflated count data
-C <- rpois(n = 2*n.site, lambda = w*lambda)
+C <- rpois(n = 2*n.site, lambda = w*lambda) #when we generate data, we're multiplying by the bernoulli result
 par(mfrow = (c(2,2)))
 hist(C, main = "All counts",xlab = "No. hares", col = midnight)
 hist(C[x == "grassland"], main = "Grassland counts",xlab = "No. hares", col = limabean)
@@ -395,6 +396,8 @@ out <- jags(win.data, inits, params, "poisson.txt",
             n.chains = nc, n.thin = nt, n.iter = ni, n.burnin = nb, 
             working.directory = getwd())
 print(out, dig = 2)
+#Terrible bayes p val
+
 
 # plot parameter posteriors
 o <- out$BUGSoutput$sims.list
@@ -417,6 +420,8 @@ abline(v = exp(0.69),
 abline(v = exp(0.69 + 0.92), 
        lwd = 4, lty = 3)
 
+#Dashed lines are actual means. model is underestimating hares 
+
 # zero-inflated Poisson JAGS analysis -----------------------------------------------------------
 
 # JAGS model WITH zero-inflation
@@ -432,7 +437,7 @@ cat("
     # LIKELIHOOD
     for(i in 1:n){
 
-    w[i] ~ dbern(psi)
+    w[i] ~ dbern(psi) #Adding a term
     hares[i] ~ dpois(w[i]*lambda[i])
     log(lambda[i]) <- beta0 + beta1 * landuse[i] 
     
@@ -476,7 +481,7 @@ ni <- 40000; nt <- 1; nb <- 1000; nc <- 3
 out <- jags(win.data, inits, params, "poisson.txt", 
             n.chains = nc, n.thin = nt, n.iter = ni, n.burnin = nb, 
             working.directory = getwd())
-print(out, dig = 2)
+print(out, dig = 2) #Way better p val
 
 # plot parameter posteriors
 o <- out$BUGSoutput$sims.list
@@ -497,6 +502,8 @@ abline(v = exp(0.69),
        lwd = 4, lty = 2)
 abline(v = exp(0.69 + 0.92), 
        lwd = 4, lty = 3)
+#This is a lot better than last plot
+#You should almost never use this because you should know your data enough to tell you about suitability that you can include as a covariate
 
 
 # offset ------------------------------------------------------------------
