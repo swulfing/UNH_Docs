@@ -1,0 +1,42 @@
+ 
+    model {
+    
+    # PRIORS
+    for(i in 1:ngroups){
+    alpha[i] <-  B[i,1]
+    beta[i]  <-  B[i,2]
+    B[i, 1:2] ~ dmnorm(B.hat[i,], Tau.B[,])
+    B.hat[i,1] <- mu.int
+    B.hat[i,2] <- mu.slope
+    }
+    
+    # hyperpriors for intercepts and slopes
+
+    mu.int ~ dnorm(0,0.001)
+    mu.slope ~ dnorm(0,0.001)
+    
+    Tau.B[1:2, 1:2] <- inverse(Sigma.B[,])
+    
+    Sigma.B[1,1] <- sigma.int^2   
+    sigma.int ~ dunif(0,100)
+    Sigma.B[2,2] <- sigma.slope^2
+    sigma.slope ~ dunif(0,100)
+    
+    Sigma.B[1,2] <- rho * sigma.int*sigma.slope
+    Sigma.B[2,1] <- Sigma.B[1,2]
+    covariance <- Sigma.B[1,2]
+    rho ~ dunif(-1,1)
+    
+    
+    # prior for variance
+    tau <- 1/sigma^2
+    sigma ~ dunif(0,100)
+    
+    # LIKELIHOOD
+    for(i in 1:n){
+    mass[i] ~ dnorm(mu[i],tau)
+    mu[i] <- alpha[pop[i]] + beta[pop[i]] * length[i]
+    } # i
+
+     } # end of model  
+    

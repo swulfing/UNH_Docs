@@ -1,0 +1,29 @@
+ 
+    model {
+    
+    # PRIORS
+    
+    # priors for all combinations
+    for(i in 1:nsites){
+    for(j in 1:nremoval){
+    group.mean[i,j] ~ dnorm(0,0.001)
+    }
+    }#avoids triple bracketing. means for each site/yn thing
+    
+    # prior for variance
+    tau <- 1/sigma^2
+    sigma ~ dunif(0,100)
+    
+    # LIKELIHOOD
+    for(i in 1:n){
+    cpue[i] ~ dnorm(mu[i],tau)
+    mu[i] <- group.mean[site[i],removal[i]]
+    } # i
+    
+    # generate new data from the fitted model
+    for(i in 1:n){
+    y.new[i] ~ dnorm(mu[i],tau)
+    }
+    
+    } # end of model  
+    

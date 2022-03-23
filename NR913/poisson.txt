@@ -1,0 +1,30 @@
+ 
+    model {
+    
+    # PRIORS
+    beta0 ~ dnorm(0,0.001)  
+    beta1 ~ dnorm(0,0.001)  
+    
+    # LIKELIHOOD
+    for(i in 1:n){
+    hares[i] ~ dpois(lambda[i])
+    log(lambda[i]) <- beta0 + beta1 * landuse[i] 
+
+    # CHECK MODEL FIT
+    presid[i] <- (hares[i] - lambda[i])/sqrt(lambda[i]) 
+    hares.new[i] ~ dpois(lambda[i])   
+    presid.new[i] <- (hares.new[i] - lambda[i])/sqrt(lambda[i]) 
+    
+    D[i] <- presid[i]^2    
+    D.new[i] <- presid.new[i]^2 
+    
+    
+    } # i
+    
+    # CHECK MODEL FIT - BAYESIAN P-VALUE
+    D.sum <- sum(D[])  
+    D.new.sum <- sum(D.new[]) 
+    Bayes.P <- step(D.new.sum/D.sum - 1) 
+    
+    } # end of model  
+    

@@ -141,7 +141,10 @@ mean_ele <- tapply(mart$elevation,
                    FUN = mean)
 mean_ele
 over100 <- names(mean_ele)[which(mean_ele > 200)]
-#mart <- mart[mart$Array %in% over100,] THis is nt indexing correctly, its maintaining original numbers of level of dataset instead of renumbering them
+
+#FIXTHIS
+#mart <- mart[1:240,]#tHIS DIDNT WORK EITHER
+mart <- mart[mart$Array %in% over100,] #THis is nt indexing correctly, its maintaining original numbers of level of dataset instead of renumbering them
 
 # means by each array
 mean_ele <- tapply(mart$elevation, 
