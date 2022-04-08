@@ -1,0 +1,23 @@
+ 
+    model {
+    
+    # PRIORS
+      beta0 ~ dnorm(0, .001)
+      beta1 ~ dnorm(0, .001)
+      #p is defined by betas, p is defined by the betas
+      #These priors can actually mess up logistic regressions, but we'll get back to that
+      
+      
+      
+    # LIKELIHOOD
+      
+      for(i in 1:nsite){
+      
+        mart[i] ~ dbern(p[i])
+        
+        #Now write linear predictor
+        logit(p[i]) <- beta0 + beta1 * cwood[i]
+        
+      }
+    } # end of model  
+    

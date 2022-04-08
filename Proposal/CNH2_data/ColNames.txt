@@ -1,0 +1,21 @@
+Town of Collection
+Date - Month
+Date - day
+Date - Year
+Full DATE
+ANARANY-fisher
+KARAZANY-catch type
+ISANY-no.
+KILO-wt
+Average Size (kilo/individual)-avg wt
+VIDINY/AR - price in ariary
+Olo firy ????? - # ppl per trip?
+TAIA - fishing spot (see map)
+SEXE - sex of fisher Lahy = male and Ampela / Vavy = female
+FIRY - ????
+FITAOVANA - fishing gear
+USD Price (1 USD= 2167.75 ariary)
+Total time
+*ignore other unnamed cols
+
+

@@ -124,7 +124,19 @@ for (i in 1:length(A)){
 #               0, qp_round[4], qp_round[5], 0,
 #               0, 0, qp_round[6], qp_round[8]), byrow = TRUE, nrow = 4, ncol = 4)
 
-write_matex(A_round)
+round_A <- matrix(A_round, 4, 4)
+
+round_A[1] <- paste0("P1 = ", round_A[1])
+round_A[13] <- paste0("F4 = ", round_A[13])
+round_A[2] <- paste0("G1 = ", round_A[2])
+round_A[6] <- paste0("P2 = ", round_A[6])
+round_A[7] <- paste0("G2 = ", round_A[7])
+round_A[11] <- paste0("P3 = ", round_A[11])
+round_A[12] <- paste0("G3 = ", round_A[12])
+round_A[16] <- paste0("P4 = ", round_A[16])
+
+
+write_matex(round_A)
 ```
 
 ```{r projection, echo = FALSE}
@@ -161,8 +173,16 @@ ggplot(modeled_data) +
 
 ```
 
-```{r analysis}
-eigen(A)
+```{r A analysis}
+A_eigen <- eigen(A)
+
+A_stable_stage <- A_eigen$vectors[,1]/sum(A_eigen$vectors[,1]) 
+A_stable_stage
+
+A_repro_value <- eigen(t(A))$vectors[,1]/eigen(t(A))$vectors[1,1]
+A_repro_value
+
+A_repro_value %*% A_stable_stage
 ```
 
 Possible Helpful Links:

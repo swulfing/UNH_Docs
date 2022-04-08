@@ -1,0 +1,266 @@
+
+female %>%
+  filter(TAIA2=="Danahitse"|TAIA2== "DANAHITSE"|TAIA2== "DANIAHITSE"|
+           TAIA2=="DANOHITSE"|TAIA2=="Donahitse")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Sarim-pase"|TAIA2== "Sorimpase"|TAIA2== "SORIMPASE")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Bemena"|TAIA2== "BEMENA"|TAIA2== "Bemena ")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="VAVAE AVARATSE"|TAIA2== "vavaevaratse"|TAIA2== "Vavalavaratse ")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Tsimahafory"|TAIA2== "Tsimahafot"|TAIA2== "Tsimahafoty"|TAIA2=="TSIMAHAFOTY")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Antandea"|TAIA2== "Antandebe"|TAIA2== "Antandeo"|TAIA2=="ANtandeo"
+         |TAIA2=="ANTANDEO"|TAIA2=="Antaneo"|TAIA2=="Anandeo"|TAIA2=="Tandeo"
+         |TAIA2=="TANDEO"|TAIA2=="TANDEOBE"|TAIA2=="Tandeope")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="TAMBAHY"|TAIA2== "TAMBOHO"|TAIA2== "TAMBOHY"|TAIA2=="Antamboha"
+         |TAIA2=="Antamboha "|TAIA2=="Antamboho"|TAIA2=="AntambohO"|TAIA2=="Antamboho"
+         |TAIA2=="ANTAMBOHO"|TAIA2=="ANTAMBOHY"|TAIA2=="ANTAMBAHY"|TAIA2=="Antanimboho"
+         |TAIA2=="ATAMBOHY")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Mazatse"|TAIA2== "Mahasaha"|TAIA2== "MAHASAHA"|TAIA2=="Mahasaha "
+         |TAIA2=="Mahaseha "|TAIA2=="Mahazatse"|TAIA2=="MAHAZATSE"|TAIA2=="Mahazatse "
+         |TAIA2=="MAHAZATSY")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Ambatobe"|TAIA2== "AMBATOBE"| TAIA2== "Batobe"|TAIA2=="VATOBE ")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="AMBALANY"|TAIA2== "Ambalany "| TAIA2== "AMBALAVY"|
+           TAIA2=="Ambalany"|TAIA2== "Ambana"| TAIA2== "Ambulany"|TAIA2=="Ampalany ")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="AGNAHIPILO")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="AMBA")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Ambatotsilaky")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="AMBATOLOAKY")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Ambatovy"|TAIA2== "AMBATOVY "| TAIA2== "Ambatovy "|
+           TAIA2=="Batovy "|TAIA2== "vatovy")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="NDOHAOLO"|TAIA2== "Andohaolo"| TAIA2== "ANDOHAOLO")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="AMBAVAE")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="AMBILANY")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="ABOE"|TAIA2== "ABOHOE"|TAIA2== "Ambohoe"|TAIA2=="AMBOHOE"
+         |TAIA2=="Ambohoe "|TAIA2=="AMBOHOKE"|TAIA2=="AMBOHONY")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Ambolivato")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="AMPASE"|TAIA2== "ampase "|TAIA2== "Ampase "|TAIA2=="AMPASY"
+         |TAIA2=="AMPASILAVA")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Ampilako"|TAIA2== "AMPILAKO")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="TANOSE"|TAIA2== "Anose"|TAIA2== "ANOSE"|TAIA2=="Anose "
+         |TAIA2=="ANOSY"|TAIA2=="Anananose"|TAIA2=="ANANANOSE"|TAIA2=="ANANANOSE "
+         |TAIA2=="Anananosy"|TAIA2=="ANANANOSY"|TAIA2=="Ananaosy"|TAIA2=="Ananosy"
+         |TAIA2=="Nanonose "|TAIA2=="Nanose "|TAIA2== "nananose"|TAIA2== "Nananose"
+         |TAIA2=="NANANOSE"|TAIA2=="nananose "|TAIA2== "Nananose "|TAIA2== "NANANOSY")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Andama"|TAIA2== "ANDAMA"|TAIA2== "Andama "|TAIA2=="Andamabe"
+         |TAIA2=="ANdamabe "|TAIA2=="ANDAMABE"|TAIA2=="Anadamabe"|TAIA2=="Andalmabe")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Andaniriake"|TAIA2== "Andaniriake"|TAIA2== "ANDANIRIAKE"|TAIA2=="Daniriake"
+         |TAIA2=="DANIRIAKE")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="ANDOHARIAKE")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Andohavato")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="ANDRANO") %>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Anjokozoko"|TAIA2== "ANJOKOZOKO"|TAIA2== "JOKOZKO"|TAIA2=="Jokozoko"
+         |TAIA2=="JOKOZOKO"|TAIA2=="Drokozoko")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="AKARA"|TAIA2== "Ankara"|TAIA2== "ANKARA "|TAIA2=="Ankara ")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="ANKATSAEPOTIKE") %>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Ankemake"|TAIA2== "ANKEMAKE"|TAIA2== "Ankemoke"|TAIA2=="Ankenae"
+         |TAIA2=="ANkenae "|TAIA2=="ANKENAE"|TAIA2=="Ankenae "|TAIA2=="Ankamake")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="ANKORA"|TAIA2== "ANKORAKE"|TAIA2== "Ankorake ")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="ANOLOTSE") %>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Antagie"|TAIA2== "Antagie "|TAIA2== "Antangie"|TAIA2=="ANtangie"
+         |TAIA2=="Antangie "|TAIA2=="Tangie"|TAIA2=="TANGIE "|TAIA2=="Tangie ")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Antendebe") %>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="ANTOVY") %>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="ANTSARAGNA") %>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Apilalo") %>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="BADOBE") %>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="BEDABOKE") %>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Beharona"|TAIA2== "BEHARONA"|TAIA2== "Beharona  "|TAIA2=="BEHARONGA")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Belameara"|TAIA2== "belamera"|TAIA2== "Belamera"|TAIA2=="BELAMERA"
+         |TAIA2=="Belamera "|TAIA2=="BELAMERA ")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Belampa"|TAIA2== "Belapa"|TAIA2== "BELAPA"|TAIA2=="BELOPA")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="BELOFISA"|TAIA2== "BELOFISAKE")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Betabake"|TAIA2== "BETABAKE")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="ABEVIKO"|TAIA2== "Beviko"|TAIA2== "BEVIKO ")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="BOLOAKE") %>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Borimpase") %>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Bozike") %>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Lamabe"|TAIA2== "LAMABE"|TAIA2== "Lamabe ")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="marerano"|TAIA2== "Marerano"|TAIA2== "MARERANO")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="nandoa"|TAIA2== "Nandoa"|TAIA2== "NANDOA"|TAIA2=="Nandoa "
+         |TAIA2=="N ANDOA"|TAIA2=="NADOA")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Nanahofa"|TAIA2== "MANOFOHA"|TAIA2== "Nanohfa"|TAIA2=="nanohofa"
+         |TAIA2=="Nanohofa "|TAIA2=="NANOHOFA"|TAIA2=="Nanohofa"|TAIA2=="Hanohofa ")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="Nokoabe"|TAIA2== "Nonokaobe"|TAIA2== "NONOKAOMBE"|TAIA2=="NONOKOABE"
+         |TAIA2=="Nanokaobe "|TAIA2=="Nanokombe"|TAIA2=="Honokaobe"|TAIA2=="Anonokaombe ")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="NOSEKARA"|TAIA2== "Nosekara "|TAIA2== "Nosenkara"|TAIA2== "NOSYKARA")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="PASILAVA") %>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="SAREHIMA"|TAIA2== "Sarehima "|TAIA2== "Sarihima"|TAIA2=="SARIHIMA"
+         |TAIA2=="Sarihina"|TAIA2=="Serehima")%>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="TAKOHY") %>%
+  count(Date...Year)
+
+female %>%
+  filter(TAIA2=="TRANOBARAHA") %>%
+  count(Date...Year)
