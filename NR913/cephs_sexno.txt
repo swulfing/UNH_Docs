@@ -1,0 +1,16 @@
+ 
+    model {
+    
+    # PRIORS
+    beta0 ~ dnorm(0,0.001)  # intercept
+    beta1 ~ dnorm(0,0.001)  # effect of M/F, IDK
+    
+    # LIKELIHOOD
+    for(i in 1:n){
+    cephs[i] ~ dpois(lambda[i]) #error term built in bc lambda is both mean and var
+    log(lambda[i]) <- beta0 + beta1 * sex[i] # sex needs to be 0s and 1s. predicting log of lambda, not lambda
+    #lambda[i] <- exp(beta0 + beta1 * sex[i] ) Alternative form
+    } # i
+    
+    } # end of model  
+    
