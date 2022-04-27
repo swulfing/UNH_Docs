@@ -174,15 +174,70 @@ ggplot(modeled_data) +
 ```
 
 ```{r A analysis}
+#eigenvecors and vals
 A_eigen <- eigen(A)
+A_eigen
 
+#Intrinsic Rate of Increast (r): lambda = e^r
+r <- log(A_eigen$values[1])
+
+#stable stage dist
 A_stable_stage <- A_eigen$vectors[,1]/sum(A_eigen$vectors[,1]) 
 A_stable_stage
 
+#reproductive value
 A_repro_value <- eigen(t(A))$vectors[,1]/eigen(t(A))$vectors[1,1]
 A_repro_value
 
+#mean reproductive value- is the avg no offspring?
 A_repro_value %*% A_stable_stage
+
+
+#. Vandermeer (1975, 1978)
+```
+
+```{r lifeHistory, echo = FALSE}
+pop <- c(1000, 0, 0, 0)
+N <- list()
+
+
+#72 mo projection
+for (i in 1:240){
+     N[[1]] <- pop
+    N[[i+1]] <- A %*% N[[i]]
+ }
+
+modeled_data <- t(as.data.frame(do.call(cbind, N)))
+colnames(modeled_data) <- c("Stage_1", "Stage_2", "Stage_3", "Stage_4")
+modeled_data <- cbind(modeled_data, month = 0:240, pop = rowSums(modeled_data[,1:4]))
+
+
+#write.csv(modeled_data, "testing.csv",row.names = TRUE)
+modeled_data <- data.frame(modeled_data)
+
+ggplot(modeled_data) + 
+  geom_line(aes(y = pop, x = month), size = 1.5) + 
+  ggtitle("Ten year population projection") + #paste0(i, " month projection")) +
+  xlab("Year") +
+  ylab("Total Pop") +
+  geom_hline(yintercept=20, linetype="dashed", color = "red") +
+  geom_hline(yintercept=20, linetype="dashed", color = "red") +
+  scale_x_continuous(breaks = seq(0, 240, 24), label = seq(2006, 2016))
+
+# ggplot(modeled_data[1:120,]) + 
+#   geom_line(aes(y = Stage_1, x = month, color = "Stage 1"), size = 1.5) + 
+#   geom_line(aes(y = Stage_2, x = month, color= "Stage 2"), size = 1.5) +
+#   geom_line(aes(y = Stage_3, x = month, color = "Stage 3"), size = 1.5) + 
+#   geom_line(aes(y = Stage_4, x = month, color= "Stage 4"), size = 1.5) +
+#   scale_color_manual(name = "", values = c("Stage 1" = "#004949",
+#                                                 "Stage 2" = "#009292",
+#                                                 "Stage 3" = "#db6d00",
+#                                                 "Stage 4" = "#920000")) +
+#   ggtitle("Ten year population projection") + #paste0(i, " month projection")) +
+#   xlab("Year") +
+#   ylab("No. Individuals") +
+#   scale_x_continuous(breaks = seq(0, 120, 12), label = seq(2006, 2016))
+
 ```
 
 Possible Helpful Links:

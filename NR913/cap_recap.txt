@@ -1,0 +1,34 @@
+
+    model {
+    
+    # PRIORS
+      
+    for(j in 1:nocc){
+      lp[j] ~ dlogis(0,1) #now predicting the LOGIT of p, not p. Different different dist
+    }
+      omega ~ dunif(0,1)
+      
+      tau <- 1/(sigma^2)
+      sigma ~ dunif(0,10)
+
+    # LIKELIHOOD
+    for(i in 1:M){
+        w[i] ~ dbern(omega)
+        
+        eps[i] ~ dnorm(0,tau) #higher eps is a tiger with a higher detection prob
+    
+        for(j in 1:nocc){
+          y_aug[i,j] ~ dbern(w[i] * p[i,j])
+          
+          logit(p[i,j]) <- lp[j] + eps[i] #lp is no longer detection prob, it's the logit of te
+          
+
+        }#j
+      }#i
+
+
+    # DERIVED QUANTITIES
+      N <- sum(w[])
+    
+    }
+    
