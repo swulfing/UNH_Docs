@@ -1,0 +1,162 @@
+---
+title: "ModelTests"
+author: "Sophie Wulfing"
+date: '2022-05-05'
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(R2jags)
+library(tidyr)
+library(dplyr)
+
+setwd("~/UNH_Docs/NR913")
+
+cephs <- read.csv("C:/Users/sophi/Documents/UNH_Docs/Proposal/CNH2_data/cleanData.csv")
+
+site_data <- cephs %>%
+    group_by(REGION) %>%
+    summarise(Count = n()) %>%
+    filter(Count > 150)
+
+ceph_sites <- cephs %>%
+  filter(REGION %in% site_data$REGION)
+
+ceph_sites2 <- transform(ceph_sites,id=as.numeric(factor(REGION)))
+
+ceph_model <- transform(cephs,id=as.numeric(factor(REGION)), sex_id=(as.numeric(factor(FISHER_SEX))-1))
+ceph_sex <- ceph_model %>% drop_na(sex_id)
+
+purps <- "#440154FF"
+midnight <- "#414487FF"
+dkteal <- "#2A788EFF"
+limabean <- "#7AD151FF"
+bananas <- "#FDE725FF"
+```
+
+```{r}
+effort <- ceph_model %>%
+  filter(!is.na(FISHING_TIME) & !is.na(PRICE_USD) & !is.na(FISHER_SEX) & as.numeric(FISHING_TIME_ADJ) != 0)
+effort$TIME_VAL <- effort$PRICE_USD/as.numeric(effort$FISHING_TIME_ADJ)
+
+  
+```
+
+```{r sexpay, echo = FALSE}
+#TTEST
+#Talk about differences in bayes p val and dic btwn models
+
+pay.t.test <- glm(effort$TIME_VAL ~ effort$sex_id)
+summary(pay.t.test) #effect of arable are significant. ESTIMATES ARE ON LOG SCALE
+
+#Visualize Data-FIX THIS
+boxplot(TIME_VAL ~ FISHER_SEX, 
+        ylab = "No caught per landing",
+        xlab = "Site",
+        outline = TRUE,
+        notch = FALSE,
+        staplewex = 0.2,
+        boxwex = 0.4,
+        border = TRUE,
+        data = effort)
+
+sink("cephs_sexpay.txt")
+cat(" 
+    model {
+    
+    # PRIORS
+    alpha0 ~ dnorm(0,0.001)
+    alpha1 ~ dnorm(0,0.001)
+    beta0 ~ dunif(0,5)
+    beta1 ~ dnorm(0,0.001)
+
+    # LIKELIHOOD
+    for(i in 1:n){
+    y[i] ~ dnorm(mu[i],tau[i])
+    
+    mu[i] <- alpha0 + alpha1*x[i]
+
+    tau[i] <- 1/sigma[i]^2
+
+    sigma[i] <- beta0 + beta1*x[i]
+
+    }
+    } # end of model",fill = TRUE)
+sink()
+
+win.data <- list(y = log(effort$TIME_VAL),
+                 x = effort$id,
+                 n = nrow(effort))
+
+# Initial values
+inits <- function() list(alpha0 = rnorm(1), beta0 = rlnorm(1),
+                         alpha1 = rnorm(1), beta1 = rnorm(1))
+
+# Parameters monitored
+params <- c("alpha0",
+            "alpha1",
+            "beta0",
+            "beta1"
+)
+
+# MCMC settings
+ni <- 3000; nt <- 1; nb <- 1000; nc <- 3
+
+out_sexpay <- jags(win.data, inits, params, "cephs_sexpay.txt", 
+                  n.chains = nc, n.thin = nt, n.iter = ni, n.burnin = nb, 
+                  working.directory = getwd())
+print(out_sexpay, dig = 2)
+print(exp(out_sexpay$BUGSoutput$sims.list$alpha[1,]))
+
+#hist(as.numeric(out_sexpay$BUGSoutput$mean$cephs.new))
+# plot parameter posteriors
+o <- out_sexpay$BUGSoutput$sims.list
+
+d <- density(o$beta0)
+d2 <- density(o$beta1)
+
+plot(d,
+     xlab = "Posterior distribution",
+     ylim = c(0,3),
+     xlim = c(-1,1.5),
+     main = "",
+     las = 1)
+polygon(d, col = rgb(182,207,182, alpha = 175, maxColorValue = 255), 
+        border = "black", lwd = 2)
+polygon(d2, col = rgb(255,255,181, alpha = 175, maxColorValue = 255), 
+        border = "black", lwd = 2)
+
+# convert to raw scale and plot - what model thinks means are
+d <- density(exp(o$beta0))
+d2 <- density(exp(o$beta0 + o$beta1))
+
+plot(d,
+     xlab = "Posterior distribution",
+     main = "Expected no caught by sex",
+     xlim = c(0,9),
+     las = 1)
+polygon(d, col = rgb(182,207,182, alpha = 175, maxColorValue = 255), 
+        border = "black", lwd = 3)
+polygon(d2, col = rgb(255,255,181, alpha = 175, maxColorValue = 255), 
+        border = "black", lwd = 3)
+
+
+# plot model generated new data - what model thinks data looks like
+par(mfrow = c(2,1))
+hist(o$cephs.new[,ceph_sex$FISHER_SEX == "M"],
+     xlab = "Cephs per catch",
+     col = rgb(182,207,182, alpha = 195, maxColorValue = 255),
+     main = NULL,
+     xlim = c(0,18),
+     breaks = 10)
+hist(o$cephs.new[ceph_sex$FISHER_SEX == "F"],
+     xlab = "Cephs per catch",
+     col = rgb(255,255,181, alpha = 125, maxColorValue = 255),
+     main = NULL)#,
+     #add = TRUE)
+
+```

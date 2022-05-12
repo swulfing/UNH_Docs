@@ -2,25 +2,38 @@
     model {
     
     # PRIORS
-    for(i in 1:nsites){       #loop for alphas. can also do alpha[1] alpha[2]
-    alpha[i] ~ dnorm(0,0.001)
+    for(i in 1:nsites){
+     alpha[i] ~ dnorm(mu_site,tau_site)
     }
-    tau <- 1/sigma^2
-    sigma ~ dunif(0,100) #This gives only 1 variance across all sites
+    
+    mu_site ~ dnorm(0,0.001)
+    tau_site <- 1/sigma_site^2
+    sigma_site ~ dunif(0,100)
+    
+    for(i in 1:nsites){
+    tau[i] <- 1/sigma[i]^2
+    sigma[i] ~ dunif(0,100)
+    }
     
     # LIKELIHOOD
     for(i in 1:n){
-    mass[i] ~ dnorm(mu[i],tau)
+    mass[i] ~ dnorm(mu[i],tau[site[i]])
     mu[i] <- alpha[site[i]] #Mean will vary by site. 3 alphas, 1 per site. loop through every row of your dataset.
     } # i
     
-    # # derived quantitites
-    # diff23 <- alpha[3] - alpha[2]
+     # DERIVED QUANTITIES
+    for(i in 1:nsites){
+    avg[i] <- (alpha[i]*stdev_data) + mean_data
+    stan_dev[i] <- (sigma[i]*stdev_data) 
+    }
 
-    # # generate new data from the fitted model
-    # for(i in 1:n){
-    # y.new[i] ~ dnorm(mu[i],tau)   #Generates new data for each run of mcmc
-    #  }
+    mu_site_m <- (mu_site*stdev_data) + mean_data
+    sigma_site_m <- (sigma_site*stdev_data) 
+    
+    # generate new data from the fitted model
+    for(i in 1:n){
+    y.new[i] ~ dnorm(mu[site[i]],tau[site[i]])   #Generates new data for each run of mcmc
+     }
     
     } # end of model  
     
