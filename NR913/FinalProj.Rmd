@@ -66,49 +66,40 @@ boxplot(as.numeric(AVG_WT) ~ REGION,
         # border = TRUE,
         data = ceph_sites2)
 
-#sink("cephs_sitewt.txt")
+sink("cephs_sitewt.txt")
 cat(" 
     model {
     
     # PRIORS
     for(i in 1:nsites){
-     alpha[i] ~ dnorm(mu_site,tau_site)
-    }
-    
-    mu_site ~ dnorm(0,0.001)
-    tau_site <- 1/sigma_site^2
-    sigma_site ~ dunif(0,100)
-    
-    for(i in 1:nsites){
+    alpha[i] ~ dnorm(0,0.001)
     tau[i] <- 1/sigma[i]^2
-    sigma[i] ~ dunif(0,100)
+    sigma[i] ~ dunif(0,10)
     }
+
     
     # LIKELIHOOD
     for(i in 1:n){
-    mass[i] ~ dnorm(mu[i],tau[site[i]])
-    mu[i] <- alpha[site[i]] #Mean will vary by site. 3 alphas, 1 per site. loop through every row of your dataset.
+    mass[i] ~ dnorm(mu[i],tau[site[i]]) #Unique variance. gives 12 different tau vals. each tau needs proir. put sigma prior in loop
+    mu[i] <- alpha[site[i]]
     } # i
     
-     # DERIVED QUANTITIES
+    # # derived quantitites
+    # diff23 <- alpha[3] - alpha[2]
+
     for(i in 1:nsites){
     avg[i] <- (alpha[i]*stdev_data) + mean_data
     stan_dev[i] <- (sigma[i]*stdev_data) 
-    }
 
-    mu_site_m <- (mu_site*stdev_data) + mean_data
-    sigma_site_m <- (sigma_site*stdev_data) 
-    
+    }
     # generate new data from the fitted model
     for(i in 1:n){
-    y.new[i] ~ dnorm(mu[i],tau[i])   #Generates new data for each run of mcmc
-     }
-    #tukey's HSD,  max liklihood, bonferroni
-    #not doing this will give you artifically high p vals, the things above will be alittle more accurate
-    #https://www.r-bloggers.com/2021/08/how-to-perform-tukey-hsd-test-in-r/
+    y.new[i] ~ dnorm(mu[i],tau[site[i]])   #Generates new data for each run of mcmc
+    }
+    
     } # end of model  
     ",fill = TRUE)
-#sink()
+sink()
 
 win.data <- list(mass   = log(as.numeric(ceph_sites2$AVG_WT)),
                  site   = ceph_sites2$id, 
@@ -118,15 +109,17 @@ win.data <- list(mass   = log(as.numeric(ceph_sites2$AVG_WT)),
                  mean_data = mean(as.numeric(ceph_sites2$AVG_WT), na.rm = TRUE))
 
 # Initial values
-inits <- function()list(alpha = rnorm(7), sigma = rep(rlnorm(1),7))
+#inits <- function()list(alpha = rnorm(7), sigma = rep(rlnorm(1),7))
+inits <- function()list(alpha = rnorm(7), 
+                        sigma = rlnorm(7))
 
 # Parameters monitored
 params <- c("alpha",
             "sigma",
             "avg",
             "stan_dev",
-            "mu_site_m",
-            "sigma_site_m",
+            #"mu_site_m",
+            #"sigma_site_m",
             #"Bayes.P"
             "y.new"
 ) 
@@ -138,11 +131,11 @@ ni <- 1000; nt <- 3; nb <- 100; nc <- 3
 out_stwt <- jags(win.data, inits, params, "cephs_sitewt.txt", 
             n.chains = nc, n.thin = nt, n.iter = ni, n.burnin = nb, 
             working.directory = getwd())
-#print(out_stwt, dig = 1) 
+print(out_stwt, dig = 1) 
 
 print(exp(out_stwt$BUGSoutput$sims.list$alpha[1,]))
 
-par(mfrow = c(3,3),
+par(mfrow = c(2,2),
     mar = c(5.1, 4.1, 3.1, 0.5)) #b, l ,t ,r
 boxplot(as.numeric(AVG_WT) ~ REGION, 
         ylab = "Wt",
@@ -154,7 +147,7 @@ boxplot(as.numeric(AVG_WT) ~ REGION,
         data = ceph_sites2,
         main = "Actual data")
 
-for(i in 1:8){
+for(i in 1:3){
 boxplot(exp(out_stwt$BUGSoutput$sims.list$y.new[i,]) ~ ceph_sites2$id, 
         ylab = "Wt",
         xlab = "Site",
@@ -195,7 +188,7 @@ LABELS <- generate_label_df(tukTest, "ceph_sites2$REGION")
 my_colors <- hcl.colors(5, palette = "YlOrRd", alpha = NULL, fixup = TRUE)
 
 # Draw the basic boxplot
-a <- boxplot(as.numeric(ceph_sites2$AVG_WT) ~ ceph_sites2$REGION , ylim= c(0 , 7.5) , ylab="Avg ceph weight (kg)", xlab = "Region", main="", cex.axis = 0.67, col=my_colors[as.numeric(factor(LABELS[,1]))])
+a <- boxplot(as.numeric(ceph_sites2$AVG_WT) ~ ceph_sites2$REGION , ylim= c(0 , 7.5) , ylab="Avg cephalopod weight (kg)", xlab = "Region", main="", cex.axis = 0.67, col=my_colors[as.numeric(factor(LABELS[,1]))])
  
 # I want to write the letter over each box. Over is how high I want to write it.
 over <- 0.12*max( a$stats[nrow(a$stats),] )
@@ -319,28 +312,37 @@ d2 <- density(exp(o$beta0 + o$beta1))
 
 plot(d,
      xlab = "Posterior distribution",
-     main = "Expected no caught by sex",
-     xlim = c(0,9),
+     main = "Expected no. of cephalopods caught by sex",
+     xlim = c(0,4),
+     ylim = c(0,9),
      las = 1)
 polygon(d, col = rgb(182,207,182, alpha = 175, maxColorValue = 255), 
         border = "black", lwd = 3)
 polygon(d2, col = rgb(255,255,181, alpha = 175, maxColorValue = 255), 
         border = "black", lwd = 3)
+legend(.2, 8.5, legend=c("Women", "Men"),
+       fill = c( rgb(182,207,182, alpha = 175, maxColorValue = 255),  rgb(255,255,181, alpha = 175, maxColorValue = 255)),
+        cex=0.8)
 
 
 # plot model generated new data - what model thinks data looks like
 par(mfrow = c(2,1))
-hist(o$cephs.new[,ceph_sex$FISHER_SEX == "M"],
+m <- hist(o$cephs.new[,ceph_sex$FISHER_SEX == "M"],
      xlab = "Cephs per catch",
      col = rgb(182,207,182, alpha = 195, maxColorValue = 255),
      main = NULL,
      xlim = c(0,18),
-     breaks = 10)
-hist(o$cephs.new[ceph_sex$FISHER_SEX == "F"],
+     freq = FALSE,
+     breaks = 100)
+f <- hist(o$cephs.new[ceph_sex$FISHER_SEX == "F"],
      xlab = "Cephs per catch",
+     xlim = c(0,18),
      col = rgb(255,255,181, alpha = 125, maxColorValue = 255),
-     main = NULL)#,
-     #add = TRUE)
+     main = NULL,
+     freq = FALSE,
+     breaks = 80)
 
+plot(m, col = rgb(182,207,182, alpha = 195, maxColorValue = 255), xlim = c(0,18), xlab = "Cephalopods per landing", main = NA, freq = FALSE)
+plot(f, col = rgb(255,255,181, alpha = 195, maxColorValue = 255), xlim = c(0,18), freq = FALSE, add = TRUE)
 ```
 

@@ -11,12 +11,12 @@
     
     # LIKELIHOOD
     for(i in 1:n){
-    ele[i] ~ dnorm(mu[i],tau[array[i]]) #Unique variance. gives 12 different tau vals. each tau needs proir. put sigma prior in loop
-    mu[i] <- alpha[array[i]]
+    mass[i] ~ dnorm(mu[i],tau[site[i]]) #Unique variance. gives 12 different tau vals. each tau needs proir. put sigma prior in loop
+    mu[i] <- alpha[site[i]]
     } # i
     
-    # derived quantitites
-    diff23 <- alpha[3] - alpha[2]
+    # # derived quantitites
+    # diff23 <- alpha[3] - alpha[2]
 
     for(i in 1:nsites){
     avg[i] <- (alpha[i]*stdev_data) + mean_data
