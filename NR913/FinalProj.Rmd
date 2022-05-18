@@ -10,9 +10,6 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-#open session 11, 12, 14
-#FinalProj and ModelTests
-
 library(R2jags)
 library(tidyr)
 library(dplyr)
@@ -23,6 +20,7 @@ setwd("~/UNH_Docs/NR913")
 
 cephs <- read.csv("C:/Users/sophi/Documents/UNH_Docs/Proposal/CNH2_data/cleanData.csv")
 
+#Filtering out only the most used sites for the ANOVA
 site_data <- cephs %>%
     group_by(REGION) %>%
     summarise(Count = n()) %>%
@@ -33,12 +31,9 @@ ceph_sites <- cephs %>%
 
 ceph_sites2 <- transform(ceph_sites,id=as.numeric(factor(REGION)))
 
+#Organizing dataset so a JAGS T test can read it
 ceph_model <- transform(cephs,id=as.numeric(factor(REGION)), sex_id=(as.numeric(factor(FISHER_SEX))-1))
 ceph_sex <- ceph_model %>% drop_na(sex_id)
-
-effort <- ceph_model %>%
-  filter(!is.na(FISHING_TIME) & !is.na(PRICE_USD) & !is.na(FISHER_SEX) & as.numeric(FISHING_TIME_ADJ) != 0)
-effort$TIME_VAL <- effort$PRICE_USD/as.numeric(effort$FISHING_TIME_ADJ)
 
 purps <- "#440154FF"
 midnight <- "#414487FF"
@@ -51,11 +46,7 @@ bananas <- "#FDE725FF"
 
 ```{r sitewt, echo = TRUE}
 
-#Compare your two DIC's 
-#Do I need a pval?
-
-
-#Visualize Data-FIX THIS
+#Initial data visualization
 boxplot(as.numeric(AVG_WT) ~ REGION,
         ylab = "Average wt of Cepalopod",
         xlab = "Site",
@@ -70,31 +61,22 @@ sink("cephs_sitewt.txt")
 cat(" 
     model {
     
-    # PRIORS
+    # PRIORS - Including a different variance per site
     for(i in 1:nsites){
     alpha[i] ~ dnorm(0,0.001)
     tau[i] <- 1/sigma[i]^2
     sigma[i] ~ dunif(0,10)
     }
-
     
     # LIKELIHOOD
     for(i in 1:n){
-    mass[i] ~ dnorm(mu[i],tau[site[i]]) #Unique variance. gives 12 different tau vals. each tau needs proir. put sigma prior in loop
+    mass[i] ~ dnorm(mu[i],tau[site[i]])
     mu[i] <- alpha[site[i]]
     } # i
     
-    # # derived quantitites
-    # diff23 <- alpha[3] - alpha[2]
-
-    for(i in 1:nsites){
-    avg[i] <- (alpha[i]*stdev_data) + mean_data
-    stan_dev[i] <- (sigma[i]*stdev_data) 
-
-    }
-    # generate new data from the fitted model
+    #Generating new data for each run of the MCMC
     for(i in 1:n){
-    y.new[i] ~ dnorm(mu[i],tau[site[i]])   #Generates new data for each run of mcmc
+    y.new[i] ~ dnorm(mu[i],tau[site[i]]) 
     }
     
     } # end of model  
@@ -109,37 +91,35 @@ win.data <- list(mass   = log(as.numeric(ceph_sites2$AVG_WT)),
                  mean_data = mean(as.numeric(ceph_sites2$AVG_WT), na.rm = TRUE))
 
 # Initial values
-#inits <- function()list(alpha = rnorm(7), sigma = rep(rlnorm(1),7))
 inits <- function()list(alpha = rnorm(7), 
                         sigma = rlnorm(7))
 
 # Parameters monitored
 params <- c("alpha",
             "sigma",
-            "avg",
-            "stan_dev",
-            #"mu_site_m",
-            #"sigma_site_m",
-            #"Bayes.P"
             "y.new"
 ) 
 
 # MCMC settings
 ni <- 1000; nt <- 3; nb <- 100; nc <- 3
 
-
+#Model Output
 out_stwt <- jags(win.data, inits, params, "cephs_sitewt.txt", 
             n.chains = nc, n.thin = nt, n.iter = ni, n.burnin = nb, 
             working.directory = getwd())
 print(out_stwt, dig = 1) 
 
+#Exponentiating the output to get the actual weights
 print(exp(out_stwt$BUGSoutput$sims.list$alpha[1,]))
 
+#Visualize model-generated data and compare to actual data
 par(mfrow = c(2,2),
     mar = c(5.1, 4.1, 3.1, 0.5)) #b, l ,t ,r
 boxplot(as.numeric(AVG_WT) ~ REGION, 
         ylab = "Wt",
-        xlab = "Site",
+        xlab = NA,
+        #cex.axis = .5,
+        las = 2,
         staplewex = 0.2,
         boxwex = 0.4,
         frame.plot = FALSE,
@@ -165,11 +145,13 @@ dev.off()
 #https://r-graph-gallery.com/84-tukey-test.html
 #https://www.r-bloggers.com/2021/08/how-to-perform-tukey-hsd-test-in-r/
 
+#Now conducting a Tukey test to compare the sites
 model <- aov(as.numeric(AVG_WT)~REGION, ceph_sites2)
 tukTest <- TukeyHSD(model, conf.level=.95)
 
-plot(TukeyHSD(model, conf.level=.95), las = 2, cex.axis=.5, mar = c(5.1,15,1.4,2.1))
+plot(TukeyHSD(model, conf.level=.95), las = 2, cex.axis=.3, mar = c(5.1,15,1.4,2.1))
 
+#Just a way to generate labels from a Tukey Test
 generate_label_df <- function(TUKEY, variable){
  
      # Extract labels and factor levels from Tukey post-hoc 
@@ -182,19 +164,13 @@ generate_label_df <- function(TUKEY, variable){
      return(Tukey.labels)
 }
 
+#Generate labels and colors such that they correspond with statistically similar regions
 LABELS <- generate_label_df(tukTest, "ceph_sites2$REGION")
-
-# A panel of colors to draw each group with the same color :
 my_colors <- hcl.colors(5, palette = "YlOrRd", alpha = NULL, fixup = TRUE)
 
-# Draw the basic boxplot
+# Draw the basic boxplot- a good chuck of this code is just getting the colors and labels to line up right
 a <- boxplot(as.numeric(ceph_sites2$AVG_WT) ~ ceph_sites2$REGION , ylim= c(0 , 7.5) , ylab="Avg cephalopod weight (kg)", xlab = "Region", main="", cex.axis = 0.67, col=my_colors[as.numeric(factor(LABELS[,1]))])
- 
-# I want to write the letter over each box. Over is how high I want to write it.
 over <- 0.12*max( a$stats[nrow(a$stats),] )
- 
-#Add the labels
-# text( c(1:nlevels(as.factor(ceph_sites2$REGION))) , a$stats[nrow(a$stats)-1,]+over , LABELS[,1], col=my_colors[as.numeric(factor(LABELS[,1]))] )
 mark(
   LABELS[,1],
   x = c((1:nlevels(as.factor(ceph_sites2$REGION)))+.02),
@@ -211,12 +187,11 @@ mark(
 
 ```{r sexno, echo = FALSE}
 #TTEST
-#Talk about differences in bayes p val and dic btwn models
-
+#Frequentest T test
 poisson.t.test <- glm(ceph_model$NO_CAUGHT ~ ceph_model$sex_id, family = poisson)
 summary(poisson.t.test) #effect of arable are significant. ESTIMATES ARE ON LOG SCALE
 
-#Visualize Data-FIX THIS
+#Visualize Data
 boxplot(NO_CAUGHT ~ FISHER_SEX, 
         ylab = "No caught per landing",
         xlab = "Site",
@@ -232,17 +207,17 @@ cat("
     model {
     
     # PRIORS
-    beta0 ~ dnorm(0,0.001)  # intercept
-    beta1 ~ dnorm(0,0.001)  # effect of M/F, IDK
+    beta0 ~ dnorm(0,0.001)  # intercept i.e. average catch of a female fisher
+    beta1 ~ dnorm(0,0.001)  # effect of being a male fisher
     tau <- 1/sigma^2
     sigma ~ dunif(0,10)
     
     # LIKELIHOOD
     for(i in 1:n){
-    cephs[i] ~ dpois(lambda[i]) #error term built in bc lambda is both mean and var
-    log(lambda[i]) <- beta0 + beta1 * sex[i] +eps[i]# sex needs to be 0s and 1s. predicting log of lambda, not lambda
+    cephs[i] ~ dpois(lambda[i]) #Poisson distribution bc counts. error term built in bc lambda is both mean and var
+    log(lambda[i]) <- beta0 + beta1 * sex[i] +eps[i] #Remember, predictning log of lambda not lambda
     #lambda[i] <- exp(beta0 + beta1 * sex[i] ) Alternative form
-    eps[i] ~ dnorm(0,tau)
+    eps[i] ~ dnorm(0,tau) #Overdispersion Param
     
     # CHECK MODEL FIT
     presid[i] <- (cephs[i] - lambda[i])/sqrt(lambda[i])          # Pearson residual- corrects for larger mean => larger var
@@ -284,11 +259,12 @@ params <- c("beta0",
 # MCMC settings
 ni <- 3000; nt <- 1; nb <- 1000; nc <- 3
 
+#Model Output
 out_sexno <- jags(win.data, inits, params, "cephs_sexno.txt", 
                   n.chains = nc, n.thin = nt, n.iter = ni, n.burnin = nb, 
                   working.directory = getwd())
 print(out_sexno, dig = 2)
-hist(as.numeric(out_sexno$BUGSoutput$mean$cephs.new))
+
 # plot parameter posteriors
 o <- out_sexno$BUGSoutput$sims.list
 
@@ -306,7 +282,7 @@ polygon(d, col = rgb(182,207,182, alpha = 175, maxColorValue = 255),
 polygon(d2, col = rgb(255,255,181, alpha = 175, maxColorValue = 255), 
         border = "black", lwd = 2)
 
-# convert to raw scale and plot - what model thinks means are
+# converting that plot to raw scale - what model thinks means are
 d <- density(exp(o$beta0))
 d2 <- density(exp(o$beta0 + o$beta1))
 
@@ -325,24 +301,5 @@ legend(.2, 8.5, legend=c("Women", "Men"),
         cex=0.8)
 
 
-# plot model generated new data - what model thinks data looks like
-par(mfrow = c(2,1))
-m <- hist(o$cephs.new[,ceph_sex$FISHER_SEX == "M"],
-     xlab = "Cephs per catch",
-     col = rgb(182,207,182, alpha = 195, maxColorValue = 255),
-     main = NULL,
-     xlim = c(0,18),
-     freq = FALSE,
-     breaks = 100)
-f <- hist(o$cephs.new[ceph_sex$FISHER_SEX == "F"],
-     xlab = "Cephs per catch",
-     xlim = c(0,18),
-     col = rgb(255,255,181, alpha = 125, maxColorValue = 255),
-     main = NULL,
-     freq = FALSE,
-     breaks = 80)
-
-plot(m, col = rgb(182,207,182, alpha = 195, maxColorValue = 255), xlim = c(0,18), xlab = "Cephalopods per landing", main = NA, freq = FALSE)
-plot(f, col = rgb(255,255,181, alpha = 195, maxColorValue = 255), xlim = c(0,18), freq = FALSE, add = TRUE)
 ```
 
