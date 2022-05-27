@@ -1,0 +1,510 @@
+---
+title: "BSQB_CH4"
+author: "Sophie Wulfing"
+date: '2022-05-26'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+setwd("C:/Users/sophi/Documents/UNH_Docs/BSQB")
+#https://www.quantitative-biology.ca/multi.html
+```
+# Chapter 4.1
+
+Symmetric indices: looks at both presence and absence
+Asymmetrc: only consideres similar presences
+
+Examples: Simple matching coeffieicent: Symmetric (a + d)/(a + b + c + d) (see code)
+Jaccard: assymetric (see S_j)
+Sorenson: assymetric (see S_s)
+
+
+Metrics when more info than yes/no have two types, similarity and dissimilarity:
+  Percentage similarity (Renkonen index)
+  Morisita’s index of similarity (not dispersion)
+  Horn’s index
+  
+
+Legendre & Legendre (2012) offer a key on how to select an appropriate measure for given data and problem (check their Tables 7.4-7.6)
+
+Euclidean Distance: Like pythagorean theorem but over n species
+
+Another type: Bray Curtis dissimilarity is frequently used by ecologists to quantify differences between samples based on abundance or count data. Similar to Sorenson but not a distance metric
+
+### Note:
+
+There are a number of functions in R that can be used to calculate similarity and dissimilarity metrics. Since we are usually not just comparing two objects, sites or samples, these functions can help make your calculations much quicker when you are comparing many units.
+
+dist() (base R, no package needed) offers a number of quantitative distance measures (e.g. Euclidean,Canberra and Manhattan). The result is the distance matrix which gives the dissimilarity of each pair of objects, sites or samples. the matrix is an object of the class dist in R.
+
+vegdist() (library vegan). The default distance used in this function is Bray-Curtis distance, which is considered more suitable for ecological data.
+
+dsvdis() (library labdsv) Offers some other indices than vegdist (e.g., ruzicka or Růžička), a quantitative analogue of Jaccard, and Roberts.
+
+For full comparison of dist, vegdist and dsvdis, see http://ecology.msu.montana.edu/labdsv/R/labs/lab8/lab8.html.
+
+daisy() (library cluster) Offers Euclidean, Manhattan and Gower distance.
+
+designdist() (library vegan) Allows one to design virtually any distance measure using the formula for their calculation.
+
+dist.ldc() (library adespatial) Includes 21 dissimilarity indices described in Legendre & De Cáceres (2013), twelve of which are not readily available in other packages. Note that Bray-Curtis dissimilarity is called percentage difference (method = “percentdiff”).
+
+distance() (library ecodist) Contains seven distance measures, but the function is more for demonstration (for larger matrices, the calculation takes rather long).
+
+
+
+```{r ch4.1 MultivariateResemblance}
+lksp <- data.frame(read.csv("WatsCarp_CH4.csv"))
+
+tlake = table(lksp[, c("erie", "ontario")])
+tlake
+
+a = tlake[1, 1]
+b = tlake[1, 2]
+c = tlake[2, 1]
+d = tlake[2, 2]
+
+S_j = a/(a + b + c)
+S_j
+
+S_s = 2 * a/(2 * a + b + c)
+S_s
+
+#Euclidian Distance
+eu <- data.frame(read.csv("euk.csv"))
+dist(rbind(eu$j, eu$k), method = "euclidean")
+
+#Comparing more than one species
+spmatrix <- data.frame(read.csv("speciesmatrix.csv"))
+dist(t(spmatrix), method = "euclidean", diag = TRUE) #No upper bound so this metric is relative
+```
+
+# Chapter 4.2
+## 4.2.1
+
+Clustering is the grouping of data objects into discrete similarity categories according to a defined similarity or dissimilarity measure.
+
+Hierarchical clustering: groups are nested within other groups
+There are two kinds of hierarchical clustering: divisive and agglomerative
+Divisive: entire set of units is divided into smaller and smaller groups
+Agglomerative: starts with small groups of few units, and groups them into larger and larger clusters until entire datset isi sampled (Pielou, 1984)
+
+
+Single linkage assigns the similarity between clusters to the most similar units in each cluster.
+Complete linkage uses the similarity between the most dissimilar units in each cluster
+Average linkage averages over all the units in each cluster
+
+Single Linkage Cluster Analysis: hierarchical, agglomerative
+  Start by creating a matrix of similarity (or dissimilarity) indices between the units we want to compare.
+  Then we find the most similar pair of samples, and that will form the 1st cluster. \
+  Next, we find either: (a) the second most similar pair of samples
+      (b) highest similarity between a cluster and a sample
+      (c) most similar pair of clusters, whichever is greatest
+  We then continue this process until until there is one big cluster.
+  
+Package  NbClust can help you pick number of clusters
+For hierarchical methods, you can determine the number of groups a given degree of similarity, or set the number of groups and find the degree of similarity that results in that number of groups. Let’s try. We’ll use the cutree() function that works on cluster diagrams produced by the hclust()
+
+Partitional clustering is the division of data objects into non-overlapping subsets EG k-means clustering. Cluster is associated with a centroid (center point), and each data object is assigned to the cluster with the closest centroid
+Method:
+  Choose the number of K clusters
+  Select K points as the initial centroids
+  Calculate the distance of all items to the K centroids
+  Assign items to closest centroid
+  Recompute the centroid of each cluster
+  Repeat from (3) until clusters assignments are stable
+  
+Fuzzy clustering is commonly achieved by assigning to each item a weight of belonging to each cluster.
+
+## 4.2.3 R fxns for clustering
+
+hclust() (base R, no library needed) calculates hierarchical, agglomerative clusters and has its own plot function.
+
+agnes() (library cluster) Contains six agglomerative algorithms, some not included in hclust.
+
+diana() divisive hierarchical clustering
+
+kmeans() kmeans clustering
+
+fanny()(cluster package) fuzzy clustering
+
+```{r ch4.2 ClusterAnalysis}
+
+#Single linkage cluster analysis
+cls = data.frame(a = c(5, 6, 34, 1, 12), b = c(10, 5, 2, 3, 4),
+    c = c(10, 59, 32, 3, 40), d = c(2, 63, 10, 29, 45), e = c(44,
+        35, 40, 12, 20))
+clsd = dist(t(cls), method = "euclidean")
+round(clsd, 0) #see chapter for visualization of this
+
+plot(hclust(clsd, "single"))
+
+
+library(openxlsx)
+urlj = "https://doi.org/10.1371/journal.pone.0093281.s001"
+download.file(urlj, "p.xlsx", mode = "wb")
+iso = read.xlsx("p.xlsx")
+
+plot(iso$N ~ iso$C, col = as.numeric(as.factor(iso$Food.Chain)),
+    xlim = c(-35, 0), pch = as.numeric(as.factor(iso$Species)),
+    xlab = expression(paste(delta, "13C")), ylab = expression(paste(delta,
+        "15N")))
+
+legend("topright", legend = unique(as.factor(iso$Food.Chain)),
+    pch = 1, col = as.numeric(unique(as.factor(iso$Food.Chain))),
+    bty = "n", title = "Food chain")
+
+legend("bottomright", legend = as.character(unique(as.factor(iso$Species))),
+    pch = as.numeric(unique(as.factor(iso$Species))), bty = "n",
+    title = "Species")
+
+#Remove NA's: niso=iso[complete.cases(mydata),]
+
+str(iso)
+
+#euclidian analysis
+diso <- dist((iso[, c("C", "N")]), method = "euclidean")
+p = hclust(diso, method = "single", )
+plot(p, cex = 0.5, main = "", xlab = "")
+
+niso = iso[complete.cases(iso), ]
+niso = niso[-5, ]
+diso <- dist((niso[, c("C", "N")]), method = "euclidean")
+p = hclust(diso, method = "single")
+niso$clust <- cutree(p, k = 4)
+
+# plotting the data with 4 groups identified by the
+# single-linkage cluster analysis superimposed
+plot(niso$N ~ niso$C, col = as.numeric(as.factor(niso$clust)),
+    xlim = c(-35, 0), pch = as.numeric(as.factor(niso$Species)),
+    xlab = expression(paste(delta, "13C")), ylab = expression(paste(delta,
+        "15N")))
+
+legend("topright", legend = unique(as.factor(niso$clust)), pch = 1,
+    col = as.numeric(unique(as.factor(niso$clust))), bty = "n",
+    title = "cluster")
+
+legend("bottomright", legend = as.character(unique(as.factor(niso$Species))),
+    pch = as.numeric(unique(as.factor(niso$Species))), bty = "n",
+    title = "Species")
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+# Chapter 4.3 Ordination
+
+ The four most commonly used methods are:
+    Principle Component Analysis (PCA), which is the main eigenvector-based method
+    Correspondence Analysis (CA) which is used used on frequency data
+    Principle Coordinate Analysis (PCoA) which works on dissimilarity matrices
+    Non Metric Multidimensional Scaling (nMDS) which is not an eigenvector method, instead it represents objects along a predetermined number of axes.
+See https://www.quantitative-biology.ca/multi.html#tab:tord for when you can use each one
+
+## 4.3.1 PCA
+PCA takes a data matrix of n objects by p variables and summarizes by uncorrelated axes.  The first k components display as much as possible of the variation among objects. PCA uses Euclidean distance calculated from the p variables as the measure of dissimilarity among the n objects, and derives the best possible k-dimensional representation of the Euclidean distances among objects, where k<p
+
+When plotting PCA, An ideal curve should be steep, then bend at an “elbow” — this is your cutting-off point — and after that flattens out. To deal with a not-so-ideal scree plot curve you can apply the Kaiser rule: pick PCs with eigenvalues of at least 1. Or you can select using the proportion of variance where the PCs should be able to describe at least 80% of the variance.
+
+R Functions for PCA
+  prcomp() (base R, no library needed)
+  rda() (vegan)
+  PCA() (FactoMineR library)
+  dudi.pca() (ade4)
+  acp() (amap)
+  
+## 4.3.2 Principle Coordinates Analysis (PCoA)
+May be used with all types of distance descriptors, and so might be able to avoid some problems of PCA. Although, a PCoA computed on a Euclidean distance matrix gives the same results as a PCA conducted on the original data
+
+R functions for PCoA
+  cmdscale() (base R, no package needed)
+  smacofSym() (library smacof)
+  pco()(ecodist)
+  pco()(labdsv)
+  pcoa()(ape)
+  dudi.pco()(ade4)
+  
+##4.3.3 Nonmetric Multidimensional Scaling (nMDS)
+nMDS compresses the distances in a non-linear way and its algorithm is computer-intensive, requiring more computing time than PCoA. PCoA is faster for large distance matrices.
+In this computational method the steps are:
+  Specify the desired number m of axes (dimensions) of the ordination.
+  
+  Construct an initial configuration of the objects in the m dimensions, to be used as a starting point of an iterative adjustment process. (tricky: the end result may depend on this. A PCoA ordination may be a good start. Otherwise, try many independent runs with random initial configurations. The package vegan has a function that does this for you)
+  
+  Try to position the objects in the requested number of dimensions in such a way as to minimize how far the dissimilarities in the reduced-space configuration are from being monotonic to the original dissimilarities in the association matrix
+  
+  The adjustment goes on until the difference between the observed and modelled dissimilarity matrices (called “stress”), can cannot be lowered any further, or until it reaches a predetermined low value (tolerated lack-of-fit).
+  
+  Most nMDS programs rotate the final solution using PCA, for easier interpretation.
+
+
+Use a Shephard plot to get information about the distortion of representation. A Shepard diagram compares how far apart your data points are before and after you transform them (ie: goodness-of-fit) as a scatter plot. On the x-axis, we plot the original distances. On the y-axis, we plot the distances output by a dimension reduction algorithm. A really accurate dimension reduction will produce a straight line.
+
+R functions for nMDS
+  metaMDS() (vegan package)
+  isoMDS( ) (MASS)
+```{r ch4.3 Ordination}
+#PCA
+data("iris")
+str(iris)
+summary(iris[1:4])
+
+#Pairs fxn tells us. Tells you if variables are correlated. Can't use PCA if not
+pairs(iris[1:4], main = "Iris Data", pch = as.numeric(iris$Species) +
+    14, col = as.numeric(iris$Species) + 1)
+#now run pca
+pca <- prcomp(iris[, 1:4])
+#what proportion of the total variance is explained by each synthetic axis.
+summary(pca)
+
+#However, they have highly different variances so we need to standardize- PCA ONLY WORKS IF MEASUREMENTS ARE IN THE SAME UNITS
+apply(iris[, 1:4], 2, var)
+p <- prcomp(iris[, 1:4], scale = TRUE)
+summary(p)
+
+#Plot PCA
+screeplot(p, type = ("lines"), main = "", pch = 16, cex = 1)#explains variance/inertia explained by each of the principle component axes
+#only a very small proportion of the variance is explained by axes 3 & 4, so we don’t need to consider them any further. So let’s plot axes 1 & 2.
+
+pvar = round(summary(p)$importance[2, 1:2], 2)
+
+plot(p$x[, 1:2], col = as.numeric(iris$Species) + 1, ylim = c(-3,
+    3), cex = 1, pch = as.numeric(iris$Species) + 14, xlab = paste0("PC1 (",
+    pvar[1] * 100, "%)"), ylab = paste0("PC2 (", pvar[2] * 100,
+    "%)"))
+legend("topright", legend = unique(iris$Species), pch = as.numeric(unique(iris$Species)) +
+    14, col = c(2, 3, 4), bty = "n")
+
+pvar = round(summary(p)$importance[2, 1:2], 2)
+
+plot(p$x[, 1:2], col = as.numeric(iris$Species) + 1, ylim = c(-3,
+    3), cex = 1, pch = as.numeric(iris$Species) + 14, xlab = paste0("PC1 (",
+    pvar[1] * 100, "%)"), ylab = paste0("PC2 (", pvar[2] * 100,
+    "%)"))
+legend("topright", legend = unique(iris$Species), pch = as.numeric(unique(iris$Species)) +
+    14, col = c(2, 3, 4), bty = "n")
+
+#Plot eigenvectors to show how strongly each variable affects each principle component
+plot(NA, ylim = c(-5, 4), xlim = c(-5, 4), xlab = paste0("PC1 (",
+    pvar[1] * 100, "%)"), ylab = paste0("PC2 (", pvar[2] * 100,
+    "%)"))
+abline(v = 0, col = "grey90")
+abline(h = 0, col = "grey90")
+# Get co-ordinates of variables (loadings), and multiply by
+# 10
+l.x <- p$rotation[, 1] * 4
+l.y <- p$rotation[, 2] * 4
+# Draw arrows
+arrows(x0 = 0, x1 = l.x, y0 = 0, y1 = l.y, col = 5, length = 0.15,
+    lwd = 1.5)
+# Label position
+l.pos <- l.y  # Create a vector of y axis coordinates
+lo <- which(l.y < 0)  # Get the variables on the bottom half of the plot
+hi <- which(l.y > 0)  # Get variables on the top half
+# Replace values in the vector
+l.pos <- replace(l.pos, lo, "1")
+l.pos <- replace(l.pos, hi, "3")
+l.pos[4] <- "3"
+l.x[3:4] <- l.x[3:4] + 0.75
+# Variable labels
+text(l.x, l.y, labels = row.names(p$rotation), col = 5, pos = l.pos,
+    cex = 1)
+
+#Biplot provides info about how the variables align along the synthetic axes
+plot(p$x[, 1:2], pch = as.numeric(iris$Species) + 14, col = as.numeric(iris$Species) +
+    1, ylim = c(-5, 4), xlim = c(-4, 4), cex = 1, xlab = paste("PC1 (",
+    pvar[1] * 100, "%)"), ylab = paste("PC2 (", pvar[2] * 100,
+    "%)"))
+legend("topleft", legend = unique(iris$Species), pch = as.numeric(unique(iris$Species)) +
+    14, col = c(2, 3, 4), bty = "n")
+
+# Get co-ordinates of variables (loadings), and multiply by
+# a constant
+l.x <- p$rotation[, 1] * 4
+l.y <- p$rotation[, 2] * 4
+# Draw arrows
+arrows(x0 = 0, x1 = l.x, y0 = 0, y1 = l.y, col = 5, length = 0.15,
+    lwd = 1.5)
+# Label position
+l.pos <- l.y  # Create a vector of y axis coordinates
+lo <- which(l.y < 0)  # Get the variables on the bottom half of the plot
+hi <- which(l.y > 0)  # Get variables on the top half
+# Replace values in the vector
+l.pos <- replace(l.pos, lo, "1")
+l.pos <- replace(l.pos, hi, "3")
+l.pos[4] <- "3"
+l.x[3:4] <- l.x[3:4] + 0.75
+# Variable labels
+text(l.x, l.y, labels = row.names(p$rotation), col = 5, pos = l.pos,
+    cex = 1)
+
+#nMDS
+library(vegan)
+
+nMDS <- metaMDS(iris[, -5], distance = "bray", k = 2, trace = FALSE)
+par(mfrow = c(1, 2))
+# Plot the stressplot
+stressplot(nMDS, pch = 16, l.col = NA, las = 1)
+
+# Plot the ordination
+plot(nMDS$points, pch = as.numeric(iris$Species) + 14, col = as.numeric(iris$Species) +
+    1, ylim = c(-0.3, 0.3), xlim = c(-0.6, 0.75), cex = 0.7,
+    xlab = "nMDS1", ylab = "nMDS2")
+legend("bottomleft", legend = unique(iris$Species), pch = as.numeric(unique(iris$Species)) +
+    14, col = c(2, 3, 4), bty = "n", cex = 1)
+
+# Get co-ordinates of variables, and multiply by scale
+l.x2 <- nMDS$species[-1, 1] * 1.25
+l.y2 <- nMDS$species[-1, 2] * 1.25
+
+# Draw arrows
+arrows(x0 = 0, x1 = l.x2, y0 = 0, y1 = l.y2, col = 5, length = 0.1,
+    lwd = 2)
+
+# Variable labels
+l.x1 <- nMDS$species[, 1] * 1.25
+l.y1 <- nMDS$species[, 2] * 1.25
+text(l.x1, l.y1, labels = row.names(nMDS$species), col = 1, pos = 3,
+    cex = 0.8)
+  #plot displays two correlation-like statistics on the goodness of fit. The nonmetric fit is given by R^2, while the “linear fit” is the squared correlation between fitted values and ordination distances
+
+
+#FURTHER PCOA EXAMPLE
+library(vegan)
+data(varespec)
+nMDS <- metaMDS(varespec, trymax = 100, distance = "bray", k = 2,
+    trace = FALSE)
+svarespec = wisconsin(varespec)
+disimvar = vegdist(svarespec, method = "bray")
+
+PCoA <- cmdscale(disimvar, k = 2, eig = T, add = T)
+str(PCoA)
+
+par(mfrow = c(1, 2))
+ordipointlabel(nMDS, pch = c(NA, NA), cex = c(1.2, 0.6), xlim = c(-0.6,
+    1.2))
+abline(h = 0, col = "grey")
+abline(v = 0, col = "grey")
+
+
+PCoA$species <- wascores(PCoA$points, varespec, expand = TRUE)
+ordipointlabel(PCoA, pch = c(NA, NA), cex = c(1.2, 0.6), xlab = "PCoA1",
+    ylab = "PCoA2", xlim = c(-0.6, 1), ylim = c(-0.5, 0.6))
+abline(h = 0, col = "grey")
+abline(v = 0, col = "grey")
+```
+# Chapter 4.4 Constrained Ordination
+The patterns we see in the previous exercise are created by differences among thie sites in the relative abundances in species aligned with the major direction of difference (e.g. Betupube). However, biologists often go further than this, and attempt to explain the differences in characteristics (in this case, species abundances) that drives data object differences (in this case, sampling sites) by superimposing relationships of environmental variation associated with the sites in a regression type exercise. This is constrained or canonical ordination
+
+2 Major methods:
+Redundancy Analysis(RDA): preserves the Euclidean distances among objects in matrix, which contains values of Y fitted by regression to the explanatory variables X
+Cononical correspondence analysis (CCA): preserves chi sq distance (as in correspondence analysis), instead of the Euclidean distance. 
+
+RDA Steps:
+  Multivariate linear regression of Y on X: equivalent to regressing each Y response variable on X to calculate vectors of fitted values followed by stacking these column vectors side by side into a new matrix
+  Test regression for significance using a permutation test
+  If significant, compute a PCA on matrix of fitted values to get the canonical eigenvalues and eigenvectors
+  We may also compute the residual values of the multiple regressions and do a PCA on these values
+  
+rda (vegan package)- this function calculates RDA if a matrix of environmental variables is supplied (if not, it calculates PCA). Two types of syntax are available: matrix syntax - rda (Y, X, W), where Y is the response matrix (species composition), X is the explanatory matrix (environmental factors) and W is the matrix of covariables, or formula syntax (e.g., RDA = rda (Y ~ var1 + factorA + var2*var3 + Condition (var4), data = XW, where var1 is quantitative, factorA is categorical, there is an interaction term between var2 and var3, while var4 is used as covariable and hence partialled out).
+
+We should mention that there are several closely related forms of RDA analysis:
+
+tb-RDA (transformation-based RDA, Legendre & Gallagher 2001): transform the species data with vegan’s decostand(), then use the transformed data matrix as input matrix Y in RDA.
+
+db-RDA (distance-based RDA, Legendre & Anderson 1999): compute PCoA from a pre-computed dissimilarity matrix D, then use the principal coordinates as input matrix Y in RDA.
+
+db-RDA can also be computed directly by function dbrda() in vegan. For a Euclidean matrix, the result is the same as if PCoA had been computed, followed by regular RDA. Function dbrda() can directly handle non-Euclidean dissimilarity matrices, but beware of the results if the matrix is strongly non-Euclidean and make certain this is what you want.
+
+Vegan has three methods of constrained ordination: constrained or “canonical” correspondence analysis (cca()), redundancy analysis (rda()), and distance-based redundancy analysis (capscale()). All these functions can have a conditioning term that is “partialled out.” All functions accept similar commands and can be used in the same way. The preferred way is to use formula interface, where the left hand side gives the community data frame and the right hand side lists the constraining variables:
+
+
+```{r ch4.4 Constrained Ordination}
+library(vegan)
+data("varespec")
+data("varechem")
+
+plot(varechem, gap = 0, panel = panel.smooth, cex.lab = 1.2,
+    lwd = 2, pch = 16, cex = 0.75, col = rgb(0.5, 0.5, 0.7, 0.8))
+
+stvarespec = as.data.frame(wisconsin(varespec))
+scvarechem = as.data.frame(scale(varechem))
+constr <- vegan::rda(stvarespec ~ ., data = scvarechem)
+constr
+
+ord3 = vegan::rda(stvarespec ~ N + K + Al, data = scvarechem)
+ord3
+
+anova(ord3)
+anova(ord3, by = "term", permutations = 199)
+
+#Forward Selection
+mfull <- vegan::rda(stvarespec ~ ., data = scvarechem)
+m0 <- vegan::rda(stvarespec ~ 1, data = scvarechem)
+
+optm <- ordiR2step(m0, scope = formula(mfull), trace = FALSE)
+optm$anova
+
+#vif.cca allows users to include factors in RDA. Function will compute VIF after breaking down each factor into dummy variables
+vif.cca(mfull)
+vif.cca(optm)
+
+#Examine Adjusted R squared
+round(RsquareAdj(mfull)$adj.r.squared, 2)
+round(RsquareAdj(optm)$adj.r.squared, 2)
+
+#Triplots to graph constrained Ordination
+par(mfrow = c(1, 2))
+
+# Triplots of the parsimonious RDA (scaling=1) Scaling 1
+plot(optm, scaling = "sites", main = "Sites scaling (scaling=1)",
+    correlation = TRUE)
+
+# Triplots of the parsimonious RDA (scaling=2) Scaling 2
+plot(optm, scaling = "species", main = "Species scaling (scaling=2)")
+
+#Clean it up a little
+par(mfrow = c(1, 1))
+sp.scores = scores(optm, display = "species", scaling = 1)
+sp.scores = sp.scores[sp.scores[, 1] > abs(0.1) | sp.scores[,
+    2] > abs(0.1), ]
+
+#Triplot of an RDA ordination on the lichen data with site scaling
+plot(optm, scaling = 1, type = "n", main = "Sites scaling (scaling=1)",
+    ylim = c(-0.2, 0.2), xlim = c(-0.3, 0.5))
+arrows(x0 = 0, y0 = 0, sp.scores[, 1], sp.scores[, 2], length = 0.05)
+text(sp.scores, row.names(sp.scores), col = 2, cex = 0.6, pos = 3)
+text(optm, display = "bp", scaling = 1, cex = 0.8, lwd = 1.5,
+    row.names(scores(optm, display = "bp")), col = 4)
+text(optm, display = c("sites"), scaling = 1, cex = 1)
+
+#Triplot of an RDA ordination on the lichen data with species scaling
+plot(optm, scaling = 2, type = "n", main = "Species scaling (scaling=2)",
+    ylim = c(-0.4, 0.4))
+
+arrows(x0 = 0, y0 = 0, sp.scores[, 1], sp.scores[, 2], length = 0.05)
+text(sp.scores, row.names(sp.scores), col = 2, cex = 0.7, pos = 3)
+text(optm, display = "bp", scaling = 2, cex = 0.8, lwd = 1.5,
+    row.names(scores(optm, display = "bp")), col = 4)
+text(optm, display = c("sites"), scaling = 2, cex = 1) #Sites closer together are more similar
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

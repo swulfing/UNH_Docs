@@ -194,6 +194,17 @@ A_repro_value
 A_repro_value %*% A_stable_stage
 
 #. Vandermeer (1975, 1978)
+
+#DO KEYFIT FUNCTION:
+## Keyfitz function
+keyfitz<-function(x,y){ # you provide the observed x
+sum(abs(x-y))/2 # and stable stage dist vectors
+} 
+#SEE https://cws.auburn.edu/shared/files%3Fid=217&filename=ConMan_FileDownload_MatrixPopulation.pdf
+
+#Good eigval and vector sources;
+#https://setosa.io/ev/eigenvectors-and-eigenvalues/
+#http://biom300.weebly.com/eigenvalues-and-eigenvectors-in-r.html
 ```
 
 ```{r lifeHistory, echo = FALSE}
@@ -267,7 +278,7 @@ pwrs <- -4:1
 
 #https://rdrr.io/cran/popbio/man/sensitivity.html
 
-
+#
 ```
 
 ```{r elasticity}
