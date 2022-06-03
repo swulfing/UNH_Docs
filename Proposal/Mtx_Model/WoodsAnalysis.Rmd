@@ -109,7 +109,7 @@ for(i in 1:length(freqs)){
 
   }
 }
-kable(iteration)
+#kable(iteration)
  
 # Sources: https://www.webpages.uidaho.edu/wlf448/stochgro.pdf
 # https://esajournals.onlinelibrary.wiley.com/doi/10.2307/1943004
@@ -193,18 +193,51 @@ show_front(high(Frequency) | high(PercentChange))
 ```{r idkrandom}
 mycolors <- colorRampPalette(brewer.pal(9, "RdYlBu"))(1177)
 
+iteration_popDy <- iteration %>%
+  mutate(PopDynamics = case_when(
+    lambda < 1 ~ "Negative",
+    lambda >= 1 ~ "Positive"
+  ))
+
+iteration_bins <- iteration %>%
+  mutate(PopDynamics = case_when(
+    lambda < 1 ~ "Decrease",
+    lambda >= 1 & lambda < 1.25 ~ "0-25",
+    lambda >= 1.25 & lambda < 1.5 ~ "25-50",
+    lambda >= 1.5 & lambda < 1.75 ~ "50-75",
+    lambda >= 1.75 & lambda < 2 ~ "75-100"
+  ))
+
+# #Discrete Colors
+# ggplot(iteration_popDy, aes(Frequency, PercentChange, fill = PopDynamics)) + geom_tile(width=1) +
+#   scale_fill_manual(
+#   values = c("red", "green")
+# )
+
+#Continuous Colors
 ggplot(iteration, aes(Frequency, PercentChange, fill = lambda)) + geom_tile(width=1) +
   scale_fill_gradient2(
   low = "red",
-  mid = "red",
-  high = "blue",
+  mid = "white",
+  high = "green",
+  #limits = c(1, max(iteration$lambda)),
   midpoint = 1,
   space = "Lab",
   na.value = "grey50"
 )
-  #scale_fill_brewer(palette = "RdYlBu")
+
+cols <- hcl.colors(5, palette = "Grays", alpha = NULL, rev = TRUE, fixup = TRUE)
+
+#Binned Colors
+ggplot(iteration_bins, aes(Frequency, PercentChange, fill = PopDynamics)) + geom_tile(width=1) +
+  scale_fill_manual(
+  values = c(cols)
+)
+
 
 #https://ggplot2.tidyverse.org/reference/scale_gradient.html
+
+#Okay so I changed what this is showing because it became kind of redundant with the other graph. This now bins it into amounts of pop increase
 
 ```
 
@@ -250,5 +283,65 @@ barplot(rates, main = "Minimum % survivability change needed to create populatio
         names.arg=c("Stage 1", "Stage 2", "Stage 3", "Stage 4", "Larval"))
 
 rates  
+
+#MAKE SURE EVERYTHING IS CALCED RIGHT
+#See if there's literature on selective catch
+#see if there's a relationship of life history type and which stage is most important
+#maybe try a monthly closure to certain sizes
 ```
+
+```{r stagemo}
+# I think this is going to be more of an aquaculture conversation than anything else
+
+#Dowble check survivability > 1 check. I don't think you did that correctly
+#do stagemo
+#have a survivability check in stagemo
+
+
+stagemo <- function(stage){
+  
+  stage_it <- data.frame(matrix(ncol=5,nrow=0, dimnames=list(NULL, c("Stage", "Frequency", "PercentChange", "mu", "lambda"))))
+  
+  for(i in 1:12){
+    for(j in 1:100){#FIND OUT HOW TO CONDENSE THESE IF STATEMENTS
+      testMtx <- A
+      if(stage == 4){
+        testMtx[stage, stage] <- A[stage, stage] + A[stage, stage]*(j/100)
+      } #input stage 4
+      
+      else if(stage == 5){
+        testMtx[1, stage-1] <- A[1, stage-1] + A[1, stage-1]*(j/100)
+      } #input stage 5
+      
+      else{
+      testMtx[,stage] <- A[,stage] + A[,stage]*(j/100)
+      } #input other stages
+      
+      mu <- ((i-1) * log(eigen(A)$values[1])) + log(eigen(testMtx)$values[1]) / i
+      lambda <- exp(mu)
+      
+      stage_it[nrow(stage_it) + 1,] <- c(f(stage), i, j/100, f(mu), f(lambda))
+    }
+  }
+  return(stage_it)
+}
+
+
+ggplot(stagemo(5), aes(Frequency, PercentChange, fill = lambda)) + geom_tile(width=1) +
+  scale_fill_gradient2(
+  low = "red",
+  mid = "white",
+  high = "green",
+  #limits = c(1, max(iteration$lambda)),
+  midpoint = 1,
+  space = "Lab",
+  na.value = "grey50"
+)
+
+
+```
+
+
+
+
 
