@@ -8,7 +8,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, cache = TRUE)
 setwd("C:/Users/sophi/Documents/UNH_Docs/Proposal/Mtx_Model")
 
 library(knitr)
@@ -21,13 +21,14 @@ library(gridExtra)
 library(RColorBrewer) 
 library(rPref)
 library(dplyr)
+library(ggpubr)
 
 observedData <- as.matrix(data.frame(read.csv("RaberinaryBenbow2012Calcs.csv")))
 observedStageMatrix <- observedData[1:13, 2:5]
 
 ```
 
-```{r initial things, echo = FALSE}
+```{r initial things}
 #Make Z
 z <- matrix(t(observedStageMatrix[2:11,]), ncol = 1, nrow = 40, byrow = TRUE)
 z
@@ -70,7 +71,7 @@ A <- matrix(c(qp$solution[1], 0, 0, qp$solution[7],
 #A
 ```
 
-```{r overallsurvive, echo = FALSE}
+```{r overallsurvive}
 #Easton note: I am also including the larval survivability in this function. Should I not be doing that or should I create two that 
 #Creat fxn to calculate matrices based on overall changes in survivability
 survivability <- function(increase){
@@ -91,10 +92,16 @@ f <- function(x) {
    if (all(Im(z <- zapsmall(x))==0)) as.numeric(z) else x
 }
 
+real_check <- function(mtx){
+  if(sum(mtx[,1]) > 1 | sum(mtx[,2]) > 1 | sum(mtx[,3]) > 1 | mtx[4,4] > 1){
+    return(NA)
+  }
+  else{return(mtx)}
+}
+
 ```
 
-```{r iteration, echo = FALSE}
-#Easton note: rerun the mathe with him
+```{r iteration}
 #Calculates new rates based on vectors of % chagne and frequencies of restrictions
 percentage <-rates <- c(seq(0, 1, .01)) # c(0.01, 0.05, 0.1, 0.15) 
 freqs <- c(seq(1, 12)) #c(1, 2, 3, 4, 6, 12) 
@@ -102,11 +109,12 @@ iteration <- data.frame(matrix(ncol=4,nrow=0, dimnames=list(NULL, c("Frequency",
 
 for(i in 1:length(freqs)){
   for(j in 1:length(percentage)){
-    mu <- ((freqs[i]-1) * log(eigen(A)$values[1]) + log(eigen(survivability(percentage[j]))$values[1]))/ freqs[i]
-    lambda <- exp(mu)
+    if (!is.na(real_check(survivability(percentage[j])))){
+      mu <- ((freqs[i]-1) * log(eigen(A)$values[1]) + log(eigen(survivability(percentage[j]))$values[1]))/ freqs[i]
+      lambda <- exp(mu)
+          iteration[nrow(iteration) + 1,] <- c(freqs[i], percentage[j], f(mu), f(lambda))
+    }
       # neweig <- (eigen(survivability(percentage[j]))$values[1] + (freqs[i]-1) * eigen(A)$values[1]) / freqs[i]
-      iteration[nrow(iteration) + 1,] <- c( f(freqs[i]), f(percentage[j]), f(mu), f(lambda))
-
   }
 }
 #kable(iteration)
@@ -115,7 +123,7 @@ for(i in 1:length(freqs)){
 # https://esajournals.onlinelibrary.wiley.com/doi/10.2307/1943004
 ```
 
-```{r projections, echo = FALSE}
+```{r projections, eval = FALSE}
 p <- list()
 modeled_data <- data.frame(matrix(ncol=8,nrow=0, dimnames=list(NULL, c("Stage_1", "Stage_2", "Stage_3", "Stage_4", "month", "pop", "freq", "rate"))))
 #par(mfrow = c(6,4))
@@ -153,16 +161,15 @@ ggplot(modeled_data, aes(y = pop, x = month)) +
 
 ```
 
-```{r paretto, echo = FALSE}
-#Can you run a parreto on a fxn that calls other fxns? We'll see lol
+```{r paretto}
 
+#DO I NEED THIS
+# moopshoop <- function(rate, freq){
+#   mu <- ((freq-1) * log(eigen(A)$values[1]) + log(eigen(survivability(rate))$values[1]))/ freq
+#   lambda <- exp(mu)
+#   return(f(lambda))
+# }
 
-#lol fix this entire code chunk none of it works
-moopshoop <- function(rate, freq){
-  mu <- ((freq-1) * log(eigen(A)$values[1]) + log(eigen(survivability(rate))$values[1]))/ freq
-  lambda <- exp(mu)
-  return(f(lambda))
-}
 #Paretto fromt LOOK UP ITS WHAT THIS IS TELLING YOU. look in optimization lit
 #see:https://www.pnas.org/doi/full/10.1073/pnas.1911440116
 
@@ -226,7 +233,7 @@ ggplot(iteration, aes(Frequency, PercentChange, fill = lambda)) + geom_tile(widt
   na.value = "grey50"
 )
 
-cols <- hcl.colors(5, palette = "Grays", alpha = NULL, rev = TRUE, fixup = TRUE)
+cols <- c(hcl.colors(4, palette = "Greens", alpha = NULL, rev = TRUE, fixup = TRUE), "#000000") #"Green-Yellow"
 
 #Binned Colors
 ggplot(iteration_bins, aes(Frequency, PercentChange, fill = PopDynamics)) + geom_tile(width=1) +
@@ -241,8 +248,8 @@ ggplot(iteration_bins, aes(Frequency, PercentChange, fill = PopDynamics)) + geom
 
 ```
 
-```{r stages, echo = FALSE}
-
+```{r stages}
+#GO BACK TO THIS FOR CHEKCIN SURVIVABILITY!!!!!
 #col 4 needs to be separate because you need to parse out larval and stage 4 survivability
 rates <- c(0, 0, 0, 0, 0)
 
@@ -297,7 +304,6 @@ rates
 #do stagemo
 #have a survivability check in stagemo
 
-
 stagemo <- function(stage){
   
   stage_it <- data.frame(matrix(ncol=5,nrow=0, dimnames=list(NULL, c("Stage", "Frequency", "PercentChange", "mu", "lambda"))))
@@ -317,17 +323,20 @@ stagemo <- function(stage){
       testMtx[,stage] <- A[,stage] + A[,stage]*(j/100)
       } #input other stages
       
-      mu <- ((i-1) * log(eigen(A)$values[1])) + log(eigen(testMtx)$values[1]) / i
-      lambda <- exp(mu)
+      if (!is.na(real_check(testMtx))){
+        mu <- ((i-1) * log(eigen(A)$values[1])) + log(eigen(testMtx)$values[1]) / i
+        lambda <- exp(mu)
+        #print(lambda)
       
-      stage_it[nrow(stage_it) + 1,] <- c(f(stage), i, j/100, f(mu), f(lambda))
+        stage_it[nrow(stage_it) + 1,] <- c(stage, i, j/100, f(mu), f(lambda))
+       }
     }
   }
   return(stage_it)
 }
-
-
-ggplot(stagemo(5), aes(Frequency, PercentChange, fill = lambda)) + geom_tile(width=1) +
+doesthiswork <- list()
+for(i in 1:5){
+p1 <-ggplot(stagemo(i), aes(Frequency, PercentChange, fill = lambda)) + geom_tile(width=1) +
   scale_fill_gradient2(
   low = "red",
   mid = "white",
@@ -336,9 +345,28 @@ ggplot(stagemo(5), aes(Frequency, PercentChange, fill = lambda)) + geom_tile(wid
   midpoint = 1,
   space = "Lab",
   na.value = "grey50"
-)
+  )
+doesthiswork[[i]] <- p1
+}
 
 
+ggarrange(plotlist = doesthiswork, labels = c("Stage 1", "Stage 2", "Stage 3", "Stage 4","Larval"), font.label = list(size = 7), nrow = 2, ncol = 2)
+#do.call(ggarrange, c(doesthiswork[1:5], labels = c("Stage 1", "Stage 2", "Stage 3", "Stage 4","Larval")))
+
+```
+
+```{r wtf}
+set.seed(21)
+x<-rnorm(20)
+y<-rnorm(20)
+df<-data.frame(x,y)
+df
+
+
+Scatterplot<-ggplot(df,aes(x,y))+geom_point()
+Hist_of_x<-ggplot(df,aes(x))+geom_histogram(bins=30)
+List<-list(Scatterplot,Hist_of_x)
+ggarrange(plotlist=List,widths=c(2,1),labels=c("Scatter","Hist"), nrow = 2, ncol = 2)
 ```
 
 
