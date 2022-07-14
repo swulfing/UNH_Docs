@@ -1,0 +1,38 @@
+---
+title: "Equatiomatic"
+author: "Sophie Wulfing"
+date: '2022-07-14'
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+library(equatiomatic)
+head(mtcars)
+```
+
+
+
+```{r cars}
+library(equatiomatic)
+head(mtcars)
+
+mod1 <- lm(mpg ~ cyl + disp, mtcars) #super simple lm
+summary(mod1)
+
+#betas and significance of different terms
+#Package helps with visualization
+
+extract_eq(mod1) #spite out the latex code
+extract_eq(mod1, use_coefs = TRUE) #Same code but puts in specific estimates
+
+#?extract_eq tells you all the things you can change
+
+```
+
+
+
+```{r }
+
+```
