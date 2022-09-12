@@ -1,0 +1,5 @@
+cd north-pacific-gyre/2012-07-03
+for datafile in NENE*A.txt NENE*B.txt;
+	do bash goostats.sh $datafile stats-$datafile;
+done
+	

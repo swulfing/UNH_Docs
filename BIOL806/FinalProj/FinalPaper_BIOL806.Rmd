@@ -1,0 +1,244 @@
+---
+title: "Final Project"
+author: "Sophie Wulfing"
+date: "12/14/2021"
+output:
+  bookdown::pdf_document2
+bibliography: FinalProj.bib
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+
+library(dplyr)
+library(ggplot2)
+library(printr)
+library(knitr)
+library(ggpubr)
+library(bookdown)
+
+
+setwd("~/UNH_Docs/BIOL806/FinalProj")
+CatchData <- read.csv("SalaryIIvilage2010_2016.csv")
+CatchData <- data.frame(CatchData)
+
+CatchData$Sex <- as.character(CatchData$Sex)
+CatchData$Date <- as.Date(CatchData$Date, format = "%d-%b-%y")
+CatchData$Number_of_individuals <- as.numeric(CatchData$Number_of_individuals)
+CatchData$Kilos <- as.numeric(CatchData$Kilos)
+CatchData$Average_Size <- as.numeric(CatchData$Average_Size)
+CatchData$USD_Price <- as.numeric(CatchData$USD_Price)
+CephData <- CatchData %>% filter(Marine_product == "H")
+```
+
+# Introduction
+Madagascar has been calculated to be among the top countries for potential successful preservation based on the potential economic benefits and success of harvest regulation [@macneil_global_2020]. The Vezo community, the population in Madagascar most reliant on marine resources, live in the South of the country and approach fishing as a fundamental component of their livelihood and culture, and the central  [@astuti_vezo_1995]. Fishing occurs both on the open ocean as well as in the intertidal range during low tide events [@benbow_lessons_2014]. Allocating these tasks tends to fall along gendered lines, as men typically take boats out for deeper sea fishing and women often walk along the shore in low tide, looking for their catch there [@astuti_vezo_1995; @baker-medard_gendering_2017; @oliver_positive_2015].
+
+Since the early 2000’s, Madagascar has moved from local, subsistence fishing to selling and exporting catch to export markets (Humber et al. 2006), and there is evidence that up to 75% of all fish caught is now sold to outside entities for export [@baker-medard_gendering_2017]. Since 2003, when this resource first began to globalize, cephalopods have become the largest class of exports  [@benbow_lessons_2014]. This has since added significant fishing pressure to Madagascar’s cephalopod populations and yield from this fishery began to drop in the southwest Andavadoaka region (Humber et al., 2006). Size limits had to be imposed on catches of Octopus cyanea, or gray octopus, which is the most abundant cephalopod species in this region and is caught in about 95% of local landings [@oliver_positive_2015] (Humber et al. 2006). However, these limits are difficult to impose, as fishing for gray octopus is non-selective and octopus typically die before size can be assessed (Humber et al., 2006).
+
+Typically, the predator-prey models used to population dynamics view human influence as a single parameter, such as including fishing rates incorporated into an overall death rate [@blackwood_effect_2012]. However, human practices and their interaction with the environment have a lot more complex dynamics at play. Communities must balance the value of conservation versus the monetary gain of harvest and exploitation, and this tradeoff is governed by social perception which in turn controls either the laws or injunctive norms that dictate how harvest is conducted. Previous research has incorporated elements of elementary game theory and replicator dynamics to model how an individual’s perception of conservation can influence the perceptions of those around them [@thampi_socio-ecological_2018; @sigdel_competition_2017]. This allows researchers to better study socio-ecological feedbacks as one system and will be a useful tool in understanding the fishing practices of the Vezo community.
+
+However, the gendered structure of fishing practices in Madagascar as mentioned above provide us with the opportunity to expand this model to include two types of social interaction: one with men and one with women, both of which have different effects on practices and the decisions being made for the community. This will allow us to identify the social steps that need to be taken not only in order to better protect cephalopod communities but also to show a need to open a space for women to participate in the decision making process. Previous models have not accounted for complex gender dynamics in socio-ecological systems, which is what we are hoping to develop in this study.
+
+In this paper, we will look at some of the landing data collected from Salary Bay in the southwestern coast of Madagascar from 2010 to 2016. This data collects not only landing and price data, but also has some information on the fisher themselves including their name, sex, and age. We hope to use this data as a preliminary estimation for some of the parameters in the models we will build.
+
+
+# Analysis
+## Changes in fishing over time
+
+We first wanted to see how the total number of Octopus landed has changed over time (Fig. \@ref(fig:numberLandings) a). Here, we can see that the number of landings have decreased, which corresponds with other observations of this fishery.
+
+```{r numberLandings, echo = FALSE, warning = FALSE, message = FALSE, fig.cap = "a) Total number of octopus landings. b) Average mass of individual octopus caught. Trends were calculated using a generalized linear model fit", out.width = "50%", fig.show="hold"}
+
+CephData_dates <- CephData %>% 
+  select(Date, Age, Sex, Number_of_individuals, Kilos, Average_Size, Price_Ar, USD_Price, When_returned_to_shore, Corresponding_time_interval_for_Arrival_time) %>%
+  group_by(Date) %>%
+  summarise(tot_number = sum(Number_of_individuals, na.rm=TRUE), mean_wt = mean(Kilos, na.rm=TRUE), mean_size = mean(Average_Size, na.rm=TRUE), mean_price = mean(USD_Price, na.rm=TRUE))
+
+ggplot(data = CephData_dates, aes(x = Date, y = tot_number)) +
+  ylim(0, 1000) +
+  geom_point(color = "black") +
+   stat_smooth(method = "glm") +
+   stat_regline_equation() +
+  ylab("No. of Individuals") +
+  ggtitle("a)")
+
+ggplot(data = CephData_dates, aes(x = Date, y = mean_size)) +
+  geom_point(color = "black") +
+  stat_smooth(method = "glm") +
+   stat_regline_equation() +
+  ylab("Average Individual Mass (kg)") +
+  ggtitle("b)")
+```
+
+Looking at the average weight of each individual octopus caught (Fig. \@ref(fig:numberLandings) b), we also see a general increase. Again, this could be for a number of reasons. The break in data may correspond with the instution of a marine protected area, enhancing the wildlife in that region, which could explain the increase in the later half of the dataset. Or because octopus tend to grow faster in warming waters, climate change could already be affecting these waters thereby increasing the octopus growth rate.
+
+However, the average total mass of each landing has held relatively constant (Fig. \@ref(fig:weight)), indicating that we may need to further look further into the reasons behind this. Are fishers catching more octopus in order to make up for smaller fish size? Or has fishing technology further aided the fishing community such that higher catch rates are simply easier. This also indicates the need to expand research to other villages in the region to see if they follow a similar trend.
+
+```{r weight, echo = FALSE, warning = FALSE, message = FALSE, fig.cap = "Average total mass of octopus catch. Trend was calculated using a generalized linear model fit"}
+
+ggplot(data = CephData_dates, aes(x = Date, y = mean_wt)) +
+  geom_point(color = "black") +
+  stat_smooth(method = "glm") +
+   stat_regline_equation() +
+  ylab("Weight (kg)")
+```
+
+On the other hand, the price of octopus has barely increased (Fig. \@ref(fig:price)), and further analysis is needed to see if the market price has also gone up in the countries that octopus is being exported to. This could be a continuation of research done by Ospina-Alvarez on the global trade network of cephalopods, and we could further look to see if the people harvesting this export are reaping the same economic benefits of those involved in their distribution, and which markets are paying for this export [@ospina-alvarez_main_2021].
+
+```{r price, echo = FALSE, warning = FALSE, message = FALSE, fig.cap = "Price of each landing. Trend was calculated using a generalized linear model fit"}
+ggplot(data = CephData_dates, aes(x = Date, y = mean_price)) +
+  geom_point(color = "black") +
+  stat_smooth(method = "glm") +
+  stat_regline_equation() +
+  ylab("Price (USD)")
+```
+
+We then wanted to make sure that the price being recieved by the fishers was increasing reasonably with inflation. Figure \@ref(fig:priceProj) shows that cephalopod prices were actually projected to increase faster than inflation based on this data, so the market price must be what is playing more of a role in that.
+
+```{r priceProj, echo = FALSE, warning = FALSE, message = FALSE, fig.cap = "Projected rate of cephalopod price increase (0.8%) compared to the USD inflation rate (0.2%) from 2011 to 2021"}
+
+
+cephInflation <- function(x) 1 + 0.0088*(x-2011)
+USDInflation <- function(x) 1 + 0.00209*(x-2011)
+
+plot.range1 <- data.frame(x=c(2011, 2021), Functions = factor(1))
+plot.range2 <- data.frame(x=c(2011, 2021), Functions = factor(2))
+
+ggplot(NULL, aes(x=x, colour=Functions)) +
+  stat_function(data = plot.range1, fun = cephInflation) +
+  stat_function(data = plot.range2, fun = USDInflation) +
+  xlab("Year") + ylab("Dollar Value (USD)") +
+  scale_color_manual(labels = c("Catch Prices", "USD value"), values = c("blue", "red"))
+
+```
+
+\newpage
+## Gender differences in fishing practices
+
+In order to begin to understand gendered fishing dynamics in this community and their subsequent effects on cephalopod populations, we must first understand the amount of octopus that each group is catching. (Fig. \@ref(fig:sexWt)). 
+
+```{r sexWt, echo = FALSE, warning = FALSE, message = FALSE, out.width = "50%", fig.show="hold", fig.cap = "Weight of each catch (kg) and total number of fish caught based on sex of fisher. There were a total number of 180 female fishers and 985 male fishers. Here, we see that although the number of fishers is drastically different, the two fishing strategies yield a similar result in terms of fishing success."}
+
+CephData_sex <- CephData %>% 
+  select(Date, Sex, Age, Number_of_individuals, Kilos, Average_Size, Price_Ar, USD_Price, When_returned_to_shore, Corresponding_time_interval_for_Arrival_time) %>%
+  filter(Sex == "L" | Sex == "A") %>%
+  mutate(Sex = replace(Sex, Sex == "L", "Male")) %>%
+  mutate(Sex = replace(Sex, Sex == "A", "Female"))
+
+# give.n <- function(x){
+#    return(c(y = mean(x), label = length(x)))
+# }
+
+ggplot(CephData_sex, aes(x=Sex, y=Kilos, fill = Sex)) + 
+  geom_boxplot() +
+  scale_fill_brewer(palette="Paired") +
+  geom_jitter(color="black", size=0.4, alpha=0.9) +
+  theme(legend.position="none") +
+  #stat_summary(fun.data = give.n, geom = "text") +
+  ylab("Weight of catch (kg)")
+  
+
+
+ggplot(CephData_sex, aes(x=Sex, y=Number_of_individuals, fill = Sex)) + 
+  geom_boxplot() +
+  scale_fill_brewer(palette="Paired") +
+  geom_jitter(color="black", size=0.4, alpha=0.9) +
+  theme(legend.position="none") + 
+   #stat_summary(fun.data = give.n, geom = "text") +
+  ylab("Total numner of octopus caught")
+```
+
+The economic gain (Fig. \@ref(fig:sexPrice)) is also comparable between the two groups, indicating that the parameter used to signify the "value" of conservation should be about even between the two groups. The slightly lower average of price in the women may be explained by the slightly lower number of fish caught as seen in \@ref(fig:sexWt)), and further analysis is needed to test that.
+
+```{r sexPrice, echo = FALSE, warning = FALSE, message = FALSE, fig.cap = "Payment recieved by fisher for catch"}
+ggplot(CephData_sex, aes(x=Sex, y=USD_Price, fill = Sex)) + 
+  geom_boxplot() +
+  scale_fill_brewer(palette="Paired") +
+  geom_jitter(color="black", size=0.4, alpha=0.9) +
+  theme(legend.position="none") +
+  ylab("Price per catch (USD)")
+```
+
+\newpage
+## Population Projection
+Population matrix models are a common way to predict future population dynamics by splitting the life history of the study organism up into a Leslie Matrix [@leslie_use_2021] where a population is split up into groups of ages, and a transformation matrix is applied to predict what the population makeup will be in future years. There are two types of population projection matrices: Age based and stage based. In an age based matrix, each stage corresponds with a year (or some other set unit of time) of the organism’s life. Probabilities of survival and reproductive output are therefore calculated per year of the life history, and the probability of remaining in the same stage only applies if the time interval selected (i.e. if the matrix is based on yearly growth, and we evaluate the matrix 1/year, the growth probability will be 1, as each group therefore moves up one stage/year). Here, we used data from a 2012 study [@raberinary_reproductive_2012] that observed *Octopus cyanea* fishing data in Madagascar and classified each catch into 5 life stages (Table \@ref(tab:Rdata)). We then used the Stable stage-distribution methods outlined in Caswell et al. to calculate the age-based matrix (Table \@ref(tab:mtxPrint)). However, as we projected the matrix just six months further (Fig. \@ref(fig:mtxCalc)), we found that we were making assumptions about this population that do not accurately reflect the reality of their life history and reproductive patterns as projecting this even further results in trillions of octopus in the small fishing range of the Vezo people.
+
+```{r Rdata, eval = FALSE, results = "asis", echo = FALSE, warning = FALSE, message = FALSE}
+
+Stage <- 1:5
+Classification <- c("Immature", "Incipient Maturity", "Mature", "Fully mature", "Post Laying")
+n <- c(490, 976, 97, 12, 3)
+
+Raberinary_Data <- data.frame(Stage, Classification, n)
+
+kable(Raberinary_Data, caption = "Data collected by Raberinary, Benbow 2012")
+
+```
+
+
+```{r mtxPrint, results = 'asis', echo = FALSE, warning = FALSE, message = FALSE}
+#Mtx stuff
+my_matrix <- matrix(c(0.00000000, 0, 5.16667633, 37.781672,
+                      0.70899885, 0, 2.75426885,  0.000000,
+                      0.02196359, 0, 0.01755941,  4.153712,
+                      0.00000000, 0, 0.39977954,  1.441390
+                      ), byrow = TRUE, ncol = 5)
+#print(my_matrix)
+
+knitr::kable(my_matrix ,  caption = "O. cyanea Stage-Based Matrix")
+
+```
+
+```{r mtxCalc, eval = FALSE, echo = FALSE, warning = FALSE, message = FALSE, fig.cap = "Projected *O. Cyanea* population based on Age-Matrix"}
+
+#eigyBois <- eigen(my_matrix)
+#eigyBois
+
+#(values <- eigyBois$values)
+#(vectors <- eigyBois$vectors)
+
+pop <- c(490, 976, 97, 12, 3)
+N <- list()
+ 
+for (i in 1:6){
+   N[[1]] <- pop
+   N[[i+1]] <-my_matrix %*% N[[i]]
+ }
+
+modeled_data <- t(as.data.frame(do.call(cbind, N)))
+colnames(modeled_data) <- c("Stage_1", "Stage_2", "Stage_3", "Stage_4", "Stage_5")
+modeled_data <- cbind(modeled_data, month = 0:6)
+
+#write.csv(modeled_data, "testing.csv",row.names = TRUE)
+modeled_data <- data.frame(modeled_data)
+
+ggplot(modeled_data) + 
+  geom_line(aes(y = Stage_1, x = month, color = "Stage 1"), size = 1.5) + 
+  geom_line(aes(y = Stage_2, x = month, color= "Stage 2"), size = 1.5) +
+  geom_line(aes(y = Stage_3, x = month, color = "Stage 3"), size = 1.5) + 
+  geom_line(aes(y = Stage_4, x = month, color= "Stage 4"), size = 1.5) +
+  geom_line(aes(y = Stage_5, x = month, color = "Stage 5"), size = 1.5) +
+  scale_color_manual(name = "", values = c("Stage 1" = "#009E73",
+                                                "Stage 2" = "#F0E442",
+                                                "Stage 3" = "#0072B2",
+                                                "Stage 4" = "#D55E00",
+                                                "Stage 5" = "#CC79A7")) +
+  xlab("Month") +
+  ylab("No. Individuals")
+
+
+#knitr::kable(my_matrix ,  caption = "matrix A")
+
+```
+
+\newpage
+# Conclusions
+
+This analysis has allowed us to explore some of the potential paramters that could go into any future models used to explore the population dynamics of cephalopods in this region. Some findings, such as the changes in number of fish caught over time and the basically constant price of fish caught, require further exploration as to if the data is accurately displaying the general fishing trends of this community and what the causes for these trends may be. 
+
+Age-based matrix models require extremely in depth data collection to inform each entry of the model, such as yearly survival rate based on age. This is not a reality for many organisms where this kind of data can’t be collected as it is difficult to monitor some species in yearly increments [@crouse_stage-based_1987] and organisms who have long larval stages, where calculating survival probabilities for this time is nearly impossible [@gharouni_sensitivity_2015]. A stage-based matrix should be used instead. Here, the life history of the study organism would be grouped by stages, where each unit of the matrix represents a distinct period of the organism’s life where it is subject to different environments, pressures, or physical attributes that would alter the survival and reproductive output at that phase, but the amount of time between each stage is now variable. This would simply create different inputs for the probability of remaining in the same stage, and the survival and fecundity inputs can be based on available data. Therefore, the model employed by this project will depend on the life history of each cephalopod species and what data we find available to inform the inputs of the matrix.
+
+\newpage
