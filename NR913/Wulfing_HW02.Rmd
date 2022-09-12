@@ -1,0 +1,64 @@
+---
+title: "Wulfing_HW02"
+author: "Sophie Wulfing"
+date: "2/12/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**1. In the penguin-krill linear regression simulation model we fit in class, how would weinterpret of the B0 parameter? That is, what is its biological/ecological meaning?**
+
+In the penguin-krill model in class, the x values were krill counts and the y were penguin counts (both observed). The B0 represents the y intercept of the model OR in biological terms, how many penguins would theoretically exist if there were no krill left. They may be finding another food source or something like that
+\newpage
+
+**2. Construct a barplot in R to show the probability distribution of a Poisson random variable with a mean of 1. (Set the upper limit of the x-axis to something reasonable like 15). What might be an example of a real ecological/biological/geomorphological variable that would exhibit this distribution?**
+
+From my understanding of Poisson Distributions, they are most often used in ecology for studying species distributions or abundances. For example if you were studying the dispersal of some kind of tree , the most likely number of trees in a given sample area would be 3 and the likelihood of finding any other number of trees in a sample area would be shown on the histogram. Let's also say that the maximum number of trees that can fit in a sample area would be 15, which is why we have set the upper x limit to be 15.
+
+```{r q2}
+p <- dpois(x = 0:15, lambda = 3)
+
+barplot(p, names.arg = 0:15,
+        xlab = "No. successes",
+        ylab = "Probability")
+
+```
+\newpage
+
+**3. Prove that the mean of a gamma distribution is the shape divided by the rate by simulating data with a known shape and rate and taking the mean of those simulated data. (For this exercise, just provide the R code – no need to write an answer). If you’d like to, show this visually using a histogram that depicts the simulated data and includes a vertical line representing the true mean as solid black line and another vertical line representing the mean of your simulated data as a dashed red line.** 
+
+```{r q3}
+shape = 1.5
+rate = 0.1
+ y <- rgamma(1000, shape, rate)
+mean(y)
+hist(y,
+       main = paste("shape = 1.5; rate = 0.1; true mean = ", shape/rate,
+                    "; sample mean  = ", mean(y),sep = ""))
+abline(v = mean(y), col = "red", lty = 2)
+abline(v = shape/rate)
+```
+\newpage
+
+**4. Suppose you have 20 sample plots and are searching for moose using drones. You search each plot once. If the probability of detecting at least one moose in a plot (a “success”) during a given search is 0.17, what is the probability that you detect at least one moose in exactly 5 out of the 20 plots?** 
+
+probability = 0.1345426 (see code)
+
+```{r q4}
+dbinom(x = 5,
+       size = 20,
+       prob = .17)
+```
+
+**5. Describe in your own words the relationship between likelihood, probability, and a maximum likelihood estimate.**
+
+Probability is a number (between 0 and 1) assigned to the chance that a certain event is going to happen. And both of these things are known. For example, we toss a coin ten times and we know the probability that we will get 3 heads and 7 tails.
+
+Likelihood functions are used when we don't know the probability of something happening, but because we observed that it did, we apply a likelihood function to maximize the associated probability of that event occurring. The result of this function is the maximum likelihood estimate (i.e. an assigned probability of an event). For the coin example, we don't know if the coin is biased or not, but we observed 3 heads and 7 tails. We then apply a likelihood function to this observation to get a theoretical probability that maximizes this 3 heads 7 tails outcome. The maximum of this function (i.e. the expected number of heads/tails given our likelihood function) is the maximum likelihood estimate (MLE). In Bayes stats, we  use this to estimate our most likely parameters given our observed data.
+
+Honestly, I struggle a bit with the difference so let me know if I'm off. The thing I don't fully understand is exactly what likelihood is by itself. I guess I understand it's a theoretical probabilistic framework that we apply to unknown probabilities.

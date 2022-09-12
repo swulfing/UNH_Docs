@@ -1,0 +1,38 @@
+ 
+    model {
+
+    ##############
+    ### PRIORS ###
+    ##############
+    
+    beta0 ~ dnorm(0,0.001)  # intercept of forest
+    beta1 ~ dnorm(0,0.001)  # effect of forest
+    beta2 ~ dnorm(0,0.001)  # intercept of observor
+    beta3 ~ dnorm(0,0.001)  # effect of observer
+    
+
+
+    ##################
+    ### LIKELIHOOD ###
+    ##################
+    
+    # Abundance Model
+    for(i in 1:nsite){
+      n[i] ~ dpois(lambda[i]) #n is latent/non obs. therefore needs init val but not a prior?
+      log(lambda[i]) <- beta0 + beta1 * forest[i] #log of lambda will be all covariates
+      
+    # Detection Model
+    for(j in 1:nsurvey){
+      y[i,j] ~ dbin(p[i,j], n[i]) #y is data, p is detection prob. p needs a prior? p i,j
+      logit(p[i,j]) <-  beta2 + beta3 * obs[i,j] #p needs a logit link
+    } #j
+    } #i
+
+    ##########################
+    ### DERIVED PARAMETERS ###
+    ##########################
+    
+  abun <- sum(n[])
+    
+    } # end of model  
+    

@@ -1,0 +1,305 @@
+---
+title: "Wulfing NR913 Final Project"
+author: "Sophie Wulfing"
+date: '2022-04-04'
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(R2jags)
+library(tidyr)
+library(dplyr)
+library(multcompView)
+library(unikn)
+
+setwd("~/UNH_Docs/NR913")
+
+cephs <- read.csv("C:/Users/sophi/Documents/UNH_Docs/Proposal/CNH2_data/cleanData.csv")
+
+#Filtering out only the most used sites for the ANOVA
+site_data <- cephs %>%
+    group_by(REGION) %>%
+    summarise(Count = n()) %>%
+    filter(Count > 150)
+
+ceph_sites <- cephs %>%
+  filter(REGION %in% site_data$REGION)
+
+ceph_sites2 <- transform(ceph_sites,id=as.numeric(factor(REGION)))
+
+#Organizing dataset so a JAGS T test can read it
+ceph_model <- transform(cephs,id=as.numeric(factor(REGION)), sex_id=(as.numeric(factor(FISHER_SEX))-1))
+ceph_sex <- ceph_model %>% drop_na(sex_id)
+
+purps <- "#440154FF"
+midnight <- "#414487FF"
+dkteal <- "#2A788EFF"
+limabean <- "#7AD151FF"
+bananas <- "#FDE725FF"
+
+
+```
+
+```{r sitewt, echo = TRUE}
+
+#Initial data visualization
+boxplot(as.numeric(AVG_WT) ~ REGION,
+        ylab = "Average wt of Cepalopod",
+        xlab = "Site",
+        # outline = TRUE,
+        # notch = FALSE,
+        # staplewex = 0.2,
+        # boxwex = 0.4,
+        # border = TRUE,
+        data = ceph_sites2)
+
+sink("cephs_sitewt.txt")
+cat(" 
+    model {
+    
+    # PRIORS - Including a different variance per site
+    for(i in 1:nsites){
+    alpha[i] ~ dnorm(0,0.001)
+    tau[i] <- 1/sigma[i]^2
+    sigma[i] ~ dunif(0,10)
+    }
+    
+    # LIKELIHOOD
+    for(i in 1:n){
+    mass[i] ~ dnorm(mu[i],tau[site[i]])
+    mu[i] <- alpha[site[i]]
+    } # i
+    
+    #Generating new data for each run of the MCMC
+    for(i in 1:n){
+    y.new[i] ~ dnorm(mu[i],tau[site[i]]) 
+    }
+    
+    } # end of model  
+    ",fill = TRUE)
+sink()
+
+win.data <- list(mass   = log(as.numeric(ceph_sites2$AVG_WT)),
+                 site   = ceph_sites2$id, 
+                 n      = nrow(ceph_sites2),
+                 nsites = length(unique(ceph_sites2$id)),
+                 stdev_data = sd(as.numeric(ceph_sites2$AVG_WT), na.rm = TRUE),
+                 mean_data = mean(as.numeric(ceph_sites2$AVG_WT), na.rm = TRUE))
+
+# Initial values
+inits <- function()list(alpha = rnorm(7), 
+                        sigma = rlnorm(7))
+
+# Parameters monitored
+params <- c("alpha",
+            "sigma",
+            "y.new"
+) 
+
+# MCMC settings
+ni <- 1000; nt <- 3; nb <- 100; nc <- 3
+
+#Model Output
+out_stwt <- jags(win.data, inits, params, "cephs_sitewt.txt", 
+            n.chains = nc, n.thin = nt, n.iter = ni, n.burnin = nb, 
+            working.directory = getwd())
+print(out_stwt, dig = 1) 
+
+#Exponentiating the output to get the actual weights
+print(exp(out_stwt$BUGSoutput$sims.list$alpha[1,]))
+
+#Visualize model-generated data and compare to actual data
+par(mfrow = c(2,2),
+    mar = c(5.1, 4.1, 3.1, 0.5)) #b, l ,t ,r
+boxplot(as.numeric(AVG_WT) ~ REGION, 
+        ylab = "Wt",
+        xlab = NA,
+        #cex.axis = .5,
+        las = 2,
+        staplewex = 0.2,
+        boxwex = 0.4,
+        frame.plot = FALSE,
+        col = c(purps,limabean,bananas),
+        data = ceph_sites2,
+        main = "Actual data")
+
+for(i in 1:3){
+boxplot(exp(out_stwt$BUGSoutput$sims.list$y.new[i,]) ~ ceph_sites2$id, 
+        ylab = "Wt",
+        xlab = "Site",
+        staplewex = 0.2,
+        boxwex = 0.4,
+        frame.plot = FALSE,
+        col = c(purps,limabean,bananas),
+        main = paste0("Model-generated data; iter = ",i))
+}
+dev.off()
+```
+
+```{r tukey, echo = FALSE}
+
+#https://r-graph-gallery.com/84-tukey-test.html
+#https://www.r-bloggers.com/2021/08/how-to-perform-tukey-hsd-test-in-r/
+
+#Now conducting a Tukey test to compare the sites
+model <- aov(as.numeric(AVG_WT)~REGION, ceph_sites2)
+tukTest <- TukeyHSD(model, conf.level=.95)
+
+plot(TukeyHSD(model, conf.level=.95), las = 2, cex.axis=.3, mar = c(5.1,15,1.4,2.1))
+
+#Just a way to generate labels from a Tukey Test
+generate_label_df <- function(TUKEY, variable){
+ 
+     # Extract labels and factor levels from Tukey post-hoc 
+     Tukey.levels <- TUKEY[["REGION"]][,4]
+     Tukey.labels <- data.frame(multcompLetters(Tukey.levels)['Letters'])
+     
+     #I need to put the labels in the same order as in the boxplot :
+     Tukey.labels$treatment=rownames(Tukey.labels)
+     Tukey.labels=Tukey.labels[order(Tukey.labels$treatment) , ]
+     return(Tukey.labels)
+}
+
+#Generate labels and colors such that they correspond with statistically similar regions
+LABELS <- generate_label_df(tukTest, "ceph_sites2$REGION")
+my_colors <- hcl.colors(5, palette = "YlOrRd", alpha = NULL, fixup = TRUE)
+
+# Draw the basic boxplot- a good chuck of this code is just getting the colors and labels to line up right
+a <- boxplot(as.numeric(ceph_sites2$AVG_WT) ~ ceph_sites2$REGION , ylim= c(0 , 7.5) , ylab="Avg cephalopod weight (kg)", xlab = "Region", main="", cex.axis = 0.67, col=my_colors[as.numeric(factor(LABELS[,1]))])
+over <- 0.12*max( a$stats[nrow(a$stats),] )
+mark(
+  LABELS[,1],
+  x = c((1:nlevels(as.factor(ceph_sites2$REGION)))+.02),
+  y = a$stats[nrow(a$stats)-1,]+ over,
+  y_layout = "even",
+  col = my_colors[as.numeric(factor(LABELS[,1]))],
+  col_bg = "white",
+  cex = .9,
+  font = 1,
+  new_plot = "none"
+)
+
+```
+
+```{r sexno, echo = FALSE}
+#TTEST
+#Frequentest T test
+poisson.t.test <- glm(ceph_model$NO_CAUGHT ~ ceph_model$sex_id, family = poisson)
+summary(poisson.t.test) #effect of arable are significant. ESTIMATES ARE ON LOG SCALE
+
+#Visualize Data
+boxplot(NO_CAUGHT ~ FISHER_SEX, 
+        ylab = "No caught per landing",
+        xlab = "Site",
+        outline = TRUE,
+        notch = FALSE,
+        staplewex = 0.2,
+        boxwex = 0.4,
+        border = TRUE,
+        data = ceph_model)
+
+sink("cephs_sexno.txt")
+cat(" 
+    model {
+    
+    # PRIORS
+    beta0 ~ dnorm(0,0.001)  # intercept i.e. average catch of a female fisher
+    beta1 ~ dnorm(0,0.001)  # effect of being a male fisher
+    tau <- 1/sigma^2
+    sigma ~ dunif(0,10)
+    
+    # LIKELIHOOD
+    for(i in 1:n){
+    cephs[i] ~ dpois(lambda[i]) #Poisson distribution bc counts. error term built in bc lambda is both mean and var
+    log(lambda[i]) <- beta0 + beta1 * sex[i] +eps[i] #Remember, predictning log of lambda not lambda
+    #lambda[i] <- exp(beta0 + beta1 * sex[i] ) Alternative form
+    eps[i] ~ dnorm(0,tau) #Overdispersion Param
+    
+    # CHECK MODEL FIT
+    presid[i] <- (cephs[i] - lambda[i])/sqrt(lambda[i])          # Pearson residual- corrects for larger mean => larger var
+    cephs.new[i] ~ dpois(lambda[i])                              # new data from fitted model
+    presid.new[i] <- (cephs.new[i] - lambda[i])/sqrt(lambda[i])  # Pearson residual for new data
+
+    D[i] <- presid[i]^2          # squared Pearson residuals for observed data
+    D.new[i] <- presid.new[i]^2  # squared Pearson residuals for new data
+    
+    
+    } # i
+    
+
+    # CHECK MODEL FIT - BAYESIAN P-VALUE
+    D.sum <- sum(D[])                      # sum of squared residuals for raw data
+    D.new.sum <- sum(D.new[])              # same, but for model-generated data
+    Bayes.P <- step(D.new.sum/D.sum - 1)   # step(x) tests if x >= 0
+    
+    } # end of model  
+    ",fill = TRUE)
+sink()
+
+win.data <- list(cephs = as.integer(ceph_sex$NO_CAUGHT), 
+                 sex  = ceph_sex$sex_id,
+                 n  = nrow(ceph_sex))
+
+# Initial values
+inits <- function()list(beta0  = rnorm(1),
+                        beta1  = rnorm(1))
+
+# Parameters monitored
+params <- c("beta0",
+            "beta1",
+            "Bayes.P",
+            "D.sum",
+            "D.new.sum",
+            "cephs.new")
+
+# MCMC settings
+ni <- 3000; nt <- 1; nb <- 1000; nc <- 3
+
+#Model Output
+out_sexno <- jags(win.data, inits, params, "cephs_sexno.txt", 
+                  n.chains = nc, n.thin = nt, n.iter = ni, n.burnin = nb, 
+                  working.directory = getwd())
+print(out_sexno, dig = 2)
+
+# plot parameter posteriors
+o <- out_sexno$BUGSoutput$sims.list
+
+d <- density(o$beta0)
+d2 <- density(o$beta1)
+
+plot(d,
+     xlab = "Posterior distribution",
+     ylim = c(0,3),
+     xlim = c(-1,1.5),
+     main = "",
+     las = 1)
+polygon(d, col = rgb(182,207,182, alpha = 175, maxColorValue = 255), 
+        border = "black", lwd = 2)
+polygon(d2, col = rgb(255,255,181, alpha = 175, maxColorValue = 255), 
+        border = "black", lwd = 2)
+
+# converting that plot to raw scale - what model thinks means are
+d <- density(exp(o$beta0))
+d2 <- density(exp(o$beta0 + o$beta1))
+
+plot(d,
+     xlab = "Posterior distribution",
+     main = "Expected no. of cephalopods caught by sex",
+     xlim = c(0,4),
+     ylim = c(0,9),
+     las = 1)
+polygon(d, col = rgb(182,207,182, alpha = 175, maxColorValue = 255), 
+        border = "black", lwd = 3)
+polygon(d2, col = rgb(255,255,181, alpha = 175, maxColorValue = 255), 
+        border = "black", lwd = 3)
+legend(.2, 8.5, legend=c("Women", "Men"),
+       fill = c( rgb(182,207,182, alpha = 175, maxColorValue = 255),  rgb(255,255,181, alpha = 175, maxColorValue = 255)),
+        cex=0.8)
+
+
+```
+

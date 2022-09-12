@@ -1,0 +1,33 @@
+ 
+    model {
+    
+    # PRIORS
+    for(i in 1:nsites){
+    alpha[i] ~ dnorm(mu_array,tau_array)
+    }
+    mu_array ~ dnorm(0,0.001)
+    tau_array <- 1/sigma_array^2
+    sigma_array ~ dunif(0,100)
+    
+    for(i in 1:nsites){
+    tau[i] <- 1/sigma[i]^2
+    sigma[i] ~ dunif(0,100)
+    }
+    
+    # LIKELIHOOD
+    for(i in 1:n){
+    ele[i] ~ dnorm(mu[i],tau[array[i]])
+    mu[i] <- alpha[array[i]]
+    } # i
+    
+    # DERIVED QUANTITIES
+    for(i in 1:nsites){
+    avg[i] <- (alpha[i]*stdev_data) + mean_data
+    stan_dev[i] <- (sigma[i]*stdev_data) 
+    }
+
+    mu_array_m <- (mu_array*stdev_data) + mean_data
+    sigma_array_m <- (sigma_array*stdev_data) 
+
+    } # end of model  
+    

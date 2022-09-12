@@ -1,0 +1,39 @@
+ 
+    model {
+    ##############
+    ### PRIORS ###
+    ##############
+    
+    psi ~ dunif(0,1) #not normal. psi is a prob
+    p ~ dunif(0,1)
+
+    ##################
+    ### LIKELIHOOD ###
+    ##################
+    
+    # OCCUPANCY SUBMODEL - ECOLOGICAL PROCESS - no direct data being applied to this one
+    
+    for(i in 1:nsite){
+        z[i] ~ dbern(psi) #z is going to be occupancy. z is true latent (i.e. not observed) state of occupancy
+        #z needs inital val but now a prior
+        
+    # DETECTION SUBMODEL - OBSERVATION PROCESS
+    
+        for(j in 1:nsurvey){
+            y[i,j]~dbern(p * z[i]) #y is the detection prob
+    
+        } # j
+    } # i
+    
+    # DERIVED PARAMS 
+    sites.occ <- sum(z[])
+    
+
+#psi-prob of occupancy
+#p-prob of detection GIVEN occupancy (z). therefore need to multiply it by z
+
+
+
+
+    } # end of model  
+    

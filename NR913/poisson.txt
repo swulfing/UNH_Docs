@@ -1,0 +1,32 @@
+ 
+    model {
+    
+    # PRIORS
+    beta0 ~ dnorm(0,0.001)  
+    beta1 ~ dnorm(0,0.001)  
+    psi ~ dunif(0,1)
+    
+    # LIKELIHOOD
+    for(i in 1:n){
+
+    w[i] ~ dbern(psi) #Adding a term
+    hares[i] ~ dpois(w[i]*lambda[i])
+    log(lambda[i]) <- beta0 + beta1 * landuse[i] 
+    
+    # CHECK MODEL FIT
+    presid[i] <- (hares[i] - w[i]*lambda[i])/sqrt(w[i]*lambda[i] + 0.0001) 
+    hares.new[i] ~ dpois(w[i]*lambda[i])   
+    presid.new[i] <- (hares.new[i] - w[i]*lambda[i])/sqrt(w[i]*lambda[i]+ 0.0001) 
+    
+    D[i] <- presid[i]^2    
+    D.new[i] <- presid.new[i]^2 
+
+    } # i
+    
+    # CHECK MODEL FIT - BAYESIAN P-VALUE
+    D.sum <- sum(D[])  
+    D.new.sum <- sum(D.new[]) 
+    Bayes.P <- step(D.new.sum/D.sum - 1) 
+    
+    } # end of model  
+    

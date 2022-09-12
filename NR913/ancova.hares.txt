@@ -1,0 +1,21 @@
+ 
+    model {
+    
+    # PRIORS
+    for(i in 1:nlanduse){
+    alpha[i] ~ dnorm(0,0.001)  # intercepts
+    beta[i]  ~ dnorm(0,0.001)  # slopes
+    }
+    
+    # prior for variance
+    tau <- 1/sigma^2
+    sigma ~ dunif(0,100)
+    
+    # LIKELIHOOD
+    for(i in 1:n){
+    mean.density[i] ~ dnorm(mu[i],tau)
+    mu[i] <- alpha[landuse[i]] + beta[landuse[i]] * year[i]
+    } # i
+
+     } # end of model  
+    

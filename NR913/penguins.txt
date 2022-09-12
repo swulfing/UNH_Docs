@@ -1,0 +1,22 @@
+
+    model { #always start JAGS with this model line
+    
+    # Priors-all things we don't know
+    beta0 ~ dnorm(0,0.01)		# precision inverse of variance. This means huge variance
+    beta1 ~ dnorm(0,0.01)
+    precision <- 1 / variance	#Priors are unknown. We only know #pengiuns and #krill
+    variance <- sigma^2
+    sigma ~ dunif(0,15) #sigma sq root of variance. We're saying anywhere btwn 1 and 15 (15 would be massive)
+    #No prior for mew. We will calc further down. We've covered mew using priors for b0 and b1
+    
+    
+    # Likelihood
+    for(i in 1:nobs){
+    penguins[i] ~ dnorm(mew[i], precision) #This is the likelihood. From penguins data. Assuming it's normal with some expected mean mew. With precision (JAGS version of variance. precision = 1/variance). We're saying it depends on krill and we're ceating a model based off that V
+    
+    mew[i] <- beta0 + beta1 * krill[i] #obs drawn from mew which depends on krill with some random noise incorporated
+    
+    } # i loop
+    
+    } # end of the model. Penguins will now be saved in WD
+    

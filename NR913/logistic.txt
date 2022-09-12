@@ -1,0 +1,43 @@
+ 
+    model {
+    
+    # PRIORS
+    for(i in 1:narray){
+    beta0[i] ~ dnorm(mu,tau) #need a prior for each intercept
+    }
+    mu ~ dnorm(0,0.001)
+    tau <- 1/sigma^2
+    sigma ~ dunif(0,5)
+    
+    beta1 ~ dnorm(0,0.001)
+    beta2 ~ dnorm(0,0.001)
+    beta3 ~ dnorm(0,0.001)
+    beta4 ~ dnorm(0,0.001)
+
+
+    # LIKELIHOOD
+    for(i in 1:nsite){
+    mart[i] ~ dbern(p[i])
+    
+    logit(p[i]) <-  beta0[array[i]] + beta1 * bwood[i]
+    + beta2 * cwood[i]
+    + beta3 * d_blg[i]
+    + beta4 * rain[i]
+    
+    # RESIDUALS
+    presid[i] <- (mart[i]-p[i])/sqrt(p[i]*(1-p[i]))
+    mart.new[i] ~ dbern(p[i])
+    presid.new[i] <- (mart.new[i]-p[i])/sqrt(p[i]*(1-p[i]))
+    
+    p2[i] <- presid[i]^2
+    p.new2[i] <- presid.new[i]^2
+
+    }  # i
+    
+    D <- sum(p2[])
+    D.new <- sum(p.new2[])
+    
+    bpvalue <- step(D.new/D-1)
+
+    } # end of model  
+    

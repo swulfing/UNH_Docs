@@ -1,0 +1,28 @@
+ 
+    model {
+    
+    # PRIORS
+    for(i in 1:nsites){
+    alpha[i] ~ dnorm(0,0.001)
+    tau[i] <- 1/sigma[i]^2
+    sigma[i] ~ dunif(0,10)
+    }
+
+    
+    # LIKELIHOOD
+    for(i in 1:n){
+    mass[i] ~ dnorm(mu[i],tau[site[i]]) #Unique variance. gives 12 different tau vals. each tau needs proir. put sigma prior in loop
+    mu[i] <- alpha[site[i]]
+    } # i
+    
+    # # derived quantitites
+    # diff23 <- alpha[3] - alpha[2]
+
+    for(i in 1:nsites){
+    avg[i] <- (alpha[i]*stdev_data) + mean_data
+    stan_dev[i] <- (sigma[i]*stdev_data) 
+
+    }
+    
+    } # end of model  
+    

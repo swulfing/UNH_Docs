@@ -1,0 +1,35 @@
+ 
+    model {
+    
+    # PRIORS
+    beta0 ~ dnorm(0,0.001)  # intercept
+    beta1 ~ dnorm(0,0.001)  # effect of M/F, IDK
+    tau <- 1/sigma^2
+    sigma ~ dunif(0,10)
+    
+    # LIKELIHOOD
+    for(i in 1:n){
+    cephs[i] ~ dpois(lambda[i]) #error term built in bc lambda is both mean and var
+    log(lambda[i]) <- beta0 + beta1 * sex[i] +eps[i]# sex needs to be 0s and 1s. predicting log of lambda, not lambda
+    #lambda[i] <- exp(beta0 + beta1 * sex[i] ) Alternative form
+    eps[i] ~ dnorm(0,tau)
+    
+    # CHECK MODEL FIT
+    presid[i] <- (cephs[i] - lambda[i])/sqrt(lambda[i])          # Pearson residual- corrects for larger mean => larger var
+    cephs.new[i] ~ dpois(lambda[i])                              # new data from fitted model
+    presid.new[i] <- (cephs.new[i] - lambda[i])/sqrt(lambda[i])  # Pearson residual for new data
+
+    D[i] <- presid[i]^2          # squared Pearson residuals for observed data
+    D.new[i] <- presid.new[i]^2  # squared Pearson residuals for new data
+    
+    
+    } # i
+    
+
+    # CHECK MODEL FIT - BAYESIAN P-VALUE
+    D.sum <- sum(D[])                      # sum of squared residuals for raw data
+    D.new.sum <- sum(D.new[])              # same, but for model-generated data
+    Bayes.P <- step(D.new.sum/D.sum - 1)   # step(x) tests if x >= 0
+    
+    } # end of model  
+    

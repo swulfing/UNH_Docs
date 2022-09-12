@@ -1,0 +1,208 @@
+---
+title: "Lefkovitch Method"
+author: "Sophie Wulfing"
+date: "2/5/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+setwd("C:/Users/sophi/Documents/UNH_Docs/Proposal/Mtx_Model")
+
+library(matlib)
+library(ggplot2)
+
+observedData <- as.matrix(data.frame(read.csv("RaberinaryBenbow2012Calcs.csv")))
+observedStageMatrix <- observedData[1:13, 2:5]
+```
+
+```{r matrix print,results = 'asis', echo = FALSE}
+write_matex <- function(x) {
+  begin <- "$$\\begin{bmatrix}"
+  end <- "\\end{bmatrix}$$"
+  X <-
+    apply(x, 1, function(x) {
+      paste(
+        paste(x, collapse = "&"),
+        "\\\\"
+      )
+    })
+  writeLines(c(begin, X, end))
+}
+```
+## Note
+Adapted from Levkovitch(1963, 1964 a,b) study on cigarette beetle. From page 142 in Caswell book. This method assumes a stable stage dist
+
+```{r initial things, echo = FALSE}
+A_reg <- matrix(, nrow = 4, ncol = 5)
+SD <- matrix(, nrow = 4, ncol = 1)
+Var <- matrix(, nrow = 4, ncol = 1)
+
+#Creating x using first 10 months (11th will be our observed y)
+x <- matrix(observedStageMatrix[1:10,], nrow = 10, ncol = 4, byrow = FALSE)
+x <- cbind(rep(1, 10), x) #Creates an extra col of 1s at the beginning of x to calculate all the B0s. Going to omit for now because makes the y calcs weird and IDK how to deal with that
+```
+
+# Linear Regression
+```{r multiple linear regression with matrices}
+for (i in 1:nrow(A_reg)){
+  #calc each row of mtx and add to A
+  y <- matrix(observedStageMatrix[2:11, i])
+  arow <- inv((t(x) %*% x)) %*% t(x)  %*% y
+  A_reg[i, ] <- arow
+  
+  #now make vectors for sd and var
+  e <- matrix(y - x %*% arow)
+  SD[i] <- (t(e) %*% e) / (nrow(y)-nrow(arow))
+  Var[i] <- SD[i] * inv(t(x) %*% x)
+  
+}
+
+```
+
+
+Calculated A matrix
+```{r show A_reg, results = 'asis', echo = FALSE, fig.cap = "Calculated Stage-Based Matrix"}
+write_matex(A_reg)
+```
+
+SD of matrix
+```{r show SD, results = 'asis', echo = FALSE, fig.cap = "Standard Deviation of mtx"}
+write_matex(SD)
+```
+
+Variance of matrix
+```{r show Var, results = 'asis', echo = FALSE, fig.cap = "Variance of mtx"}
+write_matex(Var)
+```
+
+# Matrix and Predictions
+```{r model and predictions, echo = FALSE}
+A <- matrix(A_reg[,2:5], nrow = 4, ncol = 4)
+pop <- observedStageMatrix[13,]
+N <- list()
+ 
+#12 mo projection
+for (i in 1:12){
+     N[[1]] <- pop
+    N[[i+1]] <- A %*% N[[i]]
+ }
+
+modeled_data <- t(as.data.frame(do.call(cbind, N)))
+colnames(modeled_data) <- c("Stage_1", "Stage_2", "Stage_3", "Stage_4")
+modeled_data <- cbind(modeled_data, month = 0:12)
+
+#write.csv(modeled_data, "testing.csv",row.names = TRUE)
+modeled_data <- data.frame(modeled_data)
+
+print(ggplot(modeled_data) + 
+  geom_line(aes(y = Stage_1, x = month, color = "Stage 1"), size = 1.5) + 
+  geom_line(aes(y = Stage_2, x = month, color= "Stage 2"), size = 1.5) +
+  geom_line(aes(y = Stage_3, x = month, color = "Stage 3"), size = 1.5) + 
+  geom_line(aes(y = Stage_4, x = month, color= "Stage 4"), size = 1.5) +
+  scale_color_manual(name = "", values = c("Stage 1" = "#009E73",
+                                                "Stage 2" = "#F0E442",
+                                                "Stage 3" = "#0072B2",
+                                                "Stage 4" = "#D55E00")) +
+  ggtitle(paste0(i, " month projection")) +
+  xlab("Month") +
+  ylab("No. Individuals"))
+    
+
+```
+\newpage
+
+# Removing Negatives
+```{r model remove negs, echo = FALSE}
+
+#Remove Negs from model
+A_0 <- A_reg
+for(i in 1:nrow(A_0)){
+  
+  for( j in 2:ncol(A_0)){
+    if(A_0[i,j] < 0) {
+      A_0[i,j] <- 0
+      
+    }
+  }
+}
+
+#Get new SD and Var
+
+SD_0 <- matrix(, nrow = 4, ncol = 1)
+Var_0 <- matrix(, nrow = 4, ncol = 1)
+
+for (i in 1:nrow(A_0)){
+  #calc each row of mtx and add to A
+  y <- matrix(observedStageMatrix[2:11, i])
+  arow <- A_0[i,]
+  
+  #now make vectors for sd and var
+  e <- matrix(y - x %*% arow)
+  SD_0[i] <- (t(e) %*% e) / (nrow(y)-nrow(A_0))
+  Var_0[i] <- SD_0[i] * inv(t(x) %*% x)
+  
+}
+
+```
+
+A matrix-negatives removed
+```{r show A_0, results = 'asis', echo = FALSE, fig.cap = "Calculated Stage-Based Matrix-Negs removed"}
+write_matex(A_0)
+```
+
+SD of A matrix-negatives removed
+```{r show SD_0, results = 'asis', echo = FALSE, fig.cap = "Standard Deviation of mtx-Negs removed"}
+write_matex(SD_0)
+```
+
+Var of A matrix-negatives removed
+```{r show Var_0, results = 'asis', echo = FALSE, fig.cap = "Variance of mtx-Negs removed"}
+write_matex(Var_0)
+```
+
+```{r model negs removed, echo = FALSE}
+  A_0 <- matrix(A_0[,2:5], nrow = 4, ncol = 4)
+  pop <- observedStageMatrix[13,]
+  N <- list()
+ 
+#12 mo projection
+for (i in 1:36){
+     N[[1]] <- pop
+    N[[i+1]] <- A_0 %*% N[[i]]
+ }
+
+modeled_data <- t(as.data.frame(do.call(cbind, N)))
+colnames(modeled_data) <- c("Stage_1", "Stage_2", "Stage_3", "Stage_4")
+modeled_data <- cbind(modeled_data, month = 0:12)
+
+#write.csv(modeled_data, "testing.csv",row.names = TRUE)
+modeled_data <- data.frame(modeled_data)
+
+print(ggplot(modeled_data) + 
+  geom_line(aes(y = Stage_1, x = month, color = "Stage 1"), size = 1.5) + 
+  geom_line(aes(y = Stage_2, x = month, color= "Stage 2"), size = 1.5) +
+  geom_line(aes(y = Stage_3, x = month, color = "Stage 3"), size = 1.5) + 
+  geom_line(aes(y = Stage_4, x = month, color= "Stage 4"), size = 1.5) +
+  scale_color_manual(name = "", values = c("Stage 1" = "#009E73",
+                                                "Stage 2" = "#F0E442",
+                                                "Stage 3" = "#0072B2",
+                                                "Stage 4" = "#D55E00")) +
+  ggtitle(paste0(i, " month projection-Negatives Removed")) +
+  xlab("Month") +
+  ylab("No. Individuals"))
+    
+
+```
+\newpage
+Next Steps:
+
+1. This model doesn't include the b0 values by adding an extra column of 1's to beginning of X mtx XDONE
+2. Try Caswell and Twombly Method (1989) from 143 of Caswell book
+3. Try Wood's Quadratic Programming Method 6.2.2 from pg 144 of Caswell book
+4. Try to force certain aij's to be zero
+5. Look into measuring fecundity and how to deal with maturity btwn T and T+1 (section 6.7)
+6. Other tings: Picking timestep, See ch 7 if our timescale is too big (right now this is months for shiggles). If one stage is shorter than timestep, then pi = 0
+7. Once you think you have a good model, go back over ch4 for all the stuff you can actually do with that

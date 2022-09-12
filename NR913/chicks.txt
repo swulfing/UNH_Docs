@@ -1,0 +1,27 @@
+ 
+    model {
+    
+    # PRIORS
+    for(i in 1:nsites){
+    alpha[i] ~ dnorm(0,0.001)
+    }
+    tau <- 1/sigma^2
+    sigma ~ dunif(0,20)
+    
+    # LIKELIHOOD
+    for(i in 1:n){
+    weight[i] ~ dnorm(mu[i],tau)
+    mu[i] <- alpha[feed[i]]
+    } # i
+    
+    # derived quantitites
+    stan_dev <- (sigma*stdev_data) 
+    diff23 <- alpha[3] - alpha[2]
+
+    for(i in 1:nsites){
+    avg[i] <- (alpha[i]*stdev_data) + mean_data
+    }
+
+
+    } # end of model  
+    

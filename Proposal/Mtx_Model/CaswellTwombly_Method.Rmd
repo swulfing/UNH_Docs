@@ -1,0 +1,110 @@
+---
+title: "Caswell Twombly Method"
+author: "Sophie Wulfing"
+date: "2/9/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+setwd("C:/Users/sophi/Documents/UNH_Docs/Proposal/Mtx_Model")
+
+library(matlib)
+library(ggplot2)
+
+observedData <- as.matrix(data.frame(read.csv("RaberinaryBenbow2012Calcs.csv")))
+observedStageMatrix <- observedData[1:13, 2:5]
+```
+
+```{r matrix print,results = 'asis', echo = FALSE}
+write_matex <- function(x) {
+  begin <- "$$\\begin{bmatrix}"
+  end <- "\\end{bmatrix}$$"
+  X <-
+    apply(x, 1, function(x) {
+      paste(
+        paste(x, collapse = "&"),
+        "\\\\"
+      )
+    })
+  writeLines(c(begin, X, end))
+}
+```
+
+## Note
+Adapted from Caswell and Twombly(1989). From page 143 in Caswell book. This method is extremely sensitive to noise. Matrix calcs are outlined in this website: https://web.stanford.edu/~mrosenfe/soc_meth_proj3/matrix_OLS_NYU_notes.pdf
+
+```{r initial setup, echo = FALSE}
+g <- matrix(, nrow = 3, ncol = 7)
+p <- matrix(, nrow = 4, ncol = 7)
+f <- matrix(, nrow = 1, ncol = 7)
+#Make empty dataframe to store p g and f vals.
+for(i in 1: (nrow(observedStageMatrix)-7)){ #i will correspond to each time window CHECK THE 7
+
+  y <- matrix(observedStageMatrix[(i+1):(i+4), 1], nrow = 4, ncol = 1)
+  x <- matrix(cbind(rep(1, 4), observedStageMatrix[i:(i+3), 4], observedStageMatrix[i:(i+3), 1]), nrow = 4, ncol = 3)
+  B <- inv((t(x) %*% x)) %*% t(x) %*% y
+  f[1,i] <- B[2]
+  p[1,i] <- B[3]
+  
+  for(j in 2:ncol(observedStageMatrix)){#j will correspond to each stage
+    y <- matrix(observedStageMatrix[(i+1):(i+4), j], nrow = 4, ncol = 1)
+    x <- matrix(cbind(rep(1, 4), observedStageMatrix[i:(i+3), j-1], observedStageMatrix[i:(i+3), j]), nrow = 4, ncol = 3)
+    B <- inv((t(x) %*% x)) %*% t(x) %*% y
+    g[(j-1),i] <- B[2]
+    p[j,i] <- B[3]
+  
+  }
+}
+
+```
+
+
+```{r make mtx, echo=FALSE}
+g[,7] <- rowMeans(g, 3, 1)
+p[,7] <- rowMeans(p, 3, 1)
+f[,7] <- rowMeans(f, 3, 1)
+
+A <- matrix(c(p[1,7], 0, 0, f[1,7],
+                      g[1,7], p[2,7], 0, 0,
+                      0, g[2,7], p[3,7], 0,
+                      0, 0, g[3,7], p[4,7]), byrow = TRUE, nrow = 4, ncol = 4)
+```
+
+```{r write A, results = 'asis', echo = FALSE, fig.cap = "Matrix calculated using Caswell Twombly Method"}
+write_matex(A)
+```
+
+```{r projection}
+pop <- observedStageMatrix[13,]
+N <- list()
+ 
+#12 mo projection
+for (i in 1:36){
+     N[[1]] <- pop
+    N[[i+1]] <- A %*% N[[i]]
+ }
+
+modeled_data <- t(as.data.frame(do.call(cbind, N)))
+colnames(modeled_data) <- c("Stage_1", "Stage_2", "Stage_3", "Stage_4")
+modeled_data <- cbind(modeled_data, month = 0:36)
+
+#write.csv(modeled_data, "testing.csv",row.names = TRUE)
+modeled_data <- data.frame(modeled_data)
+
+print(ggplot(modeled_data) + 
+  geom_line(aes(y = Stage_1, x = month, color = "Stage 1"), size = 1.5) + 
+  geom_line(aes(y = Stage_2, x = month, color= "Stage 2"), size = 1.5) +
+  geom_line(aes(y = Stage_3, x = month, color = "Stage 3"), size = 1.5) + 
+  geom_line(aes(y = Stage_4, x = month, color= "Stage 4"), size = 1.5) +
+  scale_color_manual(name = "", values = c("Stage 1" = "#009E73",
+                                                "Stage 2" = "#F0E442",
+                                                "Stage 3" = "#0072B2",
+                                                "Stage 4" = "#D55E00")) +
+  ggtitle(paste0(i, " month projection")) +
+  xlab("Month") +
+  ylab("No. Individuals"))
+    
+```

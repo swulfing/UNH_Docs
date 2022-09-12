@@ -1,0 +1,90 @@
+---
+title: "ModelTests"
+author: "Sophie Wulfing"
+date: '2022-05-05'
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(R2jags)
+library(tidyr)
+library(dplyr)
+library(multcompView)
+library(unikn)
+
+setwd("~/UNH_Docs/NR913")
+
+cephs <- read.csv("C:/Users/sophi/Documents/UNH_Docs/Proposal/CNH2_data/cleanData.csv")
+
+site_data <- cephs %>%
+    group_by(REGION) %>%
+    summarise(Count = n()) %>%
+    filter(Count > 150)
+
+ceph_sites <- cephs %>%
+  filter(REGION %in% site_data$REGION)
+
+ceph_sites2 <- transform(ceph_sites,id=as.numeric(factor(REGION)))
+
+ceph_model <- transform(cephs,id=as.numeric(factor(REGION)), sex_id=(as.numeric(factor(FISHER_SEX))-1))
+ceph_sex <- ceph_model %>% drop_na(sex_id)
+
+purps <- "#440154FF"
+midnight <- "#414487FF"
+dkteal <- "#2A788EFF"
+limabean <- "#7AD151FF"
+bananas <- "#FDE725FF"
+```
+
+```{r tukey, echo = FALSE}
+
+#https://r-graph-gallery.com/84-tukey-test.html
+#https://www.r-bloggers.com/2021/08/how-to-perform-tukey-hsd-test-in-r/
+
+model <- aov(as.numeric(AVG_WT)~REGION, ceph_sites2)
+tukTest <- TukeyHSD(model, conf.level=.5)
+
+plot(TukeyHSD(model, conf.level=.9), las = 2, cex.axis=.5, mar = c(5.1,15,1.4,2.1))
+
+generate_label_df <- function(TUKEY, variable){
+ 
+     # Extract labels and factor levels from Tukey post-hoc 
+     Tukey.levels <- TUKEY[["REGION"]][,4]
+     Tukey.labels <- data.frame(multcompLetters(Tukey.levels)['Letters'])
+     
+     #I need to put the labels in the same order as in the boxplot :
+     Tukey.labels$treatment=rownames(Tukey.labels)
+     Tukey.labels=Tukey.labels[order(Tukey.labels$treatment) , ]
+     return(Tukey.labels)
+}
+
+LABELS <- generate_label_df(tukTest, "ceph_sites2$REGION")
+
+# A panel of colors to draw each group with the same color :
+my_colors <- hcl.colors(5, palette = "YlOrRd", alpha = NULL, fixup = TRUE)
+
+# Draw the basic boxplot
+a <- boxplot(as.numeric(ceph_sites2$AVG_WT) ~ ceph_sites2$REGION , ylim= c(0 , 7.5) , ylab="Avg ceph weight (kg)", xlab = "Region", main="", cex.axis = 0.67, col=my_colors[as.numeric(factor(LABELS[,1]))])
+ 
+# I want to write the letter over each box. Over is how high I want to write it.
+over <- 0.12*max( a$stats[nrow(a$stats),] )
+ 
+#Add the labels
+# text( c(1:nlevels(as.factor(ceph_sites2$REGION))) , a$stats[nrow(a$stats)-1,]+over , LABELS[,1], col=my_colors[as.numeric(factor(LABELS[,1]))] )
+mark(
+  LABELS[,1],
+  x = c((1:nlevels(as.factor(ceph_sites2$REGION)))+.02),
+  y = a$stats[nrow(a$stats)-1,]+ over,
+  y_layout = "even",
+  col = my_colors[as.numeric(factor(LABELS[,1]))],
+  col_bg = "white",
+  cex = .9,
+  font = 1,
+  new_plot = "none"
+)
+
+```

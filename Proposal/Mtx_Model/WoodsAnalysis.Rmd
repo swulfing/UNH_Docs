@@ -1,0 +1,379 @@
+---
+title: "WoodsAnalysis"
+author: "Sophie Wulfing"
+date: '2022-05-23'
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, cache = TRUE)
+setwd("C:/Users/sophi/Documents/UNH_Docs/Proposal/Mtx_Model")
+
+library(knitr)
+library(matlib)
+library(ggplot2)
+library(quadprog)
+library(gridtext)
+library(popbio)
+library(gridExtra)
+library(RColorBrewer) 
+library(rPref)
+library(dplyr)
+library(ggpubr)
+
+observedData <- as.matrix(data.frame(read.csv("RaberinaryBenbow2012Calcs.csv")))
+observedStageMatrix <- observedData[1:13, 2:5]
+
+```
+
+```{r initial things}
+#Make Z
+z <- matrix(t(observedStageMatrix[2:11,]), ncol = 1, nrow = 40, byrow = TRUE)
+z
+
+#Make M
+m <- matrix(, nrow = nrow(z) , ncol = 8)
+for(i in 1:(nrow(observedStageMatrix)-3)){
+  m[(4 * (i-1) + 1):(4 * i),] <- matrix(c(observedStageMatrix[i,1], 0, 0, 0, 0, 0, observedStageMatrix[i,4], 0,
+                                          0, observedStageMatrix[i,1], observedStageMatrix[i,2], 0, 0, 0, 0, 0,
+                                          0, 0, 0, observedStageMatrix[i,2], observedStageMatrix[i,3], 0, 0, 0,
+                                          0, 0, 0, 0, 0, observedStageMatrix[i,3], 0, observedStageMatrix[i,4]),
+                                        nrow = 4, byrow = TRUE)
+  #m
+}
+
+#Make C
+c <- matrix(c(diag(8) * (-1), 
+              1, 1, 0, 0, 0, 0, 0, 0,
+              0, 0, 1, 1, 0, 0, 0, 0,
+              0, 0, 0, 0, 1, 1, 0, 0,
+              0, 0, 0, 0, 0, 0, 0, 1), nrow = 12, ncol = 8, byrow = TRUE)
+#c
+#Make b
+b <- matrix(c(rep(0,8), rep(1,4)), nrow = 12, ncol = 1, byrow = TRUE)
+
+#Make P
+#p <- matrix(, nrow = 8, ncol = 1, byrow = TRUE) #vector(p1, g1, p2, g2, p3, g3, f4, p4)
+
+#Make mtx G and vector x
+g <- t(m) %*% m
+f_t <- -(t(-z) %*% m)
+
+qp <- solve.QP(Dmat = g, dvec = f_t, Amat = -t(c), bvec = -t(b))#, factorized = FALSE)
+
+
+A <- matrix(c(qp$solution[1], 0, 0, qp$solution[7],
+                 qp$solution[2], qp$solution[3], 0, 0,
+                 0, qp$solution[4], qp$solution[5], 0,
+                 0, 0, qp$solution[6], qp$solution[8]), byrow = TRUE, nrow = 4, ncol = 4)
+#A
+```
+
+```{r overallsurvive}
+#Easton note: I am also including the larval survivability in this function. Should I not be doing that or should I create two that 
+#Creat fxn to calculate matrices based on overall changes in survivability
+survivability <- function(increase){
+    #Calculate survivability for each staege and increase by x%
+    NewMtx <- (A * increase) + A
+    
+    for(i in 1:ncol(NewMtx)-1){
+      if(sum(NewMtx[,i]) > 1 | NewMtx[4,4] > 1){
+        return(NA)
+      }
+      else{return(NewMtx)}
+    }
+}
+
+
+#This is stupid but it just forces R to stop writing things as complex numbers
+f <- function(x) {
+   if (all(Im(z <- zapsmall(x))==0)) as.numeric(z) else x
+}
+
+real_check <- function(mtx){
+  if(sum(mtx[,1]) > 1 | sum(mtx[,2]) > 1 | sum(mtx[,3]) > 1 | mtx[4,4] > 1){
+    return(NA)
+  }
+  else{return(mtx)}
+}
+
+```
+
+```{r iteration}
+#Calculates new rates based on vectors of % chagne and frequencies of restrictions
+percentage <-rates <- c(seq(0, 1, .01)) # c(0.01, 0.05, 0.1, 0.15) 
+freqs <- c(seq(1, 12)) #c(1, 2, 3, 4, 6, 12) 
+iteration <- data.frame(matrix(ncol=4,nrow=0, dimnames=list(NULL, c("Frequency", "PercentChange", "mu", "lambda"))))
+
+for(i in 1:length(freqs)){
+  for(j in 1:length(percentage)){
+    if (!is.na(real_check(survivability(percentage[j])))){
+      mu <- ((freqs[i]-1) * log(eigen(A)$values[1]) + log(eigen(survivability(percentage[j]))$values[1]))/ freqs[i]
+      lambda <- exp(mu)
+          iteration[nrow(iteration) + 1,] <- c(freqs[i], percentage[j], f(mu), f(lambda))
+    }
+      # neweig <- (eigen(survivability(percentage[j]))$values[1] + (freqs[i]-1) * eigen(A)$values[1]) / freqs[i]
+  }
+}
+#kable(iteration)
+ 
+# Sources: https://www.webpages.uidaho.edu/wlf448/stochgro.pdf
+# https://esajournals.onlinelibrary.wiley.com/doi/10.2307/1943004
+```
+
+```{r projections, eval = FALSE}
+p <- list()
+modeled_data <- data.frame(matrix(ncol=8,nrow=0, dimnames=list(NULL, c("Stage_1", "Stage_2", "Stage_3", "Stage_4", "month", "pop", "freq", "rate"))))
+#par(mfrow = c(6,4))
+for(i in 1:nrow(iteration)){ 
+  pop <- observedStageMatrix[13,]
+  N <- list()
+  for (j in 1:120){
+    if(j %% iteration[i,1] == 0){
+      N[[1]] <- pop
+      N[[j+1]] <- survivability(iteration[i,2]) %*% N[[j]]
+      }
+    else{
+       N[[1]] <- pop
+      N[[j+1]] <- A %*% N[[j]]
+    }}
+   
+  
+  new_data <- t(as.data.frame(do.call(cbind, N)))
+  colnames(new_data) <- c("Stage_1", "Stage_2", "Stage_3", "Stage_4")
+  new_data <- data.frame(cbind(new_data, month = 0:120, pop = rowSums(new_data[,1:4]), freq = iteration[i,1], rate = iteration[i,2]))
+  modeled_data <- rbind(modeled_data, new_data)
+  
+}  
+  #write.csv(modeled_data, "testing.csv",row.names = TRUE)
+
+  #plot(modeled_data$pop, type = "o")  
+ggplot(modeled_data, aes(y = pop, x = month)) +
+  geom_line(size = 1.5) +
+  #ggtitle()+#paste0("Surv rate: ", iteration[i,2], " Freq: Close once every ", iteration[i,1], " months" )) + #paste0(i, " month projection")) +
+  xlab("Year") +
+  ylab("Total Pop") +
+  ylim(0,1000) +
+  scale_x_continuous(breaks = seq(0, 120, 120), label = c(2006, 2016)) +
+  facet_grid(freq ~ rate)
+
+```
+
+```{r paretto}
+
+#DO I NEED THIS
+# moopshoop <- function(rate, freq){
+#   mu <- ((freq-1) * log(eigen(A)$values[1]) + log(eigen(survivability(rate))$values[1]))/ freq
+#   lambda <- exp(mu)
+#   return(f(lambda))
+# }
+
+#Paretto fromt LOOK UP ITS WHAT THIS IS TELLING YOU. look in optimization lit
+#see:https://www.pnas.org/doi/full/10.1073/pnas.1911440116
+
+#https://www.rdocumentation.org/packages/GPareto/versions/1.1.6/topics/easyGParetoptim
+
+#https://rdrr.io/cran/rPref/man/plot_front.html
+# plots Pareto fronts for the hp/mpg values of mtcars
+
+paretospagheto <- iteration %>% filter(lambda >= 1)
+
+show_front <- function(pref) {
+  plot(paretospagheto$Frequency, paretospagheto$PercentChange)
+  sky <- psel(paretospagheto, pref)
+  plot_front(paretospagheto, pref, col = rgb(0, 0, 1))
+  points(sky$Frequency, sky$PercentChange, lwd = 3)
+}
+
+# do this for all four combinations of Pareto compositions
+show_front(low(Frequency)  * low(PercentChange))
+show_front(low(Frequency)  * high(PercentChange))
+show_front(high(Frequency) * low(PercentChange)) #This is the optimal scenario
+show_front(high(Frequency) * high(PercentChange))
+
+# compare this to the front of a intersection preference
+show_front(high(Frequency) | high(PercentChange))
+```
+
+```{r idkrandom}
+mycolors <- colorRampPalette(brewer.pal(9, "RdYlBu"))(1177)
+
+iteration_popDy <- iteration %>%
+  mutate(PopDynamics = case_when(
+    lambda < 1 ~ "Negative",
+    lambda >= 1 ~ "Positive"
+  ))
+
+iteration_bins <- iteration %>%
+  mutate(PopDynamics = case_when(
+    lambda < 1 ~ "Decrease",
+    lambda >= 1 & lambda < 1.25 ~ "0-25",
+    lambda >= 1.25 & lambda < 1.5 ~ "25-50",
+    lambda >= 1.5 & lambda < 1.75 ~ "50-75",
+    lambda >= 1.75 & lambda < 2 ~ "75-100"
+  ))
+
+# #Discrete Colors
+# ggplot(iteration_popDy, aes(Frequency, PercentChange, fill = PopDynamics)) + geom_tile(width=1) +
+#   scale_fill_manual(
+#   values = c("red", "green")
+# )
+
+#Continuous Colors
+ggplot(iteration, aes(Frequency, PercentChange, fill = lambda)) + geom_tile(width=1) +
+  scale_fill_gradient2(
+  low = "red",
+  mid = "white",
+  high = "green",
+  #limits = c(1, max(iteration$lambda)),
+  midpoint = 1,
+  space = "Lab",
+  na.value = "grey50") +
+  scale_x_continuous(name = "Frequency of closure (months)", expand=c(0,0), breaks = c(1, 3, 6, 9, 12)) +
+  scale_y_continuous(name = "Percent change in survival", expand=c(0,0)) +
+  labs(fill = "Eigenvalue")
+
+
+
+cols <- c(hcl.colors(4, palette = "Greens", alpha = NULL, rev = TRUE, fixup = TRUE), "#000000") #"Green-Yellow"
+
+#Binned Colors
+ggplot(iteration_bins, aes(Frequency, PercentChange, fill = PopDynamics)) + geom_tile(width=1) +
+  scale_fill_manual(
+  values = c(cols)
+)
+
+
+#https://ggplot2.tidyverse.org/reference/scale_gradient.html
+
+#Okay so I changed what this is showing because it became kind of redundant with the other graph. This now bins it into amounts of pop increase
+
+```
+
+```{r stages}
+#GO BACK TO THIS FOR CHEKCIN SURVIVABILITY!!!!!
+#col 4 needs to be separate because you need to parse out larval and stage 4 survivability
+rates <- c(0, 0, 0, 0, 0)
+
+for(i in 1:(length(rates)-1)){
+  #First need to do the stage 4 and larval differently
+  if(i == 4){
+    incr <- 0.01
+    testMtx <- A
+    testMtx[4,4] <- A[4,4] + A[4,4] * incr
+    while(f(eigen(testMtx)$values[1]) < 1){
+      incr <- incr + 0.01
+      testMtx[4,4] <- A[4,4] + A[4,4] * incr
+    }
+    rates[4] <- incr
+    
+    incr <- 0.01
+    testMtx <- A
+    testMtx[1,4] <- A[1,4] + A[1,4] * incr
+    while(f(eigen(testMtx)$values[1]) < 1){
+      incr <- incr + 0.01
+      testMtx[1,4] <- A[1,4] + A[1,4] * incr
+    }
+    rates[5] <- incr
+  
+  }
+  else{
+  incr <- 0.01
+  testMtx <- A
+  testMtx[,i] <- A[,i] + A[,i] * incr
+  while(f(eigen(testMtx)$values[1]) < 1){
+    incr <- incr + 0.01
+    testMtx[,i] <- A[,i] + A[,i] * incr
+  }
+  rates[i] <- incr
+}}
+
+barplot(rates, main = "Minimum % survivability change needed to create population increase",
+        names.arg=c("Stage 1", "Stage 2", "Stage 3", "Stage 4", "Larval"))
+
+rates  
+
+#MAKE SURE EVERYTHING IS CALCED RIGHT
+#See if there's literature on selective catch
+#see if there's a relationship of life history type and which stage is most important
+#maybe try a monthly closure to certain sizes
+```
+
+```{r stagemo}
+# I think this is going to be more of an aquaculture conversation than anything else
+
+#Dowble check survivability > 1 check. I don't think you did that correctly
+#do stagemo
+#have a survivability check in stagemo
+
+stagemo <- function(stage){
+  
+  stage_it <- data.frame(matrix(ncol=5,nrow=0, dimnames=list(NULL, c("Stage", "Frequency", "PercentChange", "mu", "lambda"))))
+  
+  for(i in 1:12){
+    for(j in 1:100){#FIND OUT HOW TO CONDENSE THESE IF STATEMENTS
+      testMtx <- A
+      if(stage == 4){
+        testMtx[stage, stage] <- A[stage, stage] + A[stage, stage]*(j/100)
+      } #input stage 4
+      
+      else if(stage == 5){
+        testMtx[1, stage-1] <- A[1, stage-1] + A[1, stage-1]*(j/100)
+      } #input stage 5
+      
+      else{
+      testMtx[,stage] <- A[,stage] + A[,stage]*(j/100)
+      } #input other stages
+      
+      if (!is.na(real_check(testMtx))){
+        mu <- ((i-1) * log(eigen(A)$values[1])) + log(eigen(testMtx)$values[1]) / i
+        lambda <- exp(mu)
+        #print(lambda)
+      
+        stage_it[nrow(stage_it) + 1,] <- c(stage, i, j/100, f(mu), f(lambda))
+       }
+    }
+  }
+  return(stage_it)
+}
+doesthiswork <- list()
+for(i in 1:5){
+p1 <-ggplot(stagemo(i), aes(Frequency, PercentChange, fill = lambda)) + geom_tile(width=1) +
+  scale_fill_gradient2(
+  low = "red",
+  mid = "white",
+  high = "green",
+  #limits = c(1, max(iteration$lambda)),
+  midpoint = 1,
+  space = "Lab",
+  na.value = "grey50"
+  )
+doesthiswork[[i]] <- p1
+}
+
+
+ggarrange(plotlist = doesthiswork, labels = c("Stage 1", "Stage 2", "Stage 3", "Stage 4","Larval"), font.label = list(size = 7), nrow = 2, ncol = 2)
+#do.call(ggarrange, c(doesthiswork[1:5], labels = c("Stage 1", "Stage 2", "Stage 3", "Stage 4","Larval")))
+
+```
+
+```{r wtf}
+set.seed(21)
+x<-rnorm(20)
+y<-rnorm(20)
+df<-data.frame(x,y)
+df
+
+
+Scatterplot<-ggplot(df,aes(x,y))+geom_point()
+Hist_of_x<-ggplot(df,aes(x))+geom_histogram(bins=30)
+List<-list(Scatterplot,Hist_of_x)
+ggarrange(plotlist=List,widths=c(2,1),labels=c("Scatter","Hist"), nrow = 2, ncol = 2)
+```
+
+
+
+
+

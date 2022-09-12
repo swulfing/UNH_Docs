@@ -1,0 +1,111 @@
+---
+title: "NR913 HW01"
+author: "Sophie Wulfing"
+date: "2/4/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+```{r setup, include=FALSE}
+#library(sjPlot)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+Explore what happens when changing the rate of a gamma distribution while holding the shape constant, similar to the “visualizing distributions” exercise from class. Provide a 6-panel figure with the 6 histograms that result. Interpret the figure. 
+
+```{r Q1, echo = FALSE}
+par(mfrow = c(3,2))
+
+shape <- 1.5
+rate <- c(0.1, 1, 10, 50, 100, 1000)
+
+for (i in 1:length(rate)){
+  y <- rgamma(1000, shape = shape, rate = rate[i])
+  hist(y,
+       main = paste("shape = ",shape,"; rate = ", rate[i],
+                    "; mean = ", shape/rate[i],
+                    "; sd = ",round(sqrt(shape)/rate[i],1),sep = ""))  
+}
+```
+Here you can see that by holding the shape, the data will remain concentrated in (generally) the same area. However, the right "tail" of the data is greatly affected by the rate as smaller rates will result in longer tails, as well as means that are further from zero. As the mean of the data is shape/rate, this makes sense that as the rate approaches infinity, the mean will approach zero, regardless of the shape. Further, standard deviations also decrease with higher rates (the last three graphs say SD = 0 but this is just where I chose to round) which further indicates more concentrated data at higher rates. So that's cool.
+
+\newpage
+## Question 2
+
+Show how the sampling distribution of the mean is normally distributed for a distribution of sampled data that we did not cover in class, e.g., the uniform, the lognormal, beta, etc. To show this, provide a 2-panel figure with 2 histograms: one for the raw (simulated) data, and one for the sampling distribution of the means. 
+
+```{r Q2, echo=FALSE}
+set.seed(141)
+
+lognormal_data <-rlnorm(567, meanlog = 0, sdlog = .25)
+lognormal_sample_means <- NA
+
+for(i in 1:100000){
+  data_s <- sample(x = lognormal_data,
+                    size = 25,
+                    replace = FALSE)
+  lognormal_sample_means[i] <- mean(data_s)
+}
+
+sd(lognormal_sample_means) 
+
+# plotting
+par(mfrow = c(2,1))
+hist(lognormal_data, xlab = "Simulated Data", 
+     main = "Entire population - lognormal", 
+     col = "darkred")
+
+hist(lognormal_sample_means, xlab = "Simulated Lognormal Data", 
+     main = "Sample means - lognormal", 
+     col = "red")
+
+
+```
+
+\newpage
+## Question 4
+
+Simulate a dataset similar to the one in the “simple linear model” exercise we completed in class. Fit a linear model to it. Provide a summary of the linear model as a table similar to that below. Provide a figure showing the model-fit prediction line, and the true relationship. Interpret your findings.
+
+```{r Q4, echo=FALSE, fig.cap= "Two linear models where the data is normally distributed with a) SD = 4and b) SD = 50."}
+#SD = 4
+beta0_1 <- 15
+beta1_1 <- 1.75
+x_1 <- runif(500, 0, 50)
+
+det_data_1 <- beta0_1 + beta1_1 * x_1
+data_1 <-  det_data_1 + rnorm(500, 0, 4)
+
+mod_1 <- lm(data_1 ~ x_1)
+summary(mod_1)[4]
+#mod_1$coefficients
+
+#SD = 75
+beta0_2 <- 15
+beta1_2 <- 1.75
+x_2 <- runif(500, 0, 50)
+
+det_data_2 <- beta0_2 + beta1_2 * x_2
+data_2 <-  det_data_2 + rnorm(500, 0, 50)
+
+mod_2 <- lm(data_2 ~ x_2)
+summary(mod_2)[4]
+#mod_2$coefficients
+
+#plotting
+par(mfrow = c(1,2))
+
+plot(data_1 ~ x_1, main = "a)", adj = 0)
+abline(a = mod_1$coefficients[1], lwd = 3,  b = mod_1$coefficients[2])
+abline(a = beta0_1, b = beta1_1, lwd = 2,lty = 2, col = "blue")
+
+plot(data_2 ~ x_2, main = "b)", adj = 0)
+abline(a = mod_2$coefficients[1], lwd = 3,  b = mod_2$coefficients[2])
+abline(a = beta0_2, b = beta1_2, lwd = 2,lty = 2, col = "blue")
+
+#sjt.lm(mod1, mod2)
+
+```
+I was interested in seeing how good our linear model was at predicting b0 and b1 at different standard deviations (SD = 4 and SD = 50) of normally distributed data. Both gave very accurate predictions (both had a p value close to zero) however, the SD = 4 graph gave p values significantly closer to zero as a smaller spread of data would result in more tightly bounded datapoints. 

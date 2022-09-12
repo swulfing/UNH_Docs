@@ -1,0 +1,25 @@
+ 
+    model {
+    
+    # PRIORS
+    mu1 ~ dnorm(0,0.001)
+    tau1 <- 1/sigma1^2
+    sigma1 ~ dunif(0,10)
+    mu2 ~ dnorm(0,0.001)
+    tau2 <- 1/sigma2^2
+    sigma2 ~ dunif(0,10) 
+    
+    # LIKELIHOOD #Two separate means. two loops. per females and males
+    for(i in 1:n1){
+    y1[i] ~ dnorm(mu1,tau1)
+  }
+    for(i in 1:n2){
+    y2[i] ~ dnorm(mu2,tau2)
+    
+  } 
+    
+  # get the difference between the two means i.e. assign delta
+  delta <- mu1-mu2
+  delta_sigma <- sigma1 - sigma2
+    
+    } # end of model

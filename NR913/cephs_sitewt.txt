@@ -1,0 +1,29 @@
+ 
+    model {
+    
+    # PRIORS - Including a different variance per site
+    for(i in 1:nsites){
+    alpha[i] ~ dnorm(0,0.001)
+    tau[i] <- 1/sigma[i]^2
+    sigma[i] ~ dunif(0,10)
+    }
+    
+    # LIKELIHOOD
+    for(i in 1:n){
+    mass[i] ~ dnorm(mu[i],tau[site[i]])
+    mu[i] <- alpha[site[i]]
+    } # i
+    
+    for(i in 1:nsites){
+    avg[i] <- (alpha[i]*stdev_data) + mean_data
+    stan_dev[i] <- (sigma[i]*stdev_data) 
+
+    }
+    
+    #Generating new data for each run of the MCMC
+    for(i in 1:n){
+    y.new[i] ~ dnorm(mu[i],tau[site[i]]) 
+    }
+    
+    } # end of model  
+    

@@ -1,0 +1,34 @@
+ 
+    model {
+    
+    # PRIORS
+    
+    # reference category (site 1, no removal)
+    beta0 ~ dnorm(0,0.001) #Ref category intercept of site 1 and no removal for effects param
+    
+    # effect of site - manually set first site to zero
+    beta.site[1] <- 0 #manually set reference params to zero to be a effects param
+    beta.site[2] ~ dnorm(0,0.001)
+    beta.site[3] ~ dnorm(0,0.001)
+    
+    # effect of removal - manually set first site to zero
+    beta.removal[1] <- 0 #manually set reference params to zero to be a effects param
+    beta.removal[2] ~ dnorm(0,0.001)
+    
+    # prior for variance
+    tau <- 1/sigma^2
+    sigma ~ dunif(0,100)
+    
+    # LIKELIHOOD
+    for(i in 1:n){
+    cpue[i] ~ dnorm(mu[i],tau)
+    mu[i] <- beta0 + beta.site[site[i]] + beta.removal[removal[i]]
+    } # i
+    
+    # generate new data from the fitted model
+    for(i in 1:n){
+    y.new[i] ~ dnorm(mu[i],tau)
+    }
+    
+    } # end of model  
+    
