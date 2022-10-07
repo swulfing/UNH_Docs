@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.20)  26 SEP 2022 15:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.20)  4 OCT 2022 12:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -493,85 +493,86 @@ File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [1
 
 {c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-<LifeGraph.png, id=42, 666.49pt x 308.15125pt>
+<LifeGraph.png, id=57, 666.49pt x 308.15125pt>
 File: LifeGraph.png Graphic file (type png)
 <use LifeGraph.png>
-Package pdftex.def Info: LifeGraph.png  used on input line 260.
+Package pdftex.def Info: LifeGraph.png  used on input line 300.
 (pdftex.def)             Requested size: 211.38957pt x 97.73582pt.
-<MtxGeneric.png, id=44, 442.65375pt x 252.945pt>
+<MtxGeneric.png, id=59, 442.65375pt x 252.945pt>
 File: MtxGeneric.png Graphic file (type png)
 <use MtxGeneric.png>
-Package pdftex.def Info: MtxGeneric.png  used on input line 260.
+Package pdftex.def Info: MtxGeneric.png  used on input line 300.
 (pdftex.def)             Requested size: 211.39067pt x 120.79468pt.
+[4]
 
-LaTeX Warning: Reference `WriteMtxRounded' on page 4 undefined on input line 285.
+LaTeX Warning: Reference `WriteMtxRounded' on page 5 undefined on input line 332.
 
 
-LaTeX Warning: Reference `LifeHistory' on page 4 undefined on input line 290.
+LaTeX Warning: Reference `LifeHistory' on page 5 undefined on input line 337.
 
-[4 <./LifeGraph.png> <./MtxGeneric.png>]
+[5 <./LifeGraph.png> <./MtxGeneric.png>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 295.
+(Font)              <10> on input line 345.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 295.
+(Font)              <7> on input line 345.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 295.
-[5]
-
-LaTeX Warning: Reference `lifetable' on page 6 undefined on input line 382.
-
-
-LaTeX Warning: Reference `lifetable' on page 6 undefined on input line 386.
-
+(Font)              <5> on input line 345.
 [6]
-<Wulfing_CH1_Draft2_files/figure-latex/projection-1.pdf, id=76, 469.755pt x 325.215pt>
+
+LaTeX Warning: Reference `lifetable' on page 7 undefined on input line 436.
+
+
+LaTeX Warning: Reference `lifetable' on page 7 undefined on input line 440.
+
+[7]
+<Wulfing_CH1_Draft2_files/figure-latex/projection-1.pdf, id=101, 469.755pt x 325.215pt>
 File: Wulfing_CH1_Draft2_files/figure-latex/projection-1.pdf Graphic file (type pdf)
 <use Wulfing_CH1_Draft2_files/figure-latex/projection-1.pdf>
-Package pdftex.def Info: Wulfing_CH1_Draft2_files/figure-latex/projection-1.pdf  used on input line 404.
+Package pdftex.def Info: Wulfing_CH1_Draft2_files/figure-latex/projection-1.pdf  used on input line 458.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Wulfing_CH1_Draft2_files/figure-latex/sensitivity-1.pdf, id=77, 469.755pt x 325.215pt>
+<Wulfing_CH1_Draft2_files/figure-latex/sensitivity-1.pdf, id=102, 469.755pt x 325.215pt>
 File: Wulfing_CH1_Draft2_files/figure-latex/sensitivity-1.pdf Graphic file (type pdf)
 <use Wulfing_CH1_Draft2_files/figure-latex/sensitivity-1.pdf>
-Package pdftex.def Info: Wulfing_CH1_Draft2_files/figure-latex/sensitivity-1.pdf  used on input line 432.
+Package pdftex.def Info: Wulfing_CH1_Draft2_files/figure-latex/sensitivity-1.pdf  used on input line 486.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Wulfing_CH1_Draft2_files/figure-latex/elasticity-1.pdf, id=78, 469.755pt x 325.215pt>
+<Wulfing_CH1_Draft2_files/figure-latex/elasticity-1.pdf, id=103, 469.755pt x 325.215pt>
 File: Wulfing_CH1_Draft2_files/figure-latex/elasticity-1.pdf Graphic file (type pdf)
 <use Wulfing_CH1_Draft2_files/figure-latex/elasticity-1.pdf>
-Package pdftex.def Info: Wulfing_CH1_Draft2_files/figure-latex/elasticity-1.pdf  used on input line 438.
+Package pdftex.def Info: Wulfing_CH1_Draft2_files/figure-latex/elasticity-1.pdf  used on input line 492.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Wulfing_CH1_Draft2_files/figure-latex/closures-1.pdf, id=79, 469.755pt x 325.215pt>
+<Wulfing_CH1_Draft2_files/figure-latex/closures-1.pdf, id=104, 469.755pt x 325.215pt>
 File: Wulfing_CH1_Draft2_files/figure-latex/closures-1.pdf Graphic file (type pdf)
 <use Wulfing_CH1_Draft2_files/figure-latex/closures-1.pdf>
-Package pdftex.def Info: Wulfing_CH1_Draft2_files/figure-latex/closures-1.pdf  used on input line 444.
+Package pdftex.def Info: Wulfing_CH1_Draft2_files/figure-latex/closures-1.pdf  used on input line 498.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-LaTeX Warning: Reference `tab:SAME TABLE I NEED TO MAKE' on page 7 undefined on input line 465.
+LaTeX Warning: Reference `tab:SAME TABLE I NEED TO MAKE' on page 8 undefined on input line 519.
 
-[7 <./Wulfing_CH1_Draft2_files/figure-latex/projection-1.pdf>] [8 <./Wulfing_CH1_Draft2_files/figure-latex/sensitivity-1.pdf>] [9 <./Wulfing_CH1_Draft2_files/figure-latex/elasticity-1.pdf>] [10 <./Wulfing_CH1_Draft2_files/figure-latex/closures-1.pdf>] [11] [12] [13]
-Overfull \hbox (23.52228pt too wide) in paragraph at lines 670--674
+[8 <./Wulfing_CH1_Draft2_files/figure-latex/projection-1.pdf>] [9 <./Wulfing_CH1_Draft2_files/figure-latex/sensitivity-1.pdf>] [10 <./Wulfing_CH1_Draft2_files/figure-latex/elasticity-1.pdf>] [11 <./Wulfing_CH1_Draft2_files/figure-latex/closures-1.pdf>] [12] [13] [14]
+Overfull \hbox (23.52228pt too wide) in paragraph at lines 729--733
 \T1/lmr/m/n/10 documents1 . worldbank . org / curated / en / 515701468152718292 / pdf / 664690ESW0P1210120HiddenHarvest0web .
  []
 
-[14] [15] [16] (./Wulfing_CH1_Draft2.aux)
+[15] [16] [17] (./Wulfing_CH1_Draft2.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `Wulfing_CH1_Draft2.out' has not changed.
-(rerunfilecheck)             Checksum: 20FE34D3DDEC32C852DC5F67393BEAAC;356.
+(rerunfilecheck)             Checksum: BAEB344494B8BE5ACAA5E7DD2C4B361D;881.
  ) 
 Here is how much of TeX's memory you used:
- 11590 strings out of 477035
- 184078 string characters out of 5826234
- 530161 words of memory out of 5000000
- 32472 multiletter control sequences out of 15000+600000
- 521561 words of font info for 68 fonts, out of 8000000 for 9000
+ 11612 strings out of 477035
+ 184426 string characters out of 5826234
+ 530317 words of memory out of 5000000
+ 32481 multiletter control sequences out of 15000+600000
+ 524559 words of font info for 69 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,7n,77p,381b,544s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,7n,77p,381b,546s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}<c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb>
-Output written on Wulfing_CH1_Draft2.pdf (16 pages, 303162 bytes).
+Output written on Wulfing_CH1_Draft2.pdf (17 pages, 313888 bytes).
 PDF statistics:
- 296 PDF objects out of 1000 (max. 8388607)
- 240 compressed objects within 3 object streams
- 59 named destinations out of 1000 (max. 500000)
- 63 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 328 PDF objects out of 1000 (max. 8388607)
+ 271 compressed objects within 3 object streams
+ 72 named destinations out of 1000 (max. 500000)
+ 95 words of extra memory for PDF output out of 10000 (max. 10000000)
 

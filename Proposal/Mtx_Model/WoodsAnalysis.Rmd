@@ -9,7 +9,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, cache = TRUE)
-setwd("C:/Users/sophi/Documents/UNH_Docs/Proposal/Mtx_Model")
+setwd("C:/Users/sophi/Documents//UNH_Docs/Proposal/Mtx_Model")
 
 library(knitr)
 library(matlib)
