@@ -4,11 +4,16 @@ title: Using mechanistic models to assess temporary closure management strategie
 author: "Sophie Wulfing, Easton White, Ahilya Sudarshan Kadba"
 date: "2022-09-08"
 output:
-  pdf_document: default
-  html_document: default
-  word_document: default
-bibliography: ["Ch1_Citations.bib", "R_Citations.bib"]
-header-includes: \usepackage{setspace}\doublespacing \usepackage{lineno}
+  bookdown::pdf_document2:
+    fig_caption: yes
+    toc: false
+  bookdown::html_document2:
+    fig_caption: yes
+    toc: false
+bibliography:
+- Ch1_Citations.bib
+- R_Citations.bib
+header-includes: \usepackage{setspace}\doublespacing \usepackage{lineno} \usepackage{placeins}
 ---
 
 ```{r setup, include=FALSE}
@@ -29,6 +34,7 @@ library(RColorBrewer)
 library(dplyr)
 library(ggpubr)
 library(bookdown)
+library(kableExtra)
 
 
 # #Raw data n supplemental. ASK
@@ -96,25 +102,24 @@ write_matex <- function(x) {
 ```
 \linenumbers
 # INTRODUCTION
-CITE THIS P
-Ecological modeling is the employment of mathematics in studying intraspecies and interspecies relationships in addition to predicting future population dynamics when the same species are subject to novel environments or management. This technique plays a critical role in making informed conservation decisions. Mechanistic representations are one such class of models that have delivered some promising results to researchers modeling data-deficient species. In 2017, Smallegange et al. used a mechanistic model to study the relationship between expected feeding level and growth, lifetime reproductive success and generation time for the species *Manta alfredi* (commonly known as reef manta ray). Klok et al. in 2007 combined the dynamic energy approach with a matrix model to study the effects of environmental toxin, copper, on growth and reproduction of earthworm, Dendrobaena octaedra. Mechanistic models differ from statistical ones in the sense that they use characters of individuals to describe how changes in the environment influence changes in individuals in terms of these characteristics. As a result, they are not reliant on empirical data and extraordinarily applicable to data-deficient species. Furthermore, since mechanistic modeling does not involve following individuals from birth to death to determine parameters, it is extremely beneficial for studying organisms whose life history cannot be tracked individually (Smallegange et al., 2017). One type of mechanistic model are matrix population models. These specialized matrices are used for “structured populations” – populations in which individuals can be categorized based on age, stage, weight or length. They use demographic rates to create a projection matrix – a square matrix where the number of rows and columns are equivalent to the number of life stages.
-
-NEW INTRO
-Mechanistic models in ecology use characteristics of individuals to describe how changes in the environment influence changes in individuals in terms of these characteristics. As a result, they are not reliant on empirical data and, unlike empirical models, can be used to model the dynamics of data-deficient species. Further, since mechanistic modeling does not require this in-depth data collection, it is extremely beneficial for studying organisms whose life history cannot be tracked individually (Smallegange et al., 2017). MAYBE CONNTECT OT SSFs?
+Mechanistic models in ecology explicitly include species life histories, behavioral, or other mechanisms to describe how a population or community may change over time (CITATIONS). This is in contrast to statistical models that may be focused on correlating a response variable with different covariates and less focus on mechanisms. Mechanistic models are important in situations without existing long-term data, when future conditions may not be similar to the past, and when different scenarios or actions need to be assessed (CITATIONS). Thus, mechanistic models play a critical role in making informed conservation decisions, such as the management of fisheries. Yet, these models are sometimes not used in scenarios that may be helpful, such as data-poor small scale fisheries, because of their perceived complexity.
 
 The ocean environments off the southwest coast of Madagascar are home to a wide variety of marine life, as sand beds, seagrass beds and coral reefs are all prominent biomes in the area. Increased urbanization in the region has led to higher fishing pressure which has in turn led to a decline in fish catch and biomass [@larocheReefFisheriesSurrounding1997]. In fact, Madagascar has been calculated to be among the top countries for potential successful preservation based on the potential economic benefits and success of harvest regulation [@macneilGlobalStatusConservation2020], especially in the western region of the country [@larocheReefFisheriesSurrounding1997]. 32 million fishers make their livelihood in small-scale fisheries, a subsector in which 90 to 95% of fish is distributed for local consumption. These marine products are a vital source of nutrition for these communities [@HIDDENHARVESTTheGlobal2012]. In the early 2000’s, however, Madagascar began to move from local, subsistence fishing to selling and exporting catch to export markets [@humberSeasonalClosuresNoTake2006], and there is evidence that up to 75% of all fish caught is now sold to outside entities for export [@baker-medardGenderingMarineConservation2017].
 
-Marine Protected Areas (MPAs) are regions in the ocean identified as being biologically important and fishing protections are therefore enforced. Before their establishment in Madagascar, governmental bodies had bans on certain types of fishing gear, implemented seasonal fishing regulations, and criminalized the harvest of endangered species. However, these strategies proved ineffective in execution and in their conservation goals [@humberSeasonalClosuresNoTake2006]. Both the government and nongovernmental organizations have since pledged to drastically increase the number of regions dedicated as MPAs through temporary fishing closures [@baker-medardGenderingMarineConservation2017; @cinnerInstitutionsCommunitybasedManagement2009; @oliverPositiveCatchEconomic2015]. One such class of MPAs that are currently being used in Madagascar are temporary closures. Temporary closures have a long history of use and have been seen to successfully rehabilitate stocks (Camp et al 2015, Gnanlingam and Hepburn 2015). This method is flexible, logistically simple for fishers and enforcers to understand, and mitigates the financial loss from the fishery that can be seen with permanent closures (camp et al 2015, Cohen and Foale 2013, Gnanlingam and Hepburn, Nowlis 2000) [@oliverPositiveCatchEconomic2015; @humberSeasonalClosuresNoTake2006]. However, they are not always effective in their goal of replenishing stocks and this can depend on a wide range of factors. Ecological considerations about the life history of the target species, allee effects, and changes to community structure and species interactions all play a role in how well the temporary closure will protect the fishery (Russ and Alcala 1998, Gnanlingam and Hepburn 2015, cohen and foale 2013) [@gilchristReefFishBiomass2020; @grorud-colvertMPAGuideFramework2021]. Further, the characteristics of the fishery itself has been seen to influence fishery recovery. Fishing method, where the effort will be redistributed to, and fishing activity upon reopening have all been factors in negating the recovery made during the closure (Hiddink 2006, @humberSeasonalClosuresNoTake2006, Cohen and Foale 213). Instituting effective temporary closures in octopus fisheries can be difficult due to their short lifespan, high mortality, and sensitivity to environmental conditions (Emery 2015). Lack of field data and difficulty of enforcement has also been a challenge in octopus fisheries, especially in Madagascar (Emery 2015, Benbow 2014). This indicates that a thorough understanding of the life history of *O. Cyanea* and the harvest methods employed by fishers is necessary to enact meaningful fishing restrictions.
+Marine Protected Areas (MPAs) are regions in the ocean identified as being biologically important and fishing protections are therefore enforced. Before their establishment in Madagascar, governmental bodies had bans on certain types of fishing gear, implemented seasonal fishing regulations, and criminalized the harvest of endangered species. However, these strategies proved ineffective in execution and in their conservation goals [@humberSeasonalClosuresNoTake2006]. Both the government and nongovernmental organizations have since pledged to drastically increase the number of regions dedicated as MPAs through temporary fishing closures [@baker-medardGenderingMarineConservation2017; @cinnerInstitutionsCommunitybasedManagement2009; @oliverPositiveCatchEconomic2015]. One such class of MPAs that are currently being used in Madagascar are temporary closures. Temporary closures have a long history of use and have been seen to successfully rehabilitate stocks [@campEvaluatingShortOpenings2015; @gnanalingamFlexibilityTemporaryFisheries2015]. This method is flexible, logistically simple for fishers and enforcers to understand, and mitigates the financial loss from the fishery that can be seen with permanent closures [@campEvaluatingShortOpenings2015; @gnanalingamFlexibilityTemporaryFisheries2015; @cohenSustainingSmallscaleFisheries2013; @nowlisShortLongtermEffects2000; @oliverPositiveCatchEconomic2015; @humberSeasonalClosuresNoTake2006]. However, they are not always effective in their goal of replenishing stocks and this can depend on a wide range of factors. Ecological considerations about the life history of the target species, allee effects, and changes to community structure and species interactions all play a role in how well the temporary closure will protect the fishery [@russNaturalFishingExperiments1998; @gnanalingamFlexibilityTemporaryFisheries2015; @cohenSustainingSmallscaleFisheries2013;@gilchristReefFishBiomass2020; @grorud-colvertMPAGuideFramework2021]. Further, the characteristics of the fishery itself has been seen to influence fishery recovery. Fishing method, where the effort will be redistributed to, and fishing activity upon reopening have all been factors in negating the recovery made during the closure [@hiddinkPredictingEffectsArea2006; @humberSeasonalClosuresNoTake2006,@cohenSustainingSmallscaleFisheries2013]. Instituting effective temporary closures in octopus fisheries can be difficult due to their short lifespan, high mortality, and sensitivity to environmental conditions [@emeryManagementIssuesOptions2016]. Lack of field data and difficulty of enforcement has also been a challenge in octopus fisheries, especially in Madagascar [@emeryManagementIssuesOptions2016; @benbowLessonsLearntExperimental2014]. This indicates that a thorough understanding of the life history of *O. Cyanea* and the harvest methods employed by fishers is necessary to enact meaningful fishing restrictions.
 
 Since 2003, when this resource first began to globalize, cephalopods have become one of the largest classes of exports [@humberSeasonalClosuresNoTake2006; @ainaMANAGEMENTOCTOPUSFISHERY2009; @barnes-mautheTotalEconomicValue2013]. This has since added significant fishing pressure to Madagascar’s cephalopod populations and yield from this fishery has decreased in the southwest Andavadoaka region [@humberSeasonalClosuresNoTake2006]. Cephalopods are a vital part of many ocean ecosystems and, compared to other fisheries, have a unique life history that can lead to distinct and variable population dynamics. Cephalopods act as both predators and prey in an ecosystem [@rodhouseRoleConsumers1996; @santosAssessingImportanceCephalopods2001a; @vaseAcetesKeystoneSpecies2021], situating them in a key role in food webs. They also provide rich nutrition and bioactive compounds to the oceanic microbial community [@catalanSpatialTemporalChanges2006; @fitahiaHighResolutionMassSpectrometry2018; @ibanezZoogeographicPatternsPelagic2019; @vannieuwenhoveCrypticDiversityLimited2019]. Further, their abundance varies drastically with a wide range of ocean conditions including sea surface and bottom temperature, salinity, currents, and sediment type [@catalanSpatialTemporalChanges2006; @ibanezZoogeographicPatternsPelagic2019; @vannieuwenhoveCrypticDiversityLimited2019]. Compared to other exploited marine organisms, cephalopods have a short lifespan coupled with a fast reproduction rate and high fecundity. This explains their population’s ability to quickly bounce back when short term MPAs are introduced into their habitat [@benbowLessonsLearntExperimental2014; @humberSeasonalClosuresNoTake2006; @katsanevakisSeasonalPopulationDynamics2006]. However, once fishing resumes, populations suddenly and rapidly decline although in some examples, this could be attributed to heavy fishing pressure in the area right after reopening [@humberSeasonalClosuresNoTake2006]. Cephalopods are therefore extremely sensitive to both protection and harvest levels, and understanding how these volatile population dynamics will react to changes in fishing pressure is a key component to effective conservation of this resource.
 
-*Octopus cyanea*, or blue octopus, is the most abundant cephalopod species in the western Indian Ocean and is caught in about 95% of local landings (@humberSeasonalClosuresNoTake2006; @oliverPositiveCatchEconomic2015). Like other cephalopod species, very little is known about their life history including natural death rate, larval survivability, and how much time this species remains in each stage of maturity. Further, age is difficult to determine from size alone as they have variable growth rates up to maturity [@raberinaryReproductiveCycleOctopus2012; @herwigUsingAgeBasedLife2012; @heukelemGrowthBioenergeticsLifespan1976; @wellsObservationsFeedingGrowth1970]. Size limits have been shown to be the most effective method of conservation for cephalopods in general as it ensures individuals will breed before being harvested (Nowlis 2000, emery 2915). To protect this species, size limits have been imposed on blue octopus catch in Madagascar, but these regulations are difficult in practice, as blue octopus typically die before size can be assessed [@humberSeasonalClosuresNoTake2006]. Further, the relationship between size and maturity stage is not strongly correlated (raberinary and benbow 2012) and as a result would be difficult to implement in the field. Therefore, temporary closures have been shown to be a more practical method of blue octopus conservation [@benbowLessonsLearntExperimental2014], however this requires a deeper understanding of the characteristics of *Octopus cyanea* in this fishery in order to be properly instituted.
+*Octopus cyanea*, or blue octopus, is the most abundant cephalopod species in the western Indian Ocean and is caught in about 95% of local landings [@humberSeasonalClosuresNoTake2006; @oliverPositiveCatchEconomic2015]. Like other cephalopod species, very little is known about their life history including natural death rate, larval survivability, and how much time this species remains in each stage of maturity. Further, age is difficult to determine from size alone as they have variable growth rates up to maturity [@raberinaryReproductiveCycleOctopus2012; @herwigUsingAgeBasedLife2012; @heukelemGrowthBioenergeticsLifespan1976; @wellsObservationsFeedingGrowth1970]. Size limits have been shown to be the most effective method of conservation for cephalopods in general as it ensures individuals will breed before being harvested [@nowlisShortLongtermEffects2000; @emeryManagementIssuesOptions2016]. To protect this species, size limits have been imposed on blue octopus catch in Madagascar, but these regulations are difficult in practice, as blue octopus typically die before size can be assessed [@humberSeasonalClosuresNoTake2006]. Further, the relationship between size and maturity stage is not strongly correlated [@raberinaryReproductiveCycleOctopus2012] and as a result would be difficult to implement in the field. Therefore, temporary closures have been shown to be a more practical method of blue octopus conservation [@benbowLessonsLearntExperimental2014], however this requires a deeper understanding of the characteristics of *Octopus cyanea* in this fishery in order to be properly instituted.
 
-Population matrix models are a commonly used mechanistic model to predict future population dynamics by splitting the life history of the study organism up into a Leslie Matrix [@leslieUseMatricesCertain2021] where a population is split up into groups of ages, and a transformation matrix is applied to predict what the population makeup will be in future years. However, these models require extremely in-depth data collection to inform each entry of the model, such as yearly survival rate based on age. This is not a reality for many organisms where these kind of data cannot be collected due to the difficulty in monitoring some species in yearly increments [@crouseStageBasedPopulationModel1987] and for organisms that have long larval stages, where calculating survival probabilities for this time is nearly impossible [gharouniSensitivityInvasionSpeed2015]. As these obstacles apply to our study species, where there is no existing data on the population of octopus in each age group, we will instead use a stage-based population matrix, otherwise known as a Lefkovitch matrix [@caswell2001matrix]. Here, the life history of the study organism is grouped by stages, where each unit of the matrix represents a distinct period of the organism’s life where it is subject to different environments, pressures, or physical attributes that would alter the survival and reproductive output at that phase, but the amount of time between each stage is now variable. This would simply create different inputs for the probability of remaining in the same stage, and the growth and fecundity inputs can be based on available data. Life history and conceptual matrix are shown in Figure \ref{LifeGraph}. Lefkovitch matrices have not yet been applied to *Octopus cyanea* populations and therefore could be a useful methodology to understand the dynamics of this population in the western Indian Ocean to better inform management strategies.
+Population matrix models are a commonly used mechanistic model to predict future population dynamics by splitting the life history of the study organism up into a Leslie Matrix [@leslieUseMatricesCertain1945] where a population is split up into groups of ages, and a transformation matrix is applied to predict what the population makeup will be in future years. However, these models require extremely in-depth data collection to inform each entry of the model, such as yearly survival rate based on age. This is not a reality for many organisms where these kind of data cannot be collected due to the difficulty in monitoring some species in yearly increments [@crouseStageBasedPopulationModel1987] and for organisms that have long larval stages, where calculating survival probabilities for this time is nearly impossible [gharouniSensitivityInvasionSpeed2015]. As these obstacles apply to our study species, where there is no existing data on the population of octopus in each age group, we will instead use a stage-based population matrix, otherwise known as a Lefkovitch matrix [@caswell2001matrix]. Here, the life history of the study organism is grouped by stages, where each unit of the matrix represents a distinct period of the organism’s life where it is subject to different environments, pressures, or physical attributes that would alter the survival and reproductive output at that phase, but the amount of time between each stage is now variable. This would simply create different inputs for the probability of remaining in the same stage, and the growth and fecundity inputs can be based on available data. Life history and conceptual matrix are shown in Figure \ref{LifeGraph}. Lefkovitch matrices have not yet been applied to *Octopus cyanea* populations and therefore could be a useful methodology to understand the dynamics of this population in the western Indian Ocean to better inform management strategies.
 
 In this paper, we have four goals: 1) we will fit a Levkovitch matrix to the limited available data on *Octopus cyanea* populations in southwestern Madagascar, 2) determine what conservation actions need to be taken, 3) as well as create a theoretical estimation of the species’ life history traits in different stages of its development and 4)  determine the frequency and length in which these temporary closures should take place to maximize population health of both the octopus and the local community.
 
-```{r LifeGraph, echo = FALSE, fig.show="hold", out.width="45%", results = "asis", fig.cap = "A graph representing the life history of *O. Cyanea* and the subsequent Lefkivitch Matrix \\label{LifeGraph}"}
+(ref:lifegraphs) A graph representing the life history of *O. Cyanea* and the subsequent Lefkivitch Matrix where i corresponds with each of the stages of maturity. $P_i$ corresponds to probability of surviving and staying within a stage. $G_i$ is the probability of surviving and growing to the next stage. $F_i$ is the reproductive output of stage i.
+
+
+```{r LifeGraph, echo = FALSE, fig.show="hold", out.width="45%", results = "asis", fig.cap = '(ref:lifegraphs) \\label{LifeGraph}'}
 
 knitr::include_graphics("LifeGraph.png")
 knitr::include_graphics("MtxGeneric.png")
@@ -125,17 +130,6 @@ knitr::include_graphics("MtxGeneric.png")
 
 ## Data
 To inform our model, we used data collected by Raberinary and Benbow (2012) from landings ranging from the villages of Ampasilava in the south to Andragnombala in the north which spans about 30 kilometers of coastline. This study collected landing data from February 2005 to February 2006 through daily surveying fishers as they landed onshore within a two hour window. They recorded octopus weight, weight and length of gonads, sex, and a visual assessment of maturity class. A subsample of octopus were also collected for octopus length, and laboratory assessment of gonads for a confirmation of maturity class. They gathered this data on a total of 3253 octopuses, and for the purposes of this study, we will be modeling from the 1578 females collected. Despite there being no standardization for catch effort being available for this dataset, no other maturity stage study has been conducted on this population of *O. cyanea* and is therefore the best available data to fit a Lefkovitch matrix.
-
-## Model Parameterization
-In order to parameterize this model, we used Wood’s Quadratic Programming Method outlined in Caswell 2001. Other methods required longer time series than were available to us, were extremely sensitive to noise in the data, or simply resulted in matrices that had no biological interpretation [@caswell2001matrix]. Figure \ref{WriteMtxRounded} shows a preliminary stage-based matrix model based on Raberinary and Benbow (2012) data and calculated using the quadprog package in R [@quadprog]. Model accuracy was assessed by comparing life history values inferred from the matrix with existing literature on *O. cyanea* life history (Table \ref{LifeHistory}). As all of our values calculated from the matrix fell within the known attributes of this species, we were confident that this model gave an accurate mechanistic description for this population’s underlying dynamics.
-
-## Model Analysis
-Eigenvalues ($\lambda$) were then calculated from the matrix, which indicate population growth rate (r) as $\lambda$ = $e^r$. Further, future populations can be predicted by multiplying a population vector to incrementally higher powers of our matrix where the power of the matrix corresponds to the time length of the projection.
-
-We performed sensitivity analysis on the population matrix and eigenvalues using the r package popbio [@popbio]. The result of this analysis indicates how much the dominant eigenvalue will change as a result of perturbations in each parameter of the matrix [@demetriusSensitivityPopulationGrowth1969]. Further, as all of the parameters are scaled to a value between 0 and 1 except $F_4$, a unit change in these parameters will have a greater proportional effect on the eigenvalue than $F_4$. To address this, we also conducted elasticity analysis using the popbio package [@popbio]. Similar to sensitivity analysis, elasticity indicates how heavily the growth rate will respond to a proportional change in each parameter in the matrix [@dekroonElasticityRelativeContribution1986]. This will allow us to identify the groups within this octopus population whose protection will most benefit population growth, essentially creating focus points of conservation. Other life history traits that can be calculated from this matrix are stable stage distribution, reproductive value of each stage, average lifespan, and per-stage survivability.
-
-## Management Scenarios
-In order to determine optimal conservation strategies, we altered the survivability of *O. cyanea* by different rates from 0-10% survival increase of the species. Then, we simulated different closure scenarios for each survival increase, increasing the number of months between closures. We then took the weighted average of the growth rates of the closed and open fishing scenarios for the hypothetical population and analyzed if this resulted in a stable population (i.e if the resulting rate of increase was positive). Pareto <!-- CITE??? WAS IT BRUH-->analysis was then conducted on these different scenarios in order to analyze all combinations of conservation strategies that result in stable *O. cyanea* populations.
 
 ```{r QuadProg, echo = FALSE}
 #Make Z
@@ -180,7 +174,7 @@ A <- matrix(c(qp$solution[1], 0, 0, qp$solution[7],
 #A
 ```
 
-```{r WriteMtxRounded, results = 'asis', echo = FALSE, fig.cap = "Matrix calculated using Wood's quadratic programming method \\label{WriteMtxRounded}"}
+```{r WriteMtxRounded, results = 'asis', echo = FALSE, out.width="100%", fig.cap = "Stage-based population matrix calculated using Wood's quadratic programming method and parameterized using data from Raberinary and Benbow (2012). \\label{WriteMtxRounded}"}
 
 A_round <- matrix( , byrow = TRUE, nrow = 4, ncol = 4)
 
@@ -204,25 +198,47 @@ round_A[11] <- paste0("P3 = ", round_A[11])
 round_A[12] <- paste0("G3 = ", round_A[12])
 round_A[16] <- paste0("P4 = ", round_A[16])
 
-
-write_matex(round_A)
+knitr::include_graphics("MtxFilled.png")
+#write_matex(round_A)
 ```
 
-```{r LifeHistory, results = 'asis', echo = FALSE, fig.cap = "Existing information on the per-stage lifespan of *O. Cyanea*\\label{LifeHistory}"}
+## Model Parameterization
+In order to parameterize this model, we used Wood’s Quadratic Programming Method outlined in Caswell 2001. Other methods required longer time series than were available to us, were extremely sensitive to noise in the data, or simply resulted in matrices that had no biological interpretation [@caswell2001matrix]. Figure \ref{WriteMtxRounded} shows a preliminary stage-based matrix model based on Raberinary and Benbow (2012) data and calculated using the quadprog package in R [@quadprog]. Model accuracy was assessed by comparing life history values inferred from the matrix with existing literature on *O. cyanea* life history (Table \ref{LifeHistory}). As all of our values calculated from the matrix fell within the known attributes of this species, we were confident that this model gave an accurate mechanistic description for this population’s underlying dynamics.
+
+## Model Analysis
+Eigenvalues ($\lambda$) were then calculated from the matrix, which indicate population growth rate (r) as $\lambda$ = $e^r$. Further, future populations can be predicted by multiplying a population vector to incrementally higher powers of our matrix where the power of the matrix corresponds to the time length of the projection.
+
+We performed sensitivity analysis on the population matrix and eigenvalues using the r package popbio [@popbio]. The result of this analysis indicates how much the dominant eigenvalue will change as a result of perturbations in each parameter of the matrix [@demetriusSensitivityPopulationGrowth1969]. Further, as all of the parameters are scaled to a value between 0 and 1 except $F_4$, a unit change in these parameters will have a greater proportional effect on the eigenvalue than $F_4$. To address this, we also conducted elasticity analysis using the popbio package [@popbio]. Similar to sensitivity analysis, elasticity indicates how heavily the growth rate will respond to a proportional change in each parameter in the matrix [@dekroonElasticityRelativeContribution1986]. This will allow us to identify the groups within this octopus population whose protection will most benefit population growth, essentially creating focus points of conservation. Other life history traits that can be calculated from this matrix are stable stage distribution, reproductive value of each stage, average lifespan, and per-stage survivability.
+
+Finally, we calculated the minimum survivability increase necessary per stage to result in an increase of the overall population. We did this by increasing the $P_i$ and $G_i$ parameters by increasing percentages in each stage i until the overall eigenvalue ($\lambda$) became greater than one.
+
+## Management Scenarios
+In order to determine optimal conservation strategies, we altered the survivability of *O. cyanea* by different rates from 0-10% survival increase of the species. Then, we simulated different closure scenarios for each survival increase, increasing the number of months between closures. We then took the weighted average of the growth rates of the closed and open fishing scenarios for the hypothetical population and analyzed if this resulted in a stable population (i.e if the resulting rate of increase was positive). Pareto analysis was then conducted on these different scenarios in order to analyze all combinations of conservation strategies that result in stable *O. cyanea* populations.
+
+```{r LifeHistory, results = 'asis', echo = FALSE}
 
 LifeHistory <- read.csv("OcyaneaLifeHistory.csv")
 #LifeHistory
-knitr::kable(LifeHistory)
+knitr::kable(LifeHistory, format = "latex", booktabs = TRUE, caption = "(ref:lifehistory) \\label{LifeHistory}") %>%
+  kable_styling(latex_options="scale_down")
 
 ```
 
+
+(ref:lifehistory) Existing research and information on the per-stage lifespan of *O. Cyanea*. Note: Heukelem and Fred (1976) estimate the time to maturity to be 10-13 months (i.e. stages 1-3 combined).
+
+
 # RESULTS
 
-The resulting eigenvalue of our matrix was 0.982, indicating a population decline of 1.8% per month (Figure \ref{projection}). Sensitivity analysis (Figure \ref{sensitivity}) showed that within each stage, the growth parameters ($G_1$ - $G_3$) had the largest effect on the eigenvalue compared to the parameters indicating staying within a stage ($P_1$-$P_4$). However, as all the parameters must necessarily be between 0 and 1 with the exception of the $F_4$ parameter, elasticity analysis provides an interpretation that weights all stages equally. The result of this analysis shows that percent changes in the fecundity metric can be as beneficial to the overall population growth as changes in the G parameters (Figure \ref{elasticity}). Further, this analysis indicates that of all the stages, stage 1 has the most overall influence on the overall population growth. The stable stage distribution (Table \ref{lifetable}) shows that 65% of the makeup of this population is immature individuals, while actively breeding individuals (fully mature) only make up less than 1% of the naturally occurring population. However, the reproductive output per stage (Table \ref{lifetable}) shows that on average, an individual in this fully mature population is expected to have 41 times the number of offspring as those in stage 1. 
+The resulting eigenvalue of our matrix was 0.982, indicating a population decline of 1.8% per month (Figure \ref{projection}). Sensitivity analysis (Figure \ref{sensitivity}) showed that within each stage, the growth parameters ($G_1$ - $G_3$) had the largest effect on the eigenvalue compared to the parameters indicating staying within a stage ($P_1$-$P_4$). However, as all the parameters must necessarily be between 0 and 1 with the exception of the $F_4$ parameter, elasticity analysis provides an interpretation that weights all stages equally. The result of this analysis shows that percent changes in the fecundity metric can be as beneficial to the overall population growth as changes in the G parameters (Figure \ref{elasticity}). Further, this analysis indicates that of all the stages, stage 1 has the most overall influence on the overall population growth. The stable stage distribution (Table \ref{lifetable}) shows that 65% of the makeup of this population is immature individuals, while actively breeding individuals (fully mature) only make up less than 1% of the naturally occurring population. However, the reproductive output per stage (Table \ref{lifetable}) shows that on average, an individual in this fully mature population is expected to have 41 times the number of offspring as those in stage 1.
+
+Changing the survivability of each stage (Figure \ref{stages}) showed that immature individuals (Stage 1) would need the smallest amount (5%) of survival increase in order to result in overall population growth. Stage 4, on the other hand, would require a survivability increase of 25% in order to create a viable population.
 
 Our analysis of different closure scenarios (Figure \ref{closures}) indicates closures less frequent than once every five months will be ineffective in ensuring a stable population. Further, as our baseline growth rate was close to stable (-0.0184), it took a maximum of a 10% increase in the survivability of the population to ensure a sustainable population. Our pareto analysis (Figure \ref{closures}) provides all the possible combinations of increased survival rates and frequency of closures that will result in a stable population. Suggested changes in overall survivability range from 2-10%, and the ranges of frequencies of closures span from permanent closure (every month) to once every five months.
 
-```{r projection, fig.cap = "Projection of population based off of our matrix \\label{projection}"}
+(ref:projections) Ten-year projection of *O. cyanea* population based off of our calculated Lefkovitch matrix. 
+
+```{r projection, fig.cap = "(ref:projections) \\label{projection}"}
 pop <- observedStageMatrix[13,]
 N <- list()
 
@@ -249,14 +265,14 @@ ggplot(modeled_data) +
                                                 "Stage 2" = "#009292",
                                                 "Stage 3" = "#db6d00",
                                                 "Stage 4" = "#920000")) +
-  ggtitle("Ten year population projection") + #paste0(i, " month projection")) +
+  #ggtitle("Ten year population projection") + #paste0(i, " month projection")) +
   xlab("Year") +
   ylab("No. Individuals") +
   scale_x_continuous(breaks = seq(0, 120, 12), label = seq(2006, 2016))
 
 ```
 
-```{r lifetable, echo = FALSE, fig.cap = "Stable stage distribution and reproductive value of each stage of our blue octopus population \\label{lifetable}"}
+```{r lifetable, results = 'asis', echo = FALSE}
 #eigenvecors and vals
 A_eigen <- eigen(A)
 #A_eigen
@@ -280,15 +296,40 @@ A_repro_value <- as.numeric(eigen(t(A))$vectors[,1]/eigen(t(A))$vectors[1,1])
 lifetable <- data.frame(matrix(ncol = 3, nrow = 4))
 x <- c("Stage", "Stable Stage Distribution (Dominant Eigenvector)", "Reproductive Value (Left Eigenvector)")
 colnames(lifetable) <- x
+#colnames(lifetable) <- stringr::str_replace_all(colnames(lifetable), "\\n", "<br>")
 lifetable[1:4,1] <- c("1 Immature", "2 Incipient Maturity", "3 Mature", "4 Fully Mature")
 lifetable[1:4,2] <- round(A_stable_stage,3)
 lifetable[1:4,3] <- round(A_repro_value,3)
 
-kable(lifetable)
+  knitr::kable(lifetable, format = "latex", booktabs = TRUE, caption = "(ref:lifetablecap) \\label{lifetable}") %>%
+  kable_styling(latex_options="scale_down")
 
 ```
 
-```{r sensitivity, fig.cap = "Sensitivity analysis of our matrix model. \\label{sensitivity}"}
+(ref:lifetablecap) Stable stage distribution and reproductive value of each stage of this blue octopus population matrix given in Figure \ref{WriteMtxRounded}
+
+``` {r survivabilityEst, echo = FALSE, results = 'asis'}
+
+surviveTable <- data.frame(matrix(ncol = 2, nrow = 5))
+y <- c("Stage", "Survivability")
+colnames(surviveTable) <- y
+
+surviveTable[1:5,1] <- c("1 Immature", "2 Incipient Maturity", "3 Mature", "4 Fully Mature", "Larval")
+
+for(i in 1:3){
+  surviveTable[i,2] <- sum(A[,i])
+}
+surviveTable[4,2] <- A[4,4]
+surviveTable[5,2] <- A[1,4]/((375000+27000)/2)
+
+  knitr::kable(surviveTable, format = "latex", booktabs = TRUE, caption = "(ref:surviveTable) \\label{survivabilityEst}") #%>%
+  #kable_styling(latex_options="scale_down")
+
+```
+
+(ref:surviveTable) The survivability (i.e. the proportion of individuals who survive from stage i to stage i+1) in each stage. Stages 1-4 were calculated by summing up the proportion of individuals surviving and staying within a stage every month ($P_i$) and the proportion of individuals surviving and growing every month ($G_i$). Larval survivability was calculated  by dividing our estimated number of larvae surviving back to stage 1 ($F_4$) by 201,000 - the average estimated reproductive output of *O. cyanea* by [@guardBiologyFisheriesStatus2009].
+
+```{r sensitivity, fig.cap = "(ref:sensitive) \\label{sensitivity}"}
 
 cols <- hcl.colors(1000, palette = "Greens 3", alpha = NULL, rev = TRUE, fixup = TRUE)#, end = .85)
 
@@ -318,7 +359,9 @@ image2(sens, mar=c(1,3.5,5,1), box.offset=.1, border="gray70",col = c("white", c
 #
 ```
 
-```{r elasticity, fig.cap = "Elasticity analysis \\label{elasticity}"}
+(ref:sensitive) Sensitivity analysis of our matrix model - the change in the eigenvalue ($\lambda$) as a result of a unit change of each parameter in the model.
+
+```{r elasticity, fig.cap = "(ref:elastic) \\label{elasticity}"}
 
 cols <- hcl.colors(1000, palette = "Greens 3", alpha = NULL, rev = TRUE, fixup = TRUE)#, end = .85)
 
@@ -346,6 +389,56 @@ image2(elas, mar=c(1,3.5,5,1), border="gray70", col = c("white", cols[150:850]),
 #https://rdrr.io/cran/popbio/man/elasticity.html
 ```
 
+(ref:elastic) Elasticity analysis of our matrix model - the change in the eigenvalue ($\lambda$) as a result of a proportional change of each paramter in the model.
+
+```{r stages, echo = FALSE, fig.cap = "(ref:stagesurvive) \\label{stages}"}
+
+rates <- c(0, 0, 0, 0, 0)
+
+for(i in 1:(length(rates)-1)){
+  #First need to do the stage 4 and larval differently
+  if(i == 4){
+    incr <- 0.01
+    testMtx <- A
+    testMtx[4,4] <- A[4,4] + A[4,4] * incr
+    while(f(eigen(testMtx)$values[1]) < 1){
+      incr <- incr + 0.01
+      testMtx[4,4] <- A[4,4] + A[4,4] * incr
+    }
+    rates[4] <- incr
+    
+    incr <- 0.01
+    testMtx <- A
+    testMtx[1,4] <- A[1,4] + A[1,4] * incr
+    while(f(eigen(testMtx)$values[1]) < 1){
+      incr <- incr + 0.01
+      testMtx[1,4] <- A[1,4] + A[1,4] * incr
+    }
+    rates[5] <- incr
+  
+  }
+  else{
+  incr <- 0.01
+  testMtx <- A
+  testMtx[,i] <- A[,i] + A[,i] * incr
+  while(f(eigen(testMtx)$values[1]) < 1){
+    incr <- incr + 0.01
+    testMtx[,i] <- A[,i] + A[,i] * incr
+  }
+  rates[i] <- incr
+  }}
+
+rates_percent <- rates * 100
+
+barplot(rates_percent, xlab = "Stage", ylab = "Percent survival increase",
+        names.arg=c("1", "2", "3", "4", "Larval"))
+
+#rates  
+
+```
+
+(ref:stagesurvive) Minimum % per-stage survivability change needed to create population increase.
+
 ```{r closurescalcs}
 #Calculates new rates based on vectors of % chagne and frequencies of restrictions
 percentage <-rates <- c(seq(0, 1, .01)) # c(0.01, 0.05, 0.1, 0.15) 
@@ -368,7 +461,7 @@ for(i in 1:length(freqs)){
 # https://esajournals.onlinelibrary.wiley.com/doi/10.2307/1943004
 ```
 
-```{r closures, fig.cap = "Paretto analysis of different management scenarios \\label{closures}"}
+```{r closures, fig.cap = "Paretto analysis of different management scenarios. The paretto front is represented by the green and white squares where red refers to management scenarios that will not result in overall population growth. Frequency of closures refers to the number of months between a closure (i.e. 1 is closing every month and 12 being a closure for one month per year). \\label{closures}"}
 
 
 #Continuous Colors
@@ -389,15 +482,15 @@ ggplot(iteration, aes(Frequency, PercentChange, fill = lambda)) + geom_tile(widt
 
 # DISCUSSION
 
-Our calculated growth rate of -0.0184 and resulting population projection further supports previous reports of declined catch (Humber 2006, Benbow 2014) and indicate a need for an assessment of possible action toward more sustainable practices. Decline in population presents an economical issue for individual fishers as their catch will become less lucrative and a recovery of this population will also result in economic gains from fishers in this community (Benbow et al. 2014, Harris 2009, Oliver et al. 2015). Our model infers other information about the life history of this population as well, beyond its overall growth rate. As each column in the matrix represents a proportion of individuals within a stage either growing or staying within a stage (with the exception of the $F_4$ parameter), it also implies a per-stage survivability estimate (Table \ref{tab:SAME TABLE I NEED TO MAKE}) Further, as O. Cyanea have an approximately one month larval stage (Van Heukelem, 1987, Guard and Mgaya, 2003), the fecundity parameter does not indicate the overall reproductive output of mature individuals, but the number of offspring that will survive its larval stage and back the immature stage. This gives an estimation for larval survivability as each octopus lays between 27,000 and 375,000 eggs (Guard et al. 2009), our model indicates that only an average of 26.7 individuals will survive back into immaturity. Larval survivability is extremely difficult to measure outside of laboratory settings, and there is no other estimation that currently exists for this species.
+Our calculated growth rate of -0.0184 and resulting population projection further supports previous reports of declined catch [@humberSeasonalClosuresNoTake2006; @benbowLessonsLearntExperimental2014] and indicate a need for an assessment of possible action toward more sustainable practices. Decline in population presents an economical issue for individual fishers as their catch will become less lucrative and a recovery of this population will also result in economic gains from fishers in this community [@humberSeasonalClosuresNoTake2006; @benbowLessonsLearntExperimental2014; @oliverPositiveCatchEconomic2015]. Our model infers other information about the life history of this population as well, beyond its overall growth rate. As each column in the matrix represents a proportion of individuals within a stage either growing or staying within a stage (with the exception of the $F_4$ parameter), it also implies a per-stage survivability estimate (Table \ref{survivabilityEst}), life history parameters on which there has been no previous research. Further, as O. Cyanea have an approximately one month larval stage (Van Heukelem, 1987, Guard and Mgaya, 2003) <!--Waiting on Ahiliya Response-->, the fecundity parameter does not indicate the overall reproductive output of mature individuals, but the number of offspring that will survive its larval stage and back the immature stage. This gives an estimation for larval survivability as female octopi havea fecundity ranging between 27,000 and 375,000 eggs [@guardBiologyFisheriesStatus2009], our model indicates that only an average of 26.7 individuals will survive back into immaturity. Larval survivability is extremely difficult to measure outside of laboratory settings, and there is no other estimation that currently exists for this species.
 
-Elasticity analysis shows that targeting of both the growth and reproductive parameters would have equal effect on the overall population growth, with the most influential parameter being the survival of stage 1 individuals. The sensitivity and elasticity analysis could potentially have conservation implications as they indicate which stages will have the greatest effect on the population if they are targeted for preservation practices. However, as the fishing method employed by the local people does not discriminate based on stage, this is not an applicable suggestion for conservation practices.  <!-- TALK MORE ABOUT STAGE GRAPH -->
+Elasticity analysis shows that targeting of both the growth and reproductive parameters would have equal effect on the overall population growth, with the most influential parameter being the survival of stage 1 individuals. The sensitivity and elasticity analysis could potentially have conservation implications as they indicate which stages will have the greatest effect on the population if they are targeted for preservation practices. However, as the fishing method employed by the local people does not discriminate based on stage, this is not an applicable suggestion for conservation practices. For this reason, even though our analysis of different stage survivabilities indicates that conserving immature individuals would be an effective tool for fostering population growth, this is not a realistic management practice in this fishery.
 
-Based on our calculations of growth rate over different closure scenarios, we suggest implementing closures at least once every five months, but the strictness of the closure (i.e. allowing some limited fishing) can be altered depending on how frequent these restricted fishing periods are implemented. As there is no literature on the survivability of *O. cyanea* throughout their lifetime, particularly in this region. The changes to survivability suggested by our analysis is in relation to their overall death rate not fishing rate, indicating a need for further research on the natural mortality rate of *O. cyanea* before any conservation action is taken. Our pareto analysis suggests a range of the minimum action needed in order to ensure stability of this population. As all combinations of survivability increase and frequency of closure suggested by the analysis will result in stable *O. cyanea* populations, the specific strategy chosen should be decided based on which is most convenient and economically feasible to the local fisher community of southwest Madagascar. Among conservationists, there is a growing understanding that decision making is best left to those directly involved with resource extraction and implementing fishing restrictions upon a community without understanding their cultural practices can have detrimental effects upon the community, as well as be less effective in actually protecting natural resources (Humber et al. 2006, Baker-Médard 2016).
+Based on our calculations of growth rate over different closure scenarios, we suggest implementing closures at least once every five months, but the strictness of the closure (i.e. allowing some limited fishing) can be altered depending on how frequent these restricted fishing periods are implemented. As there is no literature on the survivability of *O. cyanea* throughout their lifetime, particularly in this region. The changes to survivability suggested by our analysis is in relation to their overall death rate not fishing rate, indicating a need for further research on the natural mortality rate of *O. cyanea* before any conservation action is taken. Our pareto analysis suggests a range of the minimum action needed in order to ensure stability of this population. As all combinations of survivability increase and frequency of closure suggested by the analysis will result in stable *O. cyanea* populations, the specific strategy chosen should be decided based on which is most convenient and economically feasible to the local fisher community of southwest Madagascar. Among conservationists, there is a growing understanding that decision making is best left to those directly involved with resource extraction and implementing fishing restrictions upon a community without understanding their cultural practices can have detrimental effects upon the community, as well as be less effective in actually protecting natural resources [@humberSeasonalClosuresNoTake2006; baker-medardGenderingMarineConservation2017].
 
-When implemented deliberately, establishing periodic closures is an effective and commonly-used strategy when implementing sustainable fishing practices (Humber et al. 2006, Oliver et al 2015). As Madagascar has been committed to protecting its marine natural resources through increasing the number of marine parks, this study serves to highlight some of the available strategies to make population predictions and conservation strategies with limited data sources (Westlund 2017). Implementing fishing restrictions without regard for cultural practices can undermine cultural practices and in turn be detrimental to both the people and fishery, and halts the dissemination of traditional ecological knowledge (Okafor-Yarwood et al 2022). For this reason, both the Madagascar government and scientific community has found a new emphasis on studying the complex social structures within the community in question in order to more effectively preserve resources along with peoples’ livelihoods (Médard 2021, Bille and Mermet 2002). This has been shown to increase participation in conservation practices, therefore making them more effective. 
+When implemented deliberately, establishing periodic closures is an effective and commonly-used strategy when implementing sustainable fishing practices [@humberSeasonalClosuresNoTake2006; oliverPositiveCatchEconomic2015]. As Madagascar has been committed to protecting its marine natural resources through increasing the number of marine parks, this study serves to highlight some of the available strategies to make population predictions and conservation strategies with limited data sources [@westlundMarineProtectedAreas2017]. Implementing fishing restrictions without regard for cultural practices can undermine cultural practices and in turn be detrimental to both the people and fishery, and halts the dissemination of traditional ecological knowledge [@okafor-yarwoodSurvivalRichestNot2022]. For this reason, both the Madagascar government and scientific community has found a new emphasis on studying the complex social structures within the community in question in order to more effectively preserve resources along with peoples’ livelihoods [@baker-medardClassedConservationSocioeconomic2021; @billeIntegratedCoastalManagement2002]. This has been shown to increase participation in conservation practices, therefore making them more effective. 
 
-The mechanistic methods utilized in this study allowed us to gain a baseline understanding of the growthrate and mortality of this population despite the limited data used to parameterize the model. Limitations of this study include the data collection process as even though daily collections occurred daily within a two-hour window, catch was not standardized by effort and therefore there could be catch fluctuations between months that are not captured in the data. However, we can be confident that the catch represented is an accurate representation of the ratio of octopus in each stage. Further, matrix population models will converge or diverge based on their dominant eigenvalue, regardless of the initial population inputted in the model. Therefore, we can still conclude that the population at this time was in an overall decline, despite not knowing the exact number of individuals in this population. Another shortcoming of this study is that the only available stage data for this species and region was collected in 2006, and the community of southwest Madagascar has implemented several strategies since that time to improve the sustainability of their fish stocks in the region. Due to the time of data collection, this study does not reflect the current status of *Octopus cyanea*, but outlines the underlying population dynamics and serves to indicate the need for a more current assessment of *O. cyanea* stocks in the region. Finally, as we are using a Lefkovitch matrix to simulate population fluctuations, these models inherently make simplifying assumptions about the biology of the study species. For example, these models assume that all individuals within a stage are subject to the same growth and mortality rates. As this study uses data collected from a large geographic range (Raberinary and Benbow 2012), different individuals nesting in different regions may be subject to different selective pressures.. Despite these limitations, the data provided is the best data available for fitting a Lefkovitch matrix to this species.
+The mechanistic methods utilized in this study allowed us to gain a baseline understanding of the growthrate and mortality of this population despite the limited data used to parameterize the model. Limitations of this study include the data collection process as even though daily collections occurred daily within a two-hour window, catch was not standardized by effort and therefore there could be catch fluctuations between months that are not captured in the data. However, we can be confident that the catch represented is an accurate representation of the ratio of octopus in each stage. Further, matrix population models will converge or diverge based on their dominant eigenvalue, regardless of the initial population inputted in the model. Therefore, we can still conclude that the population at this time was in an overall decline, despite not knowing the exact number of individuals in this population. Another shortcoming of this study is that the only available stage data for this species and region was collected in 2006, and the community of southwest Madagascar has implemented several strategies since that time to improve the sustainability of their fish stocks in the region. Due to the time of data collection, this study does not reflect the current status of *Octopus cyanea*, but outlines the underlying population dynamics and serves to indicate the need for a more current assessment of *O. cyanea* stocks in the region. Finally, as we are using a Lefkovitch matrix to simulate population fluctuations, these models inherently make simplifying assumptions about the biology of the study species. For example, these models assume that all individuals within a stage are subject to the same growth and mortality rates. As this study uses data collected from a large geographic range [@raberinaryReproductiveCycleOctopus2012], different individuals nesting in different regions may be subject to different selective pressures.. Despite these limitations, the data provided is the best data available for fitting a Lefkovitch matrix to this species.
 
 As cephalopod species tend to react faster to easing fishing pressure, a study of other fished species in the region is necessary to understand the effectiveness of MPAs. This study also highlights the need for further research into the life history patterns of *Octopus cyanea*. Specifically, studies on the natural mortality rate of this species, both in the larval and benthic stages, could better inform both our model and the greater understanding of how populations of this species grow. Further, a more contemporary study on the status of the octopus fishery of southwest Madagascar will paint a more accurate picture of how this population is faring under the current fishing pressure. These studies can also be used to build off of this one as more in depth data collection could be used to add spatial connectivity to our model, where we then can evaluate the accuracy of the assumption that every individual within a stage is subject to the same selective pressure. Finally, as the people of southwestern Madagascar are actively taking steps to preserve the health of their fisheries, we hope that studies such as these can serve to facilitate informed decision making when choosing how and when to impose fishing restrictions.
 

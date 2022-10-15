@@ -9,7 +9,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, cache = TRUE)
-setwd("C:/Users/sophi/Documents//UNH_Docs/Proposal/Mtx_Model")
+setwd("C:/Users/sophi/Documents/GitHub/UNH_Docs/Proposal/Mtx_Model")
 
 library(knitr)
 library(matlib)
@@ -253,8 +253,7 @@ ggplot(iteration_bins, aes(Frequency, PercentChange, fill = PopDynamics)) + geom
 ```
 
 ```{r stages}
-#GO BACK TO THIS FOR CHEKCIN SURVIVABILITY!!!!!
-#col 4 needs to be separate because you need to parse out larval and stage 4 survivability
+
 rates <- c(0, 0, 0, 0, 0)
 
 for(i in 1:(length(rates)-1)){
@@ -295,10 +294,6 @@ barplot(rates, main = "Minimum % survivability change needed to create populatio
 
 rates  
 
-#MAKE SURE EVERYTHING IS CALCED RIGHT
-#See if there's literature on selective catch
-#see if there's a relationship of life history type and which stage is most important
-#maybe try a monthly closure to certain sizes
 ```
 
 ```{r stagemo}

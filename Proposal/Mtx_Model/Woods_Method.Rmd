@@ -9,13 +9,14 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
-setwd("C:/Users/sophi/Documents/UNH_Docs/Proposal/Mtx_Model")
+setwd("C:/Users/sophi/Documents/GitHub/UNH_Docs/Proposal/Mtx_Model")
 
 library(matlib)
 library(ggplot2)
 library(quadprog)
 library(gridtext)
 library(popbio)
+library(tikzDevice)
 
 observedData <- as.matrix(data.frame(read.csv("RaberinaryBenbow2012Calcs.csv")))
 observedStageMatrix <- observedData[1:13, 2:5]
@@ -99,7 +100,7 @@ A
 #               0, 0, expression("G"[3]), expression("P"[4])), byrow = TRUE, nrow = 4, ncol = 4)
 
 
-A_generic <- matrix(c("P1", 0, 0, "F4",
+A_generic <- matrix(c("$P_1$", 0, 0, "F4",
               "G1", "P2", 0, 0,
               0, "G2", "P3", 0,
               0, 0, "G3", "P4"), byrow = TRUE, nrow = 4, ncol = 4)
