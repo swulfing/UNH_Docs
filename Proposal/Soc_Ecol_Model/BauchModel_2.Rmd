@@ -68,14 +68,17 @@ out1 %>%
   labs(x='time (yr)',y='pop')
 
 ```
-<!-- First model tested:  -->
+
+<!-- Notes: Still worried about interaction term. Don't think this is correct because mechanism isn't specified and we just added interaction terms.  -->
+
+<!-- See derivation in notes but this is the new equations (still unsure about interaction terms): -->
 
 <!-- $$ -->
 <!-- \frac{dP_1}{dt} = r_1P_1(1-P_1)-\frac{h_1*P_1(1-X_1)}{P_1 + s_1} + \rho_1 * \frac{P_2 - P_1}{2} -->
 
 <!-- \\ -->
 
-<!-- \frac{X1}{dt} = k_1  X_1  (1-X_1) [d_1(2X_1 - 1)+ \frac{1}{P_1+c_1}-w_1] + k_1X_2(1-X_2)[d_1(2X_2-1)+\frac{1}{P_1 + c_1} - w_1] -->
+<!-- \frac{X1}{dt} =  k_1X_1(prop_1-X_1)X_2(prop_2-X_2)  [\frac{1}{P_1+c_1} - w_1 + d_1(2X_1-prop_1) + d_2(2X_2 -prop_2)] -->
 
 <!-- \\ -->
 
@@ -83,24 +86,10 @@ out1 %>%
 
 <!-- \\ -->
 
-<!-- \frac{X1}{dt} = k_2  X_2  (1-X_2) [d_2(2X_2 - 1)+ \frac{1}{P_2+c_2}-w_2] + k_2X_1(1-X_1)[d_2(2X_1-1)+\frac{1}{P_2 + c_2} - w_2] -->
+<!-- \frac{X1}{dt} = k_1X_1(prop_1-X_1)X_2(prop_2-X_2)  [\frac{1}{P_2+c_2} - w_2 + d_1(2X_1-prop_1) + d_2(2X_2 -prop_2)] -->
 <!-- $$ -->
-<!-- <!-- Code for above: --> -->
-<!-- <!-- dP_1dt <- R_1 * P_1 * (1-P_1) - (h_1 * P_1 * (1-X_1))/(P_1+s_1) + roe_1 * (P_2 - P_1)/2 --> -->
 
-<!-- <!--   dX_1dt <- k_1 * X_1 * (1-X_1) * (d_1*(2*X_1-1) + 1/(P_1+c_1) - w_1) +  --> -->
-<!-- <!--     k_1 * X_2 * (1-X_2) * (d_1*(2*X_2-1) + 1/(P_1+c_1) - w_1) --> -->
-
-<!-- <!--   dP_2dt <- R_2 * P_2 * (1-P_2) - (h_2 * P_2 * (1-X_2))/(P_2+s_2) + roe_2 * (P_1 - P_2)/2 --> -->
-
-<!-- <!--   dX_2dt <- k_2 * X_2 * (1-X_2) * (d_2*(2*X_2-1) + 1/(P_2+c_2) - w_2) + --> -->
-<!-- <!--     k_2 * X_1 * (1-X_1) * (d_2*(2*X_1-1) + 1/(P_2+c_2) - w_2) --> -->
-
-
-<!-- Notes: Still worried about interaction term. Don't think this is correct because mechanism isn't specified and we just added interaction terms.  -->
-
-
-```{r Bauch.Coupled}
+```{r Bauch.Coupled_firsttry, eval = FALSE}
 Bauch.Coupled <- function (t, y, params) {
   ## first extract the state variables
   P_1 <- y[1] #Fish Pop var
@@ -172,10 +161,56 @@ out_Coupled %>%
 ```
 
 
+```{r Bauch.Coupled, fig.cap = "New Model with default paramters"}
+Bauch.Coupled <- function (t, y, params) {
+  ## first extract the state variables
+  P_1 <- y[1] #Fish Pop var
+  P_2 <- y[2] #Fish Pop var
+  X_1 <- y[3] #conservationist var
+  X_2 <- y[4] #conservationist var
 
-```{r Bauch.Diff, eval = FALSE}
-params_Bauch <- c(R_1 = 0.06, s_1 = 0.8, h_1 = 0.075, k_1 = 0.17, w_1 = 0.35, c_1 = 0.6, d_1 = 0.5, roe_1 = 1,
-                  R_2 = 0.06, s_2 = 0.8, h_2 = 0.075, k_2 = 0.17, w_2 = 0.35, c_2 = 0.6, d_2 = 0.125, roe_2 = 1)
+  #TT <- y[5]
+  
+  ## now extract the parameters
+  R_1 <- params["R_1"] # Net growth/fecundity
+  s_1 <- params["s_1"] # supply and demand
+  h_1 <- params["h_1"] # Harvesting efficiency
+  k_1 <- params["k_1"] # Social learning rate
+  w_1 <- params["w_1"] # conservation costs
+  c_1 <- params["c_1"] # rarity valuation param
+  d_1 <- params["d_1"] # social norm strength
+  
+  R_2 <- params["R_2"] # Net growth/fecundity
+  s_2 <- params["s_2"] # supply and demand
+  h_2 <- params["h_2"] # Harvesting efficiency
+  k_2 <- params["k_2"] # Social learning rate
+  w_2 <- params["w_2"] # conservation costs
+  c_2 <- params["c_2"] # rarity valuation param
+  d_2 <- params["d_2"] # social norm strength 
+  
+  roe_1 <- params["roe_1"] # fish diffusion
+  roe_2 <- params["roe_2"] # fish diffusion
+  prop_1 <- params["prop_1"] # Proportion of population in group 1
+  prop_2 <- params["prop_2"] # Proportion of population in group 2. prop_1 + prop_2 = 1
+  
+  ## now code the model equations
+  dP_1dt <- R_1 * P_1 * (1-P_1) - (h_1 * P_1 * (1-X_1))/(P_1+s_1) + roe_1 * (P_2 - P_1)/2
+  
+  dX_1dt <- k_1 * X_1 * (prop_1-X_1) * X_2 * (prop_2-X_2) *(1/(P_1 + c_1) - w_1 + d_1*(2*X_1-prop_1) + d_2*(2*X_2 - prop_2))
+  
+  dP_2dt <- R_2 * P_2 * (1-P_2) - (h_2 * P_2 * (1-X_2))/(P_2+s_2) + roe_2 * (P_1 - P_2)/2
+  
+  dX_2dt <- k_2 * X_1 * (prop_1-X_1) * X_2 * (prop_2-X_2) *(1/(P_2 + c_2) - w_2 + d_1*(2*X_1-prop_1) + d_2*(2*X_2 - prop_2))
+  
+  ## combine results into a single vector
+  dydt <- c(dP_1dt, dP_2dt, dX_1dt, dX_2dt)
+  ## return result as a list!
+  
+  list(dydt)
+}
+
+params_Bauch <- c(R_1 = 0.06, s_1 = 0.8, h_1 = 0.075, k_1 = 0.17, w_1 = 0.35, c_1 = 0.6, d_1 = 0.5, roe_1 = 1, prop_1 = 0.5,
+                  R_2 = 0.06, s_2 = 0.8, h_2 = 0.075, k_2 = 0.17, w_2 = 0.35, c_2 = 0.6, d_2 = 0.5, roe_2 = 1, prop_2 = 0.5)
 
 times <- seq(from = 0, to = 100, by = 1)
 xstart <- c(P_1 = 0.406, X_1 = .24, P_2 = 0.406, X_2 = .24) # See supplemental data for other starting params
@@ -186,14 +221,15 @@ ode(
   times=times,
   parms=params_Bauch
 ) %>%
-  as.data.frame() -> out_Diff
+  as.data.frame() -> out_Coupled
 
-out_Diff %>%
+out_Coupled %>%
   gather(variable,value,-time) %>%
   ggplot(aes(x=time,y=value,color=variable))+
-  geom_line(size=2)+
+  geom_line(size=1)+
   theme_classic()+
   labs(x='time (yr)',y='pop')
+
 
 ```
 
@@ -208,6 +244,8 @@ out_Diff %>%
 # i <- 1
 # param <- 8
 
+
+#Note: in this function, I am changing BOTH populations' paramters. Should I try just changing one?
 param_ranges <- function(param, max, min){
   #Generate list of ranges
   new_param <- seq(from=min, to=max, length.out=5)
@@ -215,13 +253,15 @@ param_ranges <- function(param, max, min){
   
   #Change params to each quartile for graphs 1-5
   for(i in 1:length(new_param)){
-    params_Default <- data.frame(R = 0.06, s = 0.8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5, roe = 1)
+    params_Default <- data.frame(R = 0.06, s = .8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5, roe = 1, prop = .5)
     #ASSIGN OLD PARAMS TO BE NEW SEQUENCE
     params_Default[param] <- new_param[i]
     params_Bauch <- c(R_1 = params_Default$R, s_1 = params_Default$s, h_1 = params_Default$h, k_1 = params_Default$k,
                       w_1 = params_Default$w, c_1 = params_Default$c, d_1 = params_Default$d, roe_1 = params_Default$roe,
+                      prop_1 =  params_Default$prop,
                       R_2 = params_Default$R, s_2 = params_Default$s, h_2 = params_Default$h, k_2 = params_Default$k,
-                      w_2 = params_Default$w, c_2 =params_Default$c, d_2 = params_Default$d, roe_2 = params_Default$roe)
+                      w_2 = params_Default$w, c_2 =params_Default$c, d_2 = params_Default$d, roe_2 = params_Default$roe,
+                      prop_2 = 1- params_Default$prop)
     
     times <- seq(from = 0, to = 100, by = 1)
     xstart <- c(P_1 = 0.406, X_1 = .24, P_2 = 0.406, X_2 = .24) #See supplemental for other starting params
@@ -237,20 +277,23 @@ param_ranges <- function(param, max, min){
     p <- out_Diff %>%
       gather(variable,value,-time) %>%
       ggplot(aes(x=time,y=value,color=variable))+
-      geom_line(size=2)+
+      geom_line(size=1)+
       theme_classic()+
       labs(x='time (yr)',y='pop')
     plotList[[i]] <- p
   }
   
-   params_Default <- data.frame(R = 0.06, s = 0.8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5, roe = 1)
+  #Now assigning the final graph to give the two populations the max and min of the paramters
+    params_Default <- data.frame(R = 0.06, s = .8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5, roe = 1, prop = .5)
     #ASSIGN OLD PARAMS TO BE NEW SEQUENCE
     params_Bauch <- c(R_1 = params_Default$R, s_1 = params_Default$s, h_1 = params_Default$h, k_1 = params_Default$k,
                       w_1 = params_Default$w, c_1 = params_Default$c, d_1 = params_Default$d, roe_1 = params_Default$roe,
+                      prop_1 =  params_Default$prop,
                       R_2 = params_Default$R, s_2 = params_Default$s, h_2 = params_Default$h, k_2 = params_Default$k,
-                      w_2 = params_Default$w, c_2 =params_Default$c, d_2 = params_Default$d, roe_2 = params_Default$roe)
+                      w_2 = params_Default$w, c_2 =params_Default$c, d_2 = params_Default$d, roe_2 = params_Default$roe,
+                      prop_2 = 1- params_Default$prop)
     params_Bauch[param] <- max
-    params_Bauch[(param + 8)] <- min
+    params_Bauch[(param + 9)] <- min
     
     times <- seq(from = 0, to = 100, by = 1)
     xstart <- c(P_1 = 0.406, X_1 = .24, P_2 = 0.406, X_2 = .24) #See supplemental for other starting params
@@ -279,20 +322,20 @@ param_ranges <- function(param, max, min){
 
 ```
 
-```{r R, fig.cap= "R - Net growth/fecundity"}
+```{r R, fig.cap= "R - Net growth/fecundity, range 0 to 1"}
 param_ranges(1, 0, 1)
 ```
 
 \newpage
 
-```{r s, fig.cap = "S - supply and demand"}
-param_ranges(2, 0, 1)
+```{r s, fig.cap = "S - supply and demand, range 0.1 to 1"}
+param_ranges(2, 0.1, 1)
 ```
 
 \newpage
 
-```{r h, fig.cap = "h - Harvesting efficiency"}
-param_ranges(3, 0, 1)
+```{r h, fig.cap = "h - Harvesting efficiency, range 0 to 0.1. Note, default is .075"}
+param_ranges(3, 0, .1)
 ```
 
 \newpage
