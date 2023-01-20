@@ -31,6 +31,7 @@ library(knitr)
 library(gridExtra)
 library(RColorBrewer) 
 #library(rPref) #Double check what this is doing. Maybe cite?
+library(tidyr)
 library(dplyr)
 library(ggpubr)
 library(bookdown)
@@ -57,7 +58,6 @@ options(tinytex.verbose = TRUE)
 ```
 
 ```{r FXNoverallsurvive}
-#Easton note: I am also including the larval survivability in this function. Should I not be doing that or should I create two that 
 survivability <- function(increase){
     #Calculate survivability for each staege and increase by x%
     NewMtx <- (A * increase) + A
@@ -65,9 +65,8 @@ survivability <- function(increase){
     for(i in 1:ncol(NewMtx)-1){
       if(sum(NewMtx[,i]) > 1 | NewMtx[4,4] > 1){
         return(NA)
-      }
-      else{return(NewMtx)}
-    }
+      }}
+    return(NewMtx)
 }
 
 
@@ -450,44 +449,66 @@ barplot(rates_percent, xlab = "Stage", ylab = "Percent survival increase",
 
 ```{r closurescalcs}
 #Calculates new rates based on vectors of % chagne and frequencies of restrictions
-percentage <-rates <- c(seq(0, 1, .01)) # c(0.01, 0.05, 0.1, 0.15) 
+p <- list()
+modeled_data <- data.frame(matrix(ncol=8,nrow=0, dimnames=list(NULL, c("Stage_1", "Stage_2", "Stage_3", "Stage_4", "month", "pop", "Frequency", "PercentChange"))))
+percentage <-rates <- c(seq(0, .1, .01)) # c(0.01, 0.05, 0.1, 0.15) 
 freqs <- c(seq(1, 12)) #c(1, 2, 3, 4, 6, 12) 
-iteration <- data.frame(matrix(ncol=4,nrow=0, dimnames=list(NULL, c("Frequency", "PercentChange", "mu", "lambda"))))
-
+#par(mfrow = c(6,4))
 for(i in 1:length(freqs)){
   for(j in 1:length(percentage)){
-    if (!is.na(real_check(survivability(percentage[j])))){
-      mu <- ((freqs[i]-1) * log(eigen(A)$values[1]) + log(eigen(survivability(percentage[j]))$values[1]))/ freqs[i]
-      lambda <- exp(mu)
-          iteration[nrow(iteration) + 1,] <- c(freqs[i], percentage[j], f(mu), f(lambda))
-    }
-      # neweig <- (eigen(survivability(percentage[j]))$values[1] + (freqs[i]-1) * eigen(A)$values[1]) / freqs[i]
-  }
-}
-#kable(iteration)
- 
+    pop <- observedStageMatrix[13,]
+    N <- list()
+    for (k in 1:120){
+      if(k %% freqs[i] == 0){
+        N[[1]] <- pop
+        N[[k+1]] <- survivability(percentage[j]) %*% N[[k]]
+        }
+      else{
+        N[[1]] <- pop
+        N[[k+1]] <- A %*% N[[k]]
+      }}
+   
+  
+  new_data <- t(as.data.frame(do.call(cbind, N)))
+  colnames(new_data) <- c("Stage_1", "Stage_2", "Stage_3", "Stage_4")
+  new_data <- data.frame(cbind(new_data, month = 0:120, pop = rowSums(new_data[,1:4]), Frequency = freqs[i], PercentChange = percentage[j]))
+  modeled_data <- rbind(modeled_data, new_data)
+  }} 
+
+
 # Sources: https://www.webpages.uidaho.edu/wlf448/stochgro.pdf
 # https://esajournals.onlinelibrary.wiley.com/doi/10.2307/1943004
 ```
 
 ```{r closures, fig.cap = "Paretto analysis of different management scenarios. The paretto front is represented by the black line. Green and white squares indicate theoretically successful management scenarios where red refers to the strategies that will not result in overall population growth. Frequency of closures refers to the number of months between a closure (i.e. 1 is closing every month and 12 being a closure for one month per year). \\label{closures}"}
 
-paretospagheto <- iteration %>% 
-  filter(lambda >= 1) %>%
+#### CALCULATE GROWTH RATE BASED ON LAST POP-FIRST POP/FIRST POP FOR EACH FREQ/PERCENT COMBINATION
+growthRate <- modeled_data %>%
+  select(month, pop, Frequency, PercentChange) %>%
+  filter(month == 0 | month == 120) %>%
+  pivot_wider(names_from = month, values_from = pop) %>%
+  rename(month_0 = 3,
+         month_120 = 4) %>%
+  mutate(Mu_New = log(month_120/month_0)/120) %>% #See Crouse paper. From Nt = N0e^(rt)
+  mutate(lambda_new = exp(Mu_New)) %>%
+  select(Frequency, PercentChange, Mu_New, lambda_new)
+
+paretospagheto <- growthRate %>% 
+  filter(lambda_new >= 1) %>%
   group_by(Frequency) %>%
-  filter(lambda == min(lambda))
+  filter(lambda_new == min(lambda_new))
 
 paretospagheto$Frequency <- paretospagheto$Frequency - 0.5
 paretospagheto$PercentChange <- paretospagheto$PercentChange - 0.005
 
 
 #Continuous Colors
-ggplot(iteration, aes(Frequency, PercentChange, fill = lambda)) + geom_tile(width=1) +
+ggplot(growthRate, aes(Frequency, PercentChange, fill = lambda_new)) + geom_tile(width=1) +
   scale_fill_gradient2(
   low = "red",
   mid = "white",
   high = "green",
-  #limits = c(1, max(iteration$lambda)),
+  #limits = c(1, max(growthRate$lambda_new)),
   midpoint = 1,
   space = "Lab",
   na.value = "grey50") +
@@ -497,6 +518,20 @@ ggplot(iteration, aes(Frequency, PercentChange, fill = lambda)) + geom_tile(widt
   geom_segment(aes(x = 5.5, y = .095, xend = 5.5, yend = 0.105), size = .5, color = "#5A5A5A") +
     geom_segment(aes(x = 4.5, y = .095, xend = 5.5, yend = 0.095), size = .5, color = "#5A5A5A") +
   geom_step(data = paretospagheto , aes(x=Frequency, y=PercentChange), size = .5, color = "#5A5A5A") 
+
+
+#####PLOTTING ALL RATES
+#   #write.csv(modeled_data, "testing.csv",row.names = TRUE)
+# 
+#   #plot(modeled_data$pop, type = "o")  
+# ggplot(modeled_data, aes(y = pop, x = month)) +
+#   geom_line(size = 1.5) +
+#   #ggtitle()+#paste0("Surv rate: ", iteration[i,2], " Freq: Close once every ", iteration[i,1], " months" )) + #paste0(i, " month projection")) +
+#   xlab("Year") +
+#   ylab("Total Pop") +
+#   ylim(0,1000) +
+#   scale_x_continuous(breaks = seq(0, 120, 120), label = c(2006, 2016)) +
+#   facet_grid(Frequency ~ PercentChange)
 
 ```
 

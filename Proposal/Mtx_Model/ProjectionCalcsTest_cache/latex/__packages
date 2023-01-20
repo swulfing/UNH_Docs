@@ -7,7 +7,7 @@ popbio
 gridExtra
 RColorBrewer
 rPref
+tidyr
 dplyr
 ggpubr
-tidyr
 KraljicMatrix

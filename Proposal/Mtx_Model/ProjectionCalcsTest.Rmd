@@ -1,13 +1,13 @@
 ---
-title: "WoodsAnalysis"
+title: "CalcsTest"
 author: "Sophie Wulfing"
-date: '2022-05-23'
+date: "2023-01-16"
 output:
   pdf_document: default
   html_document: default
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, echo = FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, cache = TRUE)
 setwd("C:/Users/sophi/Documents/GitHub/UNH_Docs/Proposal/Mtx_Model")
 
@@ -33,7 +33,7 @@ observedStageMatrix <- observedData[1:13, 2:5]
 ```{r initial things}
 #Make Z
 z <- matrix(t(observedStageMatrix[2:11,]), ncol = 1, nrow = 40, byrow = TRUE)
-z
+#z
 
 #Make M
 m <- matrix(, nrow = nrow(z) , ncol = 8)
@@ -124,8 +124,9 @@ for(i in 1:length(freqs)){
 # https://esajournals.onlinelibrary.wiley.com/doi/10.2307/1943004
 ```
 
-```{r projections, eval = FALSE}
+```{r projectionsNewCalc, fig.cap = "Projections based on multiplying matrices"}
 
+####Note, this is calculated differently than the idk random block as this was calculated by multiplying the matrices, not the eigenvalues
 p <- list()
 modeled_data <- data.frame(matrix(ncol=8,nrow=0, dimnames=list(NULL, c("Stage_1", "Stage_2", "Stage_3", "Stage_4", "month", "pop", "Frequency", "PercentChange"))))
 percentage <-rates <- c(seq(0, .1, .01)) # c(0.01, 0.05, 0.1, 0.15) 
@@ -208,43 +209,7 @@ ggplot(growthRate, aes(Frequency, PercentChange, fill = lambda_new)) + geom_tile
 
 ```
 
-```{r paretto}
-
-#DO I NEED THIS
-# moopshoop <- function(rate, freq){
-#   mu <- ((freq-1) * log(eigen(A)$values[1]) + log(eigen(survivability(rate))$values[1]))/ freq
-#   lambda <- exp(mu)
-#   return(f(lambda))
-# }
-
-#Paretto fromt LOOK UP ITS WHAT THIS IS TELLING YOU. look in optimization lit
-#see:https://www.pnas.org/doi/full/10.1073/pnas.1911440116
-
-#https://www.rdocumentation.org/packages/GPareto/versions/1.1.6/topics/easyGParetoptim
-
-#https://rdrr.io/cran/rPref/man/plot_front.html
-# plots Pareto fronts for the hp/mpg values of mtcars
-
-paretospagheto <- iteration %>% filter(lambda >= 1)
-
-show_front <- function(pref) {
-  plot(paretospagheto$Frequency, paretospagheto$PercentChange)
-  sky <- psel(paretospagheto, pref)
-  plot_front(paretospagheto, pref, col = rgb(0, 0, 1))
-  points(sky$Frequency, sky$PercentChange, lwd = 3)
-}
-
-# do this for all four combinations of Pareto compositions
-show_front(low(Frequency)  * low(PercentChange))
-show_front(low(Frequency)  * high(PercentChange))
-show_front(high(Frequency) * low(PercentChange)) #This is the optimal scenario
-show_front(high(Frequency) * high(PercentChange))
-
-# compare this to the front of a intersection preference
-show_front(high(Frequency) | high(PercentChange))
-```
-
-```{r idkrandom}
+```{r idkrandom, fig.cap = "Projections based on multiplying eigenvalues"}
 mycolors <- colorRampPalette(brewer.pal(9, "RdYlBu"))(1177)
 
 iteration_popDy <- iteration %>%
@@ -297,140 +262,101 @@ ggplot(iteration, aes(Frequency, PercentChange, fill = lambda)) + geom_tile(widt
 
 
 
-
-cols <- c(hcl.colors(4, palette = "Greens", alpha = NULL, rev = TRUE, fixup = TRUE), "#000000") #"Green-Yellow"
-
-#Binned Colors
-ggplot(iteration_bins, aes(Frequency, PercentChange, fill = PopDynamics)) + geom_tile(width=1) +
-  scale_fill_manual(
-  values = c(cols)
-)
-
-
 #https://ggplot2.tidyverse.org/reference/scale_gradient.html
 
 #Okay so I changed what this is showing because it became kind of redundant with the other graph. This now bins it into amounts of pop increase
 
 ```
 
-```{r stages}
+```{r percentDiff, fig.cap = "Histogram of the percent differences between the two calculations with the highest percent difference being 0.063%"}
+comparison <- left_join(iteration, growthRate, by=c("Frequency", "PercentChange")) %>%
+  mutate(percentDifference = (lambda_new-lambda)/lambda) 
 
-rates <- c(0, 0, 0, 0, 0)
+comparison$dynamicChange <- NA
 
-for(i in 1:(length(rates)-1)){
-  #First need to do the stage 4 and larval differently
-  if(i == 4){
-    incr <- 0.01
-    testMtx <- A
-    testMtx[4,4] <- A[4,4] + A[4,4] * incr
-    while(f(eigen(testMtx)$values[1]) < 1){
-      incr <- incr + 0.01
-      testMtx[4,4] <- A[4,4] + A[4,4] * incr
-    }
-    rates[4] <- incr
-    
-    incr <- 0.01
-    testMtx <- A
-    testMtx[1,4] <- A[1,4] + A[1,4] * incr
-    while(f(eigen(testMtx)$values[1]) < 1){
-      incr <- incr + 0.01
-      testMtx[1,4] <- A[1,4] + A[1,4] * incr
-    }
-    rates[5] <- incr
-  
+#Checking to see if any rows have different overall dynamics (one says increasing while the other is decreasing)
+for(i in 1:nrow(comparison)){
+  if(comparison$mu[i] > 0 & comparison$Mu_New[i] > 0){
+    comparison$dynamicChange[i] <- FALSE
+  }
+  else if(comparison$mu[i] < 0 & comparison$Mu_New[i] < 0){
+    comparison$dynamicChange[i] <- FALSE
+  }
+  else if(comparison$mu[i] == 0 & comparison$Mu_New[i] == 0){
+    comparison$dynamicChange[i] <- FALSE
   }
   else{
-  incr <- 0.01
-  testMtx <- A
-  testMtx[,i] <- A[,i] + A[,i] * incr
-  while(f(eigen(testMtx)$values[1]) < 1){
-    incr <- incr + 0.01
-    testMtx[,i] <- A[,i] + A[,i] * incr
+    comparison$dynamicChange[i] <- TRUE
   }
-  rates[i] <- incr
-}}
-
-barplot(rates, main = "Minimum % survivability change needed to create population increase",
-        names.arg=c("Stage 1", "Stage 2", "Stage 3", "Stage 4", "Larval"))
-
-rates  
-
-```
-
-```{r stagemo}
-# I think this is going to be more of an aquaculture conversation than anything else
-
-#Dowble check survivability > 1 check. I don't think you did that correctly
-#do stagemo
-#have a survivability check in stagemo
-
-stagemo <- function(stage){
-  
-  stage_it <- data.frame(matrix(ncol=5,nrow=0, dimnames=list(NULL, c("Stage", "Frequency", "PercentChange", "mu", "lambda"))))
-  
-  for(i in 1:12){
-    for(j in 1:100){#FIND OUT HOW TO CONDENSE THESE IF STATEMENTS
-      testMtx <- A
-      if(stage == 4){
-        testMtx[stage, stage] <- A[stage, stage] + A[stage, stage]*(j/100)
-      } #input stage 4
-      
-      else if(stage == 5){
-        testMtx[1, stage-1] <- A[1, stage-1] + A[1, stage-1]*(j/100)
-      } #input stage 5
-      
-      else{
-      testMtx[,stage] <- A[,stage] + A[,stage]*(j/100)
-      } #input other stages
-      
-      if (!is.na(real_check(testMtx))){
-        mu <- ((i-1) * log(eigen(A)$values[1])) + log(eigen(testMtx)$values[1]) / i
-        lambda <- exp(mu)
-        #print(lambda)
-      
-        stage_it[nrow(stage_it) + 1,] <- c(stage, i, j/100, f(mu), f(lambda))
-       }
-    }
-  }
-  return(stage_it)
 }
-doesthiswork <- list()
-for(i in 1:5){
-p1 <-ggplot(stagemo(i), aes(Frequency, PercentChange, fill = lambda)) + geom_tile(width=1) +
-  scale_fill_gradient2(
-  low = "red",
-  mid = "white",
-  high = "green",
-  #limits = c(1, max(iteration$lambda)),
-  midpoint = 1,
-  space = "Lab",
-  na.value = "grey50"
-  )
-doesthiswork[[i]] <- p1
-}
-
-
-ggarrange(plotlist = doesthiswork, labels = c("Stage 1", "Stage 2", "Stage 3", "Stage 4","Larval"), font.label = list(size = 7), nrow = 2, ncol = 2)
-#do.call(ggarrange, c(doesthiswork[1:5], labels = c("Stage 1", "Stage 2", "Stage 3", "Stage 4","Larval")))
+  
+ 
+justtobesure <- comparison %>%
+  filter(dynamicChange == TRUE)
+ 
+hist(comparison$percentDifference)
+  
+  
+  
+  
+  
+  
+  
+  
 
 ```
+Note: I also checked if any of the percent differences were enough to change the overall pop dynamics (like change it from increasing in one calculation to decreasing in the other) and all kept the same overall trends.
 
-```{r wtf}
-set.seed(21)
-x<-rnorm(20)
-y<-rnorm(20)
-df<-data.frame(x,y)
-df
+```{r threeMoClosures}
 
 
-Scatterplot<-ggplot(df,aes(x,y))+geom_point()
-Hist_of_x<-ggplot(df,aes(x))+geom_histogram(bins=30)
-List<-list(Scatterplot,Hist_of_x)
-ggarrange(plotlist=List,widths=c(2,1),labels=c("Scatter","Hist"), nrow = 2, ncol = 2)
+#SOMETHING IS WRONG WITH YOUR MATRIX CHECK!!!!
+p <- list()
+modeled_data <- data.frame(matrix(ncol=7,nrow=0, dimnames=list(NULL, c("Stage_1", "Stage_2", "Stage_3", "Stage_4", "month", "pop", "PercentChange"))))
+#par(mfrow = c(6,4))
+
+
+for(i in 1:length(percentage)){ 
+  pop <- observedStageMatrix[13,]
+  N <- list()
+  for (j in 1:120){
+    if(j %% 12 %in% c(1,2,3)){
+      N[[1]] <- pop
+      N[[j+1]] <- survivability(percentage[i]) %*% N[[j]]
+      }
+    else{
+       N[[1]] <- pop
+      N[[j+1]] <- A %*% N[[j]]
+    }}
+   
+  
+  new_data <- t(as.data.frame(do.call(cbind, N)))
+  colnames(new_data) <- c("Stage_1", "Stage_2", "Stage_3", "Stage_4")
+  new_data <- data.frame(cbind(new_data, month = 0:120, pop = rowSums(new_data[,1:4]), PercentChange = percentage[i]))
+  modeled_data <- rbind(modeled_data, new_data)
+  
+} 
+
+#### CALCULATE GROWTH RATE BASED ON LAST POP-FIRST POP/FIRST POP FOR EACH FREQ/PERCENT COMBINATION
+growthRate <- modeled_data %>%
+  select(month, pop, PercentChange) %>%
+  filter(month == 0 | month == 120) %>%
+  pivot_wider(names_from = month, values_from = pop) %>%
+  rename(month_0 = 2,
+         month_120 = 3) %>%
+  mutate(Mu_New = log(month_120/month_0)/120) %>% #See Crouse paper. From Nt = N0e^(rt)
+  mutate(lambda_new = exp(Mu_New)) %>%
+  select(PercentChange, Mu_New, lambda_new)
+
+
+trend <- lm(growthRate$Mu_New ~ growthRate$PercentChange)
+xint <- -coef(trend)[1]/coef(trend)[2]
+
+
+plot(growthRate$PercentChange, growthRate$Mu_New)
+abline(trend)
+abline(h = 0, col = "red")
+text(0.02, 0.005, paste0("X intercept = ", xint))
+
+
 ```
-
-
-
-
-
-
