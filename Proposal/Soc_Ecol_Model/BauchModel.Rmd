@@ -1,5 +1,5 @@
 ---
-title: "BauchModel"
+title: "BauchModel_1"
 author: "Sophie Wulfing"
 date: "2022-11-08"
 output:
@@ -68,33 +68,26 @@ out1 %>%
   labs(x='time (yr)',y='pop')
 
 ```
-<!-- First model tested:  -->
+First model tested:
 
-<!-- $$ -->
-<!-- \frac{dP_1}{dt} = r_1P_1(1-P_1)-\frac{h_1*P_1(1-X_1)}{P_1 + s_1} + \rho_1 * \frac{P_2 - P_1}{2} -->
+$\frac{dP_1}{dt} = r_1P_1(1-P_1)-\frac{h_1*P_1(1-X_1)}{P_1 + s_1} + \rho_1 * \frac{P_2 - P_1}{2}$
 
-<!-- \\ -->
+$\frac{dX_1}{dt} = k_1  X_1  (1-X_1) [d_1(2X_1 - 1)+ \frac{1}{P_1+c_1}-w_1] + k_1X_2(1-X_2)[d_1(2X_2-1)+\frac{1}{P_1 + c_1} - w_1]$
 
-<!-- \frac{X1}{dt} = k_1  X_1  (1-X_1) [d_1(2X_1 - 1)+ \frac{1}{P_1+c_1}-w_1] + k_1X_2(1-X_2)[d_1(2X_2-1)+\frac{1}{P_1 + c_1} - w_1] -->
+$\frac{dP_2}{dt} = r_2P_2(1-P_2)-\frac{h_2*P_2(1-X_2)}{P_2 + s_2} + \rho_2 * \frac{P_1 - P_2}{2}$
 
-<!-- \\ -->
+$\frac{dX_2}{dt} = k_2  X_2  (1-X_2) [d_2(2X_2 - 1)+ \frac{1}{P_2+c_2}-w_2] + k_2X_1(1-X_1)[d_2(2X_1-1)+\frac{1}{P_2 + c_2} - w_2]$
 
-<!-- \frac{dP_2}{dt} = r_2P_2(1-P_2)-\frac{h_2*P_2(1-X_2)}{P_2 + s_2} + \rho_2 * \frac{P_1 - P_2}{2} -->
+<!-- Code for above: -->
+<!-- dP_1dt <- R_1 * P_1 * (1-P_1) - (h_1 * P_1 * (1-X_1))/(P_1+s_1) + roe_1 * (P_2 - P_1)/2 -->
 
-<!-- \\ -->
+<!--   dX_1dt <- k_1 * X_1 * (1-X_1) * (d_1*(2*X_1-1) + 1/(P_1+c_1) - w_1) + -->
+<!--     k_1 * X_2 * (1-X_2) * (d_1*(2*X_2-1) + 1/(P_1+c_1) - w_1) -->
 
-<!-- \frac{X1}{dt} = k_2  X_2  (1-X_2) [d_2(2X_2 - 1)+ \frac{1}{P_2+c_2}-w_2] + k_2X_1(1-X_1)[d_2(2X_1-1)+\frac{1}{P_2 + c_2} - w_2] -->
-<!-- $$ -->
-<!-- <!-- Code for above: --> -->
-<!-- <!-- dP_1dt <- R_1 * P_1 * (1-P_1) - (h_1 * P_1 * (1-X_1))/(P_1+s_1) + roe_1 * (P_2 - P_1)/2 --> -->
+<!--   dP_2dt <- R_2 * P_2 * (1-P_2) - (h_2 * P_2 * (1-X_2))/(P_2+s_2) + roe_2 * (P_1 - P_2)/2 -->
 
-<!-- <!--   dX_1dt <- k_1 * X_1 * (1-X_1) * (d_1*(2*X_1-1) + 1/(P_1+c_1) - w_1) +  --> -->
-<!-- <!--     k_1 * X_2 * (1-X_2) * (d_1*(2*X_2-1) + 1/(P_1+c_1) - w_1) --> -->
-
-<!-- <!--   dP_2dt <- R_2 * P_2 * (1-P_2) - (h_2 * P_2 * (1-X_2))/(P_2+s_2) + roe_2 * (P_1 - P_2)/2 --> -->
-
-<!-- <!--   dX_2dt <- k_2 * X_2 * (1-X_2) * (d_2*(2*X_2-1) + 1/(P_2+c_2) - w_2) + --> -->
-<!-- <!--     k_2 * X_1 * (1-X_1) * (d_2*(2*X_1-1) + 1/(P_2+c_2) - w_2) --> -->
+<!--   dX_2dt <- k_2 * X_2 * (1-X_2) * (d_2*(2*X_2-1) + 1/(P_2+c_2) - w_2) + -->
+<!--     k_2 * X_1 * (1-X_1) * (d_2*(2*X_1-1) + 1/(P_2+c_2) - w_2) -->
 
 
 <!-- Notes: Still worried about interaction term. Don't think this is correct because mechanism isn't specified and we just added interaction terms.  -->
@@ -171,8 +164,6 @@ out_Coupled %>%
 
 ```
 
-
-
 ```{r Bauch.Diff, eval = FALSE}
 params_Bauch <- c(R_1 = 0.06, s_1 = 0.8, h_1 = 0.075, k_1 = 0.17, w_1 = 0.35, c_1 = 0.6, d_1 = 0.5, roe_1 = 1,
                   R_2 = 0.06, s_2 = 0.8, h_2 = 0.075, k_2 = 0.17, w_2 = 0.35, c_2 = 0.6, d_2 = 0.125, roe_2 = 1)
@@ -196,7 +187,6 @@ out_Diff %>%
   labs(x='time (yr)',y='pop')
 
 ```
-
 
 ```{r Bauch.ParamR}
 # params_Default <- data.frame(R = 0.06, s = 0.8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5, roe = 1)
@@ -324,4 +314,6 @@ param_ranges(7, 0, 1)
 ```{r roe, fig.cap = "roe - fish diffusion"}
 param_ranges(8, 0, 1)
 ```
+
+
 

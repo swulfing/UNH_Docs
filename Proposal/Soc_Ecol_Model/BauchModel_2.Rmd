@@ -1,5 +1,5 @@
 ---
-title: "BauchModel"
+title: "BauchModel_2"
 author: "Sophie Wulfing"
 date: "2022-11-08"
 output:
@@ -71,23 +71,17 @@ out1 %>%
 
 <!-- Notes: Still worried about interaction term. Don't think this is correct because mechanism isn't specified and we just added interaction terms.  -->
 
-<!-- See derivation in notes but this is the new equations (still unsure about interaction terms): -->
+See derivation in notes but this is the new equations (still unsure about interaction terms):
 
-<!-- $$ -->
-<!-- \frac{dP_1}{dt} = r_1P_1(1-P_1)-\frac{h_1*P_1(1-X_1)}{P_1 + s_1} + \rho_1 * \frac{P_2 - P_1}{2} -->
 
-<!-- \\ -->
+$\frac{dP_1}{dt} = r_1P_1(1-P_1)-\frac{h_1*P_1(1-X_1)}{P_1 + s_1} + \rho_1 * \frac{P_2 - P_1}{2}$
 
-<!-- \frac{X1}{dt} =  k_1X_1(prop_1-X_1)X_2(prop_2-X_2)  [\frac{1}{P_1+c_1} - w_1 + d_1(2X_1-prop_1) + d_2(2X_2 -prop_2)] -->
+$\frac{dX_1}{dt} =  k_1X_1(prop_1-X_1)X_2(prop_2-X_2)  [\frac{1}{P_1+c_1} - w_1 + d_1(2X_1-prop_1) + d_2(2X_2 -prop_2)]$
 
-<!-- \\ -->
+$\frac{dP_2}{dt} = r_2P_2(1-P_2)-\frac{h_2*P_2(1-X_2)}{P_2 + s_2} + \rho_2 * \frac{P_1 - P_2}{2}$
 
-<!-- \frac{dP_2}{dt} = r_2P_2(1-P_2)-\frac{h_2*P_2(1-X_2)}{P_2 + s_2} + \rho_2 * \frac{P_1 - P_2}{2} -->
+$\frac{dX_2}{dt} = k_1X_1(prop_1-X_1)X_2(prop_2-X_2)  [\frac{1}{P_2+c_2} - w_2 + d_1(2X_1-prop_1) + d_2(2X_2 -prop_2)]$
 
-<!-- \\ -->
-
-<!-- \frac{X1}{dt} = k_1X_1(prop_1-X_1)X_2(prop_2-X_2)  [\frac{1}{P_2+c_2} - w_2 + d_1(2X_1-prop_1) + d_2(2X_2 -prop_2)] -->
-<!-- $$ -->
 
 ```{r Bauch.Coupled_firsttry, eval = FALSE}
 Bauch.Coupled <- function (t, y, params) {
@@ -340,7 +334,12 @@ param_ranges(3, 0, .1)
 
 \newpage
 
-```{r k, fig.cap = "K - Social learning rate"}
+```{r kScaled, fig.cap = "K - Social learning rate 0 to 100"}
+param_ranges(4, 0, 100)
+```
+
+
+```{r kUnscaled, fig.cap = "K - Social learning rate 0 to 1"}
 param_ranges(4, 0, 1)
 ```
 
