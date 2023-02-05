@@ -224,7 +224,6 @@ out_Coupled %>%
   theme_classic()+
   labs(x='time (yr)',y='pop')
 
-
 ```
 
 
@@ -338,6 +337,9 @@ param_ranges(3, 0, .1)
 param_ranges(4, 0, 100)
 ```
 
+```{r kScaled2, fig.cap = "K - Social learning rate 0 to 100"}
+param_ranges(4, 0, 100)
+```
 
 ```{r kUnscaled, fig.cap = "K - Social learning rate 0 to 1"}
 param_ranges(4, 0, 1)
@@ -367,3 +369,137 @@ param_ranges(7, 0, 1)
 param_ranges(8, 0, 1)
 ```
 
+```{r paramplane_diffparams}
+
+paramplane <- function(paramx, paramy, maxx, maxy){
+  #Create empty dataframe to fill
+  paramlist <- c("R", "S", "H", "K", "W", "C", "d", "rho")
+  outcomes <- data.frame(matrix(ncol = 4, nrow = 0))
+  colnames(outcomes) <- c("XParameter", "YParameter", "Fish1", "Fish2")
+  
+  #Dumb but it throws an error if S = 0
+  startx <- 0
+  starty <- 0
+  if(paramx == 2){startx <- .001}
+  if(paramy == 2){starty <- .001}
+  
+  #Create list of all combinations of the two paramters
+  paramcombos <- expand.grid(x_parameter = seq(from = startx, to = maxx, length.out = 10),
+                        y_parameter = seq(from = starty, to = maxy, length.out = 10))
+  
+  for(i in 1:nrow(paramcombos)){
+  params_Default <- data.frame(R = 0.06, s = .8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5, roe = 1, prop = .5)
+  #Change params to be the 
+  params_Default[paramx] <- paramcombos$x_parameter[i]
+  params_Default[paramy] <- paramcombos$y_parameter[i]
+  
+  params_Bauch <- c(R_1 = params_Default$R, s_1 = params_Default$s, h_1 = params_Default$h, k_1 = params_Default$k,
+                    w_1 = params_Default$w, c_1 = params_Default$c, d_1 = params_Default$d, roe_1 = params_Default$roe,
+                    prop_1 =  params_Default$prop,
+                    R_2 = params_Default$R, s_2 = params_Default$s, h_2 = params_Default$h, k_2 = params_Default$k,
+                    w_2 = params_Default$w, c_2 =params_Default$c, d_2 = params_Default$d, roe_2 = params_Default$roe,
+                    prop_2 = 1- params_Default$prop)
+    
+  times <- seq(from = 0, to = 100, by = 1)
+    xstart <- c(P_1 = 0.406, X_1 = .24, P_2 = 0.406, X_2 = .24) #See supplemental for other starting params
+    
+    ode(
+      func=Bauch.Coupled,
+      y=xstart,
+      times=times,
+      parms=params_Bauch
+    ) %>%
+      as.data.frame() -> out_Diff
+    
+    finalstatus <- out_Diff %>%
+      filter(times == 100)
+    
+    outcomes[i,] <- c(paramcombos$x_parameter[i], paramcombos$y_parameter[i], out_Diff$P_1, out_Diff$P_2)
+  }
+  
+  finalDynamics <- outcomes %>%
+    mutate(Result = case_when(
+    XParameter >= .25 & YParameter >= .25 ~ "Both",
+    XParameter >= .25 & YParameter < .25 ~ "Only X",
+    XParameter < .25 & YParameter >= .25 ~ "Only Y",
+    XParameter < .25 & YParameter < .25 ~ "Neither"))
+  
+cols <- c("green", "yellow", "orange", "black")
+
+#Binned Colors
+ggplot(finalDynamics, aes(XParameter, YParameter, fill = Result)) + geom_tile(width=1) +
+  scale_fill_manual(
+  values = c(cols)) +
+  xlab(paramlist[paramx]) +
+  ylab(paramlist[paramy])
+}
+
+```
+
+```{r paramplane_diffpops}
+
+popplane <- function(param, max){
+  #Create empty dataframe to fill
+  paramlist <- c("R", "S", "H", "K", "W", "C", "d", "rho")
+  outcomes <- data.frame(matrix(ncol = 4, nrow = 0))
+  colnames(outcomes) <- c("Pop1Parameter", "Pop2Parameter", "Fish1", "Fish2")
+  
+  #Dumb but it throws an error if S = 0
+  start <- 0
+  if(param == 2){start <- .001}
+  
+  #Create list of all combinations of the two paramters
+  paramcombos <- expand.grid(pop1_parameter = seq(from = start, to = max, length.out = 10),
+                        pop2_parameter = seq(from = start, to = max, length.out = 10))
+  
+  for(i in 1:nrow(paramcombos)){
+  params_Default <- data.frame(R = 0.06, s = .8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5, roe = 1, prop = .5)
+  #Change params to be the
+  
+  params_Bauch <- c(R_1 = params_Default$R, s_1 = params_Default$s, h_1 = params_Default$h, k_1 = params_Default$k,
+                    w_1 = params_Default$w, c_1 = params_Default$c, d_1 = params_Default$d, roe_1 = params_Default$roe,
+                    prop_1 =  params_Default$prop,
+                    R_2 = params_Default$R, s_2 = params_Default$s, h_2 = params_Default$h, k_2 = params_Default$k,
+                    w_2 = params_Default$w, c_2 =params_Default$c, d_2 = params_Default$d, roe_2 = params_Default$roe,
+                    prop_2 = 1- params_Default$prop)
+  params_Bauch[param] <- paramcombos$pop1_parameter[i]
+  params_Bauch[(param + 9)] <- paramcombos$pop2_parameter[i]
+    
+  times <- seq(from = 0, to = 100, by = 1)
+    xstart <- c(P_1 = 0.406, X_1 = .24, P_2 = 0.406, X_2 = .24) #See supplemental for other starting params
+    
+    ode(
+      func=Bauch.Coupled,
+      y=xstart,
+      times=times,
+      parms=params_Bauch
+    ) %>%
+      as.data.frame() -> out_Diff
+    
+    finalstatus <- out_Diff %>%
+      filter(times == 100)
+    
+    outcomes[i,] <- c(paramcombos$pop1_parameter[i], paramcombos$pop2_parameter[i], out_Diff$P_1, out_Diff$P_2)
+  }
+  
+  finalDynamics <- outcomes %>%
+    mutate(Result = case_when(
+    Pop1Parameter >= .25 & Pop2Parameter >= .25 ~ "Both",
+    Pop1Parameter >= .25 & Pop2Parameter < .25 ~ "Only Pop1",
+    Pop1Parameter < .25 & Pop2Parameter >= .25 ~ "Only Pop2",
+    Pop1Parameter < .25 & Pop2Parameter < .25 ~ "Neither"))
+  
+cols <- c("green", "yellow", "orange", "black")
+
+#Binned Colors
+ggplot(finalDynamics, aes(Pop1Parameter, Pop2Parameter, fill = Result)) + geom_tile(width=1) +
+  scale_fill_manual(
+  values = c(cols)) +
+  ggtitle(paste0(paramlist[param], " Parameter plane")) +
+  xlab(paste0(paramlist[param], " Population 1")) +
+  ylab(paste0(paramlist[param], " Population 2"))
+}
+
+popplane(2,1)
+
+```
