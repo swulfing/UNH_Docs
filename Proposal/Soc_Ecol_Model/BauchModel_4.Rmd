@@ -1,5 +1,5 @@
 ---
-title: "BauchModel_2"
+title: "BauchModel_4"
 author: "Sophie Wulfing"
 date: "2022-11-08"
 output:
@@ -76,83 +76,11 @@ See derivation in notes but this is the new equations (still unsure about intera
 
 $\frac{dP_1}{dt} = r_1P_1(1-P_1)-\frac{h_1*P_1(1-X_1)}{P_1 + s_1} + \rho_1 * \frac{P_2 - P_1}{2}$
 
-$\frac{dX_1}{dt} =  k_1X_1(prop_1-X_1)X_2(prop_2-X_2)  [\frac{1}{P_1+c_1} - w_1 + d_1(2X_1-prop_1) + d_2(2X_2 -prop_2)]$
+$\frac{dX_1}{dt} =  k_1X_1(1-X_1)[\frac{1}{P_1+c_1} - w_1 + d_1(2X_1-1)] + k_2X_1(1-X_2)[\frac{1}{P_1+c_1} - w_1 + d_2(2X_2-1)] + k_2X_1X_2[\frac{1}{P_1+c_1} + d_2X_2] + k_2(1-X_1)(1-X_2)[-w_1 + d_2(1-X_2)]$
 
 $\frac{dP_2}{dt} = r_2P_2(1-P_2)-\frac{h_2*P_2(1-X_2)}{P_2 + s_2} + \rho_2 * \frac{P_1 - P_2}{2}$
 
-$\frac{dX_2}{dt} = k_1X_1(prop_1-X_1)X_2(prop_2-X_2)  [\frac{1}{P_2+c_2} - w_2 + d_1(2X_1-prop_1) + d_2(2X_2 -prop_2)]$
-
-
-```{r Bauch.Coupled_firsttry, eval = FALSE}
-Bauch.Coupled <- function (t, y, params) {
-  ## first extract the state variables
-  P_1 <- y[1] #Fish Pop var
-  P_2 <- y[2] #Fish Pop var
-  X_1 <- y[3] #conservationist var
-  X_2 <- y[4] #conservationist var
-
-  #TT <- y[5]
-  
-  ## now extract the parameters
-  R_1 <- params["R_1"] # Net growth/fecundity
-  s_1 <- params["s_1"] # supply and demand
-  h_1 <- params["h_1"] # Harvesting efficiency
-  k_1 <- params["k_1"] # Social learning rate
-  w_1 <- params["w_1"] # conservation costs
-  c_1 <- params["c_1"] # rarity valuation param
-  d_1 <- params["d_1"] # social norm strength
-  
-  R_2 <- params["R_2"] # Net growth/fecundity
-  s_2 <- params["s_2"] # supply and demand
-  h_2 <- params["h_2"] # Harvesting efficiency
-  k_2 <- params["k_2"] # Social learning rate
-  w_2 <- params["w_2"] # conservation costs
-  c_2 <- params["c_2"] # rarity valuation param
-  d_2 <- params["d_2"] # social norm strength 
-  
-  roe_1 <- params["roe_1"] #fish diffusion
-  roe_2 <- params["roe_2"] #fish diffusion
-  
-  ## now code the model equations
-  dP_1dt <- R_1 * P_1 * (1-P_1) - (h_1 * P_1 * (1-X_1))/(P_1+s_1) + roe_1 * (P_2 - P_1)/2
-  
-  dX_1dt <- k_1 * X_1 * (1-X_1) * (d_1*(2*X_1-1) + 1/(P_1+c_1) - w_1) + 
-    k_1 * X_2 * (1-X_2) * (d_1*(2*X_2-1) + 1/(P_1+c_1) - w_1)
-  
-  dP_2dt <- R_2 * P_2 * (1-P_2) - (h_2 * P_2 * (1-X_2))/(P_2+s_2) + roe_2 * (P_1 - P_2)/2
-  
-  dX_2dt <- k_2 * X_2 * (1-X_2) * (d_2*(2*X_2-1) + 1/(P_2+c_2) - w_2) +
-    k_2 * X_1 * (1-X_1) * (d_2*(2*X_1-1) + 1/(P_2+c_2) - w_2)
-  
-  ## combine results into a single vector
-  dydt <- c(dP_1dt, dP_2dt, dX_1dt, dX_2dt)
-  ## return result as a list!
-  
-  list(dydt)
-}
-
-params_Bauch <- c(R_1 = 0.06, s_1 = 0.8, h_1 = 0.075, k_1 = 0.17, w_1 = 0.35, c_1 = 0.6, d_1 = 0.5, roe_1 = 1,
-                  R_2 = 0.06, s_2 = 0.8, h_2 = 0.075, k_2 = 0.17, w_2 = 0.35, c_2 = 0.6, d_2 = 0.5, roe_2 = 1)
-
-times <- seq(from = 0, to = 100, by = 1)
-xstart <- c(P_1 = 0.406, X_1 = .24, P_2 = 0.406, X_2 = .24) # See supplemental data for other starting params
-
-ode(
-  func=Bauch.Coupled,
-  y=xstart,
-  times=times,
-  parms=params_Bauch
-) %>%
-  as.data.frame() -> out_Coupled
-
-out_Coupled %>%
-  gather(variable,value,-time) %>%
-  ggplot(aes(x=time,y=value,color=variable))+
-  geom_line(size=2)+
-  theme_classic()+
-  labs(x='time (yr)',y='pop')
-
-```
+$\frac{dX_2}{dt} =  k_2X_2(1-X_2)[\frac{1}{P_2+c_2} - w_2 + d_2(2X_2-1)] + k_1X_2(1-X_1)[\frac{1}{P_2+c_2} - w_2 + d_1(2X_1-1)] + k_1X_1X_2[\frac{1}{P_2+c_2} + d_1X_1] + k_1(1-X_2)(1-X_1)[-w_2 + d_1(1-X_1)]$
 
 
 ```{r Bauch.Coupled, fig.cap = "New Model with default paramters"}
@@ -190,11 +118,13 @@ Bauch.Coupled <- function (t, y, params) {
   ## now code the model equations
   dP_1dt <- R_1 * P_1 * (1-P_1) - (h_1 * P_1 * (1-X_1))/(P_1+s_1) + roe_1 * (P_2 - P_1)/2
   
-  dX_1dt <- k_1 * X_1 * (prop_1-X_1) * X_2 * (prop_2-X_2) *(1/(P_1 + c_1) - w_1 + d_1*(2*X_1-prop_1) + d_2*(2*X_2 - prop_2))
+  dX_1dt <- k_1 * X_1 * (1-X_1) * ((1/(P_1 + c_1)) - w_1 + d_1*(2*X_1 - 1)) +  k_2 * X_1 * (1-X_2) * ((1/(P_1 + c_1)) - w_1 + d_2*(2*X_2 - 1)) + 
+    k_2 * X_1 * X_2 * ((1/(P_1 + c_1)) + d_2*X_2) + k_2 * (1 - X_1) * (1 - X_2) * (-w_1 + d_2 * (1-X_2))
   
   dP_2dt <- R_2 * P_2 * (1-P_2) - (h_2 * P_2 * (1-X_2))/(P_2+s_2) + roe_2 * (P_1 - P_2)/2
   
-  dX_2dt <- k_2 * X_1 * (prop_1-X_1) * X_2 * (prop_2-X_2) *(1/(P_2 + c_2) - w_2 + d_1*(2*X_1-prop_1) + d_2*(2*X_2 - prop_2))
+  dX_2dt <- k_2 * X_2 * (1-X_2) * ((1/(P_2 + c_2)) - w_2 + d_2*(2*X_2 - 1)) +  k_1 * X_2 * (1-X_1) * ((1/(P_2 + c_2)) - w_2 + d_1*(2*X_1 - 1)) + 
+    k_1 * X_1 * X_2 * ((1/(P_2 + c_2)) + d_1*X_1) + k_1 * (1 - X_1) * (1 - X_2) * (-w_2 + d_1 * (1-X_1))
   
   ## combine results into a single vector
   dydt <- c(dP_1dt, dP_2dt, dX_1dt, dX_2dt)
@@ -468,7 +398,7 @@ paramplane_testing <- function(boop){
 
 ```
 
-```{r paramplane_testingr, fig.cap = "R parameter planes"}
+```{r paramplane_testingr,  eval = FALSE , fig.cap = "R parameter planes"}
 
 paramplane_testing(1)
 
@@ -476,7 +406,7 @@ paramplane_testing(1)
 
 \newpage
 
-```{r paramplane_testings, fig.cap = "S parameter planes"}
+```{r paramplane_testings, eval = FALSE , fig.cap = "S parameter planes"}
 
 paramplane_testing(2)
 
@@ -484,7 +414,7 @@ paramplane_testing(2)
 
 \newpage
 
-```{r paramplane_testingh, fig.cap = "h parameter planes"}
+```{r paramplane_testingh, eval = FALSE,fig.cap = "h parameter planes"}
 
 paramplane_testing(3)
 
@@ -492,7 +422,7 @@ paramplane_testing(3)
 
 \newpage
 
-```{r paramplane_testingk, fig.cap = "K parameter planes ranging from 0-1"}
+```{r paramplane_testingk, eval = FALSE, fig.cap = "K parameter planes ranging from 0-1"}
 
 paramplane_testing(4)
 
@@ -520,7 +450,7 @@ do.call("grid.arrange", c(pl_ks,  ncol=2))
 
 \newpage
 
-```{r paramplane_testingw, fig.cap = "w parameter planes"}
+```{r paramplane_testingw, eval = FALSE, fig.cap = "w parameter planes"}
 
 paramplane_testing(5)
 
@@ -528,7 +458,7 @@ paramplane_testing(5)
 
 \newpage
 
-```{r paramplane_testingc, fig.cap = "c parameter planes"}
+```{r paramplane_testingc, eval = FALSE, fig.cap = "c parameter planes"}
 
 paramplane_testing(6)
 
@@ -536,7 +466,7 @@ paramplane_testing(6)
 
 \newpage
 
-```{r paramplane_testingd, fig.cap = "d parameter planes"}
+```{r paramplane_testingd, eval = FALSE, fig.cap = "d parameter planes"}
 
 paramplane_testing(7)
 
@@ -544,7 +474,7 @@ paramplane_testing(7)
 
 \newpage
 
-```{r paramplane_testingroh, fig.cap = "roh parameter planes"}
+```{r paramplane_testingroh, eval = FALSE, fig.cap = "roh parameter planes"}
 
 paramplane_testing(8)
 
@@ -637,7 +567,7 @@ popplane(4, 1)
 
 ```
 
-```{r popplane_testk, fig.cap = "k population planes 0 to 100"}
+```{r popplane_testk, eval = FALSE, fig.cap = "k population planes 0 to 100"}
 popplane(4, 100)
 
 ```
@@ -652,7 +582,7 @@ popplane(6, 1)
 
 ```
 
-```{r popplane_testingd, fig.cap = "d population planes"}
+```{r popplane_testingd, eval = FALSE, fig.cap = "d population planes"}
 popplane(7, 1)
 
 ```
