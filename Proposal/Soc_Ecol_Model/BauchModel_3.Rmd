@@ -154,7 +154,6 @@ out_Coupled %>%
 
 ```
 
-
 ```{r fxnBauch.ParamR}
 # params_Default <- data.frame(R = 0.06, s = 0.8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5, roe = 1)
 # params_Bauch <- c(R_1 = 0.06, s_1 = 0.8, h_1 = 0.075, k_1 = 0.17, w_1 = 0.35, c_1 = 0.6, d_1 = 0.5, roe_1 = 1,
@@ -261,14 +260,6 @@ param_ranges(3, 0, .1)
 
 \newpage
 
-```{r kScaled, fig.cap = "K - Social learning rate 0 to 100"}
-param_ranges(4, 0, 100)
-```
-
-```{r kScaled2, fig.cap = "K - Social learning rate 0 to 100"}
-param_ranges(4, 0, 100)
-```
-
 ```{r kUnscaled, fig.cap = "K - Social learning rate 0 to 1"}
 param_ranges(4, 0, 1)
 ```
@@ -298,6 +289,7 @@ param_ranges(8, 0, 1)
 ```
 
 ```{r fxnparamplane_diffparams}
+
 
 paramplane <- function(paramx, paramy, maxx, maxy){
   #Create empty dataframe to fill
@@ -343,32 +335,37 @@ paramplane <- function(paramx, paramy, maxx, maxy){
       parms=params_Bauch
     ) %>%
       as.data.frame() -> out_Diff
+
+    finalstatus <- out_Diff[nrow(out_Diff),]    
+    # finalstatus <- out_Diff %>%
+    #   #filter(times == 100)
+    #   filter(times == max(out_Diff$time))
     
-    finalstatus <- out_Diff %>%
-      filter(times == 100)
-    
-    outcomes[i,] <- c(paramcombos$x_parameter[i], paramcombos$y_parameter[i], out_Diff$P_1, out_Diff$P_2)
+    outcomes[i,] <- c(paramcombos$x_parameter[i], paramcombos$y_parameter[i], finalstatus$P_1, finalstatus$P_2)
   }
   
   finalDynamics <- outcomes %>%
     mutate(Result = case_when(
     Fish1 >= .25 & Fish2 >= .25 ~ "Both",
-    Fish1 >= .25 & Fish2 < .25 ~ "Only X",
-    Fish1 < .25 & Fish2 >= .25 ~ "Only Y",
+    Fish1 >= .25 & Fish2 < .25 ~ "Only Pop1",
+    Fish1 < .25 & Fish2 >= .25 ~ "Only Pop2",
     Fish1 < .25 & Fish2 < .25 ~ "Neither"))
   
-cols <- c("green", "orange", "yellow", "black")
+#cols <- c("green", "orange", "yellow", "black")
 
 #Binned Colors
 ggplot(finalDynamics, aes(XParameter, YParameter, fill = Result)) + geom_tile(width=1) +
   scale_fill_manual(
-  values = c(cols)) +
+  values = c("Both" = "green",
+             "Only Pop1" = "orange",
+             "Only Pop2" = "yellow",
+             "Neither" = "black")) +
   xlab(paramlist[paramx]) +
   ylab(paramlist[paramy])
 }
 
 
-#paramplane(1, 3, 1, 1)
+#paramplane(2, 5, 1, 1)
 
 ```
 
@@ -404,7 +401,7 @@ paramplane_testing(1)
 
 \newpage
 
-```{r paramplane_testings, eval = FALSE , fig.cap = "S parameter planes"}
+```{r paramplane_testings, fig.cap = "S parameter planes"}
 
 paramplane_testing(2)
 
@@ -428,27 +425,7 @@ paramplane_testing(4)
 
 \newpage
 
-```{r paramplane_testk, fig.cap = "Parameter planes with K ranging fro 0-100", eval = FALSE}
-
-pl_ks <- list()
-
-param_tests <- expand.grid(firstParam = seq(from = 1, to = 8, length.out = 8),
-                        secondParam = seq(from = 1, to = 8, length.out = 8))
-
-param_tests_ks <- param_tests %>%
-  filter(firstParam == 4)
-  
-for(i in 1:nrow(param_tests_ks)){
-  pl_ks[[i]] <- paramplane(param_tests[i,1], param_tests[i,2], 1, 100)
-}
-
-do.call("grid.arrange", c(pl_ks,  ncol=2))
-
-```
-
-\newpage
-
-```{r paramplane_testingw, eval = FALSE, fig.cap = "w parameter planes"}
+```{r paramplane_testingw, fig.cap = "w parameter planes"}
 
 paramplane_testing(5)
 
@@ -520,10 +497,12 @@ popplane <- function(param, max){
     ) %>%
       as.data.frame() -> out_Diff
     
-    finalstatus <- out_Diff %>%
-      filter(times == 100)
     
-    outcomes[i,] <- c(paramcombos$pop1_parameter[i], paramcombos$pop2_parameter[i], out_Diff$P_1, out_Diff$P_2)
+    finalstatus <- out_Diff[nrow(out_Diff),]    
+    # finalstatus <- out_Diff %>%
+    #   filter(times == 100)
+    
+    outcomes[i,] <- c(paramcombos$pop1_parameter[i], paramcombos$pop2_parameter[i], finalstatus$P_1, finalstatus$P_2)
   }
   
   finalDynamics <- outcomes %>%
@@ -533,12 +512,15 @@ popplane <- function(param, max){
     Fish1 < .25 & Fish2 >= .25 ~ "Only Pop2",
     Fish1 < .25 & Fish2 < .25 ~ "Neither"))
   
-cols <- c("green", "black", "orange", "yellow")
+#cols <- c("green", "orange", "yellow", "black")
 
 #Binned Colors
 ggplot(finalDynamics, aes(Pop1Parameter, Pop2Parameter, fill = Result)) + geom_tile(width=1) +
   scale_fill_manual(
-  values = c(cols)) +
+  values = c("Both" = "green",
+             "Only Pop1" = "orange",
+             "Only Pop2" = "yellow",
+             "Neither" = "black")) +
   ggtitle(paste0(paramlist[param], " Parameter plane")) +
   xlab(paste0(paramlist[param], " Population 1")) +
   ylab(paste0(paramlist[param], " Population 2"))
@@ -562,11 +544,6 @@ popplane(3, .1)
 
 ```{r popplane_testingk, fig.cap = "k population planes 0 to 1"}
 popplane(4, 1)
-
-```
-
-```{r popplane_testk, fig.cap = "k population planes 0 to 100"}
-popplane(4, 100)
 
 ```
 

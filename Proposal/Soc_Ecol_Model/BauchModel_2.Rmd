@@ -7,7 +7,7 @@ output:
   html_document: default
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, warning = FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 
 setwd("C:/Users/sophi/Documents/GitHub/UNH_Docs/Proposal/Soc_Ecol_Model")
@@ -419,14 +419,14 @@ paramplane <- function(paramx, paramy, maxx, maxy){
     finalstatus <- out_Diff %>%
       filter(times == 100)
     
-    outcomes[i,] <- c(paramcombos$x_parameter[i], paramcombos$y_parameter[i], out_Diff$P_1, out_Diff$P_2)
+    outcomes[i,] <- c(paramcombos$x_parameter[i], paramcombos$y_parameter[i], finalstatus$P_1, finalstatus$P_2)
   }
   
   finalDynamics <- outcomes %>%
     mutate(Result = case_when(
     Fish1 >= .25 & Fish2 >= .25 ~ "Both",
-    Fish1 >= .25 & Fish2 < .25 ~ "Only X",
-    Fish1 < .25 & Fish2 >= .25 ~ "Only Y",
+    Fish1 >= .25 & Fish2 < .25 ~ "Only Pop1",
+    Fish1 < .25 & Fish2 >= .25 ~ "Only Pop2",
     Fish1 < .25 & Fish2 < .25 ~ "Neither"))
   
 cols <- c("green", "orange", "yellow", "black")
@@ -595,7 +595,7 @@ popplane <- function(param, max){
     finalstatus <- out_Diff %>%
       filter(times == 100)
     
-    outcomes[i,] <- c(paramcombos$pop1_parameter[i], paramcombos$pop2_parameter[i], out_Diff$P_1, out_Diff$P_2)
+    outcomes[i,] <- c(paramcombos$pop1_parameter[i], paramcombos$pop2_parameter[i], finalstatus$P_1, finalstatus$P_2)
   }
   
   finalDynamics <- outcomes %>%
@@ -605,7 +605,7 @@ popplane <- function(param, max){
     Fish1 < .25 & Fish2 >= .25 ~ "Only Pop2",
     Fish1 < .25 & Fish2 < .25 ~ "Neither"))
   
-cols <- c("green", "black", "orange", "yellow")
+cols <- c("green", "orange", "yellow", "black")
 
 #Binned Colors
 ggplot(finalDynamics, aes(Pop1Parameter, Pop2Parameter, fill = Result)) + geom_tile(width=1) +
