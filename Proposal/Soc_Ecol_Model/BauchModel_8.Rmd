@@ -1,5 +1,5 @@
 ---
-title: "BauchModel_7"
+title: "BauchModel_8"
 author: "Sophie Wulfing"
 date: "2022-11-08"
 output:
@@ -72,11 +72,10 @@ out1 %>%
 <!-- Notes: Still worried about interaction term. Don't think this is correct because mechanism isn't specified and we just added interaction terms.  -->
 
 See derivation in notes but this is the new equations (still unsure about interaction terms):
-<!-- ##FIX THIS AND EXPLORE FISHING PARAM-->
 
-$\frac{dP_1}{dt} = r_1P_1(1-P_1)-\frac{h_1*P_1(1-X_1)}{P_1 + s_1} + \rho_1 * \frac{P_2 - P_1}{2}$
+$\frac{dP_1}{dt} = r_1P_1(1-P_1)-\frac{h_1*P_1(1-X_1)}{P_1 + s_1} -e_1P_1 + i_1P_2$
 
-$\frac{dP_2}{dt} = r_2P_2(1-P_2)-\frac{h_2*P_2(1-X_2)}{P_2 + s_2} + \rho_2 * \frac{P_1 - P_2}{2}$
+$\frac{dP_2}{dt} = r_2P_2(1-P_2)-\frac{h_2*P_2(1-X_2)}{P_2 + s_2} -e_2P_2 + i_2P_1$
 
 $\frac{dX_1}{dt} =  k_1X_1(1-X_1) [\frac{1}{P_1+c_1} - w_1 + d_1(2X_1 - 1)] - prop_1X_1(2X_2 - 1)^2 + prop_1(1-X_1)(2X_2 - 1)^2$
 
@@ -110,14 +109,16 @@ Bauch.Coupled <- function (t, y, params) {
   c_2 <- params["c_2"] # rarity valuation param
   d_2 <- params["d_2"] # social norm strength 
   
-    roe_1 <- params["roe_1"] # fish diffusion
-  roe_2 <- params["roe_2"] # fish diffusion
+  e_1 <- params["e_1"] # Outflow of fish pop1
+  e_2 <- params["e_2"] # Outflow of fish pop2
+  i_1 <- params["i_1"] # Inflow of fish from pop 2 to pop 1
+  i_2 <- params["i_2"] # Inflow of fish from pop 1 to pop 2
   prop_1 <- params["prop_1"] # Influence of pop 2 on pop 1
   prop_2 <- params["prop_2"] # Influence of pop 1 on pop 2
   
   ## now code the model equations
-  dP_1dt <- R_1 * P_1 * (1-P_1) - (h_1 * P_1 * (1-X_1))/(P_1+s_1) + roe_1 * (P_2 - P_1)/2
-  dP_2dt <- R_2 * P_2 * (1-P_2) - (h_2 * P_2 * (1-X_2))/(P_2+s_2) + roe_2 * (P_1 - P_2)/2
+  dP_1dt <- R_1 * P_1 * (1-P_1) - (h_1 * P_1 * (1-X_1))/(P_1+s_1) -  e_1 * P_1 + i_1 * P_2
+  dP_2dt <- R_2 * P_2 * (1-P_2) - (h_2 * P_2 * (1-X_2))/(P_2+s_2) -  e_2 * P_2 + i_2 * P_1
   
   dX_1dt <- k_1 * X_1 * (1-X_1) *(1/(P_1 + c_1) - w_1 + d_1*(2*X_1 - 1)) - prop_1 * X_1 * ((2* X_2 - 1)^2) + prop_1 * (1 - X_1) * ((2* X_2 - 1)^2)
   dX_2dt <- k_2 * X_2 * (1-X_2) *(1/(P_2 + c_2) - w_2 + d_2*(2*X_2 - 1)) - prop_2 * X_2 * ((2* X_1 - 1)^2) + prop_2 * (1 - X_2) * ((2* X_1 - 1)^2)
@@ -129,8 +130,8 @@ Bauch.Coupled <- function (t, y, params) {
   list(dydt)
 }
 
-params_Bauch <- c(R_1 = 0.06, s_1 = 0.8, h_1 = 0.075, k_1 = 0.17, w_1 = 0.35, c_1 = 0.6, d_1 = 0.5, roe_1 = 1, prop_1 = 0.1,
-                  R_2 = 0.06, s_2 = 0.8, h_2 = 0.075, k_2 = 0.17, w_2 = 0.35, c_2 = 0.6, d_2 = 0.5, roe_2 = 1, prop_2 = 0.1)
+params_Bauch <- c(R_1 = 0.06, s_1 = 0.8, h_1 = 0.075, k_1 = 0.17, w_1 = 0.35, c_1 = 0.6, d_1 = 0.5, e_1 = 0.1, i_1 = 0.1, prop_1 = 0.1,
+                  R_2 = 0.06, s_2 = 0.8, h_2 = 0.075, k_2 = 0.17, w_2 = 0.35, c_2 = 0.6, d_2 = 0.5, e_2 = 0.1, i_2 = 0.1, prop_2 = 0.1)
 
 times <- seq(from = 0, to = 100, by = 1)
 xstart <- c(P_1 = 0.406, X_1 = .24, P_2 = 0.406, X_2 = .24) # See supplemental data for other starting params
@@ -172,14 +173,14 @@ param_ranges <- function(param, max, min){
   
   #Change params to each quartile for graphs 1-5
   for(i in 1:length(new_param)){
-    params_Default <- data.frame(R = 0.06, s = .8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5, roe = 1, prop = .1)
+    params_Default <- data.frame(R = 0.06, s = .8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5, e = .1, i = .1, prop = .1)
     #ASSIGN OLD PARAMS TO BE NEW SEQUENCE
     params_Default[param] <- new_param[i]
     params_Bauch <- c(R_1 = params_Default$R, s_1 = params_Default$s, h_1 = params_Default$h, k_1 = params_Default$k,
-                      w_1 = params_Default$w, c_1 = params_Default$c, d_1 = params_Default$d, roe_1 = params_Default$roe,
+                      w_1 = params_Default$w, c_1 = params_Default$c, d_1 = params_Default$d, e_1 = params_Default$e, i_1 = params_Default$i,
                       prop_1 =  params_Default$prop,
                       R_2 = params_Default$R, s_2 = params_Default$s, h_2 = params_Default$h, k_2 = params_Default$k,
-                      w_2 = params_Default$w, c_2 =params_Default$c, d_2 = params_Default$d, roe_2 = params_Default$roe,
+                      w_2 = params_Default$w, c_2 =params_Default$c, d_2 = params_Default$d,  e_2 = params_Default$e, i_2 = params_Default$i,
                       prop_2 = params_Default$prop)
     
     times <- seq(from = 0, to = 100, by = 1)
@@ -203,16 +204,16 @@ param_ranges <- function(param, max, min){
   }
   
   #Now assigning the final graph to give the two populations the max and min of the paramters
-    params_Default <- data.frame(R = 0.06, s = .8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5, roe = 1, prop = .1)
+    params_Default <- data.frame(R = 0.06, s = .8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5, e = .1, i = .1, prop = .1)
     #ASSIGN OLD PARAMS TO BE NEW SEQUENCE
     params_Bauch <- c(R_1 = params_Default$R, s_1 = params_Default$s, h_1 = params_Default$h, k_1 = params_Default$k,
-                      w_1 = params_Default$w, c_1 = params_Default$c, d_1 = params_Default$d, roe_1 = params_Default$roe,
+                      w_1 = params_Default$w, c_1 = params_Default$c, d_1 = params_Default$d, e_1 = params_Default$e, i_1 = params_Default$i,
                       prop_1 =  params_Default$prop,
                       R_2 = params_Default$R, s_2 = params_Default$s, h_2 = params_Default$h, k_2 = params_Default$k,
-                      w_2 = params_Default$w, c_2 =params_Default$c, d_2 = params_Default$d, roe_2 = params_Default$roe,
+                      w_2 = params_Default$w, c_2 = params_Default$c, d_2 = params_Default$d, e_2 = params_Default$e, i_2 = params_Default$i,
                       prop_2 = params_Default$prop)
     params_Bauch[param] <- max
-    params_Bauch[(param + 9)] <- min
+    params_Bauch[(param + 10)] <- min
     
     times <- seq(from = 0, to = 100, by = 1)
     xstart <- c(P_1 = 0.406, X_1 = .24, P_2 = 0.406, X_2 = .24) #See supplemental for other starting params
@@ -283,21 +284,27 @@ param_ranges(7, 1, 0)
 
 \newpage
 
-```{r roh, fig.cap = "roh - fish diffusion"}
+```{r e, fig.cap = "e - fish emigration"}
 param_ranges(8, 1, 0)
 ```
 
 \newpage
 
-```{r prop, fig.cap = "prop - Population influence on the other"}
+```{r i, fig.cap = "i - fish immigration"}
 param_ranges(9, 1, 0)
+```
+
+\newpage
+
+```{r prop, fig.cap = "prop - Population influence on the other"}
+param_ranges(10, 1, 0)
 ```
 
 ```{r fxnparamplane_diffparams}
 
 paramplane <- function(paramx, paramy, maxx, maxy){
   #Create empty dataframe to fill
-  paramlist <- c("R", "S", "H", "K", "W", "C", "d", "rho", "prop")
+  paramlist <- c("R", "S", "H", "K", "W", "C", "d", "e", "i", "prop")
   outcomes <- data.frame(matrix(ncol = 4, nrow = 0))
   colnames(outcomes) <- c("XParameter", "YParameter", "Fish1", "Fish2")
   
@@ -317,16 +324,16 @@ paramplane <- function(paramx, paramy, maxx, maxy){
                         y_parameter = seq(from = starty, to = maxy, length.out = 11))
   
   for(i in 1:nrow(paramcombos)){
-  params_Default <- data.frame(R = 0.06, s = .8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5, roe = 1, prop = .1)
+  params_Default <- data.frame(R = 0.06, s = .8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5, e = .1, i = .1, prop = .1)
   #Change params to be the 
   params_Default[paramx] <- paramcombos$x_parameter[i]
   params_Default[paramy] <- paramcombos$y_parameter[i]
   
   params_Bauch <- c(R_1 = params_Default$R, s_1 = params_Default$s, h_1 = params_Default$h, k_1 = params_Default$k,
-                    w_1 = params_Default$w, c_1 = params_Default$c, d_1 = params_Default$d, roe_1 = params_Default$roe,
+                    w_1 = params_Default$w, c_1 = params_Default$c, d_1 = params_Default$d, e_1 = params_Default$e, i_1 = params_Default$i,
                     prop_1 =  params_Default$prop,
                     R_2 = params_Default$R, s_2 = params_Default$s, h_2 = params_Default$h, k_2 = params_Default$k,
-                    w_2 = params_Default$w, c_2 =params_Default$c, d_2 = params_Default$d, roe_2 = params_Default$roe,
+                    w_2 = params_Default$w, c_2 = params_Default$c, d_2 = params_Default$d, e_2 = params_Default$e, i_2 = params_Default$i,
                     prop_2 = params_Default$prop)
     
   times <- seq(from = 0, to = 100, by = 1)
@@ -340,8 +347,9 @@ paramplane <- function(paramx, paramy, maxx, maxy){
     ) %>%
       as.data.frame() -> out_Diff
     
-    finalstatus <- out_Diff %>%
-      filter(times == 100)
+    finalstatus <- out_Diff[nrow(out_Diff),]
+      # out_Diff %>%
+      # filter(times == 100)
     
     outcomes[i,] <- c(paramcombos$x_parameter[i], paramcombos$y_parameter[i], finalstatus$P_1, finalstatus$P_2)
   }
@@ -376,8 +384,8 @@ ggplot(finalDynamics, aes(XParameter, YParameter, fill = Result)) + geom_tile(wi
 paramplane_testing <- function(boop){
 
   pl <- list()
-  param_tests <- expand.grid(firstParam = seq(from = 1, to = 9, length.out = 9),
-                        secondParam = seq(from = 1, to = 9, length.out = 9))
+  param_tests <- expand.grid(firstParam = seq(from = 1, to = 10, length.out = 10),
+                        secondParam = seq(from = 1, to = 10, length.out = 10))
 
   param_tests <- param_tests %>%
     filter(firstParam != secondParam) %>%
@@ -452,7 +460,7 @@ paramplane_testing(7)
 
 \newpage
 
-```{r paramplane_testingroh, fig.cap = "roh parameter planes"}
+```{r paramplane_testinge, fig.cap = "e parameter planes"}
 
 paramplane_testing(8)
 
@@ -460,9 +468,17 @@ paramplane_testing(8)
 
 \newpage
 
-```{r paramplane_testingprop, fig.cap = "prop parameter planes"}
+```{r paramplane_testingi, fig.cap = "i parameter planes"}
 
 paramplane_testing(9)
+
+```
+
+\newpage
+
+```{r paramplane_testingprop, fig.cap = "prop parameter planes"}
+
+paramplane_testing(10)
 
 ```
 
@@ -472,30 +488,31 @@ paramplane_testing(9)
 
 popplane <- function(param, max){
   #Create empty dataframe to fill
-  paramlist <- c("R", "S", "H", "K", "W", "C", "d", "rho", "prop")
+  paramlist <- c("R", "S", "H", "K", "W", "C", "d", "e", "i", "prop")
   outcomes <- data.frame(matrix(ncol = 4, nrow = 0))
   colnames(outcomes) <- c("Pop1Parameter", "Pop2Parameter", "Fish1", "Fish2")
   
   #Dumb but it throws an error if S = 0
   start <- 0
   if(param == 2){start <- .001}
+  #if(param == 3){max <- .1}
   
   #Create list of all combinations of the two paramters
   paramcombos <- expand.grid(pop1_parameter = seq(from = start, to = max, length.out = 10),
                         pop2_parameter = seq(from = start, to = max, length.out = 10))
   
   for(i in 1:nrow(paramcombos)){
-  params_Default <- data.frame(R = 0.06, s = .8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5, roe = 1, prop = .1)
+  params_Default <- data.frame(R = 0.06, s = .8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5, e = 0.1, i = 0.1, prop = .1)
   #Change params to be the
   
   params_Bauch <- c(R_1 = params_Default$R, s_1 = params_Default$s, h_1 = params_Default$h, k_1 = params_Default$k,
-                    w_1 = params_Default$w, c_1 = params_Default$c, d_1 = params_Default$d, roe_1 = params_Default$roe,
-                    prop_1 = params_Default$prop,
+                    w_1 = params_Default$w, c_1 = params_Default$c, d_1 = params_Default$d, e_1 = params_Default$e, i_1 = params_Default$i,
+                    prop_1 =  params_Default$prop,
                     R_2 = params_Default$R, s_2 = params_Default$s, h_2 = params_Default$h, k_2 = params_Default$k,
-                    w_2 = params_Default$w, c_2 =params_Default$c, d_2 = params_Default$d, roe_2 = params_Default$roe,
+                    w_2 = params_Default$w, c_2 =params_Default$c, d_2 = params_Default$d, e_2 = params_Default$e, i_2 = params_Default$i,
                     prop_2 = params_Default$prop)
   params_Bauch[param] <- paramcombos$pop1_parameter[i]
-  params_Bauch[(param + 9)] <- paramcombos$pop2_parameter[i]
+  params_Bauch[(param + 10)] <- paramcombos$pop2_parameter[i]
     
   times <- seq(from = 0, to = 100, by = 1)
     xstart <- c(P_1 = 0.406, X_1 = .24, P_2 = 0.406, X_2 = .24) #See supplemental for other starting params
@@ -508,8 +525,9 @@ popplane <- function(param, max){
     ) %>%
       as.data.frame() -> out_Diff
     
-    finalstatus <- out_Diff %>%
-      filter(times == 100)
+    finalstatus <- out_Diff[nrow(out_Diff),]
+      # out_Diff %>%
+      # filter(times == 100)
     
     outcomes[i,] <- c(paramcombos$pop1_parameter[i], paramcombos$pop2_parameter[i], finalstatus$P_1, finalstatus$P_2)
   }
@@ -571,12 +589,17 @@ popplane(7, 1)
 
 ```
 
-```{r popplane_testingroh, fig.cap = "roh population planes"}
+```{r popplane_testinge, fig.cap = "e population planes"}
 popplane(8, 1)
 
 ```
 
-```{r popplane_testingprop, fig.cap = "prop population planes"}
+```{r popplane_testingi, fig.cap = "i population planes"}
 popplane(9, 1)
+
+```
+
+```{r popplane_testingprop, fig.cap = "prop population planes"}
+popplane(10, 1)
 
 ```
