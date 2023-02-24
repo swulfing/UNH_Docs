@@ -1,0 +1,39 @@
+To Do:
+Incorporate findings from papers below
+Double check figure w easton
+Put into thesis (add Westerman Benbow paper to Zotero)
+See life expectancy bookmarks to calc that
+
+
+INTRO
+Currently, the octopus fishery in this region of madagascar is closed for the three months between June and August on a yearly basis (Benbow and Harris 2011, Westerman and Benbow 2014) which was decided in 2011. However, there has been no study to assess how this is effecting *Octoups cyanea* stocks in the areas since.
+
+METHODS
+We also modeled how this fishery would act under the three month closure that is currently instituted in Madagascar. We simulated this scenario by increasing the survivability of the matrix by 1% increments and then multiplying this new matrix during the first three months of the year. After the closure, the orginial matrix was multiplied and the overall growth rate was calculated. This allowed us to analyze how much of a survivability increase would be necessary in these closures to result in a growing population of *Octopus cyanea*. 
+
+RESULTS
+By analyzing the 3 month closure scenario, we found that these fishing restrictions must increase the survivability of the population by at least 7.4% in order to result in population growth.
+
+DISCUSSION
+Three month closures began to be implemented in the region in 2011 as this length of time was shown to improve octopus yeild and had limited negative effects on fisher income (Benbow and Harris 2011). As we don't have a current assessment of *Octopus cyanea* stocks in this fishery, this indicates a need to assess how effective these closures are in preserving the blue octopus of this region.
+
+FIND BACKGROUND ON 3 MO CLOSURES
+CLOSURES JUNE THROUGH AUGUST
+See: The Role of Women in Community-based Small-Scale
+Fisheries Management: The Case of the South West
+Madagascar Octopus Fishery
+Kame Westerman and Sophie Benbow - SEE PAGE 121
+
+Sophie Benbow, Alasdair Harris
+Managing Madagascar’s octopus
+fisheries. Proceedings of the
+workshop on Octopus cyanea
+fisheries, 5-6 April 2011, Toliara - Gives history of decision
+
+
+Notes:
+Westerman Benbow
+Three month temporty closures during June-Aug
+
+Benbow Harris
+Note spawning females may be seeking deeper waters and avoiding fishing

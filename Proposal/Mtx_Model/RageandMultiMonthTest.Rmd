@@ -3,7 +3,8 @@ title: "RagePackageTest"
 author: "Sophie Wulfing"
 date: "2023-02-23"
 output:
-  pdf_document: default
+  pdf_document:
+    latex_engine: xelatex
   html_document: default
 always_allow_html: true
 ---
@@ -43,6 +44,9 @@ library(kableExtra)
 
 observedData <- as.matrix(data.frame(read.csv("RaberinaryBenbow2012Calcs.csv")))
 observedStageMatrix <- observedData[1:13, 2:5]
+```
+```{r, include=FALSE}
+options(tinytex.verbose = TRUE)
 ```
 ```{r FXNoverallsurvive}
 survivability <- function(increase){
@@ -353,7 +357,7 @@ type = "sensitivity",
 demog_stat = "lambda",
 )
 
-knitr::kable(senstable, format = "latex", booktabs = TRUE)
+knitr::kable(senstable, format = "latex", booktabs = TRUE, caption =  "Sensitivity Perturbations")
 
 ```
 
@@ -365,7 +369,7 @@ type = "elasticity",
 demog_stat = "lambda",
 )
 
-knitr::kable(elastable, format = "latex", booktabs = TRUE)
+knitr::kable(elastable, format = "latex", booktabs = TRUE, caption =  "Elasticity Perturbations")
 
 ```
 
@@ -572,12 +576,12 @@ knitr::kable(VRtable, format = "latex", booktabs = TRUE)
 
 utable <- vr_mat_U(matU, posU = matU > 0, surv_only_na = TRUE)
 
-knitr::kable(utable, format = "latex", booktabs = TRUE)
+knitr::kable(utable, format = "latex", booktabs = TRUE, caption = "Survival independent rates - Survival")
 ```
 
 ```{r SurvIndRatesFec, results = 'asis', echo = FALSE}
 rtable <- vr_mat_R(matU, matR, posR = matR > 0)
-knitr::kable(rtable, format = "latex", booktabs = TRUE)
+knitr::kable(rtable, format = "latex", booktabs = TRUE, caption = "Survival independent rates - Reproductive")
 ```
 
 ## Stage specific vital rates
