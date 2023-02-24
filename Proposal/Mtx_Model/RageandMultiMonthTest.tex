@@ -1,0 +1,486 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={RagePackageTest},
+  pdfauthor={Sophie Wulfing},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{RagePackageTest}
+\author{Sophie Wulfing}
+\date{2023-02-23}
+
+\begin{document}
+\maketitle
+
+\hypertarget{multi-month-closures}{%
+\section{Multi Month Closures}\label{multi-month-closures}}
+
+\begin{figure}
+\centering
+\includegraphics{RageandMultiMonthTest_files/figure-latex/multiMoClosures-1.pdf}
+\caption{Projections of different lengths of closures. Agrees with the
+7\% increase needed for 3 month closures. Double check with other
+graph.}
+\end{figure}
+
+\newpage
+
+\hypertarget{rage-package-info}{%
+\section{Rage Package info}\label{rage-package-info}}
+
+This package also has the following functions I didn't bother with:
+
+\begin{itemize}
+\item
+  mpm\_collapse which collapses a matrix population model to a smaller
+  number of stages
+\item
+  mpm\_rearrange which rearranges stages of a matrix population model to
+  segregate reproductive and non-reproductive stages
+\item
+  name\_stages allows user to name stages
+\item
+  perturb\_stochastic calculates stochastic elasticities from a
+  time-series of matrix population models and corresponding population
+  vectors
+\item
+  pop\_vectors derives a hypothetical set of population vectors
+  corresponding to a time-series of matrix population models
+\item
+  repro\_stages Identify which stages in a matrix population model are
+  reproductive
+\item
+  shape\_rep Calculate shape of reproduction over age. TBH I just didn't
+  get this one
+\item
+  shape\_surv Calculate shape of survival over age. Same as above
+\item
+  standard\_stages Identify stages corresponding to different parts of
+  the reproductive life cycle
+\end{itemize}
+
+Note: Not using the default matU or matR. Double check that
+
+\hypertarget{age-from-stage}{%
+\subsection{Age from Stage}\label{age-from-stage}}
+
+Age specific calculations from Rage package
+
+\begin{tabular}{rrrrr}
+\toprule
+Age & Reproduction & Survivorship & SurvivalProb & MortalityHazard\\
+\midrule
+1 & 0.0000000 & 1.0000000 & 0.9048003 & 0.1000411\\
+2 & 0.0000000 & 0.9048003 & 0.7670599 & 0.2651903\\
+3 & 0.0000000 & 0.6940360 & 0.7123393 & 0.3392010\\
+4 & 0.1801271 & 0.4943891 & 0.6830319 & 0.3812137\\
+5 & 0.4417776 & 0.3376835 & 0.6650848 & 0.4078408\\
+\addlinespace
+6 & 0.7077949 & 0.2245882 & 0.6533941 & 0.4255748\\
+7 & 0.9405289 & 0.1467446 & 0.6455709 & 0.4376202\\
+8 & 1.1279077 & 0.0947340 & 0.6402850 & 0.4458419\\
+9 & 1.2709528 & 0.0606568 & 0.6367104 & 0.4514404\\
+10 & 1.3761398 & 0.0386208 & 0.6343017 & 0.4552305\\
+\addlinespace
+11 & 1.4513443 & 0.0244972 & 0.6326881 & 0.4577777\\
+12 & 1.5039407 & 0.0154991 & 0.6316142 & 0.4594765\\
+13 & 1.5400772 & 0.0097895 & NA & NA\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\hypertarget{life-expectancy-and-longevity}{%
+\subsection{Life Expectancy and
+longevity}\label{life-expectancy-and-longevity}}
+
+Life expectancy applies Markov chain approaches to calculate. Longevity
+- (the age x at which survivorship for a synthetic cohort falls below
+some critical proportion (in this case 0.01).
+
+Note: Life expectancy and longevity are very different. Wut?
+
+\begin{tabular}{lr}
+\toprule
+X1 & X2\\
+\midrule
+Life Expectancy & 4.062737\\
+Life Exp Variance & 5.865930\\
+longevity & 12.000000\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\hypertarget{life-table}{%
+\subsection{Life Table}\label{life-table}}
+
+\begin{itemize}
+\tightlist
+\item
+  x age at the start of the age interval {[}x, x+1)
+\item
+  Nx The number of individuals alive at age x. The initial number is set
+  with radix
+\item
+  Dx proportion of original cohort dying during the age interval {[}x,
+  x+1)
+\item
+  lx survivorship, defined as the proportion of initial cohort surviving
+  to the start of age interval {[}x, x+1)
+\item
+  dx proportion of original cohort dying in the age interval {[}x, x+1)
+\item
+  ax The average time survived within the interval by those that die
+  during the age interval {[}x, x+1). Assumed to be 0.5
+\item
+  hx force of mortality (hazard) during the age interval {[}x, x+1)
+\item
+  qx probability of death during the interval {[}x, x+1) for those
+  entering the interval
+\item
+  px probability of survival for the interval {[}x, x+1) for those
+  entering the interval
+\item
+  Lx total person-years lived during the interval {[}x, x+1)
+\item
+  Tx total person years lived beyond age x
+\item
+  ex remaining life expectancy at age x
+\item
+  mx per-capita rate of sexual reproduction during the interval {[}x,
+  x+1)
+\item
+  lxmx expected number of sexual offspring per original cohort member
+  produced during the interval {[}x, x+1)
+\end{itemize}
+
+\begin{tabular}{rrrrrrrrr}
+\toprule
+x & lx & dx & hx & qx & px & ex & mx & lxmx\\
+\midrule
+0 & 1.0000000 & 0.0951997 & 0.0999577 & 0.0951997 & 0.9048003 & 3.546039 & 0.0000000 & 0.0000000\\
+1 & 0.9048003 & 0.2107642 & 0.2636471 & 0.2329401 & 0.7670599 & 2.866532 & 0.0000000 & 0.0000000\\
+2 & 0.6940360 & 0.1996469 & 0.3359857 & 0.2876607 & 0.7123393 & 2.585199 & 0.0000000 & 0.0000000\\
+3 & 0.4943891 & 0.1567056 & 0.3766632 & 0.3169681 & 0.6830319 & 2.427255 & 0.1801271 & 0.0890529\\
+4 & 0.3376835 & 0.1130954 & 0.4022801 & 0.3349152 & 0.6650848 & 2.321617 & 0.4417776 & 0.1491810\\
+\addlinespace
+5 & 0.2245882 & 0.0778436 & 0.4192659 & 0.3466059 & 0.6533941 & 2.238925 & 0.7077949 & 0.1589624\\
+6 & 0.1467446 & 0.0520106 & 0.4307673 & 0.3544291 & 0.6455709 & 2.161373 & 0.9405289 & 0.1380175\\
+7 & 0.0947340 & 0.0340773 & 0.4386006 & 0.3597150 & 0.6402850 & 2.073494 & 1.1279077 & 0.1068513\\
+8 & 0.0606568 & 0.0220360 & 0.4439266 & 0.3632896 & 0.6367104 & 1.957489 & 1.2709528 & 0.0770919\\
+9 & 0.0386208 & 0.0141236 & 0.4475285 & 0.3656983 & 0.6343017 & 1.789093 & 1.3761398 & 0.0531476\\
+\addlinespace
+10 & 0.0244972 & 0.0089981 & 0.4499474 & 0.3673119 & 0.6326881 & 1.532303 & 1.4513443 & 0.0355539\\
+11 & 0.0154991 & 0.0057097 & 0.4515599 & 0.3683858 & 0.6316142 & 1.131614 & 1.5039407 & 0.0233097\\
+12 & 0.0097895 & 0.0097895 & 2.0000000 & 1.0000000 & 0.0000000 & 0.500000 & 1.5400772 & 0.0150765\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\hypertarget{perturbation-matrices}{%
+\subsection{Perturbation Matrices}\label{perturbation-matrices}}
+
+Perturbs elements within a matrix population model and measures the
+response (sensitivity or elasticity) of the per-capita population growth
+rate at equilibrium (λ), or, with a user-supplied function, any other
+demographic statistic.
+
+\begin{tabular}{rrrr}
+\toprule
+0.3741554 & 0.1560649 & 0.0344634 & 0.0049345\\
+0.4787263 & 0.1996833 & 0.0440955 & 0.0063136\\
+2.4286661 & 1.0130279 & 0.2237048 & 0.0320303\\
+15.3512859 & 6.4031296 & 1.4139889 & 0.2024572\\
+\bottomrule
+\end{tabular}
+
+\begin{tabular}{rrrr}
+\toprule
+0.2399484 & 0.0000000 & 0.0000000 & 0.1342068\\
+0.1342067 & 0.0654763 & 0.0000000 & 0.0000000\\
+0.0000000 & 0.1342065 & 0.0894979 & 0.0000000\\
+0.0000000 & 0.0000000 & 0.1342063 & 0.0682503\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\hypertarget{perturbation-analysis-of-transition-types}{%
+\subsection{Perturbation Analysis of transition
+types}\label{perturbation-analysis-of-transition-types}}
+
+Calculates the summed sensitivities or elasticities for various
+transition types within a matrix population model (MPM), including
+stasis, retrogression, progression, fecundity, and clonality.
+
+Sensitivities or elasticities are calculated by perturbing elements of
+the MPM and measuring the response of the per-capita population growth
+rate at equilibrium (λ), or, with a user-supplied function, any other
+demographic statistic.
+
+\begin{itemize}
+\tightlist
+\item
+  stasis The sensitivity or elasticity of lambda to stasis.
+\item
+  retrogression The sensitivity or elasticity of lambda to
+  retrogression.
+\item
+  progression The sensitivity or elasticity of lambda to progression.
+\item
+  fecundity The sensitivity or elasticity of lambda to sexual fecundity.
+\item
+  clonality The sensitivity or elasticity of lambda to clonality.
+\end{itemize}
+
+\begin{tabular}{lrr}
+\toprule
+Measure & Sensitivity & Elasticity\\
+\midrule
+Stasis & 1.0000007 & 0.4631730\\
+Retrogression & NA & NA\\
+Progression & 2.9057432 & 0.4026194\\
+Fecundity & 0.0049345 & 0.1342068\\
+Clonality & NA & NA\\
+\bottomrule
+\end{tabular}
+
+\hypertarget{perturbation-analysis-of-vital-rates}{%
+\subsection{Perturbation analysis of vital
+rates}\label{perturbation-analysis-of-vital-rates}}
+
+Perturbs lower-level vital rates within a matrix population model and
+measures the response (sensitivity or elasticity) of the per-capita
+population growth rate at equilibrium (λ), or, with a usersupplied
+function, any other demographic statistic. These decompositions assume
+that all transition rates are products of a stage-specific survival term
+(column sums of matU) and a lower level vital rate that is conditional
+on survival (growth, shrinkage, stasis, dormancy, or reproduction).
+Reproductive vital rates that are not conditional on survival (i.e.,
+within a stage class from which there is no survival) are also allowed.
+
+\begin{itemize}
+\tightlist
+\item
+  survival sensitivity or elasticity of demog\_stat to survival
+\item
+  growth sensitivity or elasticity of demog\_stat to growth
+\item
+  shrinkage sensitivity or elasticity of demog\_stat to shrinkage
+\item
+  fecundity sensitivity or elasticity of demog\_stat to sexual fecundity
+\item
+  clonality sensitivity or elasticity of demog\_stat to clonality
+\end{itemize}
+
+\begin{tabular}{lrr}
+\toprule
+Measure & Sensitivity & Elasticity\\
+\midrule
+Survival & 1.8922055 & 0.9999992\\
+Growth & 1.0406220 & 0.2500416\\
+Shrinkage & 0.0000000 & 0.0000000\\
+Fecundity & 0.0016331 & 0.1342068\\
+Clonality & 0.0000000 & 0.0000000\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\hypertarget{plot-life-cycle}{%
+\subsection{Plot life cycle}\label{plot-life-cycle}}
+
+look R can do this for you
+
+\hypertarget{age-of-reproductive-maturity}{%
+\subsection{Age of reproductive
+maturity}\label{age-of-reproductive-maturity}}
+
+\begin{tabular}{lr}
+\toprule
+X1 & X2\\
+\midrule
+Prob of reaching mat & 0.0218669\\
+Age at Mat & 6.8211804\\
+\bottomrule
+\end{tabular}
+
+\hypertarget{vital-rates}{%
+\subsection{Vital Rates}\label{vital-rates}}
+
+\hypertarget{corresponding-to-separate-demographic-processes}{%
+\subsubsection{Corresponding to separate demographic
+processes}\label{corresponding-to-separate-demographic-processes}}
+
+Derive mean vital rates corresponding to separate demographic processes
+from a matrix population model. Specifically, this function decomposes
+vital rates of survival, progression, retrogression, sexual reproduction
+and clonal reproduction, with various options for weighting and grouping
+stages of the life cycle.
+
+\begin{tabular}{rrrrr}
+\toprule
+surv & retr & prog & fec & clo\\
+\midrule
+0.5434124 & 0 & 0.2612287 & 26.7005 & 0\\
+\bottomrule
+\end{tabular}
+
+\hypertarget{mean-vital-rates}{%
+\subsubsection{Mean vital rates}\label{mean-vital-rates}}
+
+\begin{tabular}{lr}
+\toprule
+X1 & X2\\
+\midrule
+Rate of Survival & 0.5434124\\
+Rate of Growth & 0.2612287\\
+Rate of shrinkage & NA\\
+Rate of stasis & 0.7387713\\
+\bottomrule
+\end{tabular}
+
+\hypertarget{survival-independent-rates}{%
+\subsection{Survival independent
+rates}\label{survival-independent-rates}}
+
+\begin{tabular}{rrrr}
+\toprule
+0.6958263 & NA & NA & NA\\
+0.3041737 & 0.7122376 & NA & NA\\
+NA & 0.2877624 & 0.8082501 & NA\\
+NA & NA & 0.1917499 & NA\\
+\bottomrule
+\end{tabular}
+
+\begin{tabular}{rrrr}
+\toprule
+NA & NA & NA & 80.67898\\
+NA & NA & NA & NA\\
+NA & NA & NA & NA\\
+NA & NA & NA & NA\\
+\bottomrule
+\end{tabular}
+
+\hypertarget{stage-specific-vital-rates}{%
+\subsection{Stage specific vital
+rates}\label{stage-specific-vital-rates}}
+
+\begin{tabular}{rrrrr}
+\toprule
+Stage & Survival & Growth & Stasis & Reproduction\\
+\midrule
+1 & 0.9048003 & 0.3041737 & 0.6958263 & NA\\
+2 & 0.4519657 & 0.2877624 & 0.7122376 & NA\\
+3 & 0.4859363 & 0.1917499 & 0.8082501 & NA\\
+4 & 0.3309474 & NA & NA & 80.67898\\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+\hypertarget{misc}{%
+\subsection{Misc}\label{misc}}
+
+Demetrius' entropy, Keyfitz's entropy, generation time, net
+reproduction, Time to stable stage
+
+Note: method for net reproductive value (R0) from a matrix population
+model. The net reproduction value (R0) is the mean number of recruits
+produced during the mean life expectancy of an individual. Note: Can
+also specify ``start'' for method but if offspring only arise in stage
+start, the two methods give the same result.
+
+Note: method for generation time specified as R0, the time required for
+a population to increase by a factor of R0 (the net reproductive rate;
+Caswell (2001), section 5.3.5). Other options: the average
+parent-offspring age difference (Bienvenu \& Legendre (2015)), or the
+expected age at reproduction for a cohort (Coale (1972), p.~18-19).
+
+\begin{tabular}{lr}
+\toprule
+X1 & X2\\
+\midrule
+Demetrius’ Entropy & 2.1100118\\
+Keyfitz’s Entropy & 0.5920757\\
+Generation Time & 7.3827459\\
+Net Reproduction & 0.8726632\\
+Time to Stable Stage Dist & 9.0000000\\
+\bottomrule
+\end{tabular}
+
+\end{document}

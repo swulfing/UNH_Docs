@@ -405,12 +405,18 @@ p1 <-ggplot(stagemo(i), aes(Frequency, PercentChange, fill = lambda)) + geom_til
   midpoint = 1,
   space = "Lab",
   na.value = "grey50"
-  )
+  )  +
+  scale_x_continuous(expand=c(0,0), breaks = c(1, 3, 6, 9, 12)) +
+  scale_y_continuous(expand=c(0,0)) +
+  # scale_x_continuous(name = "Frequency of closure (months)", expand=c(0,0), breaks = c(1, 3, 6, 9, 12)) +
+  # scale_y_continuous(name = "Percent change in survival", expand=c(0,0)) +
+  labs(fill = "Eigenvalue")
+
 doesthiswork[[i]] <- p1
 }
 
 
-ggarrange(plotlist = doesthiswork, labels = c("Stage 1", "Stage 2", "Stage 3", "Stage 4","Larval"), font.label = list(size = 7), nrow = 2, ncol = 2)
+ggarrange(plotlist = doesthiswork, labels = c("Stage 1", "Stage 2", "Stage 3", "Stage 4","Larval"), font.label = list(size = 7), common.legend = TRUE, ncol = 2, nrow = 3, legend = "right")
 #do.call(ggarrange, c(doesthiswork[1:5], labels = c("Stage 1", "Stage 2", "Stage 3", "Stage 4","Larval")))
 
 ```

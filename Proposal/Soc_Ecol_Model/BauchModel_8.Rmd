@@ -117,10 +117,10 @@ Bauch.Coupled <- function (t, y, params) {
   prop_2 <- params["prop_2"] # Influence of pop 1 on pop 2
   
   ## now code the model equations
-  dP_1dt <- R_1 * P_1 * (1-P_1) - (h_1 * P_1 * (1-X_1))/(P_1+s_1) -  e_1 * P_1 + i_1 * P_2
-  dP_2dt <- R_2 * P_2 * (1-P_2) - (h_2 * P_2 * (1-X_2))/(P_2+s_2) -  e_2 * P_2 + i_2 * P_1
+  dP_1dt <-  R_1 * P_1 * (1-P_1) - (h_1 * P_1 * (1-X_1))/(P_1+s_1) -  e_1 * P_1 + i_1 * P_2
+  dP_2dt <-  R_2 * P_2 * (1-P_2) - (h_2 * P_2 * (1-X_2))/(P_2+s_2) -  e_2 * P_2 + i_2 * P_1
   
-  dX_1dt <- k_1 * X_1 * (1-X_1) *(1/(P_1 + c_1) - w_1 + d_1*(2*X_1 - 1)) - prop_1 * X_1 * ((2* X_2 - 1)^2) + prop_1 * (1 - X_1) * ((2* X_2 - 1)^2)
+  dX_1dt <-  k_1 * X_1 * (1-X_1) *(1/(P_1 + c_1) - w_1 + d_1*(2*X_1 - 1)) - prop_1 * X_1 * ((2* X_2 - 1)^2) + prop_1 * (1 - X_1) * ((2* X_2 - 1)^2)
   dX_2dt <- k_2 * X_2 * (1-X_2) *(1/(P_2 + c_2) - w_2 + d_2*(2*X_2 - 1)) - prop_2 * X_2 * ((2* X_1 - 1)^2) + prop_2 * (1 - X_2) * ((2* X_1 - 1)^2)
   
   ## combine results into a single vector
@@ -130,11 +130,11 @@ Bauch.Coupled <- function (t, y, params) {
   list(dydt)
 }
 
-params_Bauch <- c(R_1 = 0.06, s_1 = 0.8, h_1 = 0.075, k_1 = 0.17, w_1 = 0.35, c_1 = 0.6, d_1 = 0.5, e_1 = 0.1, i_1 = 0.1, prop_1 = 0.1,
-                  R_2 = 0.06, s_2 = 0.8, h_2 = 0.075, k_2 = 0.17, w_2 = 0.35, c_2 = 0.6, d_2 = 0.5, e_2 = 0.1, i_2 = 0.1, prop_2 = 0.1)
+params_Bauch <- c(R_1 = 0.06, s_1 = 0.8, h_1 = 0.075, k_1 = 0.17, w_1 = 0.35, c_1 = 0.6, d_1 = 0.5, e_1 = 0.25, i_1 = 0.25, prop_1 = 0.1,
+                  R_2 = 0.06, s_2 = 0.8, h_2 = 0.075, k_2 = 0.17, w_2 = 0.35, c_2 = 0.6, d_2 = 0.5, e_2 = 0.25, i_2 = 0.25, prop_2 = 0.1)
 
-times <- seq(from = 0, to = 100, by = 1)
-xstart <- c(P_1 = 0.406, X_1 = .24, P_2 = 0.406, X_2 = .24) # See supplemental data for other starting params
+times <- seq(from = 0, to = 100, by = .1)
+xstart <- c(P_1 = 0.406, P_2 = 0.406, X_1 = .24, X_2 = .24) # See supplemental data for other starting params
 
 ode(
   func=Bauch.Coupled,
@@ -184,7 +184,7 @@ param_ranges <- function(param, max, min){
                       prop_2 = params_Default$prop)
     
     times <- seq(from = 0, to = 100, by = 1)
-    xstart <- c(P_1 = 0.406, X_1 = .24, P_2 = 0.406, X_2 = .24) #See supplemental for other starting params
+    xstart <- c(P_1 = 0.406, P_2 = 0.406, X_1 = .24, X_2 = .24) #See supplemental for other starting params
 
     ode(
       func=Bauch.Coupled,
@@ -216,7 +216,7 @@ param_ranges <- function(param, max, min){
     params_Bauch[(param + 10)] <- min
     
     times <- seq(from = 0, to = 100, by = 1)
-    xstart <- c(P_1 = 0.406, X_1 = .24, P_2 = 0.406, X_2 = .24) #See supplemental for other starting params
+    xstart <- c(P_1 = 0.406, P_2 = 0.406, X_1 = .24, X_2 = .24) #See supplemental for other starting params
 
     ode(
       func=Bauch.Coupled,
@@ -337,7 +337,7 @@ paramplane <- function(paramx, paramy, maxx, maxy){
                     prop_2 = params_Default$prop)
     
   times <- seq(from = 0, to = 100, by = 1)
-    xstart <- c(P_1 = 0.406, X_1 = .24, P_2 = 0.406, X_2 = .24) #See supplemental for other starting params
+    xstart <- c(P_1 = 0.406, P_2 = 0.406, X_1 = .24, X_2 = .24) #See supplemental for other starting params
     
     ode(
       func=Bauch.Coupled,
@@ -515,7 +515,7 @@ popplane <- function(param, max){
   params_Bauch[(param + 10)] <- paramcombos$pop2_parameter[i]
     
   times <- seq(from = 0, to = 100, by = 1)
-    xstart <- c(P_1 = 0.406, X_1 = .24, P_2 = 0.406, X_2 = .24) #See supplemental for other starting params
+    xstart <- c(P_1 = 0.406, P_2 = 0.406, X_1 = .24, X_2 = .24) #See supplemental for other starting params
     
     ode(
       func=Bauch.Coupled,

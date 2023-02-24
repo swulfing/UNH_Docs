@@ -1,0 +1,655 @@
+---
+title: "RagePackageTest"
+author: "Sophie Wulfing"
+date: "2023-02-23"
+output:
+  pdf_document: default
+  html_document: default
+always_allow_html: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev="cairo_pdf")
+#knitr::write_bib look into
+setwd("C:/Users/sophi/Documents/GitHub/UNH_Docs/Proposal/Mtx_Model")
+
+library(tinytex)
+library(matlib)
+library(ggplot2)
+library(quadprog) #cite
+library(gridtext)
+library(popbio) #cite
+library(knitr)
+library(gridExtra)
+library(RColorBrewer) 
+#library(rPref) #Double check what this is doing. Maybe cite?
+library(tidyr)
+library(dplyr)
+library(ggpubr)
+library(bookdown)
+library(kableExtra)
+
+
+# #Raw data n supplemental. ASK
+# in-stage bar graph goes in paper
+# in stage management scenarios will definitely be supplemental
+# Check out ecological modelling journal
+# Write about stable stage cause I don't think you do
+# Citations! Also check ahilya table
+# APPENDIX!
+# MAKE FIG CAPS FOR EVERYTHING AND EDIT FIGS.
+
+
+
+observedData <- as.matrix(data.frame(read.csv("RaberinaryBenbow2012Calcs.csv")))
+observedStageMatrix <- observedData[1:13, 2:5]
+```
+```{r FXNoverallsurvive}
+survivability <- function(increase){
+    #Calculate survivability for each staege and increase by x%
+    NewMtx <- (A * increase) + A
+    
+    for(i in 1:ncol(NewMtx)-1){
+      if(sum(NewMtx[,i]) > 1 | NewMtx[4,4] > 1){
+        return(NA)
+      }}
+    return(NewMtx)
+}
+
+
+#This is stupid but it just forces R to stop writing things as complex numbers
+f <- function(x) {
+   if (all(Im(z <- zapsmall(x))==0)) as.numeric(z) else x
+}
+
+real_check <- function(mtx){
+  if(sum(mtx[,1]) > 1 | sum(mtx[,2]) > 1 | sum(mtx[,3]) > 1 | mtx[4,4] > 1){
+    return(NA)
+  }
+  else{return(mtx)}
+}
+
+```
+```{r QuadProg, echo = FALSE}
+#Make Z
+z <- matrix(t(observedStageMatrix[2:11,]), ncol = 1, nrow = 40, byrow = TRUE)
+#z
+
+#Make M
+m <- matrix(, nrow = nrow(z) , ncol = 8)
+for(i in 1:(nrow(observedStageMatrix)-3)){
+  m[(4 * (i-1) + 1):(4 * i),] <- matrix(c(observedStageMatrix[i,1], 0, 0, 0, 0, 0, observedStageMatrix[i,4], 0,
+                                          0, observedStageMatrix[i,1], observedStageMatrix[i,2], 0, 0, 0, 0, 0,
+                                          0, 0, 0, observedStageMatrix[i,2], observedStageMatrix[i,3], 0, 0, 0,
+                                          0, 0, 0, 0, 0, observedStageMatrix[i,3], 0, observedStageMatrix[i,4]),
+                                        nrow = 4, byrow = TRUE)
+  #m
+}
+
+#Make C
+c <- matrix(c(diag(8) * (-1), 
+              1, 1, 0, 0, 0, 0, 0, 0,
+              0, 0, 1, 1, 0, 0, 0, 0,
+              0, 0, 0, 0, 1, 1, 0, 0,
+              0, 0, 0, 0, 0, 0, 0, 1), nrow = 12, ncol = 8, byrow = TRUE)
+#c
+#Make b
+b <- matrix(c(rep(0,8), rep(1,4)), nrow = 12, ncol = 1, byrow = TRUE)
+
+#Make P
+#p <- matrix(, nrow = 8, ncol = 1, byrow = TRUE) #vector(p1, g1, p2, g2, p3, g3, f4, p4)
+
+#Make mtx G and vector x
+g <- t(m) %*% m
+f_t <- -(t(-z) %*% m)
+
+qp <- solve.QP(Dmat = g, dvec = f_t, Amat = -t(c), bvec = -t(b))#, factorized = FALSE)
+
+
+A <- matrix(c(qp$solution[1], 0, 0, qp$solution[7],
+                 qp$solution[2], qp$solution[3], 0, 0,
+                 0, qp$solution[4], qp$solution[5], 0,
+                 0, 0, qp$solution[6], qp$solution[8]), byrow = TRUE, nrow = 4, ncol = 4)
+#A
+```
+```{r iteration}
+#Calculates new rates based on vectors of % chagne and frequencies of restrictions
+percentage <-rates <- c(seq(0, 1, .01)) # c(0.01, 0.05, 0.1, 0.15)
+freqs <- c(seq(1, 12)) #c(1, 2, 3, 4, 6, 12)
+iteration <- data.frame(matrix(ncol=4,nrow=0, dimnames=list(NULL, c("Frequency", "PercentChange", "mu", "lambda"))))
+
+for(i in 1:length(freqs)){
+  for(j in 1:length(percentage)){
+    if (!is.na(survivability(percentage[j]))){
+      mu <- ((freqs[i]-1) * log(eigen(A)$values[1]) + log(eigen(survivability(percentage[j]))$values[1]))/ freqs[i]
+      lambda <- exp(mu)
+          iteration[nrow(iteration) + 1,] <- c(freqs[i], percentage[j], f(mu), f(lambda))
+    }
+      # neweig <- (eigen(survivability(percentage[j]))$values[1] + (freqs[i]-1) * eigen(A)$values[1]) / freqs[i]
+  }
+}
+#kable(iteration)
+
+# Sources: https://www.webpages.uidaho.edu/wlf448/stochgro.pdf
+# https://esajournals.onlinelibrary.wiley.com/doi/10.2307/1943004
+```
+
+# Multi Month Closures
+
+```{r multiMoClosures, fig.cap = "Projections of different lengths of closures. Agrees with the 7% increase needed for 3 month closures. Double check with other graph."}
+
+####Note, this is calculated differently than the idk random block as this was calculated by multiplying the matrices, not the eigenvalues
+p <- list()
+modeled_data <- data.frame(matrix(ncol=8,nrow=0, dimnames=list(NULL, c("Stage_1", "Stage_2", "Stage_3", "Stage_4", "month", "pop", "Frequency", "PercentChange"))))
+percentage <-rates <- c(seq(0, .1, .01)) # c(0.01, 0.05, 0.1, 0.15) 
+freqs <- c(seq(1, 12)) #c(1, 2, 3, 4, 6, 12) 
+#par(mfrow = c(6,4))
+for(i in 1:length(freqs)){
+  for(j in 1:length(percentage)){
+    pop <- observedStageMatrix[13,]
+    N <- list()
+    for (k in 1:120){
+      if(k %% 12 %in% c(seq(1, freqs[i]))){
+      N[[1]] <- pop
+      N[[k+1]] <- survivability(percentage[j]) %*% N[[k]]
+      }
+    else{
+       N[[1]] <- pop
+      N[[k+1]] <- A %*% N[[k]]
+      }}
+   
+  
+  new_data <- t(as.data.frame(do.call(cbind, N)))
+  colnames(new_data) <- c("Stage_1", "Stage_2", "Stage_3", "Stage_4")
+  new_data <- data.frame(cbind(new_data, month = 0:120, pop = rowSums(new_data[,1:4]), Frequency = freqs[i], PercentChange = percentage[j]))
+  modeled_data <- rbind(modeled_data, new_data)
+  }} 
+
+#### CALCULATE GROWTH RATE BASED ON LAST POP-FIRST POP/FIRST POP FOR EACH FREQ/PERCENT COMBINATION
+growthRate <- modeled_data %>%
+  select(month, pop, Frequency, PercentChange) %>%
+  filter(month == 0 | month == 120) %>%
+  pivot_wider(names_from = month, values_from = pop) %>%
+  rename(month_0 = 3,
+         month_120 = 4) %>%
+  mutate(Mu_New = log(month_120/month_0)/120) %>% #See Crouse paper. From Nt = N0e^(rt)
+  mutate(lambda_new = exp(Mu_New)) %>%
+  select(Frequency, PercentChange, Mu_New, lambda_new)
+
+  
+
+#### COPY PARETTO GRAPH FROM OTHER ANALYSIS
+paretospagheto <- growthRate %>% 
+  filter(lambda_new >= 1) %>%
+  group_by(Frequency) %>%
+  filter(lambda_new == min(lambda_new))
+
+paretospagheto$Frequency <- paretospagheto$Frequency - 0.5
+paretospagheto$PercentChange <- paretospagheto$PercentChange - 0.005
+
+
+#Continuous Colors
+ggplot(growthRate, aes(Frequency, PercentChange, fill = lambda_new)) + geom_tile(width=1) +
+  scale_fill_gradient2(
+  low = "red",
+  mid = "white",
+  high = "green",
+  #limits = c(1, max(growthRate$lambda_new)),
+  midpoint = 1,
+  space = "Lab",
+  na.value = "grey50") +
+  scale_x_continuous(name = "Length of closure (months)", expand=c(0,0), breaks = c(1, 3, 6, 9, 12)) +
+  scale_y_continuous(name = "Percent change in survival", expand=c(0,0)) +
+  labs(fill = "Eigenvalue") +
+  geom_segment(aes(x = 2.5, y = .075, xend = 2.5, yend = 0.105), size = .5, color = "#5A5A5A") +
+  geom_segment(aes(x = 11.5, y = .015, xend = 12.5, yend = 0.015), size = .5, color = "#5A5A5A") +
+  geom_step(data = paretospagheto , aes(x=Frequency, y=PercentChange), size = .5, color = "#5A5A5A") 
+
+```
+
+\newpage
+
+# Rage Package info
+
+This package also has the following functions I didn't bother with:
+
+* mpm_collapse which collapses a matrix population model to a smaller number of stages
+
+* mpm_rearrange which rearranges stages of a matrix population model to segregate reproductive and non-reproductive stages
+
+* name_stages allows user to name stages
+
+* perturb_stochastic calculates stochastic elasticities from a time-series of matrix population models and corresponding population vectors
+
+* pop_vectors derives a hypothetical set of population vectors corresponding to a
+time-series of matrix population models
+
+* repro_stages Identify which stages in a matrix population model are reproductive
+
+* shape_rep Calculate shape of reproduction over age. TBH I just didn't get this one
+
+* shape_surv Calculate shape of survival over age. Same as above
+
+* standard_stages Identify stages corresponding to different parts of the reproductive life
+cycle
+
+
+
+Note: Not using the default matU or matR. Double check that
+
+```{r ragepackage, echo = FALSE}
+library(Rage)
+matU <- mpm_split(A)$matU
+matU[1,1] <- A[1,1]
+
+matR <- mpm_split(A)$matF
+matR[1,1] <- 0
+
+#mpm_standardize is the opposite of mpm_split
+
+```
+
+## Age from Stage
+
+Age specific calculations from Rage package
+
+```{r agefromstage, results = 'asis', echo = FALSE}
+
+#make mtx with 1_13 rows and each col is vector below
+agefromstage <- data.frame(matrix(, nrow = 13, ncol = 5))
+colnames(agefromstage) <- c("Age", "Reproduction", "Survivorship", "SurvivalProb", "MortalityHazard")
+
+agefromstage$Age <- c(seq(1, 13))
+
+#Age Specific reproduction
+mx <- c(mpm_to_mx(matU, matR, start = 1L, xmax = 1000, lx_crit = 0.01, tol = 1e-04))
+#Age Specific Survivorship
+lx <- c(mpm_to_lx(matU, start = 1L, xmax = 1000, lx_crit = 0.01, tol = 1e-04))
+#Age Specific Survival probability
+px <- c(mpm_to_px(matU, start = 1L, xmax = 1000, lx_crit = 0.01, tol = 1e-04))
+#Age Specific Mortality Hazard
+hx <- c(mpm_to_hx(matU, start = 1L, xmax = 1000, lx_crit = 0.01, tol = 1e-04))
+
+
+agefromstage$Reproduction <- mx
+agefromstage$Survivorship <- lx
+agefromstage$SurvivalProb <- px
+agefromstage$MortalityHazard <- hx
+
+  knitr::kable(agefromstage, format = "latex", booktabs = TRUE) #%>%
+  # column_spec(2:3, width = "4.5cm") %>%
+  # kable_styling(latex_options="scale_down")
+```
+
+\newpage
+
+## Life Expectancy and longevity
+
+Life expectancy applies Markov chain approaches to calculate. Longevity - (the age x at which survivorship for a synthetic cohort falls below some critical proportion (in this case 0.01). 
+
+Note: Life expectancy and longevity are very different. Wut?
+
+```{r lifeExp, results = 'asis', echo = FALSE}
+lem <- life_expect_mean(matU, start = 1L)
+lev <- life_expect_var(matU, start = 1L)
+#le <- life_expect(matU, start = 1L)
+lon <- longevity(matU, start = 1L, x_max = 1000, lx_crit = 0.01)
+
+lifeexptable <- data.frame(matrix(, ncol = 2, nrow = 3) )
+
+lifeexptable[1] <-  c("Life Expectancy", "Life Exp Variance", "longevity")
+lifeexptable[2] <- c(lem, lev, lon)
+
+knitr::kable(lifeexptable, format = "latex", booktabs = TRUE)
+
+```
+
+\newpage
+
+## Life Table
+
+* x age at the start of the age interval [x, x+1)
+* Nx The number of individuals alive at age x. The initial number is set with radix
+* Dx proportion of original cohort dying during the age interval [x, x+1)
+* lx survivorship, defined as the proportion of initial cohort surviving to the start of age interval [x, x+1)
+* dx proportion of original cohort dying in the age interval [x, x+1)
+* ax The average time survived within the interval by those that die during the age interval [x, x+1). Assumed to be 0.5
+* hx force of mortality (hazard) during the age interval [x, x+1)
+* qx probability of death during the interval [x, x+1) for those entering the interval
+* px probability of survival for the interval [x, x+1) for those entering the interval
+* Lx total person-years lived during the interval [x, x+1)
+* Tx total person years lived beyond age x
+* ex remaining life expectancy at age x
+* mx per-capita rate of sexual reproduction during the interval [x, x+1)
+* lxmx expected number of sexual offspring per original cohort member produced during the interval [x, x+1)
+
+```{r LifeTable, results = 'asis', echo = FALSE}
+lifetable <- data.frame(mpm_to_table(
+matU,
+matF = matR,
+matC = NULL,
+start = 1L,
+xmax = 1000,
+lx_crit = 0.01,
+radix = 1
+))
+
+knitr::kable(lifetable, format = "latex", booktabs = TRUE)
+
+```
+
+\newpage
+
+## Perturbation Matrices
+
+Perturbs elements within a matrix population model and measures the response (sensitivity or elasticity) of the per-capita population growth rate at equilibrium (λ), or, with a user-supplied function, any other demographic statistic.
+
+```{r sensitivity, results = 'asis', echo = FALSE}
+
+senstable <- perturb_matrix(
+A,
+#pert = 1e-06,
+type = "sensitivity",
+demog_stat = "lambda",
+)
+
+knitr::kable(senstable, format = "latex", booktabs = TRUE)
+
+```
+
+```{r elacticity, results = 'asis', echo = FALSE}
+elastable <- perturb_matrix(
+A,
+#pert = 1e-06,
+type = "elasticity",
+demog_stat = "lambda",
+)
+
+knitr::kable(elastable, format = "latex", booktabs = TRUE)
+
+```
+
+\newpage
+
+## Perturbation Analysis of transition types
+
+Calculates the summed sensitivities or elasticities for various transition types within a matrix population model (MPM), including stasis, retrogression, progression, fecundity, and clonality.
+
+Sensitivities or elasticities are calculated by perturbing elements of the MPM and measuring the response of the per-capita population growth rate at equilibrium (λ), or, with a user-supplied function, any other demographic statistic.
+
+* stasis The sensitivity or elasticity of lambda to stasis.
+* retrogression The sensitivity or elasticity of lambda to retrogression.
+* progression The sensitivity or elasticity of lambda to progression.
+* fecundity The sensitivity or elasticity of lambda to sexual fecundity.
+* clonality The sensitivity or elasticity of lambda to clonality.
+
+
+```{r perturbationtr, results = 'asis', echo = FALSE}
+
+pert_sens <- perturb_trans(
+matU,
+matR,
+matC = NULL,
+posU = matU > 0,
+posF = matR > 0,
+#posC = matC > 0,
+exclude_row = NULL,
+exclude_col = NULL,
+pert = 1e-06,
+type = "sensitivity",
+demog_stat = "lambda",
+)
+
+pert_elas <- perturb_trans(
+matU,
+matR,
+matC = NULL,
+posU = matU > 0,
+posF = matR > 0,
+#posC = matC > 0,
+exclude_row = NULL,
+exclude_col = NULL,
+pert = 1e-06,
+type = "elasticity",
+demog_stat = "lambda",
+)
+
+perturbationtr <- data.frame(matrix(nrow = 5, ncol = 3))
+colnames(perturbationtr) <- c("Measure", "Sensitivity", "Elasticity")
+
+perturbationtr$Measure <- c("Stasis", "Retrogression", "Progression", "Fecundity", "Clonality")
+perturbationtr$Sensitivity <- c(pert_sens$stasis, pert_sens$retro, pert_sens$progr, pert_sens$fecundity, pert_sens$clonality)
+perturbationtr$Elasticity <- c(pert_elas$stasis, pert_elas$retro, pert_elas$progr, pert_elas$fecundity, pert_elas$clonality)
+
+knitr::kable(perturbationtr, format = "latex", booktabs = TRUE)
+
+```
+
+## Perturbation analysis of vital rates
+
+Perturbs lower-level vital rates within a matrix population model and measures the response (sensitivity or elasticity) of the per-capita population growth rate at equilibrium (λ), or, with a usersupplied function, any other demographic statistic. These decompositions assume that all transition rates are products of a stage-specific survival term (column sums of matU) and a lower level vital rate that is conditional on survival (growth, shrinkage, stasis, dormancy, or reproduction). Reproductive vital rates that are not conditional on survival (i.e., within a stage class from which there is no survival) are also allowed.
+
+* survival sensitivity or elasticity of demog_stat to survival
+* growth sensitivity or elasticity of demog_stat to growth
+* shrinkage sensitivity or elasticity of demog_stat to shrinkage
+* fecundity sensitivity or elasticity of demog_stat to sexual fecundity
+* clonality sensitivity or elasticity of demog_stat to clonality
+
+```{r perturbationv, results = 'asis', echo = FALSE}
+
+pertv_sens <- perturb_vr(
+matU,
+matR,
+matC = NULL,
+pert = 1e-06,
+type = "sensitivity",
+demog_stat = "lambda"
+)
+
+
+pertv_elas <- perturb_vr(
+matU,
+matR,
+matC = NULL,
+pert = 1e-06,
+type = "elasticity",
+demog_stat = "lambda"
+)
+
+
+perturbationvr <- data.frame(matrix(nrow = 5, ncol = 3))
+colnames(perturbationvr) <- c("Measure", "Sensitivity", "Elasticity")
+
+perturbationvr$Measure <- c("Survival", "Growth", "Shrinkage", "Fecundity", "Clonality")
+perturbationvr$Sensitivity <- c(pertv_sens$survival, pertv_sens$growth, pertv_sens$shrinkage, pertv_sens$fecundity, pertv_sens$clonality)
+perturbationvr$Elasticity <- c(pertv_elas$survival, pertv_elas$growth, pertv_elas$shrinkage, pertv_elas$fecundity, pertv_elas$clonality)
+
+knitr::kable(perturbationvr, format = "latex", booktabs = TRUE)
+
+```
+
+\newpage
+
+## Plot life cycle
+
+```{r lifecycle, fig.cap = "look R can do this for you"}
+
+plot_life_cycle(
+A,
+title = NULL,
+shape = "egg",
+fontsize = 10,
+nodefontsize = 12,
+edgecol = "grey"
+)
+
+```
+
+## Age of reproductive maturity
+
+```{r AgeRepro, results = 'asis', echo = FALSE}
+prob <- mature_prob(matU, matR, start = 1L)
+age <- mature_age(matU, matR, start = 1L)
+#mature_distrib(matU, start = 1L, c(FALSE, FALSE, FALSE, TRUE))
+
+AgeReproTable <- data.frame(matrix(, ncol = 2, nrow = 2) )
+
+AgeReproTable[1] <-  c("Prob of reaching mat", "Age at Mat")
+AgeReproTable[2] <- c(prob, age)
+
+knitr::kable(AgeReproTable, format = "latex", booktabs = TRUE)
+
+```
+
+## Vital Rates
+
+### Corresponding to separate demographic processes
+
+Derive mean vital rates corresponding to separate demographic processes from a matrix population model. Specifically, this function decomposes vital rates of survival, progression, retrogression, sexual reproduction and clonal reproduction, with various options for weighting and grouping stages of the life cycle.
+
+```{r vitalRates, results = 'asis', echo = FALSE}
+vitalrates <- data.frame(vital_rates(
+matU,
+matR,
+matC = NULL,
+weights = NULL,
+splitStages = "all",
+matrixStages = NULL
+))
+
+knitr::kable(vitalrates, format = "latex", booktabs = TRUE)
+```
+
+### Mean vital rates
+
+```{r meanVitals, results = 'asis', echo = FALSE}
+vrsurv <- vr_survival(matU, posU = matU > 0, exclude_col = NULL, weights_col = NULL)
+vrgrow <- vr_growth(
+matU,
+posU = matU > 0,
+exclude = NULL,
+exclude_row = NULL,
+exclude_col = NULL,
+weights_col = NULL,
+surv_only_na = TRUE
+)
+
+
+vrshrink <- vr_shrinkage(
+matU,
+posU = matU > 0,
+exclude = NULL,
+exclude_row = NULL,
+exclude_col = NULL,
+weights_col = NULL,
+surv_only_na = TRUE
+)
+
+vrstas <- vr_stasis(
+matU,
+posU = matU > 0,
+exclude = NULL,
+weights_col = NULL,
+surv_only_na = TRUE
+)
+
+# #Not using these
+# vr_dorm_enter(matU, posU = matU > 0, dorm_stages, weights_col = NULL)
+# vr_dorm_exit(matU, posU = matU > 0, dorm_stages, weights_col = NULL)
+
+VRtable <- data.frame(matrix(, ncol = 2, nrow = 4) )
+
+VRtable[1] <-  c("Rate of Survival", "Rate of Growth", "Rate of shrinkage", "Rate of stasis")
+VRtable[2] <- c(vrsurv, vrgrow, vrshrink, vrstas)
+
+knitr::kable(VRtable, format = "latex", booktabs = TRUE)
+
+```
+
+## Survival independent rates
+
+```{r SurvIndRates, results = 'asis', echo = FALSE}
+
+utable <- vr_mat_U(matU, posU = matU > 0, surv_only_na = TRUE)
+
+knitr::kable(utable, format = "latex", booktabs = TRUE)
+```
+
+```{r SurvIndRatesFec, results = 'asis', echo = FALSE}
+rtable <- vr_mat_R(matU, matR, posR = matR > 0)
+knitr::kable(rtable, format = "latex", booktabs = TRUE)
+```
+
+## Stage specific vital rates
+
+```{r vecstage, results = 'asis', echo = FALSE}
+vrsurv <- vr_vec_survival(matU, posU = matU > 0, exclude_col = NULL)
+
+vrgrow <- vr_vec_growth(
+matU,
+posU = matU > 0,
+exclude = NULL,
+exclude_row = NULL,
+exclude_col = NULL,
+surv_only_na = TRUE
+)
+
+# vr_vec_shrinkage(
+# matU,
+# posU = matU > 0,
+# exclude = NULL,
+# exclude_row = NULL,
+# exclude_col = NULL,
+# surv_only_na = TRUE
+# )
+
+vrstas <- vr_vec_stasis(matU, posU = matU > 0, exclude = NULL, surv_only_na = TRUE)
+
+# vr_vec_dorm_enter(matU, posU = matU > 0, dorm_stages)
+# vr_vec_dorm_exit(matU, posU = matU > 0, dorm_stages)
+
+vrrepro <- vr_vec_reproduction(
+matU,
+matR,
+posR = matR > 0,
+exclude_col = NULL,
+weights_row = NULL
+)
+
+VRtable2 <- data.frame(matrix(, ncol = 5, nrow = 4) )
+colnames(VRtable2) <- c("Stage", "Survival", "Growth", "Stasis", "Reproduction")
+
+VRtable2$Stage <- c(seq(1,4))
+VRtable2$Survival <- c(vrsurv)
+VRtable2$Growth <- c(vrgrow)
+VRtable2$Stasis <- c(vrstas)
+VRtable2$Reproduction <- c(vrrepro)
+
+knitr::kable(VRtable2, format = "latex", booktabs = TRUE)
+```
+
+\newpage
+
+## Misc
+Demetrius’ entropy, Keyfitz’s entropy, generation time, net reproduction, Time to stable stage
+
+Note: method for net reproductive value (R0) from a matrix population model. The net reproduction value (R0) is the mean number of recruits produced during the mean life expectancy of an individual. Note: Can also specify "start" for method but if offspring only arise in stage start, the two methods give the same result.
+
+Note: method for generation time specified as R0,  the time required for a population to increase by a factor of R0 (the net reproductive rate; Caswell (2001), section 5.3.5). Other options: the average parent-offspring age difference (Bienvenu & Legendre (2015)), or the expected age at reproduction for a cohort (Coale (1972), p. 18-19).
+
+``` {r entropy, results = 'asis', echo = FALSE}
+ent_d <- entropy_d(lx, mx)
+ent_k <- entropy_k(lx, trapeze = FALSE)
+generation_time <- gen_time(matU, matR)
+nrr <- net_repro_rate(matU, matR, start = 1, method = "generation")
+qsd <- qsd_converge(A, start = 1L, conv = 0.01, N = 100000L)
+
+entropytable <- data.frame(matrix(, ncol = 2, nrow = 5) )
+
+entropytable[1] <-  c("Demetrius’ Entropy", "Keyfitz’s Entropy", "Generation Time", "Net Reproduction", "Time to Stable Stage Dist")
+entropytable[2] <- c(ent_d, ent_k, generation_time, nrr, qsd)
+
+knitr::kable(entropytable, format = "latex", booktabs = TRUE)
+
+```
+

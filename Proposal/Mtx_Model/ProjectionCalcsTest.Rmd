@@ -309,8 +309,6 @@ Note: I also checked if any of the percent differences were enough to change the
 
 ```{r threeMoClosures}
 
-
-#SOMETHING IS WRONG WITH YOUR MATRIX CHECK!!!!
 p <- list()
 modeled_data <- data.frame(matrix(ncol=7,nrow=0, dimnames=list(NULL, c("Stage_1", "Stage_2", "Stage_3", "Stage_4", "month", "pop", "PercentChange"))))
 #par(mfrow = c(6,4))
@@ -353,7 +351,7 @@ trend <- lm(growthRate$Mu_New ~ growthRate$PercentChange)
 xint <- -coef(trend)[1]/coef(trend)[2]
 
 
-plot(growthRate$PercentChange, growthRate$Mu_New)
+plot(growthRate$PercentChange, growthRate$Mu_New, xlab = "Change in survival rate as a result of closure", ylab = "Population growth rate")
 abline(trend)
 abline(h = 0, col = "red")
 text(0.02, 0.005, paste0("X intercept = ", xint))
