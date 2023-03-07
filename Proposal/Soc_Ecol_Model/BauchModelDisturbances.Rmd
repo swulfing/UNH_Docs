@@ -1,0 +1,229 @@
+---
+title: "Bauch_Disturbances"
+author: "Sophie Wulfing"
+date: "2023-02-27"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+```{r setup, include=FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+
+setwd("C:/Users/sophi/Documents/GitHub/UNH_Docs/Proposal/Soc_Ecol_Model")
+
+library(deSolve)
+library(tidyverse)
+library(ggplot2)
+library(gridExtra)
+library(kableExtra)
+```
+
+
+```{r Bauch.ModelOriginal, fig.cap = "Original Bauch Model"}
+Bauch.Model <- function (t, y, params) {
+  ## first extract the state variables
+  P <- y[1] #Fish Pop var
+  X <- y[2] #conservationist var
+
+  #TT <- y[5]
+  
+  ## now extract the parameters
+  R <- params["R"] # Net growth/fecundity
+  s <- params["s"] # supply and demand
+  h <- params["h"] # Harvesting efficiency
+  k <- params["k"] # Social learning rate
+  w <- params["w"] # conservation costs
+  c <- params["c"] # rarity valuation param
+  d <- params["d"] # social norm strength
+  
+  #print(times)
+  
+  ## now code the model equations
+  dPdt <- R * P * (1-P) - (h * P * (1-X))/(P+s)
+  dXdt <- k * X * (1-X) * (d*(2*X-1) + 1/(P+c) - w)
+  
+  ## combine results into a single vector
+  dydt <- c(dPdt, dXdt)
+  ## return result as a list!
+  
+  list(dydt)
+}
+
+
+# Intro shocks These would be short term (perhaps 1 year) increases in the h parameter. 
+params_Bauch <- c(R = 0.06, s = 0.8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5)
+
+times <- seq(from = 0, to = 100, by = 1)
+xstart <- c(P = 0.406, X = .24) # See supplemental data for other starting params
+
+ode(
+  func=Bauch.Model,
+  y=xstart,
+  times=times,
+  parms=params_Bauch
+) %>%
+  as.data.frame() -> out1
+
+out1 %>%
+  gather(variable,value,-time) %>%
+  ggplot(aes(x=time,y=value,color=variable))+
+  geom_line(size=2)+
+  theme_classic()+
+  labs(x='time (yr)',y='pop')
+
+```
+
+```{r Bauch.ModelShocks, fig.cap = "Bauch Model with shocks"}
+#Make a global list of shock times
+
+## CHANGE HERE TO CHANGE SCENARIO
+end_time <- 100
+event_prob <- 0.2
+event_years <- rbinom(end_time, 1, event_prob)
+events <- NULL
+
+for(i in 1:end_time){
+  if(event_years[i] == 1){
+    events <- append(events, i)
+  }
+}
+
+
+param <- c(R = 0.06, s = 0.8, k = 0.17, w = 0.35, c = 0.6, d = 0.5)
+y <- c(P = 0.406, X = .24) 
+
+Bauch.shocks <- function(times, y, param) { 
+
+  # CHANGE H VALUES HERE
+  with(as.list(c(y, param)), {
+    if(round(times, digits = 0) %in% events){
+      h <-  1
+    }else{h <-  0.075}
+    
+    # #Uncomment below to see the weird time thing that's happening
+    # cat("h:", h, "  t:", round(times, digits = 0), "\n") 
+
+    dPdt <- R * P * (1-P) - (h * P * (1-X))/(P+s)
+    dXdt <- k * X * (1-X) * (d*(2*X-1) + 1/(P+c) - w)
+    return(list(c(dPdt, dXdt))) 
+
+  })} 
+
+times <- seq(from = 0, to = end_time, by = 1)
+out2 <- as.data.frame(ode(func = Bauch.shocks, y = y, times = times, parms = param))
+out2 %>%
+  gather(variable,value,-time) %>%
+  ggplot(aes(x=time,y=value,color=variable))+
+  geom_line(size=2)+
+  theme_classic()+
+  labs(x='time (yr)',y='pop')
+
+```
+
+```{r testing, results = 'asis', echo = FALSE}
+
+colnames(out1) <- c("time1", "P1", "X1")
+
+out_both <- cbind(out1, out2) 
+out_compare <- out_both %>%
+  mutate(Pdiff = (P - P1)/ P1) %>%
+  mutate(Xdiff = (X - X1)/ X1)
+
+knitr::kable(out_compare, format = "latex", booktabs = TRUE)
+
+```
+
+```{r Bauch.ModelShocks_timetest, eval = FALSE}
+
+#you can ignore this, I was just trying to figure out the weird time thing
+#Make a global list of shock times
+end_time <- 100
+event_prob <- 0.2
+event_years <- rbinom(end_time, 1, event_prob)
+events <- NULL
+
+for(i in 1:end_time){
+  if(event_years[i] == 1){
+    events <- append(events, i)#at the next index == i
+  }
+}
+
+
+param <- c(R = 0.06, s = 0.8, k = 0.17, w = 0.35, c = 0.6, d = 0.5, h = 0.075)
+y <- c(P = 0.406, X = .24) 
+
+Bauch.shocks <- function(times, y, param) { 
+
+  #dt = times[2] - times[1]
+  with(as.list(c(y, param)), {
+    # if(round(times, digits = 0) %in% events){ #if(times %in% (events * dt)){
+    #   h <-  1
+    # }else{h <-  0.075}
+
+    cat("h:", h, "  t:", round(times, digits = 0), "\n") 
+
+    dPdt <- R * P * (1-P) - (h * P * (1-X))/(P+s)
+    dXdt <- k * X * (1-X) * (d*(2*X-1) + 1/(P+c) - w)
+    return(list(c(dPdt, dXdt))) 
+
+  })} 
+
+times <- seq(from = 0, to = end_time, by = 1)
+out2 <- as.data.frame(ode(func = Bauch.shocks, y = y, times = times, parms = param))
+out2 %>%
+  gather(variable,value,-time) %>%
+  ggplot(aes(x=time,y=value,color=variable))+
+  geom_line(size=2)+
+  theme_classic()+
+  labs(x='time (yr)',y='pop')
+
+```
+
+```{r simplifiedEx, eval = FALSE}
+end_time <- 100
+event_prob <- 0.2
+event_years <- rbinom(end_time, 1, event_prob)
+events <- NULL
+
+# Create a list of times that the parameter would be different in
+for(i in 1:end_time){
+  if(event_years[i] == 1){
+    events <- append(events, i)
+  }
+}
+
+
+param <- c(a = 1, b = .1) # c would also be defined here if it didn't change at timesteps
+y <- c(P = 0.406, X = .24) 
+
+
+# ODE Function
+binomModel <- function(times, y, param) {
+  
+  dt = times[2] - times[1]
+
+  with(as.list(c(y, param)), {
+    if(times %in% (events * dt)){
+      c <-  .15
+    }else{c <-  0.075}
+
+    dPdt <- a * P - b * X
+    dXdt <- c * X - b * P
+    return(list(c(dPdt, dXdt))) 
+
+  })} 
+
+times <- seq(from = 0, to = end_time, by = 1)
+out2 <- as.data.frame(ode(func = binomModel, y = y, times = times, parms = param))
+
+#graphing output
+out2 %>%
+  gather(variable,value,-time) %>%
+  ggplot(aes(x=time,y=value,color=variable))+
+  geom_line(size=2)+
+  theme_classic()+
+  labs(x='time (yr)',y='pop')
+
+```

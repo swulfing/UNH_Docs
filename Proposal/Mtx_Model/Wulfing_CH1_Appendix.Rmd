@@ -39,6 +39,7 @@ library(ggpubr)
 library(bookdown)
 library(kableExtra)
 library(grid)
+library(Rage)
 
 
 # #Raw data n supplemental. ASK
@@ -145,7 +146,9 @@ knitr::kable(RaberinaryData, format = "latex", booktabs = TRUE, caption = "(ref:
 
 ```
 
+
 \newpage
+
 
 # Per-stage management scenarios
 
@@ -231,3 +234,108 @@ annotate_figure(t, left = textGrob("Percent change in survival", rot = 90, vjust
 ```
 
 \newpage
+
+# Rage package analysis
+
+```{r ragepackage, echo = FALSE}
+library(Rage)
+matU <- mpm_split(A)$matU
+matU[1,1] <- A[1,1]
+
+matR <- mpm_split(A)$matF
+matR[1,1] <- 0
+
+#mpm_standardize is the opposite of mpm_split
+
+```
+
+## Age specific Calculations
+
+<!-- (ref:AgeFromStage) Reproduction rates, Survivorship, Survival Probability, and Mortality Hazard for each month of the blue octopus's life history calculated using the Rage Package. -->
+
+<!-- ```{r agefromstage, results = 'asis', echo = FALSE, fig.cap = '(ref:AgeFromStage) \\label{agefromstage}'} -->
+
+<!-- #make mtx with 1_13 rows and each col is vector below -->
+<!-- agefromstage <- data.frame(matrix(, nrow = 13, ncol = 5)) -->
+<!-- colnames(agefromstage) <- c("Age", "Reproduction", "Survivorship", "SurvivalProbability", "MortalityHazard") -->
+
+<!-- agefromstage$Age <- c(seq(1, 13)) -->
+
+<!-- #Age Specific reproduction -->
+<!-- mx <- c(mpm_to_mx(matU, matR, start = 1L, xmax = 1000, lx_crit = 0.01, tol = 1e-04)) -->
+<!-- #Age Specific Survivorship -->
+<!-- lx <- c(mpm_to_lx(matU, start = 1L, xmax = 1000, lx_crit = 0.01, tol = 1e-04)) -->
+<!-- #Age Specific Survival probability -->
+<!-- px <- c(mpm_to_px(matU, start = 1L, xmax = 1000, lx_crit = 0.01, tol = 1e-04)) -->
+<!-- #Age Specific Mortality Hazard -->
+<!-- hx <- c(mpm_to_hx(matU, start = 1L, xmax = 1000, lx_crit = 0.01, tol = 1e-04)) -->
+
+
+<!-- agefromstage$Reproduction <- mx -->
+<!-- agefromstage$Survivorship <- lx -->
+<!-- agefromstage$SurvivalProbability <- px -->
+<!-- agefromstage$MortalityHazard <- hx -->
+
+<!-- colnames(agefromstage) <- c("Age (month)", "Reproduction", "Survivorship", "Survival Probability", "Mortality Hazard") -->
+
+<!--   knitr::kable(agefromstage, format = "latex", booktabs = TRUE) #%>% -->
+<!--   # column_spec(2:3, width = "4.5cm") %>% -->
+<!--   # kable_styling(latex_options="scale_down") -->
+<!-- ``` -->
+
+Table \ref{LifeTable} shows age specific life-history traits of *Octopus cyanea* as calculated by the Rage package from our matrix.
+
+(ref:lifetable) Life table of *O. cyanea* as calculated from our Lefkovitch matrix.
+
+<!-- * x: age in months at the start of the age interval [x, x+1) -->
+<!-- * lx: survivorship, or the proportion of initial cohort surviving to the start of age interval [x, x+1) -->
+<!-- * dx: proportion of original cohort dying in the age interval [x, x+1) -->
+<!-- * hx: force of mortality (hazard) during the age interval [x, x+1) -->
+<!-- * qx: probability of death during the interval [x, x+1) for those entering the interval -->
+<!-- * px: probability of survival for the interval [x, x+1) for those entering the interval -->
+<!-- * ex: remaining life expectancy at age x -->
+<!-- * mx: per-capita rate of sexual reproduction during the interval [x, x+1) -->
+<!-- * lxmx: expected number of sexual offspring per original cohort member produced during the interval [x, x+1) -->
+
+```{r LifeTable, results = 'asis', echo = FALSE, fig.cap = '(ref:lifetable) \\label{LifeTable}'}
+lifetable <- data.frame(mpm_to_table(
+matU,
+matF = matR,
+matC = NULL,
+start = 1L,
+xmax = 1000,
+lx_crit = 0.01,
+radix = 1
+))
+
+colnames(lifetable) <- c("Age (months)", "Survivorship", "Proportion of orginal cohort dying", "Mortality hazard", "Probability of death", "Probability of survival", "Remaining life expectancy", "Per-capita reproduction rate", "Expected number of offspring per original cohort number")
+
+knitr::kable(lifetable, format = "latex", booktabs = TRUE)
+
+```
+
+\newpage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

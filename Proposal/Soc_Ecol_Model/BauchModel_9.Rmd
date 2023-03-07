@@ -1,5 +1,5 @@
 ---
-title: "BauchModel_8"
+title: "BauchModel_9"
 author: "Sophie Wulfing"
 date: "2022-11-08"
 output:
@@ -71,15 +71,18 @@ out1 %>%
 
 <!-- Notes: Still worried about interaction term. Don't think this is correct because mechanism isn't specified and we just added interaction terms.  -->
 
+Use dispersal term instead of e and i 
+Put outside influence within x(1-x)
+
 See derivation in notes but this is the new equations (still unsure about interaction terms):
 
 $\frac{dP_1}{dt} = r_1P_1(1-P_1)-\frac{h_1*P_1(1-X_1)}{P_1 + s_1} -e_1P_1 + i_1P_2$
 
 $\frac{dP_2}{dt} = r_2P_2(1-P_2)-\frac{h_2*P_2(1-X_2)}{P_2 + s_2} -e_2P_2 + i_2P_1$
 
-$\frac{dX_1}{dt} =  k_1X_1(1-X_1) [\frac{1}{P_1+c_1} - w_1 + d_1(2X_1 - 1)] - prop_1X_1(2X_2 - 1) + prop_1(1-X_1)(2X_2 - 1)$
+$\frac{dX_1}{dt} =  k_1X_1(1-X_1) [\frac{1}{P_1+c_1} - w_1 + d_1(2X_1 - 1)] + prop_1X_1(1-X_1)(2X_2 - 1)$
 
-$\frac{dX_2}{dt} = k_2x_2(1-X_2)  [\frac{1}{P_2+c_2} - w_2 + d_2(2X_2 - 1)] - prop_2X_2(2X_1 - 1) + prop_2(1-X_2)(2X_1 - 1)$
+$\frac{dX_2}{dt} = k_2X_2(1-X_2)  [\frac{1}{P_2+c_2} - w_2 + d_2(2X_2 - 1)] + prop_2X_2(1-X_2)(2X_1 - 1)$
 
 
 ```{r Bauch.Coupled, fig.cap = "New Model with default paramters", warning = FALSE}
@@ -120,8 +123,8 @@ Bauch.Coupled <- function (t, y, params) {
   dP_1dt <-  R_1 * P_1 * (1-P_1) - (h_1 * P_1 * (1-X_1))/(P_1+s_1) -  e_1 * P_1 + i_1 * P_2
   dP_2dt <-  R_2 * P_2 * (1-P_2) - (h_2 * P_2 * (1-X_2))/(P_2+s_2) -  e_2 * P_2 + i_2 * P_1
   
-  dX_1dt <- k_1 * X_1 * (1-X_1) *(1/(P_1 + c_1) - w_1 + d_1*(2*X_1 - 1)) - prop_1 * X_1 * (2* X_2 - 1)^2 + prop_1 * (1 - X_1) * (2* X_2 - 1)^2
-  dX_2dt <- k_2 * X_2 * (1-X_2) *(1/(P_2 + c_2) - w_2 + d_2*(2*X_2 - 1)) - prop_2 * X_2 * (2* X_1 - 1)^2 + prop_2 * (1 - X_2) * (2* X_1 - 1)^2
+  dX_1dt <- k_1 * X_1 * (1-X_1) *(1/(P_1 + c_1) - w_1 + d_1*(2*X_1 - 1)) + prop_1 * X_1 * (1-X_1) * (2* X_2 - 1)# + prop_1 * (1 - X_1) * (2* X_2 - 1)^2
+  dX_2dt <- k_2 * X_2 * (1-X_2) *(1/(P_2 + c_2) - w_2 + d_2*(2*X_2 - 1)) + prop_2 * X_2 * (1-X_2) * (2* X_1 - 1)# + prop_2 * (1 - X_2) * (2* X_1 - 1)^2
   ## combine results into a single vector
   dydt <- c(dP_1dt, dP_2dt, dX_1dt, dX_2dt)
   ## return result as a list!
