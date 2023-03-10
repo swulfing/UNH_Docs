@@ -23,6 +23,7 @@ library(kableExtra)
 
 ```{r Bauch.ModelOriginal, fig.cap = "Original Bauch Model"}
 Bauch.Model <- function (t, y, params) {
+
   ## first extract the state variables
   P <- y[1] #Fish Pop var
   X <- y[2] #conservationist var
@@ -81,14 +82,8 @@ out1 %>%
 ## CHANGE HERE TO CHANGE SCENARIO
 end_time <- 100
 event_prob <- 0.2
-event_years <- rbinom(end_time, 1, event_prob)
-events <- NULL
-
-for(i in 1:end_time){
-  if(event_years[i] == 1){
-    events <- append(events, i)
-  }
-}
+#event_years <- rbinom(end_time, 1, event_prob)
+events <- which(rbinom(end_time, 1, event_prob) == 1)
 
 
 param <- c(R = 0.06, s = 0.8, k = 0.17, w = 0.35, c = 0.6, d = 0.5)
@@ -103,7 +98,7 @@ Bauch.shocks <- function(times, y, param) {
     }else{h <-  0.075}
     
     # #Uncomment below to see the weird time thing that's happening
-    # cat("h:", h, "  t:", round(times, digits = 0), "\n") 
+    cat("h:", h, "  t:", times, "\n") 
 
     dPdt <- R * P * (1-P) - (h * P * (1-X))/(P+s)
     dXdt <- k * X * (1-X) * (d*(2*X-1) + 1/(P+c) - w)

@@ -162,7 +162,7 @@ Our within stage analysis showed that Stage 1 needed the smallest percent increa
 ## DISCUSSION
 The results of our per-stage analysis showed that focusing on protecting individuals in stage 1 would be the most effective form of management if size could be determined before capture in this fishery. It is a common trend that individuals that survive long larval stages that have high death rates are the most valuable in terms of contributions to overall population growth. However, this is not a realistic management suggestion, as it is difficult to assess the size of octopus before catch, which is often fatal to the individual. This could suggest, however, that the establishment of aquaculture of *Octopus cyanea* could have benefits to the overall population if octopus are reared until passing this first stage of development. However, further research is needed on cephalopod aquaculture in order to be effective and reduce pollutants in the surrounding waters [@jacquetCaseOctopusFarming2023].
 
-(ref:stagemos) Different fishing scenarios based on increasing survivability of one stage.
+(ref:stagemos) Different fishing scenarios based on increasing survivability of one stage. 
 
 ```{r stagemo, fig.cap = '(ref:stagemos) \\label{stagemo}'}
 # I think this is going to be more of an aquaculture conversation than anything else
@@ -228,7 +228,7 @@ doesthiswork[[i]] <- p1
 t <- ggarrange(plotlist = doesthiswork, labels = c("Stage 1", "Stage 2", "Stage 3", "Stage 4","Larval"), label.y = 1.05, label.x = 0.1,  font.label = list(size = 7), common.legend = TRUE, ncol = 2, nrow = 3, legend = "right") + theme(plot.margin = margin(0.1,0.1,0.1,0.1, "cm"))
 
 annotate_figure(t, left = textGrob("Percent change in survival", rot = 90, vjust = 1, gp = gpar(cex = 1)),
-                    bottom = textGrob("Months between closures", gp = gpar(cex = 1)))
+                    bottom = textGrob("Months between single-month closures", gp = gpar(cex = 1)))
 #do.call(ggarrange, c(doesthiswork[1:5], labels = c("Stage 1", "Stage 2", "Stage 3", "Stage 4","Larval")))
 
 ```
@@ -283,7 +283,7 @@ matR[1,1] <- 0
 <!--   # kable_styling(latex_options="scale_down") -->
 <!-- ``` -->
 
-Table \ref{LifeTable} shows age specific life-history traits of *Octopus cyanea* as calculated by the Rage package from our matrix.
+Table \ref{LifeTable} shows age specific life-history traits of *Octopus cyanea* as calculated by the Rage package from our matrix. Expected number of offspring is reported per original cohort number.
 
 (ref:lifetable) Life table of *O. cyanea* as calculated from our Lefkovitch matrix.
 
@@ -308,9 +308,11 @@ lx_crit = 0.01,
 radix = 1
 ))
 
-colnames(lifetable) <- c("Age (months)", "Survivorship", "Proportion of orginal cohort dying", "Mortality hazard", "Probability of death", "Probability of survival", "Remaining life expectancy", "Per-capita reproduction rate", "Expected number of offspring per original cohort number")
+#colnames(lifetable) <- c("Age (months)", "Survivorship", "Proportion of orginal cohort dying", "Mortality hazard", "Probability of death", "Probability of survival", "Remaining life expectancy", "Per-capita reproduction rate", "Expected number of offspring")
 
-knitr::kable(lifetable, format = "latex", booktabs = TRUE)
+knitr::kable(lifetable, format = "latex", booktabs = TRUE, col.names = c("Age (months)", "Survivorship", "Proportion of orginal cohort dying", "Mortality hazard", "Probability of death", "Probability of survival", "Remaining life expectancy", "Per-capita reproduction rate", "Expected number of offspring"), caption = "(ref:lifetable) \\label{LifeTable}") %>%
+  column_spec(1:9, width = "1.5cm")
+
 
 ```
 
