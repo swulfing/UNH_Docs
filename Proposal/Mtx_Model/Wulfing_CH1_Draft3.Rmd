@@ -3,10 +3,10 @@ title: Using mechanistic models to assess temporary closure strategies for small
 author: "Sophie Wulfing, Easton White, Ahilya Sudarshan Kadba"
 date: "2022-09-08"
 output:
+  word_document: default
   bookdown::pdf_document2:
     fig_caption: yes
     toc: no
-  word_document: default
   bookdown::html_document2:
     fig_caption: yes
     toc: no

@@ -1,5 +1,5 @@
 ---
-title: "BauchModel_GrowthandHarvestSimilarOneGroupLowInfluence"
+title: "BauchModel_DefaultParamsHighMovement"
 author: "Sophie Wulfing"
 date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
 output:
@@ -19,12 +19,12 @@ library(gridExtra)
 library(kableExtra)
 
 
-params_set <- data.frame( R   = 0.20, s   = 0.8, h   = 0.15, k   = 0.17, w   = 0.35, c   = 1.68, d   = 0.2, e   = .01, i   = .01, prop   = 0.1)
-params_list <- data.frame(R_1 = 0.20, s_1 = 0.8, h_1 = 0.15, k_1 = 0.17, w_1 = 0.35, c_1 = 1.68, d_1 = 0.2, e_1 = .01, i_1 = .01, prop_1 = 0.01,
-                          R_2 = 0.20, s_2 = 0.8, h_2 = 0.15, k_2 = 0.17, w_2 = 0.35, c_2 = 1.68, d_2 = 0.2, e_2 = .01, i_2 = .01, prop_2 = 0.1)
+params_set <- data.frame( R   = 0.35, s   = 0.8, h   = 0.5, k   = 1.014, w   = 0.35, c   = 1.5, d   = 0.5, e   = 0.5, i   = 0.5, prop   = 0.5)
+params_list <- data.frame(R_1 = 0.35, s_1 = 0.8, h_1 = 0.5, k_1 = 1.014, w_1 = 0.35, c_1 = 1.5, d_1 = 0.5, e_1 = 0.5, i_1 = 0.5, prop_1 = 0.5,
+                          R_2 = 0.35, s_2 = 0.8, h_2 = 0.5, k_2 = 1.014, w_2 = 0.35, c_2 = 1.5, d_2 = 0.5, e_2 = 0.5, i_2 = 0.5, prop_2 = 0.5)
 
 starting_params <- c(P_1 = 0.406, P_2 = 0.406, X_1 = .24, X_2 = .24)
-timespan <- seq(from = 0, to = 200, by = .1)
+timespan <- seq(from = 0, to = 100, by = .1)
 
 # # Thampi Defaults (except e, i , prop)
 # params_set <- data.frame( R   = 0.49, s   = 0.8, h   = 0.075, k   = 0.17, w   = 0.35, c   = 1.68, d   = 0.2, e   = .05, i   = .05, prop   = 0.1)
@@ -101,7 +101,7 @@ out1 %>%
 
 \newpage
 
-# SCENARIO: THAMPI PARAMS SIMILAR GRWOTH AND HARVEST PARAMS WITH ONE GROUP LOW INFLUENCE
+# SCENARIO: DEFAULTS PARAMS HIGH MOVEMENT
 
 Function:
 
@@ -330,7 +330,7 @@ param_ranges(2, 1, 0.1)
 \newpage
 
 ```{r h, fig.cap = "h - Harvesting efficiency, range 0 to 0.1. Note, default is .075", warning = FALSE}
-param_ranges(3, 1, 0)
+param_ranges(3, .1, 0)
 ```
 
 \newpage
@@ -390,9 +390,9 @@ paramplane <- function(paramx, paramy, maxx, maxy){
   if(paramy == 2){starty <- .001}
   
   
-  # #Can comment this part out if using other H vals
-  # if(paramx == 3){maxx = 0.1}
-  # if(paramy == 3){maxy = 0.1}
+  #Can comment this part out if using other H vals
+  if(paramx == 3){maxx = 0.1}
+  if(paramy == 3){maxy = 0.1}
   
   #Create list of all combinations of the two paramters
   paramcombos <- expand.grid(x_parameter = seq(from = startx, to = maxx, length.out = 11),
