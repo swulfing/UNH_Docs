@@ -1,7 +1,7 @@
 ---
 title: Using mechanistic models to assess temporary closure strategies for small scale fisheries
 author: "Sophie Wulfing, Easton White, Ahilya Sudarshan Kadba"
-date: "2022-09-08"
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
 output:
   word_document: default
   bookdown::pdf_document2:

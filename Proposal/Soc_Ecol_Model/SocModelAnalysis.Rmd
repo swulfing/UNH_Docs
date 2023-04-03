@@ -349,6 +349,89 @@ ggplot(correlationplot, aes(param_names, name, fill = value)) + geom_tile(width=
 
 ```
 
+```{r socparamtable, results = 'asis', echo = FALSE}
+
+params_social <- params_default
+
+params_social$r_1 <- 0.4
+params_social$r_2 <- 0.35
+params_social$w_1 <- 0.2
+params_social$w_2 <- 0.35
+params_social$h_1 <- 0.25
+params_social$h_2 <- 0.5
+
+# params_social$c_1 <- 0.25
+# params_social$c_2 <- 0.25
+
+
+giveparams <- data.frame(matrix(, nrow = 9, ncol = 4))
+colnames(giveparams) <- c("Parameter", "Population_1", "Population_2", "Def")
+
+giveparams$Parameter <- c("r", "s", "h", "k", "$\\omega$", "c", "d", "i", "$\\rho$")
+giveparams$Population_1 <- c(params_social[1:9])
+giveparams$Population_2 <- c(params_social[10:18])
+
+giveparams$Def <- c("Fish net growth",
+                    "Supply and demand",
+                    "Harvesting efficiency",
+                    "Social learning rate",
+                    "Conservation cost",
+                    "Rarity valuation",
+                    "Social norm strength (within pop)",
+                    "Fish immigration (from patch)",
+                    "Social norm strength (opposite pop)")
+
+knitr::kable(giveparams, format = "pandoc", booktabs = TRUE, caption = "Default parameter values used in this analysis")
+
+```
+
+# Scenarios
+
+## One groups unsustainable practices can tank whole fishery;
+
+params_social$r_1 <- 0.4
+params_social$r_2 <- 0.4
+params_social$w_1 <- 0.2
+params_social$w_2 <- 0.2
+params_social$h_1 <- 0.25
+params_social$h_2 <- 0.25
+Goes up
+
+Vs.
+
+params_social$r_1 <- 0.4
+params_social$r_2 <- 0.35
+params_social$w_1 <- 0.2
+params_social$w_2 <- 0.35
+params_social$h_1 <- 0.25
+params_social$h_2 <- 0.5
+Goes down
+
+BUT increasing rarity val can save that
+params_social$c_1 <- 0.25
+params_social$c_2 <- 0.25
+Goes up
+ 
+
+```{r socialscenario, fig.cap = "Social inequity scenario where roh_1 = 0.25 and h_1 = 1"}
+
+ode(
+  func=Bauch.Coupled,
+  y=xstart,
+  times=times,
+  parms=params_social
+) %>%
+  as.data.frame() -> out_social
+
+out_social %>%
+  gather(variable,value,-time) %>%
+  ggplot(aes(x=time,y=value,color=variable))+
+  geom_line(size=1)+
+  theme_classic()+
+  labs(x='time (yr)',y='pop')
+
+```
+
  * Bifurcation plots
  * Sensitivity Analysis: d, roh, s, w, c, i
  * Scenarios

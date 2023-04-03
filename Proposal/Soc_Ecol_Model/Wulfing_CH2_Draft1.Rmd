@@ -1,0 +1,142 @@
+---
+title: Social-ecological models with social heirarchy in a two-patch fishing model
+author: "Sophie Wulfing, Easton White"
+subtitle: 'Department of Biological Sciences, University of New Hampshire'
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
+output:
+  bookdown::pdf_document2:
+    fig_caption: yes
+    toc: no
+  pdf_document:
+    toc: no
+  bookdown::html_document2:
+    fig_caption: yes
+    toc: no
+  word_document: default
+bibliography:
+- Ch2_citations.bib
+header-includes: \usepackage{setspace}\doublespacing \usepackage{lineno} \usepackage{placeins}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev="cairo_pdf")
+#knitr::write_bib look into
+setwd("C:/Users/sophi/Documents/GitHub/UNH_Docs/Proposal/Soc_Ecol_Model")
+
+```
+
+```{r, include=FALSE}
+options(tinytex.verbose = TRUE)
+```
+\linenumbers
+
+# ABSTRACT
+
+NEED ABSTRACT
+
+# INTRODUCTION
+
+The study of social ecological models is a growing field in ecology as they treat human harvest as a variable as opposed to a set parameter. This allows for the study of how human decision making can change in response to environmental factors and in turn, change how humans interact with resources and profits. As human societies grow increasingly intricate and interconnected, these models can help us to analyze how our social structures can influence the environment around us (Liu 2007). These models provide important insight not only into how human decision making can influence the ecological processes but it can also show hidden processes, reveal regime shifts that would otherwise be hidden, and identify vulnerabilities of systems that don’t exist within the purely social or ecological models (Liu 2007, Young 2007, Lade 2013). Socio ecological models have even showed different dynamics at different scales and different amounts of human connectivity (Cumming et al 2017). They can also be utilized in systems where data is difficult to collect, as parameters can be changed in order to analyze different hypothetical scenarios. Socio-ecological models can also inform effective policy decisions. Conservation plans often do not reach their conservation goals, and these setbacks are often attributed to a lack of stakeholder participation. This can be due to an emergence of conflict for stakeholders, where the conservation plan in place directly hinders their practices, therefore deterring them from participating in the restorative efforts. Socio-ecological models can identify where these areas of potential conflict can arise, compromises that can be made in the system, and alternative conservation practices that encourages participation from all stakeholder groups (Ban 2013). Further, as these models are simulations of human and environmental interactions, they allow flexibility in that they can be adapted to fit the specific system of study and improve place-based management practices (Young 2007, Liu 2007, Felipe - Lucia 2021).
+
+Due to their adaptability, socio-ecological models can use a wide range of strategies to represent human decision making. One such method is replicator dynamics, which model human decision making where an individual makes conservation decisions based on weighing the perceived benefits of conservation with the costs as well as the social pressure to conform to the group stance on conservation. Individuals will therefore "replicate" the behavior of their peers by changing their harvest practices based on the opinion of the majority (Bauch 2012). They have been used to show how social learning is a key component to vaccination uptake public health, and preexisting social norma can actually suppress vaccine uptake despite frequent disease outbreaks (Bauch 2012, Oraby 2014). They can also have conservation application as well as their application to pest invasion models have shown ways to simultaneously mitigate pest outbreaks and the cost to address them in the timber industry (Barlow 2014). Further, land use changes have been modeled to have completely different dynamics when human decision making was added to these models (Innes 2013).
+
+PARAGRAPH ON THE EFFECT OF SOCIAL HEIRARCHIES ON DECISION MAKING - SEE SOURCES IN BARNES MAUTHER 2013. LOTS OF GOOD JUSTIFICATION FOR WHY YOU WOULD WANT TO STUDY THIS - NON HOMOGENEITY IN SOCIAL GROUPS
+
+Below: BRING UP THAMPI, KHALIFA 2014 REPDYNAMICS IN NON-UNIFORM INTERACTIONS. ALSO TRAGEDY OF THE COMMONS IN MURRAY MASS 2015
+
+Small scale fisheries are a particularly relevant system to apply replicator dynamics to fishing practices and policies are often made by communal decision makers. MAYBE MORE ABOUT HOW PEOPLE ARE MORE DIRECTLY RELIANT ON SSFS AND WILL THEREFORE HAVE STRONGER RESPONSES AND STRONGER SOCIAL STRUCTURES. Due to tight social structures, community decision making, and strong reliance on the environment, small scale fisheries are systems that are well represented by socio ecological models and replicator dynamics. Conservation efforts in small scale fisheries have often been unsuccessful, especially when the social and economic components of the industry have been ignored FIND SOURCE. However, even when human interactions and decision making have been considered, socio-ecological models have often treated individuals in human societies homogeneous. As human societies are often complex and hierarchical, this simplifying assumption that everyone interacts with the environment and within their community equally can lead to lack of participation in conservation by some groups within a community (Barnes Mauthe 2013, Cumming 2017). Mismanagement of fisheries have even been shown to exacerbate these inequalities (Mcpherson et al 2001 DOUBLE CHECK. IN BARNES MAUTHE, Cinner 2012). Further, the specific dynamics of the fishery in question have been shown to be an important component to models, as models with multiple patches can actually mitigate overfishing if there is a high migratory ability of the harvested species (Cressman 2004).
+
+Instituting effective conservation strategies can be especially difficult if the organism being protected has a migratory pattern that crosses over multiple SOMETHING such as country borders or JURISDICTIONS OR SOMETHING.  Borders can also create challenges when gathering population data that requires extensive fieldwork (Cozzi 2020, Hebblewhite and Whittington 2020). The fragmentation of management can also result in a mismatch of conservation strategies that become ineffective when these management BODIES do not coordinate efforts (Siddons et al 2017). Research on the importance of coordinated research efforts has been conducted on many species of terrestrial animals with large RANGES and have consistently shown that cooperation among government bodies is essential to protecting population health of highly migratory species or species whose native ranges expand across multiple countries (Plumptree 2006, Gervasi et al 2015, Meisingset et al 2017). Because fish are generally highly migratory, this issue is especially relevant in international waters or waters where different government bodies share jurisdiction (Mchich et al 2000). In fact, human activities beyond fishing, such as pollution or development activity, has been shown to affect FISHING IN OTHER PLACES (Siddons et al 2017 AND FIND POLLUTION ONE). For this reason, research on two patch fishing models is a commonly used method as it allows for WHATEVER. Previous research on two-patch fishing models has shown that movement rates between patches can effect population stability when there is different fishing pressures in each patch (Mchich et al 2000, Cai et al 2007). Economic output can also be maximized in multi-patch fishing models as high dispersal can result in a higher overall yield of the system than the yield of each patch combined (Auger et al 2022). High dispersal across patches is commonly found to be an essential COMPONENT to maximizing population health and economic gain from fishing (Freedman et al 1977, Auger 2022 SEE OTHER SOURCES IN FIRST PARAGRAPH, Moeller et al). Two patch models help us to understand better the population dynamics of fish species who face different pressures in each patch and have even resolved conflicts between fishing groups (Mchich et al 2000). However, no previous research has combined two patch fishing models with a human REPLICATOR DYNAMICS WITH SOCIAL HIERARCHY in order to SOMETHING ABOUT SELF RESOLVING CONFLICTS. 
+
+In this study, we couple a human-decision replicator dynamics model with social hierarchies with a two-patch fishing model in order to understand how decision making . The objectives of this study are: FOUR OBJECTIVES DEPENDING ON WHAT YOUR FIGURES ARE. (Effect of hierarchy, effect of migration, etc.)
+
+
+```{r tableEx, results = 'asis', echo = FALSE}
+
+ages <- data.frame(matrix(data = NA, nrow = 4, ncol = 3))
+colnames(ages) <- c("Stage", "Duration_New", "Variance")
+for(i in 1:4){
+  ages$Stage[i] <- i
+  ages$Duration_New[i] <- i
+  ages$Variance[i] <- i
+}
+
+knitr::kable(ages, format = "latex", booktabs = TRUE, caption = "(ref:captionlabel) \\label{tableEx}") #%>%
+  #kable_styling(latex_options="scale_down")
+
+```
+
+
+(ref:captionlabel) Caption label goes here
+
+# METHODS
+
+## Model Construction
+
+We build on the work of Bauch et al 2016 by extending their approach to a two-patch model via the CONCEPTUAL REPRESENTATION in figure 1. The fish population models are as follows:
+
+$\frac{dF_1}{dt} = r_1F_1(1-F_1)-\frac{h_1*F_1}{F_1 + s_1} -i_2F_1 + i_1F_2$
+
+$\frac{dF_2}{dt} = r_2F_2(1-F_2)-\frac{h_2*F_2}{F_2 + s_2} -i_1F_2 + i_2F_1$
+
+Where the change in fish populations is dependent on r, the net population growth of each patch, and both populations follow logistic growth. The second term: $\frac{h*F}{F + s}$, denotes fish lost to human activity. h is the harvesting efficiency of the respective human population and s controls the supply and demand of the fishery. Because we are now working with a two-patch model, the i parameter denotes the immigration out of each patch and into the other. In this study, we are assuming a closed population between the two patches. Therefore, fish move directly from patch to patch and do not disperse elsewhere.
+
+For the model of human activity and opinion, we used replicator dynamics from evolutionary game theory to simulate societal influence on an individual’s opinion. Social dynamics are represented by the proportion of conservationists in a population (X) and the proportion of harvesters (1-X). These two groups interact with one another using the term (X)(1-X) which simulates individuals “sampling” other individuals in the population. If one opinion dominates in the population (i.e. X >> (1-X) or (1-X) >> X), the rate of changing opinions will be slow as the power of societal pressure makes it challenging for the other opinion to gain traction. However, if X and (1-X) are close, the rate of change in opinion will be high as society has a split opinion on conservation vs harvest. In this model, each person holds an opinion (conservation or harvest) by weighing the benefits of conservation ($U_A$) against the benefits of harvest ($U_B$). This gives the equation:
+
+$X(1-X)[U_A - U_B]$ or LABEL EQUATION 1
+
+$X(1-X)[\Delta U]$
+
+As individuals “sample” others in their group, they can switch from A to B if $U_B$ > $U_A$ and vice versa. In our model, we adapt $U_A$ from Bauch 2016 with the added influence of the other population's opinion. $U_A$ is therefore given by:
+
+$U_{A,1} = \frac{1}{(F_1 + c_1)} + d_1X_1 + \rho_1 X_2$ and LABEL EQUATION 2
+
+$U_{A,2} = \frac{1}{(F_2 + c_2)} + d_2X_2 + \rho_2 X_1$
+
+Where $\frac{1}{(F + c)}$ represents the perceived rarity of fish populations within a patch. As F and c (the rarity valuation parameter) decrease, this term will increase, therefore adding to the perceived benefit of protecting fish populations. d refers to the social influence that each population has on itself, and as an individual encounters a conservationist (X), the social benefit of also being a conservationist is shown in d. $\rho$ has this similar effect, but denotes the social effect on the opposite population on decision making. Individuals in each population are receiving information about the conservation practices of the other, and the influence that this has on each population is encapsulated by $\rho$.
+
+$U_B$ (the perceived benefits of harvest) is:
+
+$U_{B,1} = \omega_1 + d_1(1-X_1) + \rho_1(1-X_2)$ and LABEL EQUATION 3
+
+$U_{B,2} = \omega_2 + d_2(1-X_2) + \rho_2(1-X_1)$
+
+Where $\omega$ is the cost of conservation (i.e. revenue lost by not fishing) where now, d is the social benefit of swithcing to harvesting (1-X) and $\rho_1$ is the other population's ability to change the opinion of an individual to be a harvester.
+
+Plugging equations 2 and 3 into equation 1 gives: LABEL EQUATIONS
+
+$\frac{dX_1}{dt} =  k_1X_1(1-X_1) [\frac{1}{F_1+c_1} - \omega_1 + d_1(2X_1 - 1) + \rho_1(2X_2 - 1)]$
+
+$\frac{dX_2}{dt} = k_2X_2(1-X_2)  [\frac{1}{F_2+c_2} - \omega_2 + d_2(2X_2 - 1) +  \rho_2(2X_1 - 1)]$
+
+Where specifics of the derivation are outlined in the appendix. Coupling the fish population and human opinion models gives:
+
+$\frac{dF_1}{dt} = r_1F_1(1-F_1)-\frac{h_1*F_1(1-X_1)}{F_1 + s_1} -i_2F_1 + i_1F_2$
+
+$\frac{dF_2}{dt} = r_2F_2(1-F_2)-\frac{h_2*F_2(1-X_2)}{F_2 + s_2} -i_1F_2 + i_2F_1$
+
+$\frac{dX_1}{dt} =  k_1X_1(1-X_1) [\frac{1}{F_1+c_1} - \omega_1 + d_1(2X_1 - 1) + \rho_1(2X_2 - 1)]$
+
+$\frac{dX_2}{dt} = k_2X_2(1-X_2)  [\frac{1}{F_2+c_2} - \omega_2 + d_2(2X_2 - 1) +  \rho_2(2X_1 - 1)]$
+
+Where the fishing pressure is now a function of the number of harvesters in a population ($\frac{hF(1-X)}{F + s}$). Further, the opinion of each population will shift based on the perceived fish stock health of their respective patch weighed against the costs and benefits of conservation. As fish stocks decrease, individuals will sway more toward conservation, thereby relieving this fishing pressure. However, we now have an external influence in this model: the opinions of people in the other population. The strength of this external influence is $\rho$, and in this study, we plan to simulate inequalities in human societies with this parameter.
+
+## Fish Parameters
+
+For our basic analysis, we chose to model a two-patch fishery where the harvested fish species has a mid-range growth rate and regularly diffuses across the two patches. From the human side, the two groups of fishers have the same social influence on one another, representing a non-hierarchical social structure. The default fish growth rate of both patches is 0.35 fish per year.  For the harvesting efficiency, we chose a maximal fishing rate of 0.5. These numbers were adapted from a coral reef fishing model Thampi et al (2018) where r = 0.35 and h = 0.5 are the mid-level growth rate and max fishing rates analyzed by this paper. For the emigration and immigration parameters, we chose 0.2 for each as these are the values used in the two-patch fishing model described in Cai et al 2008. We used the s parameter described in the Bauch et al 2016 model of s = 0.8.
+
+## Human Parameters
+
+The rate at which humans interact with one another is described by the parameter k. In our default model, we used k = 1.014 as adapted from the Thampi et al (2018) default model. We used the default rarity valuation parameter c from Thampi et al where c = 1.68. The cost of conservation default parameter is $\omega$ = 0.35 from Bauch et al 2016. Further, as our default model will have no human social hierarchy, we d = $\rho$ = 0.5 for our social learning rate as adapted from Bauch et al 2016 which models social decision making regarding deforestation.
+
+## Analyses
+
+
+
+
+
+
+
+
+
+
