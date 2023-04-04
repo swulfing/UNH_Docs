@@ -496,3 +496,63 @@ out_dispersion %>%
 #Social inequity scenario where rho_1 = 0.25 and h_1 = 1
 
 ```
+
+
+```{r dispersionscenario_norho, fig.cap = "No social dynamics. Taking away rho doesn't really improve dynamics, but instead allows pop1 to take advantage of their sustainable fishing"}
+params_dispersion <- params_default
+params_dispersion$r_1 <- 0.4
+#params_dispersion$r_2 <- 0.4
+params_dispersion$w_1 <- 0.2
+#params_dispersion$w_2 <- 0.2
+params_dispersion$h_1 <- 0.25
+#params_dispersion$h_2 <- 0.25
+params_dispersion$rho_1 <- 0
+params_dispersion$rho_2 <- 0
+params_dispersion$i_1 <- 0
+params_dispersion$i_2 <- 0
+
+
+ode(
+  func=Bauch.Coupled,
+  y=xstart,
+  times=times,
+  parms=params_dispersion
+) %>%
+  as.data.frame() -> out_dispersion
+
+out_dispersion %>%
+  gather(variable,value,-time) %>%
+  ggplot(aes(x=time,y=value,color=variable))+
+  geom_line(size=1)+
+  theme_classic()+
+  labs(x='time (yr)',y='pop')
+
+#Social inequity scenario where rho_1 = 0.25 and h_1 = 1
+
+```
+
+
+```{r dispersionscenario_norho w dispersion, fig.cap = "No social dynamics yes dispersion. Allows F2 recovery"}
+
+params_dispersion$i_1 <- 0.1
+params_dispersion$i_2 <- 0.1
+
+
+ode(
+  func=Bauch.Coupled,
+  y=xstart,
+  times=times,
+  parms=params_dispersion
+) %>%
+  as.data.frame() -> out_dispersion
+
+out_dispersion %>%
+  gather(variable,value,-time) %>%
+  ggplot(aes(x=time,y=value,color=variable))+
+  geom_line(size=1)+
+  theme_classic()+
+  labs(x='time (yr)',y='pop')
+
+#Social inequity scenario where rho_1 = 0.25 and h_1 = 1
+
+```
