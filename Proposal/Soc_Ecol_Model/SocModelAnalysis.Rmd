@@ -21,11 +21,11 @@ library(kableExtra)
 #library(ODEsensitivity)
 library(FME)
 
-param_names <- c("r_1", "s_1", "h_1", "k_1", "w_1", "c_1", "d_1", "i_1", "roh_1",
-                 "r_2", "s_2", "h_2", "k_2", "w_2", "c_2", "d_2", "i_2", "roh_2")
+param_names <- c("r_1", "s_1", "h_1", "k_1", "w_1", "c_1", "d_1", "i_1", "rho_1",
+                 "r_2", "s_2", "h_2", "k_2", "w_2", "c_2", "d_2", "i_2", "rho_2")
 
-params_default <- data.frame(r_1 = 0.35, s_1 = 0.8, h_1 = 0.5, k_1 = 1.014, w_1 = 0.35, c_1 = 1.5, d_1 = 0.5, i_1 = 0.2, roh_1 = 0.5,
-                             r_2 = 0.35, s_2 = 0.8, h_2 = 0.5, k_2 = 1.014, w_2 = 0.35, c_2 = 1.5, d_2 = 0.5, i_2 = 0.2, roh_2 = 0.5)
+params_default <- data.frame(r_1 = 0.35, s_1 = 0.8, h_1 = 0.5, k_1 = 1.014, w_1 = 0.35, c_1 = 1.5, d_1 = 0.5, i_1 = 0.2, rho_1 = 0.5,
+                             r_2 = 0.35, s_2 = 0.8, h_2 = 0.5, k_2 = 1.014, w_2 = 0.35, c_2 = 1.5, d_2 = 0.5, i_2 = 0.2, rho_2 = 0.5)
 
 starting_defaultparams <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
 timespan <- seq(from = 0, to = 100, by = .1)
@@ -178,15 +178,15 @@ Bauch.Coupled <- function (t, y, params) {
   
   i_1 <- params["i_1"] # Inflow of fish from pop 2 to pop 1
   i_2 <- params["i_2"] # Inflow of fish from pop 1 to pop 2
-  roh_1 <- params["roh_1"] # Influence of pop 2 on pop 1
-  roh_2 <- params["roh_2"] # Influence of pop 1 on pop 2
+  rho_1 <- params["rho_1"] # Influence of pop 2 on pop 1
+  rho_2 <- params["rho_2"] # Influence of pop 1 on pop 2
   
   ## now code the model equations
   dF_1dt <-  r_1 * F_1 * (1-F_1) - (h_1 * F_1 * (1-X_1))/(F_1+s_1) - i_2 * F_1 + i_1 * F_2
   dF_2dt <-  r_2 * F_2 * (1-F_2) - (h_2 * F_2 * (1-X_2))/(F_2+s_2) - i_1 * F_2 + i_2 * F_1
   
-  dX_1dt <- k_1 * X_1 * (1-X_1) *(1/(F_1 + c_1) - w_1 + d_1*(2*X_1 - 1) + roh_1 * (2*X_2 - 1))
-  dX_2dt <- k_2 * X_2 * (1-X_2) *(1/(F_2 + c_2) - w_2 + d_2*(2*X_2 - 1) + roh_2 * (2*X_1 - 1))
+  dX_1dt <- k_1 * X_1 * (1-X_1) *(1/(F_1 + c_1) - w_1 + d_1*(2*X_1 - 1) + rho_1 * (2*X_2 - 1))
+  dX_2dt <- k_2 * X_2 * (1-X_2) *(1/(F_2 + c_2) - w_2 + d_2*(2*X_2 - 1) + rho_2 * (2*X_1 - 1))
   
   ## combine results into a single vector
   dydt <- c(dF_1dt, dF_2dt, dX_1dt, dX_2dt)
@@ -279,8 +279,8 @@ BauchSensitivity <- function(pars){
   dF_1dt <-  r_1 * F_1 * (1-F_1) - (h_1 * F_1 * (1-X_1))/(F_1+s_1) - i_2 * F_1 + i_1 * F_2
   dF_2dt <-  r_2 * F_2 * (1-F_2) - (h_2 * F_2 * (1-X_2))/(F_2+s_2) - i_1 * F_2 + i_2 * F_1
   
-  dX_1dt <- k_1 * X_1 * (1-X_1) *(1/(F_1 + c_1) - w_1 + d_1*(2*X_1 - 1) + roh_1 * (2*X_2 - 1))
-  dX_2dt <- k_2 * X_2 * (1-X_2) *(1/(F_2 + c_2) - w_2 + d_2*(2*X_2 - 1) + roh_2 * (2*X_1 - 1))
+  dX_1dt <- k_1 * X_1 * (1-X_1) *(1/(F_1 + c_1) - w_1 + d_1*(2*X_1 - 1) + rho_1 * (2*X_2 - 1))
+  dX_2dt <- k_2 * X_2 * (1-X_2) *(1/(F_2 + c_2) - w_2 + d_2*(2*X_2 - 1) + rho_2 * (2*X_1 - 1))
   
       return(list(c(dF_1dt, dF_2dt, dX_1dt, dX_2dt)))
     })
@@ -331,8 +331,8 @@ correlations <- matrix(cor(SnsBactcorr[,-(1:2)]), 18, 18)
 colnames(correlations) <- param_names
 
 correlationplot <- cbind(param1 = data.frame(param_names), correlations) %>%
-  pivot_longer(c("r_1", "s_1", "h_1", "k_1", "w_1", "c_1", "d_1", "i_1", "roh_1",
-                 "r_2", "s_2", "h_2", "k_2", "w_2", "c_2", "d_2", "i_2", "roh_2"))
+  pivot_longer(c("r_1", "s_1", "h_1", "k_1", "w_1", "c_1", "d_1", "i_1", "rho_1",
+                 "r_2", "s_2", "h_2", "k_2", "w_2", "c_2", "d_2", "i_2", "rho_2"))
 
 ggplot(correlationplot, aes(param_names, name, fill = value)) + geom_tile(width=1) +
   scale_fill_gradient2(
@@ -348,6 +348,8 @@ ggplot(correlationplot, aes(param_names, name, fill = value)) + geom_tile(width=
   # labs(fill = "Eigenvalue")
 
 ```
+
+\newpage
 
 ```{r socparamtable, results = 'asis', echo = FALSE}
 
@@ -390,30 +392,42 @@ knitr::kable(giveparams, format = "pandoc", booktabs = TRUE, caption = "Default 
 ## One groups unsustainable practices can tank whole fishery;
 
 params_social$r_1 <- 0.4
+
 params_social$r_2 <- 0.4
+
 params_social$w_1 <- 0.2
+
 params_social$w_2 <- 0.2
+
 params_social$h_1 <- 0.25
+
 params_social$h_2 <- 0.25
 Goes up
 
 Vs.
 
 params_social$r_1 <- 0.4
+
 params_social$r_2 <- 0.35
+
 params_social$w_1 <- 0.2
+
 params_social$w_2 <- 0.35
+
 params_social$h_1 <- 0.25
+
 params_social$h_2 <- 0.5
 Goes down
 
 BUT increasing rarity val can save that
+
 params_social$c_1 <- 0.25
+
 params_social$c_2 <- 0.25
 Goes up
  
 
-```{r socialscenario, fig.cap = "Social inequity scenario where roh_1 = 0.25 and h_1 = 1"}
+```{r socialscenario, fig.cap = "Social inequity scenario where rho_1 = 0.25 and h_1 = 1"}
 
 ode(
   func=Bauch.Coupled,
@@ -432,10 +446,13 @@ out_social %>%
 
 ```
 
+\newpage
+
  * Bifurcation plots
- * Sensitivity Analysis: d, roh, s, w, c, i
+ * Sensitivity Analysis: d, rho, s, w, c, i
  * Scenarios
  * Stability and dynamics - Sigdel 2017 good example
  * Go through bauch, thampi, and other papers to see what analysis ideas I can also apply
  * Bauch 2012 does probabilistic sensitivity analysis (PSA). Also see supporting info
  * Phase plane analysis in cressman 2004 and go through your own phase planes to find interesting dynamics
+ * Maybe try this: https://cran.r-project.org/web/packages/rootSolve/rootSolve.pdf
