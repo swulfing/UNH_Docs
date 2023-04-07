@@ -1,0 +1,647 @@
+---
+title: "BauchModel_DefaultParamsHighMovement"
+author: "Sophie Wulfing"
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+
+setwd("C:/Users/sophi/Documents/GitHub/UNH_Docs/Proposal/Soc_Ecol_Model")
+
+library(deSolve)
+library(tidyverse)
+library(ggplot2)
+library(gridExtra)
+library(kableExtra)
+
+
+#params_set <- data.frame( R   = 0.07, s   = 0.8, h   = 0.1, k   = 1.014, w   = 0.35, c   = 1.5, d   = 0.5, e   = 0.5, i   = 0.5, prop   = 0.5)
+params_list <-  data.frame(r_1 = 0.35, s_1 = 0.8, h_1 = 0.5, k_1 = 1.014, w_1 = 0.35, c_1 = 1.5, d_1 = 0.5, i_1 = 0.2, rho_1 = 0.5,
+                           r_2 = 0.35, s_2 = 0.8, h_2 = 0.5, k_2 = 1.014, w_2 = 0.35, c_2 = 1.5, d_2 = 0.5, i_2 = 0.2, rho_2 = 0.5)
+
+xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
+timespan <- seq(from = 0, to = 100, by = .1)
+
+```
+
+
+```{r, include=FALSE}
+options(tinytex.verbose = TRUE)
+```
+
+
+```{r Bauch.Model, fig.cap = "Original Bauch Model", warning = FALSE}
+Bauch.Model <- function (t, y, params) {
+  ## first extract the state variables
+  P <- y[1] #Fish Pop var
+  X <- y[2] #conservationist var
+
+  #TT <- y[5]
+  
+  ## now extract the parameters
+  R <- params["R"] # Net growth/fecundity
+  s <- params["s"] # supply and demand
+  h <- params["h"] # Harvesting efficiency
+  k <- params["k"] # Social learning rate
+  w <- params["w"] # conservation costs
+  c <- params["c"] # rarity valuation param
+  d <- params["d"] # social norm strength
+  
+  ## now code the model equations
+  dPdt <- R * P * (1-P) - (h * P * (1-X))/(P+s)
+  dXdt <- k * X * (1-X) * (d*(2*X-1) + 1/(P+c) - w)
+  
+  ## combine results into a single vector
+  dydt <- c(dPdt, dXdt)
+  ## return result as a list!
+  
+  list(dydt)
+}
+
+params_Bauch <- c(R = 0.06, s = 0.8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5)
+
+times <- seq(from = 0, to = 100, by = 1)
+xstart <- c(P = 0.406, X = .24) # See supplemental data for other starting params
+
+ode(
+  func=Bauch.Model,
+  y=xstart,
+  times=times,
+  parms=params_Bauch
+) %>%
+  as.data.frame() -> out1
+
+out1 %>%
+  gather(variable,value,-time) %>%
+  ggplot(aes(x=time,y=value,color=variable))+
+  geom_line(size=2)+
+  theme_classic()+
+  labs(x='time (yr)',y='pop')
+
+```
+
+\newpage
+
+# SCENARIO: DEFAULTS PARAMS HIGH MOVEMENT
+
+Function:
+
+$\frac{dP_1}{dt} = r_1P_1(1-P_1)-\frac{h_1*P_1(1-X_1)}{P_1 + s_1} -e_1P_1 + i_1P_2$
+
+$\frac{dP_2}{dt} = r_2P_2(1-P_2)-\frac{h_2*P_2(1-X_2)}{P_2 + s_2} -e_2P_2 + i_2P_1$
+
+$\frac{dX_1}{dt} =  k_1X_1(1-X_1) [\frac{1}{P_1+c_1} - w_1 + d_1(2X_1 - 1) + prop_1(2X_2 - 1)]$
+
+$\frac{dX_2}{dt} = k_2X_2(1-X_2)  [\frac{1}{P_2+c_2} - w_2 + d_2(2X_2 - 1) +  prop_2(2X_1 - 1)]$
+
+```{r paramtable, results = 'asis', echo = FALSE}
+
+giveparams <- data.frame(matrix(, nrow = 9, ncol = 4))
+colnames(giveparams) <- c("Parameter", "Population_1", "Population_2", "Def")
+
+giveparams$Parameter <- c("r", "s", "h", "k", "w", "c", "d", "i", "rho")
+giveparams$Population_1 <- c(params_list[1:9])
+giveparams$Population_2 <- c(params_list[10:18])
+
+giveparams$Def <- c("Fish net growth",
+                    "Supply and demand",
+                    "Harvesting efficiency",
+                    "Social learning rate",
+                    "Conservation cost",
+                    "Rarity valuation",
+                    "Social norm strength (within pop)",
+                    "Fish immigration (from opposite patch)",
+                    "Social norm strength (opposite pop)")
+
+knitr::kable(giveparams, format = "latex", booktabs = TRUE, caption = "Parameter values used in this analysis")
+
+```
+
+<!-- (ref:paramexp) Parameter values used in this analysis -->
+
+```{r startingtable, results = 'asis', echo = FALSE}
+givestart <- data.frame(matrix(, nrow = 2, ncol = 3))
+colnames(givestart) <- c("Parameter", "Population_1", "Population_2")
+givestart$Parameter <- c("F", "X")
+givestart$Population_1 <- c(xstart[1], xstart[3])
+givestart$Population_2 <- c(xstart[2], xstart[4])
+
+
+knitr::kable(givestart, format = "latex", booktabs = TRUE, caption = "Starting values used in this analysis")
+
+
+```
+
+<!-- (ref:startexp) Starting values used in this analysis -->
+
+\newpage
+
+
+```{r Bauch.Coupled, fig.cap = "New Model with default paramters", warning = FALSE}
+
+
+##Maybe see what proportion of people can actually be fishing in this system to make it sustainable
+
+Bauch.Coupled <- function (t, y, params) {
+  ## first extract the state variables
+  F_1 <- y[1] #Fish Pop var
+  F_2 <- y[2] #Fish Pop var
+  X_1 <- y[3] #conservationist var
+  X_2 <- y[4] #conservationist var
+
+  #TT <- y[5]
+  
+  ## now extract the parameters
+  r_1 <- params["r_1"] # Net growth/fecundity
+  s_1 <- params["s_1"] # supply and demand
+  h_1 <- params["h_1"] # Harvesting efficiency
+  k_1 <- params["k_1"] # Social learning rate
+  w_1 <- params["w_1"] # conservation costs
+  c_1 <- params["c_1"] # rarity valuation param
+  d_1 <- params["d_1"] # social norm strength
+  
+  r_2 <- params["r_2"] # Net growth/fecundity
+  s_2 <- params["s_2"] # supply and demand
+  h_2 <- params["h_2"] # Harvesting efficiency
+  k_2 <- params["k_2"] # Social learning rate
+  w_2 <- params["w_2"] # conservation costs
+  c_2 <- params["c_2"] # rarity valuation param
+  d_2 <- params["d_2"] # social norm strength 
+  
+  i_1 <- params["i_1"] # Inflow of fish from pop 2 to pop 1
+  i_2 <- params["i_2"] # Inflow of fish from pop 1 to pop 2
+  rho_1 <- params["rho_1"] # Influence of pop 2 on pop 1
+  rho_2 <- params["rho_2"] # Influence of pop 1 on pop 2
+  
+  ## now code the model equations
+  dF_1dt <-  r_1 * F_1 * (1-F_1) - (h_1 * F_1 * (1-X_1))/(F_1+s_1) - i_2 * F_1 + i_1 * F_2
+  dF_2dt <-  r_2 * F_2 * (1-F_2) - (h_2 * F_2 * (1-X_2))/(F_2+s_2) - i_1 * F_2 + i_2 * F_1
+  
+  dX_1dt <- k_1 * X_1 * (1-X_1) *(1/(F_1 + c_1) - w_1 + d_1*(2*X_1 - 1) + rho_1 * (2*X_2 - 1))
+  dX_2dt <- k_2 * X_2 * (1-X_2) *(1/(F_2 + c_2) - w_2 + d_2*(2*X_2 - 1) + rho_2 * (2*X_1 - 1))
+  
+  ## combine results into a single vector
+  dydt <- c(dF_1dt, dF_2dt, dX_1dt, dX_2dt)
+  ## return result as a list!
+  
+  list(dydt)
+}
+
+params_Bauch2 <- params_list
+
+times <- timespan
+xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
+
+ode(
+  func=Bauch.Coupled,
+  y=xstart,
+  times=times,
+  parms=params_Bauch2
+) %>%
+  as.data.frame() -> out_Coupled
+
+out_Coupled %>%
+  gather(variable,value,-time) %>%
+  ggplot(aes(x=time,y=value,color=variable))+
+  geom_line(size=1)+
+  theme_classic()+
+  labs(x='time (yr)',y='pop')
+
+```
+
+```{r fxnBauch.ParamR, warning = FALSE}
+# params_Default <- data.frame(R = 0.06, s = 0.8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5, roe = 1)
+# params_Bauch <- c(R_1 = 0.06, s_1 = 0.8, h_1 = 0.075, k_1 = 0.17, w_1 = 0.35, c_1 = 0.6, d_1 = 0.5, roe_1 = 1,
+#                   R_2 = 0.06, s_2 = 0.8, h_2 = 0.075, k_2 = 0.17, w_2 = 0.35, c_2 = 0.6, d_2 = 0.125, roe_2 = 1)
+
+# min <- 0
+# max <- 1
+# i <- 1
+# param <- 8
+
+
+#Note: in this function, I am changing BOTH populations' paramters. Should I try just changing one?
+param_ranges <- function(param, max, min){
+  #Generate list of ranges
+  new_param <- seq(from=min, to=max, length.out=5)
+  plotList <- list()
+  
+  #Change params to each quartile for graphs 1-5
+  for(i in 1:length(new_param)){
+    params_Default <- params_list
+    #ASSIGN OLD PARAMS TO BE NEW SEQUENCE
+    params_Default[param] <- new_param[i]
+    params_Default[(param + 9)] <- new_param[i]
+    params_model <- c(r_1 = params_Default$r_1, s_1 = params_Default$s_1, h_1 = params_Default$h_1, k_1 = params_Default$k_1,
+                      w_1 = params_Default$w_1, c_1 = params_Default$c_1, d_1 = params_Default$d_1, i_1 = params_Default$i_1,
+                      rho_1 =  params_Default$rho_1,
+                      r_2 = params_Default$R_2, s_2 = params_Default$s_2, h_2 = params_Default$h_2, k_2 = params_Default$k_2,
+                      w_2 = params_Default$w_2, c_2 = params_Default$c_2, d_2 = params_Default$d_2, i_2 = params_Default$i_2,
+                      rho_2 = params_Default$rho_2)
+    
+    times <- timespan
+    xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24) #See supplemental for other starting params
+
+    ode(
+      func=Bauch.Coupled,
+      y=xstart,
+      times=times,
+      parms=params_Default
+    ) %>%
+      as.data.frame() -> out_Diff
+
+    p <- out_Diff %>%
+      gather(variable,value,-time) %>%
+      ggplot(aes(x=time,y=value,color=variable))+
+      geom_line(size=1)+
+      theme_classic()+
+      labs(x='time (yr)',y='pop')
+    plotList[[i]] <- p
+  }
+  
+  #Now assigning the final graph to give the two populations the max and min of the paramters
+    params_Default <- params_list
+    #ASSIGN OLD PARAMS TO BE NEW SEQUENCE
+    # params_Bauch <- c(r_1 = params_Default$r_1, s_1 = params_Default$s_1, h_1 = params_Default$h_1, k_1 = params_Default$k_1,
+    #                   w_1 = params_Default$w_1, c_1 = params_Default$c_1, d_1 = params_Default$d_1, i_1 = params_Default$i_1,
+    #                   rho_1 =  params_Default$rho_1,
+    #                   r_2 = params_Default$R_2, s_2 = params_Default$s_2, h_2 = params_Default$h_2, k_2 = params_Default$k_2,
+    #                   w_2 = params_Default$w_2, c_2 = params_Default$c_2, d_2 = params_Default$d_2, i_2 = params_Default$i_2,
+    #                   rho_2 = params_Default$rho_2)
+    params_Default[param] <- max
+    params_Default[(param + 9)] <- min
+    
+    times <- timespan
+    xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
+
+    ode(
+      func=Bauch.Coupled,
+      y=xstart,
+      times=times,
+      parms=params_Default
+    ) %>%
+      as.data.frame() -> out_Diff
+
+    p <- out_Diff %>%
+      gather(variable,value,-time) %>%
+      ggplot(aes(x=time,y=value,color=variable))+
+      geom_line(size=1)+
+      theme_classic()+
+      labs(x='time (yr)',y='pop')
+    plotList[[6]] <- p
+  
+  
+  
+  do.call("grid.arrange", c(plotList, ncol=2))
+}
+  
+
+```
+
+```{r R, fig.cap= "r - Net growth/fecundity, range 0 to 1", warning = FALSE}
+param_ranges(1, 1, 0)
+```
+
+\newpage
+
+```{r s, fig.cap = "s - supply and demand, range 0.1 to 1", warning = FALSE}
+param_ranges(2, 1, 0.1)
+```
+
+\newpage
+
+```{r h, fig.cap = "h - Harvesting efficiency, range 0 to 0.1. Note, default is .075", warning = FALSE}
+param_ranges(3, .1, 0)
+```
+
+\newpage
+
+```{r k, fig.cap = "K - Social learning rate 0 to 1", warning = FALSE}
+param_ranges(4, 1, 0)
+```
+
+\newpage
+
+```{r w, fig.cap = "w - conservation costs", warning = FALSE}
+param_ranges(5, 1, 0)
+```
+
+\newpage
+
+```{r c, fig.cap = "c - rarity valuation param", warning = FALSE}
+param_ranges(6, 1, 0)
+```
+
+\newpage
+
+```{r d, fig.cap = "d - social norm strength", warning = FALSE}
+param_ranges(7, 1, 0)
+```
+
+\newpage
+
+```{r i, fig.cap = "i - fish immigration", warning = FALSE}
+param_ranges(8, 1, 0)
+```
+
+\newpage
+
+```{r prop, fig.cap = "rho - Population influence on the other", warning = FALSE}
+param_ranges(9, 1, 0)
+```
+
+```{r fxnparamplane_diffparams, warning = FALSE}
+
+paramplane <- function(paramx, paramy, maxx, maxy){
+  #Create empty dataframe to fill
+  paramlist <- c("r", "s", "h", "k", "w", "c", "d", "i", "rho")
+  outcomes <- data.frame(matrix(ncol = 4, nrow = 0))
+  colnames(outcomes) <- c("XParameter", "YParameter", "Fish1", "Fish2")
+  
+  #Dumb but it throws an error if S = 0
+  startx <- 0
+  starty <- 0
+  if(paramx == 2){startx <- .001}
+  if(paramy == 2){starty <- .001}
+  
+  # 
+  # #Can comment this part out if using other H vals
+  # if(paramx == 3){maxx = 0.1}
+  # if(paramy == 3){maxy = 0.1}
+  
+  #Create list of all combinations of the two paramters
+  paramcombos <- expand.grid(x_parameter = seq(from = startx, to = maxx, length.out = 11),
+                        y_parameter = seq(from = starty, to = maxy, length.out = 11))
+  
+  for(i in 1:nrow(paramcombos)){
+  params_Default <- params_list
+  #Change params to be the 
+  params_Default[paramx] <- paramcombos$x_parameter[i]
+  params_Default[(paramy + 9)] <- paramcombos$y_parameter[i]
+  # 
+  # params_Bauch <- c(r_1 = params_Default$r_1, s_1 = params_Default$s_1, h_1 = params_Default$h_1, k_1 = params_Default$k_1,
+  #                     w_1 = params_Default$w_1, c_1 = params_Default$c_1, d_1 = params_Default$d_1, i_1 = params_Default$i_1,
+  #                     rho_1 =  params_Default$rho_1,
+  #                     r_2 = params_Default$r_2, s_2 = params_Default$s_2, h_2 = params_Default$h_2, k_2 = params_Default$k_2,
+  #                     w_2 = params_Default$w_2, c_2 = params_Default$c_2, d_2 = params_Default$d_2, i_2 = params_Default$i_2,
+  #                     rho_2 = params_Default$rho_2)
+  #   
+  times <- timespan
+    xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24) #See supplemental for other starting params
+    
+    ode(
+      func=Bauch.Coupled,
+      y=xstart,
+      times=times,
+      parms=params_Default
+    ) %>%
+      as.data.frame() -> out_Diff
+    
+    finalstatus <- out_Diff[nrow(out_Diff),]
+      # out_Diff %>%
+      # filter(times == 100)
+    
+    outcomes[i,] <- c(paramcombos$x_parameter[i], paramcombos$y_parameter[i], finalstatus$P_1, finalstatus$P_2)
+  }
+  
+  finalDynamics <- outcomes %>%
+    mutate(Result = case_when(
+    Fish1 >= .25 & Fish2 >= .25 ~ "Both",
+    Fish1 >= .25 & Fish2 < .25 ~ "Only Pop1",
+    Fish1 < .25 & Fish2 >= .25 ~ "Only Pop2",
+    Fish1 < .25 & Fish2 < .25 ~ "Neither"))
+  
+cols <- c("green", "orange", "yellow", "black")
+
+#Binned Colors
+ggplot(finalDynamics, aes(XParameter, YParameter, fill = Result)) + geom_tile(width=1) +
+  scale_fill_manual(
+  values = c("Both" = "green",
+             "Only Pop1" = "orange",
+             "Only Pop2" = "yellow",
+             "Neither" = "black")) +
+  xlab(paramlist[paramx]) +
+  ylab(paramlist[paramy])
+}
+
+
+#paramplane(1, 3, 1, 1)
+
+```
+
+```{r paramplane_testing, warning = FALSE}
+
+paramplane_testing <- function(boop){
+
+  pl <- list()
+  param_tests <- expand.grid(firstParam = seq(from = 1, to = 9, length.out = 9),
+                        secondParam = seq(from = 1, to = 9, length.out = 9))
+
+  param_tests <- param_tests %>%
+    filter(firstParam != secondParam) %>%
+    filter(firstParam == boop)
+
+  for(i in 1:nrow(param_tests)){
+    pl[[i]] <- paramplane(param_tests$firstParam[i], param_tests$secondParam[i], 1, 1)
+  }
+
+  do.call("grid.arrange", c(pl,  ncol=2))
+
+}
+
+#grid.expand stuff
+
+```
+
+```{r paramplane_testingr, fig.cap = "R parameter planes", warning = FALSE}
+
+paramplane_testing(1)
+
+```
+
+\newpage
+
+```{r paramplane_testings, fig.cap = "S parameter planes", warning = FALSE}
+
+paramplane_testing(2)
+
+```
+
+\newpage
+
+```{r paramplane_testingh, fig.cap = "h parameter planes", warning = FALSE}
+
+paramplane_testing(3)
+
+```
+
+\newpage
+
+```{r paramplane_testingk, fig.cap = "K parameter planes ranging from 0-1", warning = FALSE}
+
+paramplane_testing(4)
+
+```
+
+
+\newpage
+
+```{r paramplane_testingw, fig.cap = "w parameter planes", warning = FALSE}
+
+paramplane_testing(5)
+
+```
+
+\newpage
+
+```{r paramplane_testingc, fig.cap = "c parameter planes", warning = FALSE}
+
+paramplane_testing(6)
+
+```
+
+\newpage
+
+```{r paramplane_testingd, fig.cap = "d parameter planes", warning = FALSE}
+
+paramplane_testing(7)
+
+```
+
+\newpage
+
+```{r paramplane_testingi, fig.cap = "i parameter planes", warning = FALSE}
+
+paramplane_testing(8)
+
+```
+
+\newpage
+
+```{r paramplane_testingrho, fig.cap = "rho parameter planes", warning = FALSE}
+
+paramplane_testing(9)
+
+```
+
+\newpage
+
+```{r fxnparamplane_diffpops, warning = FALSE}
+
+popplane <- function(param, max){
+  #Create empty dataframe to fill
+  paramlist <- c("R", "S", "H", "K", "W", "C", "d", "e", "i", "prop")
+  outcomes <- data.frame(matrix(ncol = 4, nrow = 0))
+  colnames(outcomes) <- c("Pop1Parameter", "Pop2Parameter", "Fish1", "Fish2")
+  
+  #Dumb but it throws an error if S = 0
+  start <- 0
+  if(param == 2){start <- .001}
+  #if(param == 3){max <- .1}
+  
+  #Create list of all combinations of the two paramters
+  paramcombos <- expand.grid(pop1_parameter = seq(from = start, to = max, length.out = 10),
+                        pop2_parameter = seq(from = start, to = max, length.out = 10))
+  
+  for(i in 1:nrow(paramcombos)){
+  params_Default <- params_list
+  #Change params to be the
+  
+  params_Bauch <- c(R_1 = params_Default$R_1, s_1 = params_Default$s_1, h_1 = params_Default$h_1, k_1 = params_Default$k_1,
+                    w_1 = params_Default$w_1, c_1 = params_Default$c_1, d_1 = params_Default$d_1, e_1 = params_Default$e_1, i_1 = params_Default$i_1,
+                    prop_1 =  params_Default$prop_1,
+                    R_2 = params_Default$R_2, s_2 = params_Default$s_2, h_2 = params_Default$h_2, k_2 = params_Default$k_2,
+                    w_2 = params_Default$w_2, c_2 =params_Default$c_2, d_2 = params_Default$d_2, e_2 = params_Default$e_2, i_2 = params_Default$i_2,
+                    prop_2 = params_Default$prop_2)
+  params_Bauch[param] <- paramcombos$pop1_parameter[i]
+  params_Bauch[(param + 10)] <- paramcombos$pop2_parameter[i]
+    
+  times <- timespan
+    xstart <- starting_params #See supplemental for other starting params
+    
+    ode(
+      func=Bauch.Coupled,
+      y=xstart,
+      times=times,
+      parms=params_Bauch
+    ) %>%
+      as.data.frame() -> out_Diff
+    
+    finalstatus <- out_Diff[nrow(out_Diff),]
+      # out_Diff %>%
+      # filter(times == 100)
+    
+    outcomes[i,] <- c(paramcombos$pop1_parameter[i], paramcombos$pop2_parameter[i], finalstatus$P_1, finalstatus$P_2)
+  }
+  
+  finalDynamics <- outcomes %>%
+    mutate(Result = case_when(
+    Fish1 >= .25 & Fish2 >= .25 ~ "Both",
+    Fish1 >= .25 & Fish2 < .25 ~ "Only Pop1",
+    Fish1 < .25 & Fish2 >= .25 ~ "Only Pop2",
+    Fish1 < .25 & Fish2 < .25 ~ "Neither"))
+  
+cols <- c("green", "orange", "yellow", "black")
+
+#Binned Colors
+ggplot(finalDynamics, aes(Pop1Parameter, Pop2Parameter, fill = Result)) + geom_tile(width=1) +
+  scale_fill_manual(
+  values = c("Both" = "green",
+             "Only Pop1" = "orange",
+             "Only Pop2" = "yellow",
+             "Neither" = "black")) +
+  ggtitle(paste0(paramlist[param], " Parameter plane")) +
+  xlab(paste0(paramlist[param], " Population 1")) +
+  ylab(paste0(paramlist[param], " Population 2"))
+}
+```
+
+```{r popplane_testingr, fig.cap = "r population planes", warning = FALSE}
+popplane(1, 1)
+
+```
+
+```{r popplane_testings, fig.cap = "s population planes", warning = FALSE}
+popplane(2, 1)
+
+```
+
+```{r popplane_testingh, fig.cap = "h population planes", warning = FALSE}
+popplane(3, .1)
+
+```
+
+```{r popplane_testingk, fig.cap = "k population planes 0 to 1", warning = FALSE}
+popplane(4, 1)
+
+```
+
+```{r popplane_testingw, fig.cap = "w population planes", warning = FALSE}
+popplane(5, 1)
+
+```
+
+```{r popplane_testingc, fig.cap = "c population planes", warning = FALSE}
+popplane(6, 1)
+
+```
+
+```{r popplane_testingd, fig.cap = "d population planes", warning = FALSE}
+popplane(7, 1)
+
+```
+
+
+```{r popplane_testingi, fig.cap = "i population planes", warning = FALSE}
+popplane(8, 1)
+
+```
+
+```{r popplane_testingrho, fig.cap = "rho population planes", warning = FALSE}
+popplane(9, 1)
+
+```

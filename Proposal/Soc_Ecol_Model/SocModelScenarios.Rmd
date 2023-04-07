@@ -531,22 +531,76 @@ out_dispersion %>%
 
 ```
 
+\newpage
 
-```{r dispersionscenario_norho w dispersion, fig.cap = "No social dynamics yes dispersion. Allows F2 recovery"}
+```{r Madagascarparamtable, results = 'asis', echo = FALSE}
 
-params_dispersion$i_1 <- 0.1
-params_dispersion$i_2 <- 0.1
+params_Madagascar <- params_default
+params_Madagascar$r_1 <- 0.07 #Max growth rate calcualted from our matrix with no fishing and 10% change in survival
+params_Madagascar$r_2 <- 0.07
+
+params_Madagascar$h_1 <- 0.1
+params_Madagascar$h_2 <- 0.1
+
+params_Madagascar$i_1 <- 0.07 # Calculated from our stable stage dist.
+
+giveparams <- data.frame(matrix(, nrow = 9, ncol = 4))
+colnames(giveparams) <- c("Parameter", "Population_1", "Population_2", "Def")
+
+giveparams$Parameter <- c("r", "s", "h", "k", "$\\omega$", "c", "d", "i", "$\\rho$")
+giveparams$Population_1 <- c(params_Madagascar[1:9])
+giveparams$Population_2 <- c(params_Madagascar[10:18])
+
+giveparams$Def <- c("Fish net growth",
+                    "Supply and demand",
+                    "Harvesting efficiency",
+                    "Social learning rate",
+                    "Conservation cost",
+                    "Rarity valuation",
+                    "Social norm strength (within pop)",
+                    "Fish immigration (from patch)",
+                    "Social norm strength (opposite pop)")
+
+knitr::kable(giveparams, format = "pandoc", booktabs = TRUE, caption = "Default parameter values used in this analysis")
+
+```
+
+```{r Madagascarscenario, fig.cap = "Hypothetical Madagascar. Can change H, S, omega, rho"}
 
 
 ode(
   func=Bauch.Coupled,
   y=xstart,
   times=times,
-  parms=params_dispersion
+  parms=params_Madagascar
 ) %>%
-  as.data.frame() -> out_dispersion
+  as.data.frame() -> out_Madagascar
 
-out_dispersion %>%
+out_Madagascar %>%
+  gather(variable,value,-time) %>%
+  ggplot(aes(x=time,y=value,color=variable))+
+  geom_line(size=1)+
+  theme_classic()+
+  labs(x='time (yr)',y='pop')
+
+#Social inequity scenario where rho_1 = 0.25 and h_1 = 1
+
+```
+
+```{r Madagascarscenari_Inequity, fig.cap = "Hypothetical Madagascar with social inequity"}
+
+params_Madagascar$rho_1 <- .1
+
+
+ode(
+  func=Bauch.Coupled,
+  y=xstart,
+  times=times,
+  parms=params_Madagascar
+) %>%
+  as.data.frame() -> out_Madagascar
+
+out_Madagascar %>%
   gather(variable,value,-time) %>%
   ggplot(aes(x=time,y=value,color=variable))+
   geom_line(size=1)+
