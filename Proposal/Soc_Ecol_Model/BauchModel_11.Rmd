@@ -34,7 +34,7 @@ options(tinytex.verbose = TRUE)
 ```
 
 
-```{r Bauch.Model, fig.cap = "Original Bauch Model", warning = FALSE}
+```{r Bauch.Model, fig.cap = "Original Bauch Model", warning = FALSE, eval = FALSE}
 Bauch.Model <- function (t, y, params) {
   ## first extract the state variables
   P <- y[1] #Fish Pop var
@@ -217,11 +217,11 @@ out_Coupled %>%
 # params_Default <- data.frame(R = 0.06, s = 0.8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5, roe = 1)
 # params_Bauch <- c(R_1 = 0.06, s_1 = 0.8, h_1 = 0.075, k_1 = 0.17, w_1 = 0.35, c_1 = 0.6, d_1 = 0.5, roe_1 = 1,
 #                   R_2 = 0.06, s_2 = 0.8, h_2 = 0.075, k_2 = 0.17, w_2 = 0.35, c_2 = 0.6, d_2 = 0.125, roe_2 = 1)
-
-# min <- 0
-# max <- 1
-# i <- 1
-# param <- 8
+# 
+#  min <- 0
+#  max <- 1
+#  i <- 1
+#  param <- 8
 
 
 #Note: in this function, I am changing BOTH populations' paramters. Should I try just changing one?
@@ -236,12 +236,12 @@ param_ranges <- function(param, max, min){
     #ASSIGN OLD PARAMS TO BE NEW SEQUENCE
     params_Default[param] <- new_param[i]
     params_Default[(param + 9)] <- new_param[i]
-    params_model <- c(r_1 = params_Default$r_1, s_1 = params_Default$s_1, h_1 = params_Default$h_1, k_1 = params_Default$k_1,
-                      w_1 = params_Default$w_1, c_1 = params_Default$c_1, d_1 = params_Default$d_1, i_1 = params_Default$i_1,
-                      rho_1 =  params_Default$rho_1,
-                      r_2 = params_Default$R_2, s_2 = params_Default$s_2, h_2 = params_Default$h_2, k_2 = params_Default$k_2,
-                      w_2 = params_Default$w_2, c_2 = params_Default$c_2, d_2 = params_Default$d_2, i_2 = params_Default$i_2,
-                      rho_2 = params_Default$rho_2)
+    # params_model <- c(r_1 = params_Default$r_1, s_1 = params_Default$s_1, h_1 = params_Default$h_1, k_1 = params_Default$k_1,
+    #                   w_1 = params_Default$w_1, c_1 = params_Default$c_1, d_1 = params_Default$d_1, i_1 = params_Default$i_1,
+    #                   rho_1 =  params_Default$rho_1,
+    #                   r_2 = params_Default$R_2, s_2 = params_Default$s_2, h_2 = params_Default$h_2, k_2 = params_Default$k_2,
+    #                   w_2 = params_Default$w_2, c_2 = params_Default$c_2, d_2 = params_Default$d_2, i_2 = params_Default$i_2,
+    #                   rho_2 = params_Default$rho_2)
     
     times <- timespan
     xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24) #See supplemental for other starting params
@@ -356,6 +356,12 @@ param_ranges(9, 1, 0)
 
 ```{r fxnparamplane_diffparams, warning = FALSE}
 
+# paramx <- 1
+# paramy <- 2
+# maxx <- 1
+# maxy <- 1
+# i <- 1
+
 paramplane <- function(paramx, paramy, maxx, maxy){
   #Create empty dataframe to fill
   paramlist <- c("r", "s", "h", "k", "w", "c", "d", "i", "rho")
@@ -383,12 +389,12 @@ paramplane <- function(paramx, paramy, maxx, maxy){
   params_Default[paramx] <- paramcombos$x_parameter[i]
   params_Default[(paramy + 9)] <- paramcombos$y_parameter[i]
   # 
-  # params_Bauch <- c(r_1 = params_Default$r_1, s_1 = params_Default$s_1, h_1 = params_Default$h_1, k_1 = params_Default$k_1,
-  #                     w_1 = params_Default$w_1, c_1 = params_Default$c_1, d_1 = params_Default$d_1, i_1 = params_Default$i_1,
-  #                     rho_1 =  params_Default$rho_1,
-  #                     r_2 = params_Default$r_2, s_2 = params_Default$s_2, h_2 = params_Default$h_2, k_2 = params_Default$k_2,
-  #                     w_2 = params_Default$w_2, c_2 = params_Default$c_2, d_2 = params_Default$d_2, i_2 = params_Default$i_2,
-  #                     rho_2 = params_Default$rho_2)
+  params_Bauch <- c(r_1 = params_Default$r_1, s_1 = params_Default$s_1, h_1 = params_Default$h_1, k_1 = params_Default$k_1,
+                      w_1 = params_Default$w_1, c_1 = params_Default$c_1, d_1 = params_Default$d_1, i_1 = params_Default$i_1,
+                      rho_1 =  params_Default$rho_1,
+                      r_2 = params_Default$r_2, s_2 = params_Default$s_2, h_2 = params_Default$h_2, k_2 = params_Default$k_2,
+                      w_2 = params_Default$w_2, c_2 = params_Default$c_2, d_2 = params_Default$d_2, i_2 = params_Default$i_2,
+                      rho_2 = params_Default$rho_2)
   #   
   times <- timespan
     xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24) #See supplemental for other starting params
@@ -397,7 +403,7 @@ paramplane <- function(paramx, paramy, maxx, maxy){
       func=Bauch.Coupled,
       y=xstart,
       times=times,
-      parms=params_Default
+      parms=params_Bauch
     ) %>%
       as.data.frame() -> out_Diff
     
@@ -532,9 +538,12 @@ paramplane_testing(9)
 
 ```{r fxnparamplane_diffpops, warning = FALSE}
 
+# param <- 1
+# max <- 1
+
 popplane <- function(param, max){
   #Create empty dataframe to fill
-  paramlist <- c("R", "S", "H", "K", "W", "C", "d", "e", "i", "prop")
+  paramlist <- c("r", "s", "h", "k", "s", "c", "d", "i", "rho")
   outcomes <- data.frame(matrix(ncol = 4, nrow = 0))
   colnames(outcomes) <- c("Pop1Parameter", "Pop2Parameter", "Fish1", "Fish2")
   
@@ -550,18 +559,20 @@ popplane <- function(param, max){
   for(i in 1:nrow(paramcombos)){
   params_Default <- params_list
   #Change params to be the
+  # 
+  params_Default[param] <- paramcombos$pop1_parameter[i]
+  params_Default[(param + 9)] <- paramcombos$pop2_parameter[i]
   
-  params_Bauch <- c(R_1 = params_Default$R_1, s_1 = params_Default$s_1, h_1 = params_Default$h_1, k_1 = params_Default$k_1,
-                    w_1 = params_Default$w_1, c_1 = params_Default$c_1, d_1 = params_Default$d_1, e_1 = params_Default$e_1, i_1 = params_Default$i_1,
-                    prop_1 =  params_Default$prop_1,
-                    R_2 = params_Default$R_2, s_2 = params_Default$s_2, h_2 = params_Default$h_2, k_2 = params_Default$k_2,
-                    w_2 = params_Default$w_2, c_2 =params_Default$c_2, d_2 = params_Default$d_2, e_2 = params_Default$e_2, i_2 = params_Default$i_2,
-                    prop_2 = params_Default$prop_2)
-  params_Bauch[param] <- paramcombos$pop1_parameter[i]
-  params_Bauch[(param + 10)] <- paramcombos$pop2_parameter[i]
+  params_Bauch <- c(r_1 = params_Default$r_1, s_1 = params_Default$s_1, h_1 = params_Default$h_1, k_1 = params_Default$k_1,
+                    w_1 = params_Default$w_1, c_1 = params_Default$c_1, d_1 = params_Default$d_1, i_1 = params_Default$i_1,
+                    rho_1 =  params_Default$rho_1,
+                    r_2 = params_Default$r_2, s_2 = params_Default$s_2, h_2 = params_Default$h_2, k_2 = params_Default$k_2,
+                    w_2 = params_Default$w_2, c_2 =params_Default$c_2, d_2 = params_Default$d_2, i_2 = params_Default$i_2,
+                    rho_2 = params_Default$rho_2)
+
     
   times <- timespan
-    xstart <- starting_params #See supplemental for other starting params
+    xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24) #See supplemental for other starting params
     
     ode(
       func=Bauch.Coupled,

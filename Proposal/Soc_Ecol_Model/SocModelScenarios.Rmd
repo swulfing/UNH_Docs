@@ -105,8 +105,8 @@ ModelNoSocial <- function (t, y, params) {
   i_2 <- params["i_2"] # Inflow of fish from pop 1 to pop 2
 
   ## now code the model equations
-  dF_1dt <-  r_1 * F_1 * (1-F_1) - (h_1 * F_1 * 0.50)/(F_1+s_1) - i_2 * F_1 + i_1 * F_2
-  dF_2dt <-  r_2 * F_2 * (1-F_2) - (h_2 * F_2 * 0.50)/(F_2+s_2) - i_1 * F_2 + i_2 * F_1
+  dF_1dt <-  r_1 * F_1 * (1-F_1) - (h_1 * F_1 * .76)/(F_1+s_1) - i_2 * F_1 + i_1 * F_2
+  dF_2dt <-  r_2 * F_2 * (1-F_2) - (h_2 * F_2 * .26)/(F_2+s_2) - i_1 * F_2 + i_2 * F_1
 
   
   ## combine results into a single vector
