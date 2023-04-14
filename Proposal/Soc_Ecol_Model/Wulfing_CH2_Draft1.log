@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.4.3)  10 APR 2023 16:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.4.3)  14 APR 2023 10:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -587,7 +587,7 @@ File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [1
 
 {c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}] [2] [3]
-<FigConceptual.png, id=57, 562.1pt x 309.155pt>
+<FigConceptual.png, id=56, 562.1pt x 309.155pt>
 File: FigConceptual.png Graphic file (type png)
 <use FigConceptual.png>
 Package pdftex.def Info: FigConceptual.png  used on input line 156.
@@ -634,17 +634,17 @@ pdfTeX warning: pdflatex.exe (file ./Wulfing_CH2_Draft1_files/figure-latex/uncou
 
 pdfTeX warning: pdflatex.exe (file ./Wulfing_CH2_Draft1_files/figure-latex/CoupledModel-1.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 >]
-<Wulfing_CH2_Draft1_files/figure-latex/SocialScenario-1.pdf, id=129, 469.755pt x 325.215pt>
+<Wulfing_CH2_Draft1_files/figure-latex/SocialScenario-1.pdf, id=132, 469.755pt x 325.215pt>
 File: Wulfing_CH2_Draft1_files/figure-latex/SocialScenario-1.pdf Graphic file (type pdf)
 <use Wulfing_CH2_Draft1_files/figure-latex/SocialScenario-1.pdf>
 Package pdftex.def Info: Wulfing_CH2_Draft1_files/figure-latex/SocialScenario-1.pdf  used on input line 275.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Wulfing_CH2_Draft1_files/figure-latex/SocialScenario_Unsustainable-1.pdf, id=130, 469.755pt x 325.215pt>
+<Wulfing_CH2_Draft1_files/figure-latex/SocialScenario_Unsustainable-1.pdf, id=133, 469.755pt x 325.215pt>
 File: Wulfing_CH2_Draft1_files/figure-latex/SocialScenario_Unsustainable-1.pdf Graphic file (type pdf)
 <use Wulfing_CH2_Draft1_files/figure-latex/SocialScenario_Unsustainable-1.pdf>
 Package pdftex.def Info: Wulfing_CH2_Draft1_files/figure-latex/SocialScenario_Unsustainable-1.pdf  used on input line 283.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Wulfing_CH2_Draft1_files/figure-latex/SocialScenario_Revive-1.pdf, id=131, 469.755pt x 325.215pt>
+<Wulfing_CH2_Draft1_files/figure-latex/SocialScenario_Revive-1.pdf, id=134, 469.755pt x 325.215pt>
 File: Wulfing_CH2_Draft1_files/figure-latex/SocialScenario_Revive-1.pdf Graphic file (type pdf)
 <use Wulfing_CH2_Draft1_files/figure-latex/SocialScenario_Revive-1.pdf>
 Package pdftex.def Info: Wulfing_CH2_Draft1_files/figure-latex/SocialScenario_Revive-1.pdf  used on input line 291.
@@ -699,18 +699,18 @@ Package rerunfilecheck Info: File `Wulfing_CH2_Draft1.out' has not changed.
 (rerunfilecheck)             Checksum: 5E2AF45A3DDB7578D37F0E11F3867731;864.
  ) 
 Here is how much of TeX's memory you used:
- 13234 strings out of 477977
- 216059 string characters out of 5837492
+ 13236 strings out of 477977
+ 216132 string characters out of 5837492
  1866660 words of memory out of 5000000
  33090 multiletter control sequences out of 15000+600000
  567693 words of font info for 74 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  75i,9n,76p,2604b,554s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr5.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb>
-Output written on Wulfing_CH2_Draft1.pdf (20 pages, 611882 bytes).
+Output written on Wulfing_CH2_Draft1.pdf (20 pages, 610472 bytes).
 PDF statistics:
- 413 PDF objects out of 1000 (max. 8388607)
- 325 compressed objects within 4 object streams
- 75 named destinations out of 1000 (max. 500000)
+ 421 PDF objects out of 1000 (max. 8388607)
+ 333 compressed objects within 4 object streams
+ 77 named destinations out of 1000 (max. 500000)
  125 words of extra memory for PDF output out of 10000 (max. 10000000)
 
