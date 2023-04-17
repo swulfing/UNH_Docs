@@ -102,6 +102,21 @@ params_dispersal <- data.frame(r_1 = 0.40, s_1 = 0.8, h_1 = 0.25, k_1 = 1.014, w
 starting_defaultparams <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
 timespan <- seq(from = 0, to = 100, by = .1)
 
+ ode(
+  func=Bauch.Coupled,
+  y=xstart,
+  times=times,
+  parms=params_dispersal
+) %>%
+  as.data.frame() -> out_Coupled
+
+out_Coupled %>%
+  gather(variable,value,-time) %>%
+  ggplot(aes(x=time,y=value,color=variable))+
+  geom_line(size=1)+
+  theme_classic()+
+  labs(x='time (yr)',y='pop')
+
 ```
 
 ```{r fishploti1}
@@ -137,7 +152,6 @@ finalDynamics_long %>%
   ggplot(aes(Parameter_New, Population, color=plot)) +
   geom_point(alpha=0.5, size=2) +
   labs(y="Population", x="Param Value")
-
 
 
 ```

@@ -47,9 +47,9 @@ Bauch.Model <- function (t, y, params) {
   list(dydt)
 }
 
-params_Bauch <- c(R = 0.06, s = 0.8, h = 0.075, k = 0.17, w = 0.35, c = 0.6, d = 0.5)
+params_Bauch <- c(R = 0.06, s = 0.8, h = 0.1, k = 0.17, w = 1, c = 0.6, d = 0.3)
 
-times <- seq(from = 0, to = 100, by = 1)
+times <- seq(from = 0, to = 1000, by = 1)
 xstart <- c(P = 0.406, X = .24) # See supplemental data for other starting params
 
 ode(
