@@ -5,6 +5,8 @@ date: "2023-03-29"
 output:
   pdf_document: default
   html_document: default
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE, warning = FALSE}
@@ -24,8 +26,11 @@ library(FME)
 param_names <- c("r_1", "s_1", "h_1", "k_1", "w_1", "c_1", "d_1", "i_1", "rho_1",
                  "r_2", "s_2", "h_2", "k_2", "w_2", "c_2", "d_2", "i_2", "rho_2")
 
-params_default <- data.frame(r_1 = 0.35, s_1 = 0.8, h_1 = 0.5, k_1 = 1.014, w_1 = 0.35, c_1 = 1.5, d_1 = 0.5, i_1 = 0.2, rho_1 = 0.5,
-                             r_2 = 0.35, s_2 = 0.8, h_2 = 0.5, k_2 = 1.014, w_2 = 0.35, c_2 = 1.5, d_2 = 0.5, i_2 = 0.2, rho_2 = 0.5)
+# params_default <- data.frame(r_1 = 0.35, s_1 = 0.8, h_1 = 0.5, k_1 = 1.014, w_1 = 0.35, c_1 = 1.5, d_1 = 0.5, i_1 = 0.2, rho_1 = 0.5,
+#                              r_2 = 0.35, s_2 = 0.8, h_2 = 0.5, k_2 = 1.014, w_2 = 0.35, c_2 = 1.5, d_2 = 0.5, i_2 = 0.2, rho_2 = 0.5)
+
+params_default <- data.frame(r_1 = 0.40, s_1 = 0.8, h_1 = 0.25, k_1 = 1.014, w_1 = 0.2, c_1 = 1.5, d_1 = 0.5, i_1 = 0.2, rho_1 = 0.5,
+                               r_2 = 0.35, s_2 = 0.8, h_2 = 0.5, k_2 = 1.014, w_2 = 0.35, c_2 = 1.5, d_2 = 0.5, i_2 = 0.2, rho_2 = 0.5)
 
 starting_defaultparams <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
 timespan <- seq(from = 0, to = 100, by = .1)
@@ -293,7 +298,7 @@ BauchSensitivity <- function(pars){
 }
 
 
-SnsBact <- sensFun(func = BauchSensitivity, parms = params_default, sensvar = "F_1", varscale = 1)
+SnsBact <- sensFun(func = BauchSensitivity, parms = params_default, sensvar = c("F_1", "F_2"), senspar = c("i_1", "i_2", "rho_1", "rho_2"), varscale = 1)
 
 summary(SnsBact)
 plot(summary(SnsBact))

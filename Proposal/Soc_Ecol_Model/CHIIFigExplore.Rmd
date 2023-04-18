@@ -3,6 +3,8 @@ title: "CHIIFigExplore"
 author: "Sophie Wulfing"
 date: "2023-04-14"
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -99,13 +101,16 @@ param_names <- c("r_1", "s_1", "h_1", "k_1", "w_1", "c_1", "d_1", "i_1", "rho_1"
 params_dispersal <- data.frame(r_1 = 0.40, s_1 = 0.8, h_1 = 0.25, k_1 = 1.014, w_1 = 0.2, c_1 = 1.5, d_1 = 0.5, i_1 = 0.2, rho_1 = 0.5,
                                r_2 = 0.35, s_2 = 0.8, h_2 = 0.5, k_2 = 1.014, w_2 = 0.35, c_2 = 1.5, d_2 = 0.5, i_2 = 0.2, rho_2 = 0.5)
 
+# params_default <- data.frame(r_1 = 0.35, s_1 = 0.8, h_1 = 0.5, k_1 = 1.014, w_1 = 0.35, c_1 = 1.5, d_1 = 0.5, i_1 = 0.2, rho_1 = 0.5,
+#                              r_2 = 0.35, s_2 = 0.8, h_2 = 0.5, k_2 = 1.014, w_2 = 0.35, c_2 = 1.5, d_2 = 0.5, i_2 = 0.2, rho_2 = 0.5)
+
 starting_defaultparams <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
 timespan <- seq(from = 0, to = 100, by = .1)
 
  ode(
   func=Bauch.Coupled,
-  y=xstart,
-  times=times,
+  y=starting_defaultparams,
+  times=timespan,
   parms=params_dispersal
 ) %>%
   as.data.frame() -> out_Coupled
@@ -126,9 +131,16 @@ colnames(finalDynamics) <- c("Parameter_New", "F1", "F2")
 
 for(i in 1:length(param_seq)){
   #Run momdel with each new param combo
-  params_test <- params_dispersal
+  
+  params_test <- params_dispersal  
   #params_test$i_1 <- param_seq[i]
   params_test$i_2 <- param_seq[i]
+  
+  
+  # params_test <- params_dispersal
+  # params_test$rho_1 <- param_seq[i]
+  # params_test$rho_2 <- param_seq[i]
+  
   finalDynamics$Parameter_New[i] <- param_seq[i]
 
   ode(

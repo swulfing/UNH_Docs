@@ -305,225 +305,24 @@ out_nocycles %>%
 
 ```
 
-Next, we altered the parameters to reflect sustainable fishing practices as shown in table \ref{SocParamTable} in order to create a healthy system (Figure \ref{SocialScenario}). Next, we simulated scenarios where one patch’s practices were so unsustainable that both patches began to move toward stock collapse (Figure \ref{SocialScenario_Unsustainable}). This is different than the uncoupled model, where unsustainable practices could be mitigated by immigration from the other patch of fish stock. Instead, because of the parameters used in this analysis, humans keep fishing despite lower yields due to their influence over one another. Therefore, in order to improve fishing conditions for both patches, we explored how changing human parameters can influence the dynamics of the whole system. We found, for example, that decreasing the rarity valuation parameter from 1.5 to 0.25 is sufficient to prevent population collapse (Figure \ref{SocialScenario_Revive}).
-GET BAUCH MODEL 11 TO RUN AND THEN PUT THESE PARAMS THOUGH TO SEE WHICH ARE INFLUENCING
 
-```{r SocParamTable, results = 'asis', echo = FALSE}
-
-params_social <- params_default
-params_social$r_1 <- 0.4
-params_social$r_2 <- 0.4
-params_social$w_1 <- 0.2
-params_social$w_2 <- 0.2
-params_social$h_1 <- 0.25
-params_social$h_2 <- 0.25
-
-# params_social$c_1 <- 0.25
-# params_social$c_2 <- 0.25
-
-
-giveparams <- data.frame(matrix(, nrow = 9, ncol = 4))
-colnames(giveparams) <- c("Parameter", "Population_1", "Population_2", "Def")
-
-giveparams$Parameter <- c("r", "s", "h", "k", "$\\omega$", "c", "d", "i", "$\\rho$")
-giveparams$Population_1 <- c(params_social[1:9])
-giveparams$Population_2 <- c(params_social[10:18])
-
-giveparams$Def <- c("Fish net growth",
-                    "Supply and demand",
-                    "Harvesting efficiency",
-                    "Social learning rate",
-                    "Conservation cost",
-                    "Rarity valuation",
-                    "Social norm strength (within pop)",
-                    "Fish immigration (from patch)",
-                    "Social norm strength (opposite pop)")
-
-knitr::kable(giveparams, format = "latex", booktabs = TRUE, caption = "(ref:socparamtable) \\label{SocParamTable}")
-
-```
-
-(ref:socparamtable) Parameters used to model a sustainable fishery
-
-```{r SocialScenario, fig.cap =  '(ref:socialscenario) \\label{SocialScenario}'}
-
-
-ode(
-  func=Bauch.Coupled,
-  y=xstart,
-  times=times,
-  parms=params_social
-) %>%
-  as.data.frame() -> out_social
-
-out_social %>%
-  gather(variable,value,-time) %>%
-  ggplot(aes(x=time,y=value,color=variable))+
-  geom_line(size=1)+
-  theme_classic()+
-  labs(x='time (yr)',y='pop')
-
-#Social inequity scenario where rho_1 = 0.25 and h_1 = 1
-
-```
-
-(ref:socialscenario) Changing fish growth, conservation cost, and harvesting efficiency for sustainable practices
-
-```{r SocialScenario_Unsustainable, fig.cap = '(ref:ss_unsustainable) \\label{SocialScenario_Unsustainable}'}
-
-params_social$r_1 <- 0.4
-params_social$r_2 <- 0.35
-params_social$w_1 <- 0.2
-params_social$w_2 <- 0.35
-params_social$h_1 <- 0.25
-params_social$h_2 <- 0.5
-
-ode(
-  func=Bauch.Coupled,
-  y=xstart,
-  times=times,
-  parms=params_social
-) %>%
-  as.data.frame() -> out_social
-
-out_social %>%
-  gather(variable,value,-time) %>%
-  ggplot(aes(x=time,y=value,color=variable))+
-  geom_line(size=1)+
-  theme_classic()+
-  labs(x='time (yr)',y='pop')
-
-#Social inequity scenario where rho_1 = 0.25 and h_1 = 1
-
-```
-
-(ref:ss_unsustainable) One group unsustainable practices scenario. Shows that one groups bad fishing can tank whole system  MAYBE PUT IN WHICH PARAMS CHANGED
-
-```{r SocialScenario_Revive, fig.cap = '(ref:ss_revive) \\label{SocialScenario_Revive}'}
-
-params_social$c_1 <- 0.25
-params_social$c_2 <- 0.25
-
-ode(
-  func=Bauch.Coupled,
-  y=xstart,
-  times=times,
-  parms=params_social
-) %>%
-  as.data.frame() -> out_social
-
-out_social %>%
-  gather(variable,value,-time) %>%
-  ggplot(aes(x=time,y=value,color=variable))+
-  geom_line(size=1)+
-  theme_classic()+
-  labs(x='time (yr)',y='pop')
-
-#Social inequity scenario where rho_1 = 0.25 and h_1 = 1
-
-```
-
-(ref:ss_revive) changing the rarity valuation parameters can recover the system WRITE WHAT IT IS
-
-Next, we tested our hypotheses that social hierarchy can change the system’s dynamics by running several scenarios and comparing the effect that changes in $\rho$ can have on the model. We found, contrary to our predictions, that social hierarchy tended to not have significant overall influences on the model. Table \ref{hierparamtable} shows the parameters used in this analysis. We found that due to a decrease in $\rho_1$, fishers in patch 1 exhibited more conservation practices for a longer amount of time (Figure \ref{HierScenario}) yet still eventually overfished their patch. This is consistent with many other scenarios we ran, and shows that differences in $\rho_1$ vs $\rho_2$ has a lower influence on this model than other parameters. Further, as none of the scenarios we ran showed oscillations in the proportion of conservationists in each patch, this shows that the non-linear dynamics of the system become less significant as multiple patches to the model.
-
-```{r hierparamtable, results = 'asis', echo = FALSE}
-
-params_hier <- params_default
-params_hier$h_2 <- 0.25
-params_hier$k_1 <- 0.17
-params_hier$i_1 <- 0.1
-params_hier$i_2 <- 0.4
-#params_hier$rho_1 <- .1
-
-
-# params_social$c_1 <- 0.25
-# params_social$c_2 <- 0.25
-
-
-giveparams <- data.frame(matrix(, nrow = 9, ncol = 4))
-colnames(giveparams) <- c("Parameter", "Population_1", "Population_2", "Def")
-
-giveparams$Parameter <- c("r", "s", "h", "k", "$\\omega$", "c", "d", "i", "$\\rho$")
-giveparams$Population_1 <- c(params_hier[1:9])
-giveparams$Population_2 <- c(params_hier[10:18])
-
-giveparams$Def <- c("Fish net growth",
-                    "Supply and demand",
-                    "Harvesting efficiency",
-                    "Social learning rate",
-                    "Conservation cost",
-                    "Rarity valuation",
-                    "Social norm strength (within pop)",
-                    "Fish immigration (from patch)",
-                    "Social norm strength (opposite pop)")
-
-knitr::kable(giveparams, format = "pandoc", booktabs = TRUE, caption = "Default parameter values used in this analysis")
-
-```
-
-```{r HierScenario, , results = 'asis', echo = FALSE, fig.show = "hold", out.width = "50%", fig.cap = '(ref:HierScenario) \\label{HierScenario}'}
-
-ode(
-  func=Bauch.Coupled,
-  y=xstart,
-  times=seq(from = 0, to = 200, by = .1),
-  parms=params_hier
-) %>%
-  as.data.frame() -> out_hier
-
-out_hier %>%
-  gather(variable,value,-time) %>%
-  ggplot(aes(x=time,y=value,color=variable))+
-  geom_line(size=1)+
-  theme_classic()+
-  ggtitle('a)') +
-  labs(x='time (yr)',y='pop')
-
-
-params_hier$rho_1 <- .1
-
-ode(
-  func=Bauch.Coupled,
-  y=xstart,
-  times=seq(from = 0, to = 200, by = .1),
-  parms=params_hier
-) %>%
-  as.data.frame() -> out_hier
-
-out_hier %>%
-  gather(variable,value,-time) %>%
-  ggplot(aes(x=time,y=value,color=variable))+
-  geom_line(size=1)+
-  theme_classic()+
-  ggtitle('b)') +
-  labs(x='time (yr)',y='pop')
-```
-
-(ref:HierScenario) blah
-
-After finding that social influence is a less substantial parameter in this model, we tested how significant fish dispersion was in the system. We found that it has a huge overall effect on the system’s dynamics. Here, we modeled sustainable fishing in patch 1 and unsustainable fishing in patch 2 (Table \ref{dispersionparamtable}) with no dispersion (Figure \ref{DispersionScenario}) and very little dispersion (Figure \ref{DispersionScenario_Slow}). We found that even small amounts of dispersion are enough to recuperate crashed fish stocks in patch 2. On the other hand, no changes to d or rho could have the same effect. This shows that our immigration parameters have a significantly stronger influence than any social dynamics
+REWRITE THIS: After finding that social influence is a less substantial parameter in this model, we tested how significant fish dispersion was in the system. We found that it has a huge overall effect on the system’s dynamics. Here, we modeled sustainable fishing in patch 1 and unsustainable fishing in patch 2 (Table \ref{dispersionparamtable}) with no dispersion (Figure \ref{DispersionScenario}) and very little dispersion (Figure \ref{DispersionScenario_Slow}). We found that even small amounts of dispersion are enough to recuperate crashed fish stocks in patch 2. On the other hand, no changes to d or rho could have the same effect. This shows that our immigration parameters have a significantly stronger influence than any social dynamics
 DOULBE CHECKGOING OUT 200 YEARS 
 
 
 ```{r dispersionparamtable, results = 'asis', echo = FALSE}
 
-params_dispersion <- params_default
-params_dispersion$r_1 <- 0.4
-#params_dispersion$r_2 <- 0.4
-params_dispersion$w_1 <- 0.2
-#params_dispersion$w_2 <- 0.2
-params_dispersion$h_1 <- 0.25
-#params_dispersion$h_2 <- 0.25
-params_dispersion$i_1 <- 0
-params_dispersion$i_2 <- 0
+
+
+params_dispersal <- data.frame(r_1 = 0.40, s_1 = 0.8, h_1 = 0.25, k_1 = 1.014, w_1 = 0.2, c_1 = 1.5, d_1 = 0.5, i_1 = 0.2, rho_1 = 0.5,
+                               r_2 = 0.35, s_2 = 0.8, h_2 = 0.5, k_2 = 1.014, w_2 = 0.35, c_2 = 1.5, d_2 = 0.5, i_2 = 0.2, rho_2 = 0.5)
 
 giveparams <- data.frame(matrix(, nrow = 9, ncol = 4))
 colnames(giveparams) <- c("Parameter", "Population_1", "Population_2", "Def")
 
 giveparams$Parameter <- c("r", "s", "h", "k", "$\\omega$", "c", "d", "i", "$\\rho$")
-giveparams$Population_1 <- c(params_dispersion[1:9])
-giveparams$Population_2 <- c(params_dispersion[10:18])
+giveparams$Population_1 <- c(params_dispersal[1:9])
+giveparams$Population_2 <- c(params_dispersal[10:18])
 
 giveparams$Def <- c("Fish net growth",
                     "Supply and demand",
@@ -539,41 +338,16 @@ knitr::kable(giveparams, format = "pandoc", booktabs = TRUE, caption = "Default 
 
 ```
 
-```{r DispersionScenario, fig.cap = '(ref:dispersionscenario) \\label{DispersionScenario}'}
-
-
-ode(
-  func=Bauch.Coupled,
-  y=xstart,
-  times=times,
-  parms=params_dispersion
-) %>%
-  as.data.frame() -> out_dispersion
-
-out_dispersion %>%
-  gather(variable,value,-time) %>%
-  ggplot(aes(x=time,y=value,color=variable))+
-  geom_line(size=1)+
-  theme_classic()+
-  labs(x='time (yr)',y='pop')
-
-#Social inequity scenario where rho_1 = 0.25 and h_1 = 1
-
-```
 
 (ref:dispersionscenario) no dispersion. Unsustainable practices in one patch
 
 ```{r DispersionScenario_Slow, fig.cap = '(ref:dispersionscenario_Slow) \\label{DispersionScenario_Slow}'}
 
-params_dispersion$i_1 <- 0.1
-params_dispersion$i_2 <- 0.1
-
-
 ode(
   func=Bauch.Coupled,
   y=xstart,
   times=times,
-  parms=params_dispersion
+  parms=params_dispersal
 ) %>%
   as.data.frame() -> out_dispersion
 
@@ -588,49 +362,284 @@ out_dispersion %>%
 
 ```
 
-(ref:dispersionscenario_Slow) Slow dispersion where $i$ = 0.1. Unsustainable practices in one patch. Note: no adjustment to rho or d could fix fishing scenario
+(ref:dispersionscenario_Slow) An example of the dynamics we're showing EXPLAIN MORE
 
-In order to test how the rho parameter influences the model, we ran a series of parameter planes with each variable paired with changes in rho. We found that at no point, did rho have an effect on the sustainability of the fish population (Fig whatevs). This shows that the outside social influence in our model actually has little effect on fishing practices. ALSO D
+```{r rhoExplore, fig.cap = '(ref:rhoexplore) \\label{rhoExplore}'}
 
-INSERT PROP PARAM PLANE (lol when it starts working again) HERE TO SHOW NOT USEFUL
+param_seq <- seq(0, 1, by = .05)
+finalDynamics <- data.frame(matrix(, nrow = (length(param_seq)), ncol = 3))
+colnames(finalDynamics) <- c("Parameter_New", "F1", "F2")
 
-\newpage
+for(i in 1:length(param_seq)){
+  #Run momdel with each new param combo
+  
+  # params_test <- params_dispersal  
+  # params_test$i_1 <- param_seq[i]
+  # params_test$i_2 <- param_seq[i]
+  
+  
+  params_test <- params_dispersal
+  params_test$rho_1 <- param_seq[i]
+  params_test$rho_2 <- param_seq[i]
+  
+  finalDynamics$Parameter_New[i] <- param_seq[i]
 
-Ok so it’s graphs like this that are super confusing. Why does patch 1 have 100% conservationists but 100%fish and vice versa?? In this graph rho = 0 so there should not be any outside influence.
+  ode(
+    func=Bauch.Coupled,
+    y=starting_defaultparams,
+    times=timespan,
+    parms=params_test
+  ) %>%
+    as.data.frame() -> out_Coupled
 
-```{r dispersionscenario_norho, fig.cap = "No social dynamics. Taking away rho doesn't really improve dynamics, but instead allows pop1 to take advantage of their sustainable fishing"}
-params_dispersion <- params_default
-params_dispersion$r_1 <- 0.4
-#params_dispersion$r_2 <- 0.4
-params_dispersion$w_1 <- 0.2
-#params_dispersion$w_2 <- 0.2
-params_dispersion$h_1 <- 0.25
-#params_dispersion$h_2 <- 0.25
-params_dispersion$rho_1 <- 0
-params_dispersion$rho_2 <- 0
-params_dispersion$i_1 <- 0
-params_dispersion$i_2 <- 0
+  #Compile output into Dataframe
+  finalDynamics$F1[i] <- out_Coupled[nrow(out_Coupled), 2]
+  finalDynamics$F2[i] <- out_Coupled[nrow(out_Coupled), 3]
+
+}
+#Scatter plot
+
+finalDynamics_long <- gather(finalDynamics, plot, Population, F1:F2, factor_key=TRUE)
+
+finalDynamics_long %>%
+  ggplot(aes(Parameter_New, Population, color=plot)) +
+  geom_line() +
+  geom_point(alpha=0.5, size=1) +
+  labs(y="Final Population", x="\u03C1 Value") +
+  theme_classic()
 
 
-ode(
-  func=Bauch.Coupled,
-  y=xstart,
-  times=times,
-  parms=params_dispersion
-) %>%
-  as.data.frame() -> out_dispersion
 
-out_dispersion %>%
-  gather(variable,value,-time) %>%
-  ggplot(aes(x=time,y=value,color=variable))+
-  geom_line(size=1)+
-  theme_classic()+
-  labs(x='time (yr)',y='pop')
-
-#Social inequity scenario where rho_1 = 0.25 and h_1 = 1
 
 ```
 
+(ref:rhoexplore) Explain how this is after 100 years or whatever
+
+```{r iExplore, results = 'asis', echo = FALSE, fig.show = "hold", out.width = "50%", fig.cap = '(ref:iexplore) \\label{iExplore}'}
+
+param_seq <- seq(0, 1, by = .05)
+finalDynamics1 <- data.frame(matrix(, nrow = (length(param_seq)), ncol = 3))
+colnames(finalDynamics1) <- c("Parameter_New", "F1", "F2")
+
+for(i in 1:length(param_seq)){
+  #Run momdel with each new param combo
+  
+  params_test <- params_dispersal
+  params_test$i_1 <- param_seq[i]
+  
+  finalDynamics1$Parameter_New[i] <- param_seq[i]
+
+  ode(
+    func=Bauch.Coupled,
+    y=starting_defaultparams,
+    times=timespan,
+    parms=params_test
+  ) %>%
+    as.data.frame() -> out_Coupled
+
+  #Compile output into Dataframe
+  finalDynamics1$F1[i] <- out_Coupled[nrow(out_Coupled), 2]
+  finalDynamics1$F2[i] <- out_Coupled[nrow(out_Coupled), 3]
+
+}
+#Scatter plot
+
+finalDynamics1_long <- gather(finalDynamics, plot, Population, F1:F2, factor_key=TRUE)
+
+finalDynamics1_long %>%
+  ggplot(aes(Parameter_New, Population, color=plot)) +
+  geom_line() +
+  geom_point(alpha=0.5, size=1) +
+  labs(y="Final Population", x="\u03C1 Value") +
+  theme_classic()
+
+finalDynamics2 <- data.frame(matrix(, nrow = (length(param_seq)), ncol = 3))
+colnames(finalDynamics2) <- c("Parameter_New", "F1", "F2")
+
+for(i in 1:length(param_seq)){
+  #Run momdel with each new param combo
+  
+  params_test <- params_dispersal
+  params_test$i_2 <- param_seq[i]
+  
+  finalDynamics2$Parameter_New[i] <- param_seq[i]
+
+  ode(
+    func=Bauch.Coupled,
+    y=starting_defaultparams,
+    times=timespan,
+    parms=params_test
+  ) %>%
+    as.data.frame() -> out_Coupled
+
+  #Compile output into Dataframe
+  finalDynamics2$F1[i] <- out_Coupled[nrow(out_Coupled), 2]
+  finalDynamics2$F2[i] <- out_Coupled[nrow(out_Coupled), 3]
+
+}
+#Scatter plot
+
+finalDynamics2_long <- gather(finalDynamics, plot, Population, F1:F2, factor_key=TRUE)
+
+finalDynamics2_long %>%
+  ggplot(aes(Parameter_New, Population, color=plot)) +
+  geom_line() +
+  geom_point(alpha=0.5, size=1) +
+  labs(y="Final Population", x="\u03C1 Value") +
+  theme_classic()
+
+
+```
+
+(ref:iexplore) Explain how this is after 100 years or whatever
+
+```{r Sensitivty, fig.cap = '(ref:sensitivity) \\label{Sensitivity}'}
+BauchSensitivity <- function(pars){
+  derivs <- function (t, state, pars) {
+  
+  with (as.list(c(state, pars)), {
+  ## now code the model equations
+  dF_1dt <-  r_1 * F_1 * (1-F_1) - (h_1 * F_1 * (1-X_1))/(F_1+s_1) - i_2 * F_1 + i_1 * F_2
+  dF_2dt <-  r_2 * F_2 * (1-F_2) - (h_2 * F_2 * (1-X_2))/(F_2+s_2) - i_1 * F_2 + i_2 * F_1
+  
+  dX_1dt <- k_1 * X_1 * (1-X_1) *(1/(F_1 + c_1) - w_1 + d_1*(2*X_1 - 1) + rho_1 * (2*X_2 - 1))
+  dX_2dt <- k_2 * X_2 * (1-X_2) *(1/(F_2 + c_2) - w_2 + d_2*(2*X_2 - 1) + rho_2 * (2*X_1 - 1))
+  
+      return(list(c(dF_1dt, dF_2dt, dX_1dt, dX_2dt)))
+    })
+  }
+  state   <- starting_defaultparams
+  tout    <- timespan
+  ## ode solves the model by integration ...
+  return(as.data.frame(ode(y = state, times = tout, func = derivs,
+    parms = pars)))
+}
+
+
+SnsBact <- sensFun(func = BauchSensitivity, parms = params_default, sensvar = c("F_1", "F_2"), senspar = c("i_1", "i_2", "rho_1", "rho_2"), varscale = 1)
+
+summary(SnsBact)
+plot(summary(SnsBact))
+
+# plot(SnsBact, type = "b", pch = 15:19, col = 2:6, 
+#      main = "Sensitivity all vars")
+
+```
+
+(ref:sensitivity) FIGURE OUT WHICH IS BEST
+
+```{r FXNparamplane}
+
+paramplane <- function(paramx, paramy, maxx, maxy){
+  #Create empty dataframe to fill
+  paramlist <- c("r", "s", "h", "k", "\u03C9", "c", "d", "i", "\u03C1")
+  outcomes <- data.frame(matrix(ncol = 4, nrow = 0))
+  colnames(outcomes) <- c("XParameter", "YParameter", "Fish1", "Fish2")
+  
+  #Dumb but it throws an error if S = 0
+  startx <- 0
+  starty <- 0
+  if(paramx == 2){startx <- .001}
+  if(paramy == 2){starty <- .001}
+  
+  # 
+  # #Can comment this part out if using other H vals
+  # if(paramx == 3){maxx = 0.1}
+  # if(paramy == 3){maxy = 0.1}
+  
+  #Create list of all combinations of the two paramters
+  paramcombos <- expand.grid(x_parameter = seq(from = startx, to = maxx, length.out = 11),
+                        y_parameter = seq(from = starty, to = maxy, length.out = 11))
+  
+  for(i in 1:nrow(paramcombos)){
+  params_Default <- params_dispersal
+  #Change params to be the 
+  params_Default[paramx] <- paramcombos$x_parameter[i]
+  params_Default[(paramy + 9)] <- paramcombos$y_parameter[i]
+  # 
+  params_new <- c(r_1 = params_Default$r_1, s_1 = params_Default$s_1, h_1 = params_Default$h_1, k_1 = params_Default$k_1,
+                      w_1 = params_Default$w_1, c_1 = params_Default$c_1, d_1 = params_Default$d_1, i_1 = params_Default$i_1,
+                      rho_1 =  params_Default$rho_1,
+                      r_2 = params_Default$r_2, s_2 = params_Default$s_2, h_2 = params_Default$h_2, k_2 = params_Default$k_2,
+                      w_2 = params_Default$w_2, c_2 = params_Default$c_2, d_2 = params_Default$d_2, i_2 = params_Default$i_2,
+                      rho_2 = params_Default$rho_2)
+
+  times <- timespan
+  starting_params <- starting_defaultparams #See supplemental for other starting params
+    
+    ode(
+      func=Bauch.Coupled,
+      y=starting_params,
+      times=times,
+      parms=params_new
+    ) %>%
+      as.data.frame() -> out_Diff
+    
+    finalstatus <- out_Diff[nrow(out_Diff),]
+      # out_Diff %>%
+      # filter(times == 100)
+    
+    outcomes[i,] <- c(paramcombos$x_parameter[i], paramcombos$y_parameter[i], finalstatus$F_1, finalstatus$F_2)
+  }
+  
+  finalDynamics <- outcomes %>%
+    mutate(Result = case_when(
+    Fish1 >= .25 & Fish2 >= .25 ~ "Both",
+    Fish1 >= .25 & Fish2 < .25 ~ "Only Pop1",
+    Fish1 < .25 & Fish2 >= .25 ~ "Only Pop2",
+    Fish1 < .25 & Fish2 < .25 ~ "Neither"))
+  
+cols <- c("green", "orange", "yellow", "black")
+
+#Binned Colors
+ggplot(finalDynamics, aes(XParameter, YParameter, fill = Result)) + geom_tile(width=1) +
+  scale_fill_manual(
+  values = c("Both" = "green",
+             "Only Pop1" = "orange",
+             "Only Pop2" = "yellow",
+             "Neither" = "black")) +
+  xlab(paramlist[paramx]) +
+  ylab(paramlist[paramy]) +
+  xlim(0, 1) +
+  ylim(0, 1) +
+  theme(legend.position = 'none')
+}
+
+
+paramplane_testing <- function(boop){
+
+  pl <- list()
+  param_tests <- expand.grid(firstParam = seq(from = 1, to = 9, length.out = 9),
+                        secondParam = seq(from = 1, to = 9, length.out = 9))
+
+  param_tests <- param_tests %>%
+    filter(firstParam != secondParam) %>%
+    filter(firstParam == boop)
+
+  for(i in 1:nrow(param_tests)){
+    pl[[i]] <- paramplane(param_tests$firstParam[i], param_tests$secondParam[i], 1, 1)
+  }
+  
+  do.call("grid.arrange", c(pl,  ncol=2))
+}
+
+```
+
+```{r rhoParamPlane, warning = FALSE, fig.cap = '(ref:rhoparamplane) \\label{rhoParamPlane}'}
+
+paramplane_testing(9)
+
+```
+
+(ref:rhoparamplane) ALSO ADD LEGEND
+
+```{r iParamPlane, warning = FALSE, fig.cap = '(ref:iparamplane) \\label{iParamPlane}'}
+
+paramplane_testing(9)
+
+```
+
+(ref:rhoparamplane) ALSO ADD LEGEND
 \newpage
 
 
