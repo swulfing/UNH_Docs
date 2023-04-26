@@ -153,6 +153,8 @@ for(i in 1:nrow(A)){
   ages$Variance[i] <- A[i,i]/(1-A[i,i])^2
 }
 
+colnames(ages) <- c("Stage", "Duration (months)", "Variance")
+
 knitr::kable(ages, format = "latex", booktabs = TRUE)
 
 ```

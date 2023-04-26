@@ -1,22 +1,32 @@
 ---
-title: "CHI Appendix"
-author: "Sophie Wulfing, Easton White, Ahilya Sudarshan Kadba"
-date: "2023-02-21"
 output:
   bookdown::pdf_document2:
     fig_caption: yes
     toc: no
+    keep_tex: yes
+  pdf_document:
+    toc: no
   bookdown::html_document2:
     fig_caption: yes
     toc: no
-  pdf_document:
-    toc: no
-    fig_caption: yes
+  word_document: default
 bibliography:
 - Ch1_Citations.bib
 - R_Citations.bib
-header-includes: \usepackage{setspace}\doublespacing \usepackage{lineno} \usepackage{placeins}
 ---
+
+\begin{center}
+Supplementary Material for:
+	
+\textbf{\Large Using mechanistic models to assess temporary closure strategies for small scale fisheries}
+	
+\textsc{Sophie Wulfing$^{1*}$, Ahilya Sudarshan Kadba$^{1}$, Mez Baker-Médard$^{2}$, and Easton R. White$^{1}$}
+\vspace{3 mm}
+\normalsize{\indent $^1$Department of Biological Sciences, University of New Hampshire, 03824, NH, USA \\ $^2$Department of Environmental Studies, Middlebury College, Middlebury, VT 05753\\}
+$\text{*}$ Corresponding authors: Sophie Wulfing (SophieWulfing@gmail.com) and Dr. Easton White (Easton.White@unh.edu)
+\end{center}
+
+\pagebreak
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev="cairo_pdf")
@@ -55,10 +65,6 @@ library(Rage)
 
 observedData <- as.matrix(data.frame(read.csv("RaberinaryBenbow2012Calcs.csv")))
 observedStageMatrix <- observedData[1:13, 2:5]
-```
-
-```{r, include=FALSE}
-options(tinytex.verbose = TRUE)
 ```
 
 ```{r FXNoverallsurvive}
@@ -146,9 +152,73 @@ knitr::kable(RaberinaryData, format = "latex", booktabs = TRUE, caption = "(ref:
 
 ```
 
+# Stability and Elasticity analysis
 
-\newpage
+```{r sensitivity, fig.cap = "(ref:sensitive) \\label{sensitivity}"}
 
+cols <- hcl.colors(1000, palette = "Greens 3", alpha = NULL, rev = TRUE, fixup = TRUE)#, end = .85)
+
+sens <- sensitivity(A)
+
+for(i in 1:length(A)){
+  if(A[i] == 0){
+    sens[i] <-  NA
+  }
+}
+
+## IMAGE plot with smaller boxes
+image2(sens, mar=c(1,3.5,5,1), box.offset=.1, border="gray70",col = c("white", cols[150:850]), text.cex = 2)
+ 
+
+## MATPLOT
+# matplot2(sens, log='y', type='b', yaxt='n', ltitle="Fate",
+#  ylab=expression(paste("Sensitivity of ",lambda)),
+#  main="Sensitivity matrix using matplot2")
+# pwrs <- -4:1
+#  #axis(2, 10^pwrs, parse(text=paste("10^", pwrs, sep = "")), las=1)
+
+
+
+#https://rdrr.io/cran/popbio/man/sensitivity.html
+
+#
+```
+
+(ref:sensitive) Sensitivity analysis of our matrix model - the change in the eigenvalue ($\lambda$) as a result of a unit change of each parameter in the model.
+
+```{r elasticity, fig.cap = "(ref:elastic) \\label{elasticity}"}
+
+cols <- hcl.colors(1000, palette = "Greens 3", alpha = NULL, rev = TRUE, fixup = TRUE)#, end = .85)
+
+elas <- elasticity(A)
+
+for(i in 1:length(A)){
+  if(A[i] == 0){
+    elas[i] <-  NA
+  }
+}
+
+image2(elas, mar=c(1,3.5,5,1), border="gray70", col = c("white", cols[150:850]), text.cex = 2 )
+
+# # Summed elasticities for teasel.
+# # fertility in last column, stasis P on diagonal, and growth in bottom-left triangle
+# c(F=sum(elas[,4]), P=sum(diag(elas)), G=sum(elas[row(elas)>col(elas)]))
+# 
+# elas <- elasticity(tortoise[["med.high"]])
+# image2(elas, mar=c(1,3.5,5,1),  log=FALSE)
+#  title("Tortoise elasticity matrix", line=2.5)
+# # Summed elasticities for tortoise (see example 9.4)
+# # fertility in top row, stasis on diagonal, and growth on subdiagonal
+# c(F=sum(elas[1,]), P=sum(diag(elas)), G=sum(elas[row(elas)==col(elas)+1]))
+
+#https://rdrr.io/cran/popbio/man/elasticity.html
+```
+
+(ref:elastic) Elasticity analysis of our matrix model - the change in the eigenvalue ($\lambda$) as a result of a proportional change of each paramter in the model.
+
+Sensitivity analysis (Figure \ref{sensitivity}) showed that within each stage, the growth parameters ($G_1$ - $G_3$) had the largest effect on this growthrate compared to the parameters indicating staying within a stage ($P_1$-$P_4$). However, as all the parameters represent proportions of individuals in a stage and must necessarily be between 0 and 1 with the exception of the $F_4$ parameter, elasticity analysis provides an interpretation that weights all stages equally. The result of this analysis shows that percent changes in the fecundity metric can be as beneficial to the overall population growth as changes in the G parameters (Figure \ref{elasticity}). Further, this analysis indicates that of all the stages, stage 1 has the most overall influence on the overall population growth.
+
+Elasticity analysis shows that conservation of both the growth and reproductive parameters would have equal effect on the overall population growth, with the most influential parameter being the survival of stage 1 individuals. The sensitivity and elasticity analysis indicate which stages will have the greatest effect on the population if they are targeted for preservation practices. Previous research has indicated that catch size limits are very effective in preserving stocks of species with rapid growth and high death rates, but this is only if individuals do not enter the fishery until they have reached maturity [@nowlisShortLongtermEffects2000]. However, the fishing method most commonly employed by the local people is spearfishing, where harvesters will search out octopus dens and spear the den to probe out the octopus [@benbowLessonsLearntExperimental2014]. Because of this, fishing method does not discriminate based on stage, this is not an applicable suggestion for conservation practices. For this reason, even though our analysis of different stage survivabilities indicates that conserving immature individuals would be an effective tool for fostering population growth, this is not a realistic management practice in this fishery for most harvesters.
 
 # Per-stage management scenarios
 
@@ -232,8 +302,6 @@ annotate_figure(t, left = textGrob("Percent change in survival", rot = 90, vjust
 #do.call(ggarrange, c(doesthiswork[1:5], labels = c("Stage 1", "Stage 2", "Stage 3", "Stage 4","Larval")))
 
 ```
-
-\newpage
 
 # Rage package analysis
 
