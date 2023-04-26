@@ -1,0 +1,87 @@
+---
+output:
+  bookdown::pdf_document2:
+    fig_caption: yes
+    toc: no
+    keep_tex: yes
+  pdf_document:
+    toc: no
+  bookdown::html_document2:
+    fig_caption: yes
+    toc: no
+  word_document: default
+bibliography:
+- Thesis_Citations.bib
+header-includes: \usepackage{setspace}\doublespacing \usepackage{lineno} \usepackage{placeins}
+---
+
+\pagenumbering{gobble}
+
+\begin{center}
+	
+\textbf{\Large Mechanistic models of human decision-making and ecological dynamics in small-scale fisheries}
+	
+\textsc{BY \\ Sophie Wulfing}
+\vspace{3 mm}
+
+\textsc{B.S., Colorado College, 2019 \\ }
+\vspace{3 mm}
+\textsc{THESIS}
+
+\vspace{3 mm}
+\textsc{Submitted to the University of New Hampshire \\ in Partial Fulfillment of \\ the Requirements of the Degree of \\ Master of Science \\ in \\ Marine Biology \\ May 2023}
+
+\end{center}
+
+\newpage
+
+\pagenumbering{roman}
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev="cairo_pdf")
+#knitr::write_bib look into
+setwd("C:/Users/sophi/Documents/GitHub/UNH_Docs/Proposal")
+
+```
+
+```{r, include=FALSE}
+options(tinytex.verbose = TRUE)
+```
+
+# ACKNOWLEDGEMENTS
+
+WRITE THIS
+
+\newpage
+
+# TABLE OF CONTENTS
+
+WRITE
+
+\newpage
+
+# ABSTRACT
+
+Small scale fisheries are essential to the livelihoods of 40 million people worldwide. They are essential sources of nutrients and income for these communities that rely on them. However, due to their abundance, understanding the status of these fisheries requires in-depth data collection, often in remote areas. Further, each small scale fishery is very individualized, and external groups attempting to impose fishing restrictions are often met with low compliance or are unsuccessful in their efforts to conserve fish stocks due to a lack of understanding of either fishing culture or the ecology of the harvested species. In this thesis, I employ various mechanistic models to various small scale fisheries in order to better understand their underlying dynamics. In Chapter 1, I fit a Lefkovitch matrix model to blue octopus data in the small scale fishery of Southwestern Madagascar in order to assess their life history and population health. In Chapter 2, I create a socio-ecological model with replicator dynamics and incorporated social hierarchy and space. Here, we found that collaboration between groups of people will be ineffective if only the financial gain of fishing is communicated, not the fishing strategies used to achieve high yields. Further, we found that fish movement was an extremely important parameter in these models. This work serves to exemplify the mathematical tools available when assessing small scale fisheries and highlight the need for a more substantitve understanding of the status of the world's small scale fisheries.
+
+\newpage
+
+\pagenumbering{arabic}
+
+# Introduction
+
+The definition of small scale fisheries is an evolving concept, but is characterized by subsistence fishing, community management, and traditional technologies [@smithDefiningSmallScaleFisheries2019]. 40 million people worldwide make their living off small-scale fisheries, and is an essential source of nutrition for these groups [@HIDDENHARVESTTheGlobal2012; @chuenpagdeeTransformingGovernanceSmallscale2018; @StateWorldFisheries2020]. Small scale fisheries have been shown to be a significant avenue of poverty alleviation through food security [@chuenpagdeeTransformingGovernanceSmallscale2018; @StateWorldFisheries2020]. Despite the prominence of small-scale fisheries and their importance to the people who rely on them, they face many threats as they are highly susceptible to climate change [@allisonVulnerabilityNationalEconomies2009], coastal urbanization [@kadfakInvestigatingWaterfrontEntangled2017], and overfishing [@cinnerBuildingAdaptiveCapacity2018]. Further, they are typically characterized by a close connection between the ecology of the fishery and the culture of those who fish there. This means that each small scale fishery is very individualized and so there exists no “one size fits all” conservation strategy for small scale fisheries. Instead, a deep understanding of both the biology of the fish being harvested and the socio-economic factors that affect fishing activity is required in order to institute effective and equitable conservation in small scale fisheries [@SavingFishFishers2004; @kosamuConditionsSustainabilitySmallscale2015].
+However, this in depth understanding is difficult to achieve as small scale fisheries are drastically understudied [@StateWorldFisheries2020]. Data collection in small scale fisheries can be difficult and resource consuming as they often exist in remote places [@chuenpagdeeGlobalInformationSystem2019]. Also, effective conservation requires an understanding of the practices and culture of fishers. Fishers in certain areas can sometimes come from different ethnicities and speak different languages [@pomeroyFishWarsConflict2007; @barnes-mautheInfluenceEthnicDiversity2013; @sariMonitoringSmallscaleFisheries2021], making cross-cultural cooperation difficult. Further, conservationists have often ignored social hierarchies in small scale fisheries, and by doing so, have actually further entrench these inequalities [@baker-medardGenderingMarineConservation2017]. The existence of social structures is extremely prevalent in human societies and this has been shown to alter how people interact with the environment.
+Community management of fisheries has been shown to be one of the most effective forms of small scale fishery conservation while utilizing traditional knowledge and empowering local communities [@pomeroyHowYourMPA2004, @gelcichIncentivizingBiodiversityConservation2015]. Small scale fisheries are typically characterized by tight social structures and strong reliance on the environment, therefore the intersection of culture and environment is extremely important in maintaining small scale [fishe@graftonSocialCapitalFisheries2005; @thampiSocioecologicalDynamicsCaribbean2018; @barnesSocialecologicalAlignmentEcological2019]. Community management allows for reaching ecological goals while simultaneously maintaining the livelihood and economic and cultural goals of fishers [@govanStatusPotentialLocallymanaged2010; @barnes-mautheInfluenceEthnicDiversity2013]. On the other hand, outsider institutions have typically ignored these cultural components to fisheries and either further entrenched inequalities in the community or conservation efforts have been met with low compliance [@bodinRoleSocialNetworks2009; @katikiroChallengesFacingLocal2015; @kosamuConditionsSustainabilitySmallscale2015; @salasViabilitySustainabilitySmallScale2019; @princeSpawningPotentialSurveys2021].
+
+Mechanistic models are one way in which we can study small scale fisheries despite challenges in data collection. Mechanistic models mathematically describe the underlying biological and physical processes that make up an ecological system [@grimmPatternOrientedModelingAgentBased2005; @andreModellingClimatechangeinducedNonlinear2010; @briggs-gonzalezLifeHistoriesConservation2016]. Therefore, they do not require the extensive data collection needed to construct a statistical model [@crouseStageBasedPopulationModel1987; @nowlisShortLongtermEffects2000; @gharouniSensitivityInvasionSpeed2015]. Mechanistic models are a prominent tool in fishery assessments [@leeBenefitsRisksIncorporating2018; @freeBloodStonePerformance2020]. In the following chapters, we utilize mechanistic models to better understand small scale fisheries and what social and ecological challenges they face.
+
+\newpage
+
+**References**
+
+
+
+
+
+

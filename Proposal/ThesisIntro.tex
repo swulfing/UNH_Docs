@@ -1,0 +1,258 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\usepackage{setspace}\doublespacing \usepackage{lineno} \usepackage{placeins}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+
+\pagenumbering{gobble}
+
+\begin{center}
+    
+\textbf{\Large Mechanistic models of human decision-making and ecological dynamics in small-scale fisheries}
+    
+\textsc{BY \\ Sophie Wulfing}
+\vspace{3 mm}
+
+\textsc{B.S., Colorado College, 2019 \\ }
+\vspace{3 mm}
+\textsc{THESIS}
+
+\vspace{3 mm}
+\textsc{Submitted to the University of New Hampshire \\ in Partial Fulfillment of \\ the Requirements of the Degree of \\ Master of Science \\ in \\ Marine Biology \\ May 2023}
+
+\end{center}
+
+\newpage
+
+\pagenumbering{roman}
+
+\hypertarget{acknowledgements}{%
+\section{ACKNOWLEDGEMENTS}\label{acknowledgements}}
+
+WRITE THIS
+
+\newpage
+
+\hypertarget{table-of-contents}{%
+\section{TABLE OF CONTENTS}\label{table-of-contents}}
+
+WRITE
+
+\newpage
+
+\hypertarget{abstract}{%
+\section{ABSTRACT}\label{abstract}}
+
+Small scale fisheries are essential to the livelihoods of 40 million people worldwide. They are essential sources of nutrients and income for these communities that rely on them. However, due to their abundance, understanding the status of these fisheries requires in-depth data collection, often in remote areas. Further, each small scale fishery is very individualized, and external groups attempting to impose fishing restrictions are often met with low compliance or are unsuccessful in their efforts to conserve fish stocks due to a lack of understanding of either fishing culture or the ecology of the harvested species. In this thesis, I employ various mechanistic models to various small scale fisheries in order to better understand their underlying dynamics. In Chapter 1, I fit a Lefkovitch matrix model to blue octopus data in the small scale fishery of Southwestern Madagascar in order to assess their life history and population health. In Chapter 2, I create a socio-ecological model with replicator dynamics and incorporated social hierarchy and space. Here, we found that collaboration between groups of people will be ineffective if only the financial gain of fishing is communicated, not the fishing strategies used to achieve high yields. Further, we found that fish movement was an extremely important parameter in these models. This work serves to exemplify the mathematical tools available when assessing small scale fisheries and highlight the need for a more substantitve understanding of the status of the world's small scale fisheries.
+
+\newpage
+
+\pagenumbering{arabic}
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+The definition of small scale fisheries is an evolving concept, but is characterized by subsistence fishing, community management, and traditional technologies (Smith 2019). 40 million people worldwide make their living off small-scale fisheries, and is an essential source of nutrition for these groups ({``Hidden {Harvest}-{The} {Global} {Contribution} of {Capture} {Fisheries}''} 2012; Chuenpagdee and Jentoft 2018; \emph{The {State} of {World} {Fisheries} and {Aquaculture} 2020} 2020). Small scale fisheries have been shown to be a significant avenue of poverty alleviation through food security (Chuenpagdee and Jentoft 2018; \emph{The {State} of {World} {Fisheries} and {Aquaculture} 2020} 2020). Despite the prominence of small-scale fisheries and their importance to the people who rely on them, they face many threats as they are highly susceptible to climate change (Allison et al. 2009), coastal urbanization (Kadfak and Knutsson 2017), and overfishing (Cinner et al. 2018). Further, they are typically characterized by a close connection between the ecology of the fishery and the culture of those who fish there. This means that each small scale fishery is very individualized and so there exists no ``one size fits all'' conservation strategy for small scale fisheries. Instead, a deep understanding of both the biology of the fish being harvested and the socio-economic factors that affect fishing activity is required in order to institute effective and equitable conservation in small scale fisheries ({``Saving {Fish} and {Fishers}: {Toward} {Sustainable} and {Equitable} {Governance} of the {Global} {Fishing} {Sector}''} 2004; Kosamu 2015).
+However, this in depth understanding is difficult to achieve as small scale fisheries are drastically understudied (\emph{The {State} of {World} {Fisheries} and {Aquaculture} 2020} 2020). Data collection in small scale fisheries can be difficult and resource consuming as they often exist in remote places (Chuenpagdee et al. 2019). Also, effective conservation requires an understanding of the practices and culture of fishers. Fishers in certain areas can sometimes come from different ethnicities and speak different languages (Pomeroy et al. 2007; Barnes-Mauthe et al. 2013; Sari et al. 2021), making cross-cultural cooperation difficult. Further, conservationists have often ignored social hierarchies in small scale fisheries, and by doing so, have actually further entrench these inequalities (Baker-Médard 2017). The existence of social structures is extremely prevalent in human societies and this has been shown to alter how people interact with the environment.
+Community management of fisheries has been shown to be one of the most effective forms of small scale fishery conservation while utilizing traditional knowledge and empowering local communities Gelcich and Donlan (2015). Small scale fisheries are typically characterized by tight social structures and strong reliance on the environment, therefore the intersection of culture and environment is extremely important in maintaining small scale {[}\href{mailto:fishe@graftonSocialCapitalFisheries2005}{\nolinkurl{fishe@graftonSocialCapitalFisheries2005}}; Thampi, Anand, and Bauch (2018); Barnes et al. (2019){]}. Community management allows for reaching ecological goals while simultaneously maintaining the livelihood and economic and cultural goals of fishers (Govan 2010; Barnes-Mauthe et al. 2013). On the other hand, outsider institutions have typically ignored these cultural components to fisheries and either further entrenched inequalities in the community or conservation efforts have been met with low compliance (Bodin and Crona 2009; Katikiro, Macusi, and Ashoka Deepananda 2015; Kosamu 2015; Salas, Barragán-Paladines, and Chuenpagdee 2019; Prince et al. 2021).
+
+Mechanistic models are one way in which we can study small scale fisheries despite challenges in data collection. Mechanistic models mathematically describe the underlying biological and physical processes that make up an ecological system (Grimm et al. 2005; André, Haddon, and Pecl 2010; Briggs-Gonzalez et al. 2016). Therefore, they do not require the extensive data collection needed to construct a statistical model (Crouse, Crowder, and Caswell 1987; Nowlis 2000; Gharouni et al. 2015). Mechanistic models are a prominent tool in fishery assessments (Lee et al. 2018; Free et al. 2020). In the following chapters, we utilize mechanistic models to better understand small scale fisheries and what social and ecological challenges they face.
+
+\newpage
+
+\textbf{References}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-allisonVulnerabilityNationalEconomies2009}{}}%
+Allison, Edward H., Allison L. Perry, Marie-Caroline Badjeck, W. Neil Adger, Katrina Brown, Declan Conway, Ashley S. Halls, et al. 2009. {``Vulnerability of National Economies to the Impacts of Climate Change on Fisheries.''} \emph{Fish and Fisheries} 10 (2): 173--96. \url{https://doi.org/10.1111/j.1467-2979.2008.00310.x}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-andreModellingClimatechangeinducedNonlinear2010}{}}%
+André, Jessica, Malcolm Haddon, and Gretta T. Pecl. 2010. {``Modelling Climate-Change-Induced Nonlinear Thresholds in Cephalopod Population Dynamics: {Climate} Change and Octopus Population Dynamics.''} \emph{Global Change Biology} 16 (10): 2866--75. \url{https://doi.org/10.1111/j.1365-2486.2010.02223.x}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-baker-medardGenderingMarineConservation2017}{}}%
+Baker-Médard, Merrill. 2017. {``Gendering {Marine} {Conservation}: {The} {Politics} of {Marine} {Protected} {Areas} and {Fisheries} {Access}.''} \emph{Society \& Natural Resources} 30 (6): 723--37. \url{https://doi.org/10.1080/08941920.2016.1257078}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-barnesSocialecologicalAlignmentEcological2019}{}}%
+Barnes, Michele L., Örjan Bodin, Tim R. McClanahan, John N. Kittinger, Andrew S. Hoey, Orou G. Gaoue, and Nicholas A. J. Graham. 2019. {``Social-Ecological Alignment and Ecological Conditions in Coral Reefs.''} \emph{Nature Communications} 10 (1): 2039. \url{https://doi.org/10.1038/s41467-019-09994-1}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-barnes-mautheInfluenceEthnicDiversity2013}{}}%
+Barnes-Mauthe, Michele, Shawn Arita, Stewart D. Allen, Steven A. Gray, and PingSun Leung. 2013. {``The {Influence} of {Ethnic} {Diversity} on {Social} {Network} {Structure} in a {Common}-{Pool} {Resource} {System}: {Implications} for {Collaborative} {Management}.''} \emph{Ecology and Society} 18 (1): art23. \url{https://doi.org/10.5751/ES-05295-180123}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-bodinRoleSocialNetworks2009}{}}%
+Bodin, Örjan, and Beatrice I. Crona. 2009. {``The Role of Social Networks in Natural Resource Governance: {What} Relational Patterns Make a Difference?''} \emph{Global Environmental Change} 19 (3): 366--74. \url{https://doi.org/10.1016/j.gloenvcha.2009.05.002}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-briggs-gonzalezLifeHistoriesConservation2016}{}}%
+Briggs-Gonzalez, Venetia, Christophe Bonenfant, Mathieu Basille, Michael Cherkiss, Jeff Beauchamp, and Frank Mazzotti. 2016. {``Life Histories and Conservation of Long‐lived Reptiles, an Illustration with the {American} Crocodile ({Crocodylus} Acutus).''} \emph{Journal of Animal Ecology} 1365 (2656.12723): 12.
+
+\leavevmode\vadjust pre{\hypertarget{ref-chuenpagdeeTransformingGovernanceSmallscale2018}{}}%
+Chuenpagdee, Ratana, and Svein Jentoft. 2018. {``Transforming the Governance of Small-Scale Fisheries.''} \emph{Maritime Studies} 17 (1): 101--15. \url{https://doi.org/10.1007/s40152-018-0087-7}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-chuenpagdeeGlobalInformationSystem2019}{}}%
+Chuenpagdee, Ratana, Delphine Rocklin, David Bishop, Matthew Hynes, Randal Greene, Miguel R. Lorenzi, and Rodolphe Devillers. 2019. {``The Global Information System on Small-Scale Fisheries ({ISSF}): {A} Crowdsourced Knowledge Platform.''} \emph{Marine Policy} 101 (March): 158--66. \url{https://doi.org/10.1016/j.marpol.2017.06.018}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-cinnerBuildingAdaptiveCapacity2018}{}}%
+Cinner, Joshua E., W. Neil Adger, Edward H. Allison, Michele L. Barnes, Katrina Brown, Philippa J. Cohen, Stefan Gelcich, et al. 2018. {``Building Adaptive Capacity to Climate Change in Tropical Coastal Communities.''} \emph{Nature Climate Change} 8 (2): 117--23. \url{https://doi.org/10.1038/s41558-017-0065-x}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-crouseStageBasedPopulationModel1987}{}}%
+Crouse, Deborah T., Larry B. Crowder, and Hal Caswell. 1987. {``A {Stage}-{Based} {Population} {Model} for {Loggerhead} {Sea} {Turtles} and {Implications} for {Conservation}.''} \emph{Ecology} 68 (5): 1412--23. \url{https://doi.org/10.2307/1939225}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-freeBloodStonePerformance2020}{}}%
+Free, Christopher M., Olaf P. Jensen, Sean C. Anderson, Nicolas L. Gutierrez, Kristin M. Kleisner, Catherine Longo, Cóilín Minto, Giacomo Chato Osio, and Jessica C. Walsh. 2020. {``Blood from a Stone: {Performance} of Catch-Only Methods in Estimating Stock Biomass Status.''} \emph{Fisheries Research} 223 (March): 105452. \url{https://doi.org/10.1016/j.fishres.2019.105452}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-gelcichIncentivizingBiodiversityConservation2015}{}}%
+Gelcich, Stefan, and C. Josh Donlan. 2015. {``Incentivizing Biodiversity Conservation in Artisanal Fishing Communities Through Territorial User Rights and Business Model Innovation.''} \emph{Conservation Biology} 29 (4): 1076--85. \url{https://doi.org/10.1111/cobi.12477}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-gharouniSensitivityInvasionSpeed2015}{}}%
+Gharouni, A, Ma Barbeau, A Locke, L Wang, and J Watmough. 2015. {``Sensitivity of Invasion Speed to Dispersal and Demography: An Application of Spreading Speed Theory to the Green Crab Invasion on the Northwest {Atlantic} Coast.''} \emph{Marine Ecology Progress Series} 541 (December): 135--50. \url{https://doi.org/10.3354/meps11508}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-govanStatusPotentialLocallymanaged2010}{}}%
+Govan, Hugh. 2010. {``Status and Potential of Locally-Managed Marine Areas in the {South} {Pacific}:''} \emph{Munich Personal RePEc Archive} 23828.
+
+\leavevmode\vadjust pre{\hypertarget{ref-grimmPatternOrientedModelingAgentBased2005}{}}%
+Grimm, Volker, Eloy Revilla, Uta Berger, Florian Jeltsch, Wolf M. Mooij, Steven F. Railsback, Hans-Hermann Thulke, Jacob Weiner, Thorsten Wiegand, and Donald L. DeAngelis. 2005. {``Pattern-{Oriented} {Modeling} of {Agent}-{Based} {Complex} {Systems}: {Lessons} from {Ecology}.''} \emph{Science} 310 (5750): 987--91. \url{https://doi.org/10.1126/science.1116681}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-HIDDENHARVESTTheGlobal2012}{}}%
+{``Hidden {Harvest}-{The} {Global} {Contribution} of {Capture} {Fisheries}.''} 2012. 66469-GLB. The World Bank. \url{https://documents1.worldbank.org/curated/en/515701468152718292/pdf/664690ESW0P1210120HiddenHarvest0web.pdf}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-kadfakInvestigatingWaterfrontEntangled2017}{}}%
+Kadfak, Alin, and Per Knutsson. 2017. {``Investigating the {Waterfront}: {The} {Entangled} {Sociomaterial} {Transformations} of {Coastal} {Space} in {Karnataka}, {India}.''} \emph{Society \& Natural Resources} 30 (6): 707--22. \url{https://doi.org/10.1080/08941920.2016.1273418}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-katikiroChallengesFacingLocal2015}{}}%
+Katikiro, Robert E., Edison D. Macusi, and K. H. M. Ashoka Deepananda. 2015. {``Challenges Facing Local Communities in {Tanzania} in Realising Locally-Managed Marine Areas.''} \emph{Marine Policy} 51 (January): 220--29. \url{https://doi.org/10.1016/j.marpol.2014.08.004}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-kosamuConditionsSustainabilitySmallscale2015}{}}%
+Kosamu, Ishmael B. M. 2015. {``Conditions for Sustainability of Small-Scale Fisheries in Developing Countries.''} \emph{Fisheries Research} 161 (January): 365--73. \url{https://doi.org/10.1016/j.fishres.2014.09.002}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-leeBenefitsRisksIncorporating2018}{}}%
+Lee, Qi, James T Thorson, Vladlena V Gertseva, and André E Punt. 2018. {``The Benefits and Risks of Incorporating Climate-Driven Growth Variation into Stock Assessment Models, with Application to {Splitnose} {Rockfish} ({Sebastes} Diploproa).''} Edited by Ernesto Jardim. \emph{ICES Journal of Marine Science} 75 (1): 245--56. \url{https://doi.org/10.1093/icesjms/fsx147}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-nowlisShortLongtermEffects2000}{}}%
+Nowlis, Joshua Sladek. 2000. {``Short- and Long-Term Effects of Three Fishery-Management Tools on Depleted Fisheries.''} \emph{Bulletin of Marine Science} 66 (3): 12.
+
+\leavevmode\vadjust pre{\hypertarget{ref-pomeroyFishWarsConflict2007}{}}%
+Pomeroy, Robert, John Parks, Richard Pollnac, Tammy Campson, Emmanuel Genio, Cliff Marlessy, Elizabeth Holle, et al. 2007. {``Fish Wars: {Conflict} and Collaboration in Fisheries Management in {Southeast} {Asia}.''} \emph{Marine Policy} 31 (6): 645--56. \url{https://doi.org/10.1016/j.marpol.2007.03.012}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-pomeroyHowYourMPA2004}{}}%
+Pomeroy, Robert, John Parks, and Lani Watson. 2004. \emph{How Is Your {MPA} Doing? {AGuidebook} of {Natural} and {Social} {Indicators} for {Evaluating} {Marine} {Protected} {AreaManagement} {Effectiveness}}. {IUCN}. Gland, Switzerland; Cambridge, UK.
+
+\leavevmode\vadjust pre{\hypertarget{ref-princeSpawningPotentialSurveys2021}{}}%
+Prince, Jeremy, Watisoni Lalavanua, Jone Tamanitoakula, Laitia Tamata, Stuart Green, Scott Radway, Epeli Loganimoce, et al. 2021. {``Spawning Potential Surveys in {Fiji}: {A} New Song of Change for {\textless{}}Span Style="font-Variant:small-Caps;"{\textgreater{}}small‐scale{\textless{}}/Span{\textgreater{}} Fisheries in the {Pacific}.''} \emph{Conservation Science and Practice} 3 (2). \url{https://doi.org/10.1111/csp2.273}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-salasViabilitySustainabilitySmallScale2019}{}}%
+Salas, Silvia, María José Barragán-Paladines, and Ratana Chuenpagdee, eds. 2019. \emph{Viability and {Sustainability} of {Small}-{Scale} {Fisheries} in {Latin} {America} and {The} {Caribbean}}. Vol. 19. {MARE} {Publication} {Series}. Cham: Springer International Publishing. \url{https://doi.org/10.1007/978-3-319-76078-0}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-sariMonitoringSmallscaleFisheries2021}{}}%
+Sari, Irna, Muhammad Ichsan, Alan White, Syahril Abdul Raup, and Sugeng Hari Wisudo. 2021. {``Monitoring Small-Scale Fisheries Catches in {Indonesia} Through a Fishing Logbook System: {Challenges} and Strategies.''} \emph{Marine Policy} 134 (December): 104770. \url{https://doi.org/10.1016/j.marpol.2021.104770}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-SavingFishFishers2004}{}}%
+{``Saving {Fish} and {Fishers}: {Toward} {Sustainable} and {Equitable} {Governance} of the {Global} {Fishing} {Sector}.''} 2004. 29090-GLB. The World Bank. \url{http://hdl.handle.net/10986/14391}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-smithDefiningSmallScaleFisheries2019}{}}%
+Smith, Hillary. 2019. {``Defining {Small}-{Scale} {Fisheries} and {Examining} the {Role} of {Science} in {Shaping} {Perceptions} of {Who} and {What} {Counts}: {A} {Systematic} {Review}.''} \emph{Frontiers in Marine Science} 6.
+
+\leavevmode\vadjust pre{\hypertarget{ref-thampiSocioecologicalDynamicsCaribbean2018}{}}%
+Thampi, Vivek A., Madhur Anand, and Chris T. Bauch. 2018. {``Socio-Ecological Dynamics of {Caribbean} Coral Reef Ecosystems and Conservation Opinion Propagation.''} \emph{Scientific Reports} 8 (1): 2597. \url{https://doi.org/10.1038/s41598-018-20341-0}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-StateWorldFisheries2020}{}}%
+\emph{The {State} of {World} {Fisheries} and {Aquaculture} 2020}. 2020. FAO. \url{https://doi.org/10.4060/ca9229en}.
+
+\end{CSLReferences}
+
+\end{document}
