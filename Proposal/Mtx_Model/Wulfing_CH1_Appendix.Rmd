@@ -13,7 +13,9 @@ output:
 bibliography:
 - Ch1_Citations.bib
 - R_Citations.bib
+header-includes: \usepackage{setspace}\doublespacing \usepackage{lineno} \usepackage{placeins}
 ---
+\setcounter{page}{50}
 
 \begin{center}
 Supplementary Material for:
@@ -136,6 +138,8 @@ A <- matrix(c(qp$solution[1], 0, 0, qp$solution[7],
                  0, 0, qp$solution[6], qp$solution[8]), byrow = TRUE, nrow = 4, ncol = 4)
 #A
 ```
+
+\linenumbers
 
 # Data
 
@@ -385,6 +389,9 @@ knitr::kable(lifetable, format = "latex", booktabs = TRUE, col.names = c("Age (m
 ```
 
 \newpage
+
+**References**
+
 
 
 

@@ -1,0 +1,37 @@
+---
+output:
+  pdf_document:
+    toc: no
+  bookdown::pdf_document2:
+    fig_caption: yes
+    toc: no
+    keep_tex: yes
+  bookdown::html_document2:
+    fig_caption: yes
+    toc: no
+  word_document: default
+bibliography:
+- Thesis_Citations.bib
+header-includes: \usepackage{setspace}\doublespacing \usepackage{lineno} \usepackage{placeins}
+---
+
+\setcounter{page}{49}
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev="cairo_pdf")
+#knitr::write_bib look into
+setwd("C:/Users/sophi/Documents/GitHub/UNH_Docs/Proposal")
+
+```
+
+```{r, include=FALSE}
+options(tinytex.verbose = TRUE)
+```
+
+\linenumbers
+
+# CONCLUSION
+
+In these two chapters, we demonstrated how mechanistic modeling can be used to assess the status of small scale fisheries when available data is limited. In chapter 1, we were able to take monthly landing data to assess the health of the small scale blue octopus fishery in southwest Madagascar. We were also able to assess various life history traits of this species such as per-stage duration, reproductive value, survivability as well as the stable stage distribution of this population. Finally, we showed how different closure scenarios would affect this population’s sustainability. We were able to infer more about the biology of this important species as well as provide various management scenarios that should be effective in preserving stocks. In chapter 2, we created a socio-ecological model where we coupled a human decision-making system with social hierarchy with a two patch fish model in order to understand how the addition of space and human inequality affects fishing and fishery dynamics. We found that the fish movement parameter had a large effect on the dynamics of the system and that the parameter that symbolized the social pressure from the outside group had more of a “tipping point” effect on the model where low values maintained stable fish populations but once this parameter reached a certain point, the whole system crashed. This exemplified the importance of fish movement when instituting conservation strategies. Further, this shows how important the content of information is when collaborating with other groups to make management choices.
+
+Further extensions of this work would firstly be to collect data to confirm or enhance the results of these studies. For example, understanding how much fishing pressure is affecting the overall death rate of blue octopus would allow us to better understand how these closures are affecting this population. Next, spatial variability could be an important factor in blue octopus dynamics so research into how space affects selective pressure would provide further insight into the status of this species. As for the socio-ecological model, we conducted an exploratory analysis of the underlying dynamics of this model, but future research could parameterize this model into a real-world system. This would involve assessing the biology of the harvest species in question, but also conducting user surveys about fishing perception, fishing rates, and the amount of interconnectivity between people in these groups. Data collection can also produce a valuable check into the accuracy of mechanistic models. However, mechanistic models do provide insight into ecological and social dynamics and allow us to conduct hypothetical experiments that would otherwise be impossible or costly to conduct empirically. 

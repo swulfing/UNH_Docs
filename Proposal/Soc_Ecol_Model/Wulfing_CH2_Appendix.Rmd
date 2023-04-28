@@ -1,0 +1,79 @@
+---
+output:
+  bookdown::pdf_document2:
+    fig_caption: yes
+    toc: no
+  pdf_document:
+    toc: no
+  bookdown::html_document2:
+    fig_caption: yes
+    toc: no
+  word_document: default
+bibliography:
+- Ch2_citations.bib
+- R_Citations.bib
+header-includes: \usepackage{setspace}\doublespacing \usepackage{lineno} \usepackage{placeins}
+---
+
+\setcounter{page}{57}
+
+\begin{center}
+Supplementary Material for:
+	
+\textbf{\Large Social-ecological models with social hierarchy and space applied to small scale fisheries}
+	
+\textsc{Sophie Wulfing$^{1*}$ and Easton R. White$^{1}$\\}
+\vspace{3 mm}
+\normalsize{\indent $^1$Department of Biological Sciences, University of New Hampshire, 03824, NH, USA\\}
+$\text{*}$ Corresponding authors: Sophie Wulfing (SophieWulfing@gmail.com) and Dr. Easton White (Easton.White@unh.edu)
+\end{center}
+
+\pagebreak
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev="cairo_pdf", cache = TRUE)
+
+library(deSolve)
+library(tidyverse)
+library(ggplot2)
+library(gridExtra)
+library(kableExtra)
+library(FME)
+library(ggpubr)
+
+setwd("C:/Users/sophi/Documents/GitHub/UNH_Docs/Proposal/Soc_Ecol_Model")
+
+```
+
+```{r, include=FALSE}
+options(tinytex.verbose = TRUE)
+```
+\linenumbers
+
+Equations 2), 4), and 5) are as follows:
+
+\begin{equation}
+\tag{2}
+\frac{dX_i}{dt} = k_iX_i(1-X_i)[U_{A,i} - U_{B,i}]
+\end{equation}
+
+\begin{equation}
+\tag{4}
+U_{A,i} = \frac{1}{(F_i + c_i)} + d_iX_i + \rho_i X_j
+\end{equation}
+
+\begin{equation}
+\tag{5}
+U_{B,i} = \omega_i + d_i(1-X_i) + \rho_i(1-X_j)
+\end{equation}
+
+Substituting equations 4) and 5) into equation 2 Gives:
+
+$\frac{dX_i}{dt} = k_iX_i(1-X_i)[\frac{1}{(F_i + c_i)} + d_iX_i + \rho_i X_j - \omega_i - d_i(1-X_i) - \rho_i(1-X_j)]$
+
+$\frac{dX_i}{dt} = k_iX_i(1-X_i)[\frac{1}{(F_i + c_i)} - \omega_i + d_i(X_i-1+X_i) + \rho_i(X_j-1+X_j)]$
+
+$\frac{dX_i}{dt} =  k_iX_i(1-X_i) [\frac{1}{F_i+c_i} - \omega_i + d_i(2X_i - 1) + \rho_i(2X_j - 1)]$
+
+
