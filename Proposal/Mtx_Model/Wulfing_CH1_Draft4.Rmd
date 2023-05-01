@@ -16,7 +16,7 @@ bibliography:
 header-includes: \usepackage{setspace}\doublespacing \usepackage{lineno} \usepackage{placeins}
 ---
 
-\setcounter{page}{6}
+\setcounter{page}{7}
 
 \begin{center}
 	

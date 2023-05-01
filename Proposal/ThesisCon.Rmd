@@ -1,11 +1,11 @@
 ---
 output:
-  pdf_document:
-    toc: no
   bookdown::pdf_document2:
     fig_caption: yes
     toc: no
     keep_tex: yes
+  pdf_document:
+    toc: no
   bookdown::html_document2:
     fig_caption: yes
     toc: no
@@ -15,7 +15,7 @@ bibliography:
 header-includes: \usepackage{setspace}\doublespacing \usepackage{lineno} \usepackage{placeins}
 ---
 
-\setcounter{page}{49}
+\setcounter{page}{51}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev="cairo_pdf")
