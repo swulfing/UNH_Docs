@@ -218,7 +218,7 @@ image2(elas, mar=c(1,3.5,5,1), border="gray70", col = c("white", cols[150:850]),
 #https://rdrr.io/cran/popbio/man/elasticity.html
 ```
 
-(ref:elastic) Elasticity analysis of our matrix model - the change in the eigenvalue ($\lambda$) as a result of a proportional change of each paramter in the model.
+(ref:elastic) Elasticity analysis of our matrix model - the change in the eigenvalue ($\lambda$) as a result of a proportional change of each parameter in the model.
 
 Sensitivity analysis (Figure \ref{sensitivity}) showed that within each stage, the growth parameters ($G_1$ - $G_3$) had the largest effect on this growthrate compared to the parameters indicating staying within a stage ($P_1$-$P_4$). However, as all the parameters represent proportions of individuals in a stage and must necessarily be between 0 and 1 with the exception of the $F_4$ parameter, elasticity analysis provides an interpretation that weights all stages equally. The result of this analysis shows that percent changes in the fecundity metric can be as beneficial to the overall population growth as changes in the G parameters (Figure \ref{elasticity}). Further, this analysis indicates that of all the stages, stage 1 has the most overall influence on the overall population growth.
 
