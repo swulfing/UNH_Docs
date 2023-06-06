@@ -1,0 +1,1059 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\usepackage{setspace}\doublespacing \usepackage{lineno} \usepackage{placeins} \usepackage[nottoc,notlof,notlot]{tocbibind} \renewcommand{\contentsname}{} \renewcommand{\listfigurename}{} \renewcommand{\listtablename}{}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+
+\pagenumbering{gobble}
+
+\begin{center}
+    
+\textbf{\Large Mechanistic models of human decision-making and ecological dynamics in small-scale fisheries}
+    
+\textsc{BY \\ Sophie Wulfing}
+\vspace{3 mm}
+
+\textsc{B.S., Colorado College, 2019 \\ }
+\vspace{3 mm}
+\textsc{THESIS}
+
+\vspace{3 mm}
+\textsc{Submitted to the University of New Hampshire \\ in Partial Fulfillment of \\ the Requirements of the Degree of \\ Master of Science \\ in \\ Marine Biology \\ May 2023}
+
+\end{center}
+
+\newpage
+
+\pagenumbering{roman}
+
+\hypertarget{acknowledgements}{%
+\section{ACKNOWLEDGEMENTS}\label{acknowledgements}}
+
+I will include acknowledgements in the final manuscript, I just didn't want yall to read them before :)
+
+\newpage
+
+\hypertarget{table-of-contents}{%
+\section{TABLE OF CONTENTS}\label{table-of-contents}}
+
+\vspace{-1cm}
+\tableofcontents
+
+\newpage
+
+\hypertarget{list-of-figures}{%
+\subsection{LIST OF FIGURES}\label{list-of-figures}}
+
+\vspace{-1.5cm}
+\listoffigures
+
+\newpage
+
+\hypertarget{list-of-tables}{%
+\subsection{LIST OF TABLES}\label{list-of-tables}}
+
+\vspace{-1.5cm}
+\listoftables
+
+\newpage
+
+\hypertarget{abstract}{%
+\section{ABSTRACT}\label{abstract}}
+
+Small-scale fisheries are essential to the livelihoods of 40 million people worldwide. They are key sources of nutrients and income for these communities that rely on them. However, due to their abundance, understanding the status of these fisheries requires in-depth data collection, often in remote areas. Further, each small-scale fishery is very individualized, and external groups attempting to impose fishing restrictions are often met with low compliance or are unsuccessful in their efforts to conserve fish stocks due to a lack of understanding of either fishing culture or the ecology of the harvested species. In this thesis, I employ various mechanistic models to small-scale fisheries in order to better understand their underlying dynamics. In Chapter 1, I fit a Lefkovitch matrix population model to blue octopus data in the small-scale fishery of Southwestern Madagascar in order to assess their life history and population health. In Chapter 2, I create a socio-ecological model with replicator dynamics and incorporated social hierarchy and space. Here, we found that collaboration between groups of people will be ineffective if only the financial gain of fishing is communicated, not the fishing strategies used to achieve high yields. Further, we found that fish movement was an extremely important parameter in these models. This work serves to exemplify the mathematical tools available when assessing small-scale fisheries and highlight the need for a more substantive understanding of the status of the world's small-scale fisheries.
+
+\newpage
+
+\pagenumbering{arabic}
+
+\hypertarget{introduction}{%
+\section{INTRODUCTION}\label{introduction}}
+
+The definition of small-scale fisheries is an evolving concept, but is characterized by subsistence fishing, community management, and traditional technologies (Smith, 2019). 40 million people worldwide make their living off small-scale fisheries, which employs about 90\% of all fishers globally. (FAO, 2020; Mills et al., 2011) This metric does not include the 200-300 million people who are estimated to be employed in the processing chain of small-scale fisheries, often informally (Mills et al., 2011). As many of these systems have transformed into industrial and recreational fishing, small-scale fisheries are becoming increasingly associated with developing countries (Misund et al., 2002). These systems are an essential source of nutrition for these groups (Chuenpagdee \& Jentoft, 2018; FAO, 2020; The World Bank, 2012). Small-scale fisheries have been shown to be a significant avenue of poverty alleviation through food security (Chuenpagdee \& Jentoft, 2018; FAO, 2020). The number of fishers employed in small-scale fisheries is rapidly increasing, indicating the growing importance of this sector (Jentoft \& Eide, 2011).
+
+Despite the prominence of small-scale fisheries and their importance to the people who rely on them, they face many threats as they are highly susceptible to climate change (Allison et al., 2009), coastal urbanization (Kadfak \& Knutsson, 2017), and overfishing (Cinner et al., 2018). Because fishers are more directly reliant on these subsistence fisheries, people are more directly affected by these challenges than in large industrial fishing (Allison et al., 2009; Jentoft \& Eide, 2011). The issue of overfishing is also often exacerbated by large-scale industrial fishing occurring in places near small-scale fisheries (Bavinck, 2011). Governance of small-scale fisheries is also typically difficult as different small-scale fisheries often require different management styles in order to be successful (Gutiérrez et al., 2011). Further, they are often characterized by a close connection between the ecology of the fishery and the culture of those who fish there. This means that each small-scale fishery is very individualized and so there exists no ``one size fits all'' conservation strategy for every one. Instead, a deep understanding of both the biology of the fish being harvested and the socio-economic factors that affect fishing activity is required in order to institute effective and equitable conservation in small-scale fisheries (Kosamu, 2015; The World Bank, 2004).
+
+However, this in depth understanding is difficult to achieve as small-scale fisheries are drastically understudied (FAO, 2020; Mills et al., 2011; Misund et al., 2002). This can be partially attributed to the fact that small-scale fisheries employ a large number of people over a large spatial distribution, and governments are often financially limited when surveying these sectors (Gutiérrez et al., 2011; Misund et al., 2002). Because a lot of employment in small-scale fisheries is informal, it's difficult to understand exactly how many people are reliant on small-scale fisheries, and existing metrics are likely to be underestimations (Mills et al., 2011). Data collection in small-scale fisheries can be difficult and resource-consuming as they often exist in remote places (Chuenpagdee et al., 2019). Also, effective conservation requires an understanding of the practices and culture of fishers. Fishers in certain areas can sometimes come from different ethnicities and speak different languages (Barnes-Mauthe et al., 2013; Pomeroy et al., 2007; Sari et al., 2021), making cross-cultural cooperation difficult. Further, conservationists have often ignored social hierarchies in small-scale fisheries, and by doing so, have actually further entrenched these inequalities (Baker-Médard, 2017). The existence of social structures is extremely prevalent in human societies and this alters how people interact with the environment.
+
+Community management of fisheries is one of the most effective forms of small-scale fishery conservation while employing traditional knowledge and empowering local communities (Gelcich \& Donlan, 2015; Pomeroy et al., 2004). Small-scale fisheries are typically characterized by tight social structures and strong reliance on the environment, therefore, the intersection of culture and environment is extremely important in maintaining their sustainability (Barnes et al., 2019; Grafton, 2005; Thampi et al., 2018). Community management allows for reaching ecological goals while simultaneously maintaining the livelihood and economic and cultural goals of fishers (Barnes-Mauthe et al., 2013; Govan, 2010). On the other hand, outsider institutions have typically ignored these cultural components to fisheries and either further entrenched inequalities in the community or conservation efforts have been met with low compliance (Bodin \& Crona, 2009; Katikiro et al., 2015; Kosamu, 2015; Prince et al., 2021; Salas et al., 2019).
+
+Mechanistic models are one way in which we can study small-scale fisheries despite challenges in data collection. Mechanistic models mathematically describe the underlying biological and physical processes that make up an ecological system (André et al., 2010; Briggs-Gonzalez et al., 2016; Grimm et al., 2005). Therefore, these models do not require the extensive data collection needed to construct a statistical model (Crouse et al., 1987; Gharouni et al., 2015; Nowlis, 2000) and are a prominent tool used in fishery assessments (Free et al., 2020; Lee et al., 2018). In the following chapters, we utilize mechanistic models to better understand small-scale fisheries and what social and ecological challenges these fisheries face.
+
+\newpage
+
+\hypertarget{chapter-i-using-mechanistic-models-to-assess-temporary-closure-strategies-for-small-scale-fisheries}{%
+\section{CHAPTER I: Using mechanistic models to assess temporary closure strategies for small-scale fisheries}\label{chapter-i-using-mechanistic-models-to-assess-temporary-closure-strategies-for-small-scale-fisheries}}
+
+\hypertarget{abstract-1}{%
+\subsection{ABSTRACT}\label{abstract-1}}
+
+Mechanistic models are particularly useful for understanding and predicting population dynamics in data deficient species. Data deficiency is a relevant issue in small-scale fisheries as they are generally under studied and underrepresented in global fishing datasets. As overfishing remains a global issue, especially in small-scale fisheries, one commonly utilized conservation method is temporary closures. The blue octopus (\emph{Octopus cyanea}) fishery off the southwest coast of Madagascar is one such system that uses temporary closures, yet lacks sufficient data collection to assess the viability of the population. This fishery is a key economic resource for the local community as blue octopus catch is sold by local fishers to international and local export markets and is a major component of fisher income. To assess the sustainability of blue octopus, we parameterize a Levkovitch population matrix model using existing catch data. In this study, we show that this population was declining 1.8\% per month at the time of data collection. To sustain the existing population of blue octopus, our model indicates that the fishery would need to close for at least three months annually, a length of closure that is currently being used by the local community. Increasing the length of closure is predicted to significantly increase the octopus population at these sites. We show that if implemented correctly, temporary closures could be used to restore this population. The local communities of Madagascar have implemented various fishing restrictions to ensure sustainable fishing, indicating a need for further research into the effectiveness of these fishing closures. Therefore, our study provides insight into the underlying population dynamics of this fishery and provides survivability estimates of this species.
+
+Keywords: \emph{Octopus Cyanea}, matrix model, small-scale fisheries, Madagascar, temporary closures
+
+\hypertarget{introduction-1}{%
+\subsection{INTRODUCTION}\label{introduction-1}}
+
+Mechanistic models in ecology explicitly account for species life histories, behavioral, or other mechanisms to describe how a population or community may change over time (André et al., 2010; Briggs-Gonzalez et al., 2016). Mechanistic models can be important in situations without existing long-term data, when future conditions may not be similar to the past, and when different scenarios or actions need to be assessed (Crouse et al., 1987; Gharouni et al., 2015; Nowlis, 2000). Thus, mechanistic models play a critical role in making informed conservation decisions, such as the management of small-scale fisheries.
+
+Worldwide, 32 million fishers make their livelihood in small-scale fisheries, a subsector in which 90 to 95\% of catch is distributed for local consumption. These marine products are a vital source of nutrition for these communities (The World Bank, 2012). The southwest region of Madagascar is one such area where subsistence fishing is an essential component to the diet and income of the local community. The ocean environments off the southwest coast of Madagascar are home to a wide variety of marine life as sand beds, seagrass beds, and coral reefs are all prominent biomes in the area. Madagascar has been calculated as a country that would benefit greatly from marine conservation given its economic reliance on marine harvests and the fact that it is a refuge to many marine species (Laroche et al., 1997). In the early 2000's, however, Madagascar began to move from local, subsistence fishing to also selling catch to export markets (Humber et al., 2006). There is evidence that up to 75\% of all marine products caught in select villages is now sold to outside entities for international export (Baker-Médard, 2017).
+
+Locally-managed marine areas (LMMAs) are defined as coastal and near-shore fisheries in which resources are managed almost entirely by local communities and fishery stakeholders that live in the region. Because management is conducted by those directly affected by the fishery, goals typically include maintaining the livelihood and economic and cultural goals of the local community along with environmental goals (Govan, 2010). LMMAs have grown in popularity among conservationists in small-scale fisheries due to this empowerment of local fishers. Because of this, LMMAs tend to have greater local participation and compliance from stakeholders when compared to top-down regulation from governing bodies (Katikiro et al., 2015). LMMAs have been shown to improve both fisheries and fisher livelihoods in Kenya (Kawaka et al., 2017), Pacific Islands (Govan, 2010), and in Madagascar (Mayol, 2013). In Madagascar, the use of LMMAs has increased significantly since 2004, and, as a result, fishers in the country have seen significant improvements to fish stocks as well as have experienced economic benefits (Benbow \& Harris, 2011; Gilchrist et al., 2020). In order to protect fishing resources, Madagascar has instituted various conservation programs. Marine Protected Areas (MPAs) are regions in the ocean identified as being biologically important and fishing protections are therefore enforced. Globally, MPAs use a wide variety of classifications and management strategies depending on region and target species for protection (Horta e Costa et al., 2016). Before their establishment in Madagascar, governmental bodies had bans on certain types of fishing gear, implemented seasonal fishing regulations, and criminalized the harvest of endangered species. However, these strategies proved ineffective in execution and in their conservation goals (Humber et al., 2006). Both the government and nongovernmental organizations have since pledged to drastically increase the number of regions dedicated as MPAs through temporary fishing closures (Baker-Médard, 2017; Cinner et al., 2009; Oliver et al., 2015).
+
+One such class of MPAs that are currently being used in Madagascar are seasonal closures. These types of reserves have a long history of use and have been successful in stock rehabilitation (Camp et al., 2015; Gnanalingam \& Hepburn, 2015). For example, seasonal closures have been shown to be an effective conservation strategy in increasing the biomass of the Atlantic sea scallop (\emph{Placopecten magellanicus}) fishery in the United States (Bethoney \& Cleaver, 2019), restored natural trophic interactions in coral reef fisheries in Kenya (McClanahan, 2008), and successfully restored the striped marlin (\emph{Kajikia audax}) stocks in Baja California (Jensen et al., 2010). This method is flexible, logistically simple for fishers and managers to understand, and mitigates the financial loss from the fishery that can be seen with permanent closures (Camp et al., 2015; Cohen \& Foale, 2013; Gnanalingam \& Hepburn, 2015; Humber et al., 2006; Nowlis, 2000; Oliver et al., 2015). However, seasonal closures are not always effective in their goal of replenishing stocks and this can depend on a wide range of factors. Ecological considerations about the life history of the target species, Allee effects, and changes to community structure and species interactions all play a role in how well the seasonal closure will protect the fishery (Cohen \& Foale, 2013; Gilchrist et al., 2020; Gnanalingam \& Hepburn, 2015; Grorud-Colvert et al., 2021; Russ \& Alcala, 1998). Further, the characteristics of the fishery itself has been seen to influence fishery recovery. Fishing method, where the effort will be redistributed to, and fishing activity upon reopening have all been factors in negating the recovery made during the closure (Cohen \& Foale, 2013; Hiddink et al., 2006; Humber et al., 2006). Therefore, assessments of each seasonal closure are essential to ensuring that they are effective in replenishing fish stocks. Mechanistic modeling allows us to simulate different fishery scenarios and assess how populations will respond to these changes in fishing pressure.
+
+Since 2003, when marine resources in Madagascar first began to globalize with the arrival of these international markets, cephalopods have become one of the largest classes of exports (Aina, 2009; Barnes-Mauthe, 2013; Humber et al., 2006). This has since added significant fishing pressure to Madagascar's cephalopod populations and yield from this fishery has decreased in regions such as the southwest Andavadoaka region (Humber et al., 2006). Cephalopods are a vital part of many ocean ecosystems and, compared to other marine exploited organisms, have a unique life history that can lead to distinct and variable population dynamics. Cephalopods act as both predators and prey in an ecosystem (Rodhouse \& Nigmatullin, 1996; Santos et al., 2001; Vase et al., 2021), situating them in a key role in food webs. Further, their abundance varies drastically with a wide range of ocean conditions including sea surface and bottom temperature, salinity, currents, and sediment type (Catalán et al., 2006; Ibáñez et al., 2019; Van Nieuwenhove et al., 2019). Compared to other exploited marine organisms, cephalopods have a short lifespan coupled with a fast reproduction rate and high fecundity. This explains their population's ability to quickly bounce back when short term MPAs are introduced into their habitat (Benbow et al., 2014; Humber et al., 2006; Katsanevakis \& Verriopoulos, 2006). However, once fishing resumes, populations can suddenly and rapidly decline, although in some examples, this could be attributed to heavy fishing pressure in the area right after reopening (Humber et al., 2006). Cephalopods are therefore extremely sensitive to both protection and harvest levels, and understanding how these volatile population dynamics will react to changes in fishing pressure is a key component to effective conservation of this resource.
+
+\emph{Octopus cyanea}, or blue octopus, is the most abundant cephalopod species in the western Indian Ocean and is caught in about 95\% of local landings in Madagascar (Humber et al., 2006; Oliver et al., 2015). Like other cephalopod species, very little is known about their life history including natural death rate, larval survival, and how much time this species remains in each life stage. Further, age is difficult to determine from size alone as they have variable growth rates up to sexual maturity (Herwig et al., 2012; Heukelem, 1976; Raberinary \& Benbow, 2012; Wells \& Wells, 1970). Size limits have been shown to be the most effective method of conservation for cephalopods, in general, as they ensure individuals will breed before being harvested (Emery et al., 2016; Nowlis, 2000). To protect this species, size limits have been imposed on blue octopus catch in Madagascar, but these regulations are difficult in practice, as the fishing method used to harvest octopus involves spearing the octopus's den and extracting the octopus from the den. Blue octopus therefore typically die before size can be assessed, so octopus too small for market sale are typically harvested for household consumption (Humber et al., 2006). Further, the relationship between size and life stage is not strongly correlated (Raberinary \& Benbow, 2012) and as a result, size restrictions would not necessarily protect individuals ready to reproduce and would be difficult to implement in the field. Therefore, temporary closures have been shown to be a more practical method of octopus conservation in that they can replenish stocks while maintaining fisher income (Benbow et al., 2014). However, this requires a deeper understanding of the characteristics of \emph{Octopus cyanea} in this fishery in order for temporary closures to be properly instituted. Instituting effective temporary closures in octopus fisheries can be difficult due to their short lifespan, high mortality, and sensitivity to environmental conditions (Catalán et al., 2006; Emery et al., 2016; Ibáñez et al., 2019; Van Nieuwenhove et al., 2019). Lack of field data and difficulty of enforcement has also been a challenge in octopus fisheries, especially in Madagascar (Benbow et al., 2014; Emery et al., 2016). This indicates that a thorough understanding of the life history of \emph{O. cyanea} and the harvest methods employed by fishers is necessary to enact meaningful fishing restrictions. Currently, the octopus fishery in this region of Madagascar is closed for the three months between June and August on a yearly basis (Benbow \& Harris, 2011; Westerman \& Benbow, 2014) which was implemented in 2011.
+
+In this paper, we have three goals: 1) we will fit a Levkovitch matrix to the limited available data on \emph{Octopus cyanea} populations in southwestern Madagascar, 2) as well as create a theoretical estimation of the species' life history traits in different stages of its development, and 3) determine the frequency and length that temporary closures should take place to maximize population health of \emph{O. cyanea} and maximize catch for the local community. We will compare this to the three-month closure currently being implemented.
+
+
+
+\begin{figure}
+\includegraphics[width=0.45\linewidth]{LifeGraph} \includegraphics[width=0.45\linewidth]{MtxGeneric} \caption{A graph representing the life history of \emph{O. Cyanea} and the subsequent Lefkovitch matrix where i corresponds with each of the stages of maturity (Immature, Incipient Mature, Mature, and Fully Mature individuals, respectively). \(P_i\) corresponds to probability of surviving and staying within a stage. \(G_i\) is the probability of surviving and growing to the next stage. \(F_i\) is the reproductive output of stage i. \label{LifeGraph}}\label{fig:LifeGraph}
+\end{figure}
+
+\hypertarget{methods}{%
+\subsection{METHODS}\label{methods}}
+
+As \emph{O. cyanea} has an extended larval phase and there are no existing data on the age structure of this population of octopus, we use a stage-based population matrix, otherwise known as a Lefkovitch matrix (Caswell, 2001). Here, the life history of the study organism is grouped by stages (Figure \ref{LifeGraph}), where each unit of the matrix represents a distinct period of the organism's life where it is subject to different environments, pressures, or physical attributes that would alter the survival and reproductive output at that phase, but the amount of time between each stage is variable. This creates different inputs for the probability of remaining in the same stage, and the growth and fecundity inputs can be based on available data. Lefkovitch matrices have not yet been applied to \emph{Octopus cyanea} populations and therefore could be a useful methodology to understand the dynamics of this population in the western Indian Ocean to better inform fishery management strategies.
+
+\hypertarget{data}{%
+\subsection{Data}\label{data}}
+
+To inform our model, we used data collected by Raberinary \& Benbow (2012) from Madagascar landings ranging from the villages of Ampasilava in the south to Andragnombala in the north which spans about 30 kilometers of coastline. Here, fishers usually fish along both reef flats and deeper barrier reefs. Fishers bring catch onshore either for household consumption or to sell to buyers for international export. Raberinary \& Benbow (2012) collected landing data from February 2005 to February 2006 through daily surveying of fishers as they landed onshore within a two hour window. Octopus were separated into five age classes: immature, incipient maturity, maturity, full maturity, and post laying. In this paper we omitted stage five, post laying, from this model as blue octopus only brood once, and stage five individuals therefore do not contribute to population growth. Raberinary \& Benbow (2012) recorded octopus weight, weight and length of gonads, sex, and a visual assessment of maturity class. A subsample of octopus was also collected for octopus length, and laboratory assessment of gonads for a confirmation of maturity class. Data were collected from a total of 3,253 octopuses. For the purposes of this study, we modeled from the 1,578 females collected by Raberinary \& Benbow (2012). Despite the lack of standardized catch effort in this dataset, no other maturity stage study has been conducted on this population of \emph{O. cyanea} and, therefore, these are the best available data to fit a Lefkovitch matrix. As there is no previous estimate of the natural death rate of this population, survival estimates and growth rate calculations for the Lefkovitch model also included the influence of fishing pressure. These data are reported in the appendix.
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{MtxFilled} \caption{Stage-based population matrix calculated using Wood's quadratic programming method and parameterized using data from @raberinaryReproductiveCycleOctopus2012. \label{WriteMtxRounded}}\label{fig:WriteMtxRounded}
+\end{figure}
+
+\hypertarget{model-parameterization}{%
+\subsubsection{Model Parameterization}\label{model-parameterization}}
+
+In order to parameterize this model, we used Wood's Quadratic Programming method (Caswell, 2001). Other methods required longer time series than were available to us, were extremely sensitive to noise in the data, or simply resulted in matrices that had no reasonable biological interpretation (Caswell, 2001). We estimated a preliminary stage-based matrix model (Figure \ref{WriteMtxRounded}) based on Raberinary \& Benbow (2012) data and calculated using the quadprog package in R (Turlach \& Weingessel, 2019). Model accuracy was assessed by comparing life history values inferred from the matrix with existing literature on \emph{O. cyanea} life history (Table \ref{LifeHistory}). As all of our values calculated from the matrix fell within the known attributes of this species, we were confident that this model gave an accurate mechanistic description for this population's underlying dynamics.
+
+\hypertarget{model-analysis}{%
+\subsection{Model Analysis}\label{model-analysis}}
+
+Eigenvalues (\(\lambda\)) were then calculated from the matrix and future populations predicted by multiplying a population vector to incrementally higher powers of our matrix where the power of the matrix corresponds to the time length of the projection. We performed sensitivity analysis on the population matrix and eigenvalues using the R package popbio (Stubben \& Milligan, 2007). Further, as all of the parameters are scaled to a value between 0 and 1, except \(F_4\), a unit change in these parameters had a greater proportional effect on the eigenvalue than \(F_4\). To address this, we also conducted elasticity analysis using the popbio package (Stubben \& Milligan, 2007). This allowed us to identify the groups within this octopus population whose protection will most benefit population growth, essentially creating focus points of conservation. The results of sensitivity and elasticity analysis are included in the supplementary material. Other life history traits that can be calculated from this matrix are stable stage distribution, reproductive value of each stage, and per-stage survivability. We used the R package Rage (Jones et al., 2021) to calculate the age in each stage, life expectancy and longevity, the age and probability of reaching maturity, and generation time of this population. We then used the rage package in R to analyze various life history traits of this matrix, the output of which is included in the supplementary material.
+
+Finally, we calculated the minimum survivability increase necessary per stage to result in an increase of the overall population. We did this by increasing the \(P_i\) and \(G_i\) parameters by increasing percentages in each stage i until the overall eigenvalue (\(\lambda\)) became greater than one.
+
+\hypertarget{management-scenarios}{%
+\subsubsection{Management Scenarios}\label{management-scenarios}}
+
+In order to determine optimal conservation strategies, we altered the survivability of \emph{O. cyanea} by different rates from 0-10\%. Then, we simulated different closure scenarios for each survival increase by altering the length of annual closures by month. We then multiplied higher powers of the original matrix during months that were simulated to be ``open fishing'' and then when a closure was simulated, the matrix with increased survival was multiplied to the population for that month. We simulated these different scenarios in order to analyze all combinations of conservation strategies that resultd in stable \emph{O. cyanea} populations including the three month closure that is currently being instituted.
+
+\begin{table}
+
+\caption{\label{tab:LifeHistory}Existing research and information on the per-stage duration of \emph{O. cyanea}. All existing estimates are from Heukelem (1976), Guard \& Mgaya (2003), Humber et al. (2006), Aina (2009). Note: Heukelem and Fred (1976) estimate the time to maturity to be 10-13 months (i.e.~stages 1-3 combined). \label{LifeHistory}}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{l>{\raggedright\arraybackslash}p{4.5cm}>{\raggedleft\arraybackslash}p{4.5cm}>{\raggedleft\arraybackslash}p{4.5cm}}
+\toprule
+Stage & Existing Estimated Duration & Estimate from Lekfovitch Matrix (Months) & Variance of Estimate (Months)\\
+\midrule
+Egg & 20-35 days & NA & NA\\
+Larval & 28-56 days & NA & NA\\
+1: Immature & No existing estimate & 2.699666 & 4.5885318\\
+2: Incipient Maturity & No existing estimate & 1.474724 & 0.7000867\\
+3: Mature & No existing estimate & 1.646790 & 1.0651277\\
+\addlinespace
+4: Fully Mature & No existing estimate & 1.494651 & 0.7393301\\
+5: Post Laying & 45-61 days & NA & NA\\
+Post larval Phase (stage 1-5) & 9-18 months & NA & NA\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+
+\hypertarget{results}{%
+\subsection{RESULTS}\label{results}}
+
+The resulting eigenvalue of our matrix was 0.982, indicating a decline of 1.8\% per month in \emph{O. cyanea} populations with fishing pressure included (Figure \ref{projection}). The stable stage distribution (Table \ref{lifetable}) shows that 65\% of this population is composed of immature individuals, while actively breeding individuals (fully mature) only account for less than 1\% of the naturally occurring population. However, the reproductive output per stage (Table \ref{lifetable}) shows that on average, an individual in this fully mature population is expected to have 41 times the number of offspring as those in stage 1. Larval survivability of 0.0001328 was calculated by dividing our estimated number of larvae surviving back to stage 1 (\(F_4\)) by 201,000 - the average estimated reproductive output of \emph{O. cyanea} by (Guard, 2009). The life expectancy of this population was calculated by the Rage package to be 4.06 months with a variance of 5.87 months. The calculated age of maturity is 6.82 months with probability of reaching maturation of 0.022. The longevity of this population (the amount of months for only 1\% of the population to remain) is 12 months with a generation time of 7.38 months.
+
+Changing the survivability of each stage (Figure \ref{stages}) showed that immature individuals (Stage 1) would a survival increase of 5\% in order to result in overall population growth. Stage 4, on the other hand, would require a survivability increase of 25\% in order to create a viable population.
+
+Our analysis of different closure scenarios (Figure \ref{closures}) indicates closures two months in length or shorter will be ineffective in ensuring a stable population, regardless of how much these closures decreased the mortality rate of the species. Further, as our baseline growth rate was close to stable (-0.0184), it took a maximum of a 7.5\% increase in the survivability of the population to ensure a sustainable population when utilizing three month closures. This analysis (Figure \ref{closures}) provides all the possible combinations of increased survival rates and frequency of closures that will result in a stable population. Suggested changes in overall survivability range from 2-7.5\%, and the ranges of frequencies of closures span from permanent closure (every month) to once every three months.
+
+
+
+\begin{figure}
+\centering
+\includegraphics{Wulfing_Thesis_files/figure-latex/projection-1.pdf}
+\caption{\label{fig:projection}Projection of \emph{O. cyanea} populations by life stage based off of our calculated Lefkovitch matrix through the present. \label{projection}}
+\end{figure}
+
+\begin{table}
+
+\caption{\label{tab:lifetable}Stable stage distribution and reproductive value of each stage of the blue octopus population matrix given in Figure \ref{WriteMtxRounded}. The survivability (i.e.~the proportion of individuals who survive from stage i to stage i+1) from each stage includes death rate from fishing. Stages 1-4 survivability were calculated by summing up the proportion of individuals surviving and staying within a stage every month (\(P_i\)) and the proportion of individuals surviving and growing every month (\(G_i\)). Larval survivability of 0.0001328 was calculated by dividing the estimated number of larvae surviving back to stage 1 (\(F_4\)) by the average estimated reproductive output of \emph{O. cyanea}. \label{lifetable}}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{l>{\raggedleft\arraybackslash}p{4.5cm}>{\raggedleft\arraybackslash}p{4.5cm}r}
+\toprule
+Stage & Stable Stage Distribution (Dominant Eigenvector) & Reproductive Value (Left Eigenvector) & Survivability\\
+\midrule
+1 Immature & 0.657 & 1.000 & 0.9048003\\
+2 Incipient Maturity & 0.274 & 1.279 & 0.4519657\\
+3 Mature & 0.061 & 6.491 & 0.4859363\\
+4 Fully Mature & 0.009 & 41.029 & 0.3309474\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+
+\begin{figure}
+\centering
+\includegraphics{Wulfing_Thesis_files/figure-latex/stages-1.pdf}
+\caption{\label{fig:stages}Minimum percent of per-stage survivability change needed to create population increase. Each stage was increased by higher percentages until the eigenvalue of the overall system became greater than zero. \label{stages}}
+\end{figure}
+
+
+
+\begin{figure}
+\centering
+\includegraphics{Wulfing_Thesis_files/figure-latex/closures-1.pdf}
+\caption{\label{fig:closures}Analysis of different management scenarios for \emph{O. cyanea}. The black line separates the scenarios that succeed in sustaining the population from the scenarios that do not. Green and white squares indicate theoretically successful management scenarios where red refers to the strategies that will not result in overall population growth. \label{closures}}
+\end{figure}
+
+\hypertarget{discussion}{%
+\subsection{DISCUSSION}\label{discussion}}
+
+Our calculated growth rate of -0.0184 and resulting population projection for \emph{O. cyanea} supports previous reports of overfishing (Benbow et al., 2014; Humber et al., 2006). Decline in population presents an economical issue for individual fishers as their catch will become less lucrative (Benbow et al., 2014; Humber et al., 2006; Oliver et al., 2015). Our model provides other information about the life history of this population as well, beyond its overall growth rate. As each column in the matrix represents a proportion of individuals within a stage either growing or staying within a stage (with the exception of the \(F_4\) parameter), it also shows a per-stage survivability estimate (Table \ref{lifetable}) and stage duration (Table \ref{LifeHistory}), life history parameters on which there has been no previous research. However, as the immature stage has a high survivability of 90.4\% and a longer duration than the other stages of 2.7 months, this could indicate that although the fishing method employed in this region does not distinguish by octopus size, fishers may not be bringing this smaller catch to landing due to size limits preventing them from selling immature individuals (Humber et al., 2006). Therefore, this challenges our assumption of the data being properly stratified by size. Further, as \emph{O. Cyanea} have an approximately one to two month larval stage (Guard \& Mgaya, 2003), the fecundity parameter does not indicate the overall reproductive output of mature individuals, but the number of hatched offspring that will survive its larval stage and into the immature stage. This gives an estimation for larval survivability as female octopus have a fecundity ranging between 27,000 and 375,000 eggs (Guard, 2009), our model indicates that only an average of 27 individuals will survive back into immaturity, which indicates a survivability of 0.0001328. There is no other larval survivability estimation that currently exists for this species, which would be a useful further study as this could indicate a recruitment rate for this population. Further, an average lifespan of 4.06 months and an age of maturation of 6.82 months indicates that most individuals die before reaching maturation given the fishing pressure that was occurring at the time of data collection.
+
+Based on our calculations of growth rates over different closure scenarios, any closure less than three months will not be effective in preserving blue octopus stocks, but the strictness of the closure (i.e.~allowing some limited fishing) can be altered depending on how frequently these restricted fishing periods are implemented. There is no literature on the survivability of \emph{O. cyanea} throughout their lifetime, particularly in this region. Therefore, the changes to survivability suggested by our analysis is in relation to their overall death rate, not fishing rate, indicating a need for further research on the natural mortality rate of \emph{O. cyanea} before concluding if the three month closure is effective in sustaining fish stocks. Three month closures began to be implemented in the region in 2011 as this length of time was shown to improve octopus yield and had limited negative effects on fisher income (Benbow and Harris 2011). As we do not have a current assessment of \emph{Octopus cyanea} stocks in this fishery, there is a need to understand how effective these closures are in preserving the blue octopus of this region. Our analysis of different closure scenarios suggests a range of the simplest actions needed in order to ensure stability of this population. As all combinations of survivability increase and frequency of closure suggested by the analysis will result in stable \emph{O. cyanea} populations, the specific strategy chosen should be decided based on which is most convenient and economically feasible to the local fisher community of southwest Madagascar. Among conservationists, there is a growing understanding that decision making is best left to those directly involved with resource extraction and implementing fishing restrictions upon a community without understanding their cultural practices can have detrimental effects upon the community, as well as be less effective in actually protecting natural resources (Baker-Médard, 2017; Humber et al., 2006).
+
+When implemented deliberately, establishing periodic closures is an effective and commonly-used strategy in sustainable fishing practices (Humber et al., 2006; Oliver et al., 2015). As Madagascar has been committed to protecting its marine natural resources through increasing the number of marine parks, this study serves to highlight some of the available strategies to make population predictions and conservation strategies with limited data sources (Westlund, 2017). Implementing fishing restrictions without regard for social norms can undermine cultural practices and in turn be detrimental to both the people and fishery, and halts the dissemination of traditional ecological knowledge (Okafor-Yarwood et al., 2022). For this reason, both the Madagascar government and scientific community have found a new emphasis on studying the complex social structures within the community in question in order to more effectively preserve resources along with peoples' livelihoods (Baker-Médard et al., 2021; Billé \& Mermet, 2002). This has been shown to increase participation in conservation practices, therefore making them more effective.
+
+The mechanistic methods used in this study allowed us to gain a baseline understanding of the growth rate and mortality of this population despite the limited data used to parameterize the model. Limitations of this study include the data collection process. Even though daily collections occurred daily within a two-hour window, catch was not standardized by effort and therefore there could be catch fluctuations between months that are not captured in the data. As stage 1 had a high survival rate yet low duration, this challenges the assumption that the octopus caught are an accurate ratio of the octopus at each stage in the wild. Further, matrix population models will converge or diverge based on their dominant eigenvalue, regardless of the initial population inputted in the model. Therefore, we can still conclude that the population at this time was in an overall decline, despite not knowing the exact number of individuals in this population. Another shortcoming of this study is that the only available stage data for this species and region were collected in 2006, and the community of southwest Madagascar has implemented several strategies since that time to improve the sustainability of their fish stocks in the region (Humber et al., 2006; Raberinary \& Benbow, 2012). Due to the time of data collection, this study does not reflect the current status of \emph{Octopus cyanea}, but outlines the underlying population dynamics and serves to indicate the need for a more current assessment of \emph{O. cyanea} stocks in the region.
+
+Finally, as we are using a Lefkovitch matrix to simulate population fluctuations, these models inherently make simplifying assumptions about the biology of the study species. For example, these models assume that all individuals within a stage are subject to the same growth and mortality rates. As this study uses data collected from a large geographic range (Raberinary \& Benbow, 2012), different individuals nesting in different regions may be subject to different selective pressures. Further, this population of blue octopus has been shown to exhibit spatial variability depending on their life stage. Younger individuals tend to live in the shallow inner zone of the reef and larger individuals, which are able to withstand stronger currents better, move to deeper waters for more suitable habitats for nesting (Raberinary, 2007). Despite these limitations, the data provided are the best data available for fitting a Lefkovitch matrix to this species. Future extensions of this work could include exploring the dynamics of both sexes in the population (Gerber \& White, 2014) as male octopus have different growth rates and spatial dynamics (Heukelem, 1976). Further, a better understanding of the seasonal breeding dynamics of this population of blue octopus could give better insight into the health of this fishery (White \& Hastings, 2020). Cephalopod juveniles (a key life stage in understanding future population dynamics) often have two seasonal peaks per year, indicating biannual spawning periods (Humber et al., 2006; Katsanevakis \& Verriopoulos, 2006). This is related to seasonal fluctuations in temperature, as cephalopod growth is related to environmental temperature (Domain et al., 2000). However, this relationship is subject to a lot of variation (Herwig et al., 2012; Heukelem, 1976). Further, as Madagascar is a tropical climate, this trend may be different in our region of study, as suggested by Raberinary \& Benbow (2012), where all life stages of \emph{O. cyanea} were observed year round, suggesting continuous breeding.
+
+With a short generation time, cephalopod species respond more quickly to new management strategies. Future work on other fished species in the region is necessary to understand the effectiveness of temporary closures. This study also highlights the need for further research into the life history patterns of \emph{Octopus cyanea}. Specifically, studies on the natural mortality rate of this species, both in the larval and benthic stages, could better inform both our model and the greater understanding of how populations of this species grow. Further, a more contemporary study on the status of the octopus fishery of southwest Madagascar will paint a more accurate picture of how this population is faring under the current fishing pressure. These studies can also be used to build off of this one as more in depth data collection could be used to add spatial variability to our model, where we then can evaluate the accuracy of the assumption that every individual within a stage is subject to the same selective pressure. Finally, as the people of southwestern Madagascar are actively taking steps to preserve the health of their fisheries, we hope that studies such as these can serve to facilitate informed decision making when choosing how and when to impose fishing restrictions.
+
+\emph{Acknowledgements} - The authors would like to thank the National Science Foundation for the funding on this project {[}grant number 1923707{]}. We would also like to thank Dr.~Sophie Benbow for not only collecting the data on which paper was written, but also her help in contextualizing research and answering questions about data collection.
+
+\emph{Data Availability} - All supplemental material and code for this project are available at \url{https://github.com/swulfing/OCyanea}. All data used to parameterize this model were collected in Raberinary \& Benbow (2012).
+
+\newpage
+
+\hypertarget{chapter-ii-social-ecological-models-with-social-hierarchy-and-space-applied-to-small-scale-fisheries}{%
+\section{CHAPTER II: Social-ecological models with social hierarchy and space applied to small-scale fisheries}\label{chapter-ii-social-ecological-models-with-social-hierarchy-and-space-applied-to-small-scale-fisheries}}
+
+\hypertarget{abstract-2}{%
+\subsection{ABSTRACT}\label{abstract-2}}
+
+Socio-ecological models combine ecological systems with human social dynamics in order to better understand human interactions with the environment. One such model of human behavior is replicator dynamics. Replicator dynamics are derived from evolutionary game theory and model how societal influence and financial costs can change opinions about resource extraction. Previous research on replicator dynamics have shown how evolving opinions on conservation can change how humans interact with their environment and therefore change population dynamics of the harvested species. However, these models have all assumed that human societies are homogeneous with no social structure. Using co-managed fisheries as a case study, we develop a two-patch socio-ecological model with social hierarchy in order to study the effect that social inequity has on decision making. We also analyzed the spatial components of this two-patch model and observed the effect of fish movement on decision making and fish population dynamics. We found that, contrary to our hypothesis, social influences became less significant in our two patch model. Instead, we found that fish movement across patches was a major driver of changes to population dynamics. This indicates the importance of including spatial components to socio-ecological models. Further, this study highlights the importance of understanding species movements when making conservation decisions.
+
+Keywords: two-patch model, replicator dynamics, social hierarchy, socio-ecological model, species movement
+
+\hypertarget{introduction-2}{%
+\subsection{INTRODUCTION}\label{introduction-2}}
+
+The study of social ecological models is a growing field in ecology as they treat human behavior as a variable as opposed to a set parameter. This allows for the study of how human decision making can change in response to environmental factors and in turn, change how humans interact with resources and profits (Bauch, 2005; Bauch et al., 2016; Innes et al., 2013; Oraby et al., 2014; Sigdel et al., 2017; Thampi et al., 2018). As human societies grow increasingly intricate and interconnected, these models can help us to analyze how our social structures can influence the environment around us (Liu et al., 2007). These models provide important insight not only into how human decision making can influence ecological patterns but they can also show hidden processes, reveal regime shifts that would otherwise be hidden, and identify vulnerabilities of systems that do not exist within the purely social or ecological models (Lade et al., 2013; Liu et al., 2007; Young et al., 2007). Socio-ecological models have even showed different dynamics at different scales and different amounts of human connectivity (Cumming et al., 2017). They can also be used in systems where data are difficult to collect, as parameters can be changed in order to analyze different hypothetical scenarios. Socio-ecological models can also inform effective policy decisions. Conservation plans often do not reach their conservation goals, and these setbacks are often attributed to a lack of stakeholder participation (Crona \& Bodin, 2006; Prince et al., 2021; Salas et al., 2019). This can be due to an emergence of conflict for stakeholders, where the conservation plan in place directly hinders their practices, therefore deterring them from participating in the restorative efforts. Socio-ecological models can identify where these areas of potential conflict can arise, compromises that can be made in the system, and alternative conservation practices that encourages participation from all stakeholder groups (Ban et al., 2013). Further, as these models are simulations of human and environmental interactions, they allow flexibility in that they can be adapted to fit the specific system of study and improve place-based management practices (Felipe-Lucia et al., 2022; Liu et al., 2007; Young et al., 2007)
+
+Due to their adaptability, socio-ecological models can use a wide range of strategies to represent human decision making. One such method is replicator dynamics, which model human decision making where an individual makes conservation choices based on weighing the perceived benefits of conservation with the costs, as well as the social pressure to conform to the group's stance on conservation. Individuals will therefore ``replicate'' the behavior of their peers by changing their harvest practices based on the opinion of the majority (Bauch \& Bhattacharyya, 2012). Socio-ecological models have been used to show how social learning is a key component to vaccination uptake in public health, and preexisting social norms can actually suppress vaccine uptake despite frequent disease outbreaks (Bauch \& Bhattacharyya, 2012; Oraby et al., 2014). They can also have conservation applications as pest invasion models have shown ways to simultaneously mitigate pest outbreaks and the cost to address them in the timber industry (Barlow et al., 2014). Further, land use changes have been modeled to have completely different dynamics when human decision making was added to these models (Innes et al., 2013). However, all previous models of human behavior have assumed that human societies are homogeneous, and all people are subject to the same social influence and ecological dynamics. No replicator-dynamics model has incorporated social inequality or hierarchy, despite the fact the most human societies have varying levels of social influence within them.
+
+Contrary to this assumption made by previous models that human groups are homogeneous, the vast majority of real-world societies exhibit some form of hierarchy or inequality. Societies with different social subgroups can often exhibit an ``us vs.~them'' mentality and compete for resources (Borgatti, 2003). This is because social status can greatly alter peoples' interaction with the environment. Competition over resources has been shown to be exacerbated by social hierarchies and `top-down' regulation whereas when social connectivity is considered in management plans, management outcomes are not only improved, but costs are reduced as well (Bodin \& Crona, 2009; Grafton, 2005; Krackhardt \& Stern, 1988). Further, members of social networks have been shown to have varying levels of connectivity with others based on attributes such as ethnicity, and this can in turn alter an individual's relationship with the environment and their views on conservation (Barnes-Mauthe, 2013; Sari et al., 2021). Barnes-Mauthe (2013) also showed that fishing communities can exhibit homophily, which is the tendency for people to obtain information and opinions from those who are similar to themselves before seeking views from those who are perceived as different. Therefore, people in different social groups may be receiving different information and opinions about conservation and acting accordingly (McPherson et al., 2001). For example, in Kenya, communication among fishers has been shown to stay within groups using the same gear type which has inhibited successful regulation of the whole fishery (Crona \& Bodin, 2006). Further, in the southwest Madagascar octopus fishery, fishing method and location typically falls along gendered lines. When fishing restrictions were imposed on tidal flats, this affected fishing access for women while maintaining this livelihood for male fishers, who typically fished in deeper waters (Baker-Médard, 2017). In Thailand, ethnicity has been shown to be a source of fishing conflict which has exacerbated resource depletion (Pomeroy et al., 2007). The existence of social structures is extremely prevalent in human societies and this has been shown to alter how people interact with the environment. However, there has been no previous replicator dynamics study that considers how social hierarchies alter harvest practices.
+
+Small-scale fisheries are a particularly relevant system to apply replicator dynamics as fishing practices and policies are often made by communal decision makers. Research on small-scale fisheries is a growing and essential field as they are drastically understudied yet affect many people around the globe. Worldwide, about 32 million fishers make their livelihood in small-scale fisheries, a subsector in which 90 to 95\% of harvest is distributed for local consumption. These marine products are a vital source of nutrition for these communities (The World Bank, 2012). Due to tight social structures, community decision making and strong reliance on the environment, small-scale fisheries are systems that are well represented by socio-ecological models and replicator dynamics (Barnes et al., 2019; Grafton, 2005; Thampi et al., 2018). Conservation efforts in small-scale fisheries have often been unsuccessful, especially when the social and economic components of the industry have been ignored (Prince et al., 2021; Salas et al., 2019). However, even when human interactions and decision making have been considered, socio-ecological models have often treated individuals in human societies equal in their social standing. As human societies are often complex and hierarchical, this simplifying assumption that everyone interacts with the environment and within their community equally can lead to lack of participation in conservation by some groups within a community (Barnes-Mauthe, 2013; Cumming et al., 2017). Mismanagement of fisheries have even been shown to exacerbate these inequalities (Baker-Médard, 2017; Cinner et al., 2012). Further, the specific dynamics of the fishery in question have been shown to be important components to models, as models with multiple patches can actually mitigate overfishing if there is high movement of the harvested species between patches (Cressman et al., 2004).
+
+Instituting effective conservation strategies can be especially difficult if the organism being protected has a migratory pattern that crosses over multiple management jurisdictions such as country borders (Garrone-Neto et al., 2018; Ogburn et al., 2017; Ramírez‐Valdez et al., 2021). Borders can also create challenges when gathering population data that require extensive fieldwork (Cozzi et al., 2020; Hebblewhite \& Whittington, 2020). The fragmentation of management can also result in a mismatch of conservation strategies that become ineffective when these management bodies do not coordinate efforts (Siddons et al., 2017). Research on the importance of coordinated research efforts has been conducted on many terrestrial species with large migratory ranges and have consistently shown that cooperation among government bodies is essential to protecting the health of highly migratory species or species whose native ranges expand across multiple countries (Gervasi et al., 2015; Meisingset et al., 2018; Plumptre et al., 2007). Because fish are generally migratory, this issue is especially relevant in international waters or waters where different government bodies share jurisdiction (Mchich et al., 2000). For this reason, research on two-patch fishing models is a commonly used method as different management strategies can be modeled in each patch. Previous research on two-patch fishing models has shown that movement rates between patches can affect population stability when there are different fishing pressures in each patch (Cai et al., 2008; Mchich et al., 2000). Economic output can also be maximized in multi-patch fishing models as high dispersal can result in a higher overall yield of the system than the yield of each patch combined (Auger et al., 2022). High dispersal across patches is commonly found to be an essential component to maximizing population health and economic gain from fishing (Auger et al., 2022; Freedman \& Waltman, 1977; Moeller \& Neubert, 2015). Two-patch models help us to understand the population dynamics of fish species better who face different pressures in each patch and have even resolved conflicts between fishing groups (Mchich et al., 2000). However, no previous research has combined two-patch fishing models with a hierarchical human decision making model in order to study how space and social dynamics affect fishery dynamics.
+
+In this study, we couple a human-decision replicator dynamics model with social hierarchies with a two-patch fishing model in order to understand how decision making is affected by spatial and hierarchical factors. The objectives of this study were: 1) to compare the output of this model with that of previous replicator dynamics studies without spatial or social hierarchical components, 2) find the effects of social hierarchies in decision making and how that affects fishing dynamics, and 3) determine the significance of fish dispersal in our two-patch model. We hypothesized that higher cooperation between groups would benefit fish stocks overall and that increased fish movement would increase the health of fish populations.
+
+\hypertarget{methods-1}{%
+\subsection{METHODS}\label{methods-1}}
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{CoupledModelConceptual} \caption{A conceptual representation of our model as a two-patch extension of Bauch et al. (2016). Here, each fish population (\(F_i\)) in each patch \(i\) increase through natural growth and movement of fish into the patch. Fish populations are decreased through emigration out of the patch and fishing mortality. The number of fishers (\(X_i\)) in each patch \(i\) change in response to fish population levels, the cost of stopping fishing activity, and the opinions of those in the patch and those in the other patch. \label{Conceptual}}\label{fig:Conceptual}
+\end{figure}
+
+
+
+\hypertarget{model-construction}{%
+\subsubsection{Model Construction}\label{model-construction}}
+
+We built on the work of Bauch et al. (2016) by extending their approach to a two-patch model (Figure \ref{Conceptual}). The fish population models were as follows:
+
+\begin{equation} 
+  \frac{dF_i}{dt} = r_iF_i(1-F_i)-\frac{h_i*F_i}{F_i + s_i} - m_jF_i + m_iF_j
+  \label{eq:fish1}
+\end{equation}
+
+where the change in fish populations \(F_i\) is dependent on \(r_i\), the net population growth of each patch \(i\), and both populations follow logistic growth. The second term: \(\frac{h_i*F_i}{F_i + s_i}\), denotes fish lost to human activity. \(h_i\) is the harvesting efficiency of the respective human population and \(s_i\) controls the supply and demand of the fishery. Because we extended this to a two-patch model, the \(m_i\) parameter denotes the movement of fish out of patch \(i\) and into patch \(j\). In this study, we were assuming a closed population between the two patches. Therefore, fish move directly from patch to patch and do not disperse elsewhere.
+
+For the model of human activity and opinion, we used replicator dynamics from evolutionary game theory to simulate societal influence on an individual's opinion. Social dynamics are represented by the proportion of conservationists in a population (\(X\)) and the proportion of harvesters (\(1-X\)). These two groups interact with one another using the term \((X)(1-X)\) which simulates individuals ``sampling'' other individuals in the population. If one opinion dominates in the population (i.e.~\(X >> (1-X)\) or \((1-X) >> X\)), the rate of changing opinions will be slow as the power of societal pressure makes it challenging for the other opinion to gain traction. However, if \(X\) and (\(1-X\)) are close, the rate of change in opinion will be fast as society has a split opinion on conservation versus harvest. In this model, each person holds an opinion (conservation or harvest) by weighing the benefits of conservation (\(U_A\)) against the benefits of harvest (\(U_B\)). This gives the replicator equation:
+
+\begin{equation} 
+\frac{dX_i}{dt} = k_iX_i(1-X_i)[U_{A,i} - U_{B,i}]
+  \label{eq:rep1}
+\end{equation}
+
+\begin{equation} 
+\frac{dX_i}{dt} = k_iX_i(1-X_i)[\Delta U_i]
+  \label{eq:rep2}
+\end{equation}
+
+where \(k_i\) refers to the rate of interaction within a group. As individuals ``sample'' the opinions of others in their group, they can switch from A to B if \(U_B\) \textgreater{} \(U_A\) and vice versa. In our model, we adapted \(U_A\) from Bauch et al. (2016) with the added influence of the other population's opinion. \(U_A\) is therefore given by:
+
+\begin{equation} 
+U_{A,i} = \frac{1}{(F_i + c_i)} + d_iX_i + \rho_i X_j
+  \label{eq:pros1}
+\end{equation}
+
+where \(\frac{1}{(F_i + c_i)}\) represents the perceived rarity of fish populations within a patch. As \(F_i\) and \(c_i\) (the rarity valuation parameter) decrease, this term will increase, therefore adding to the perceived benefit of protecting fish populations. \(d_i\) refers to the social influence that each population has on itself, and as an individual encounters a conservationist (\(X_i\)), the social benefit of also being a conservationist is shown in \(d_i\). \(\rho_i\) has this similar effect, but denotes the social effect of the opposite population on decision making (\(X_j\)). Individuals in each population \(i\) are receiving information about the conservation practices of the other population \(j\), and the influence that this has on each population is encapsulated by \(\rho_i\).
+
+\(U_B\) (the perceived benefits of harvest) is:
+
+\begin{equation} 
+U_{B,i} = \omega_i + d_i(1-X_i) + \rho_i(1-X_j)
+  \label{eq:cons1}
+\end{equation}
+
+where \(\omega_i\) is the cost of conservation (i.e.~revenue lost by not fishing) where now, \(d_i\) is the within-population social benefit of switching to harvesting (\(1-X_i\)) and \(\rho_i\) is the other population's (\(1-X_j\)) ability to change the opinion of an individual to be a harvester.
+
+Plugging equations \eqref{eq:pros1} and \eqref{eq:cons1} into equation \eqref{eq:rep1} gives:
+
+\begin{equation} 
+\frac{dX_1}{dt} =  k_1X_1(1-X_1) [\frac{1}{F_1+c_1} - \omega_1 + d_1(2X_1 - 1) + \rho_1(2X_2 - 1)]
+  \label{eq:social1}
+\end{equation}
+
+\begin{equation} 
+\frac{dX_2}{dt} = k_2X_2(1-X_2)  [\frac{1}{F_2+c_2} - \omega_2 + d_2(2X_2 - 1) +  \rho_2(2X_1 - 1)]
+  \label{eq:social2}
+\end{equation}
+
+where specifics of the derivation are outlined in the supplementary material. Coupling the fish population and human opinion models gives:
+
+\begin{equation}
+\frac{dF_1}{dt} = r_1F_1(1-F_1)-\frac{h_1*F_1(1-X_1)}{F_1 + s_1} -m_2F_1 + m_1F_2
+  \label{eq:FishWhole1}
+\end{equation}
+
+\begin{equation}
+\frac{dF_2}{dt} = r_2F_2(1-F_2)-\frac{h_2*F_2(1-X_2)}{F_2 + s_2} -m_1F_2 + m_2F_1
+  \label{eq:FishWhole2}
+\end{equation}
+
+\begin{equation}
+\frac{dX_1}{dt} =  k_1X_1(1-X_1) [\frac{1}{F_1+c_1} - \omega_1 + d_1(2X_1 - 1) + \rho_1(2X_2 - 1)]
+  \label{eq:SocWhole1}
+\end{equation}
+
+\begin{equation}
+\frac{dX_2}{dt} = k_2X_2(1-X_2)  [\frac{1}{F_2+c_2} - \omega_2 + d_2(2X_2 - 1) +  \rho_2(2X_1 - 1)]
+  \label{eq:SocWhole2}
+\end{equation}
+
+where the fishing pressure is now a function of the number of harvesters in a population (\(\frac{h_iF_i(1-X_i)}{F_i + s_i}\)). Further, the opinion of each population will shift based on the perceived fish stock health of their respective patch weighed against the costs and benefits of conservation. As fish stocks decrease, individuals will sway more toward conservation, thereby relieving this fishing pressure. However, we now have an external influence in this model: the opinions of people in population \(j\). The strength of this external influence is \(\rho\), and in this study, we plan to simulate inequalities in human societies with this parameter.
+
+
+
+\begin{longtable}[]{@{}llll@{}}
+\caption{\label{tab:DispersionParamTable}Parameter values used to simulate sustainable fishing practices in patch 1 and overfishing in patch 2. \label{DispersionParamTable}}\tabularnewline
+\toprule()
+Parameter & Population 1 & Population 2 & Definition \\
+\midrule()
+\endfirsthead
+\toprule()
+Parameter & Population 1 & Population 2 & Definition \\
+\midrule()
+\endhead
+r & 0.4 & 0.35 & Fish net growth \\
+s & 0.8 & 0.8 & Supply and demand \\
+h & 0.25 & 0.5 & Harvesting efficiency \\
+k & 1.014 & 1.014 & Social learning rate \\
+\(\omega\) & 0.2 & 0.35 & Conservation cost \\
+c & 1.5 & 1.5 & Rarity valuation \\
+d & 0.5 & 0.5 & Social norm strength (within population) \\
+m & 0.2 & 0.2 & Fish movement (from opposite patch) \\
+\(\rho\) & 0.5 & 0.1 & Social norm strength (opposite population) \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{fish-parameters}{%
+\subsubsection{Fish Parameters}\label{fish-parameters}}
+
+For our basic analysis, we chose to model a two-patch fishery where the harvested fish species has a mid-range growth rate and regularly diffuses across the two patches, such as the parrot fish modeled in Thampi et al. (2018). From the human side, the two groups of fishers have the same social influence on one another, representing a non-hierarchical social structure. The default population growth rate of both patches is 0.35 fish per year. For the harvesting efficiency, we chose a maximal fishing rate of 0.5. These numbers were adapted from a coral reef fishing model Thampi et al. (2018) where \(r = 0.35\) and \(h = 0.5\) are the mid-level growth rate and max fishing rates analyzed by this paper. For the movement parameters \(m\), we chose 0.2 for each as these are the values used in the two-patch fishing model described in Cai et al. (2008). We used the \(s\) parameter described in the Bauch et al. (2016) model of \(s = 0.8\).
+
+\hypertarget{human-parameters}{%
+\subsubsection{Human Parameters}\label{human-parameters}}
+
+The rate at which humans interact with one another is described by the parameter \(k\). In our default model, we used \(k = 1.014\) as adapted from the Thampi et al. (2018) default model. We used the default rarity valuation parameter \(c\) from Thampi et al. (2018) where \(c = 1.68\). The cost of conservation default parameter is \(\omega = 0.35\) from Bauch et al. (2016). Further, as our default model has no human social hierarchy, we set \(d = \rho = 0.5\) for our social learning rate as adapted from Bauch et al. (2016) which models social decision making regarding deforestation.
+
+Based off of this default model, we then changed parameters such that patch 1 is fished sustainably, and patch 2 is overfished (Table \ref{DispersionParamTable}). Further, we added a social hierarchical component where patch 2 has a higher social influence on patch 1.
+
+\hypertarget{analyses}{%
+\subsubsection{Analyses}\label{analyses}}
+
+First, we compared the model from Bauch et al. (2016) to that of our model by setting our parameters \(m_1 = m_2 = \rho_1 = \rho_2 = 0\) and comparing the results. We then ran different simulations of this model with different parameterizations in order to understand how fish population dynamics are affected by two-patch socio-ecological models with social hierarchy. Next, we incrementally increased the parameters \(m\) and \(\rho\) and simulated this system for 100 years in order to assess how increasing each new parameter would affect the overall dynamics of the system. Sensitivity analysis was conducted with the R package FME on these parameters (Soetaert \& Petzoldt, 2010). Finally, we created parameter planes of each pair of variables in order to assess how altering two parameters at a time would affect the system.
+
+\hypertarget{results-1}{%
+\subsection{RESULTS}\label{results-1}}
+
+\hypertarget{model-comparisons}{%
+\subsubsection{Model Comparisons}\label{model-comparisons}}
+
+We first compared the output of our model to that of Bauch et al. (2016) in order to see how the addition of social hierarchy and two-patch fishing affects the replicator dynamics of a fishery. We found that, while the model in Bauch et al. (2016) had multiple states where oscillations occurred (Figure \ref{uncoupledFishModel} a), there were no scenarios with our model in which we tested that resulted in oscillatory behavior (Figure \ref{uncoupledFishModel} b).
+
+
+
+\begin{figure}
+\includegraphics[width=0.5\linewidth]{Wulfing_Thesis_files/figure-latex/uncoupledFishModel-1} \includegraphics[width=0.5\linewidth]{Wulfing_Thesis_files/figure-latex/uncoupledFishModel-2} \caption{a) Oscillatory behavior of the model in Bauch et al. (2016) where \(r = 0.06\), \(s = 0.8\), \(h = 0.1\), \(k = 0.17\), \(\omega = 1\), \(c = 0.6\), \(d = 0.3\). This is compared to our model, b) which used the same parameter values with the addition of \(m = 0.2\), \(\rho = 0.3\). \label{uncoupledFishModel}}\label{fig:uncoupledFishModel}
+\end{figure}
+
+\hypertarget{model-analysis-1}{%
+\subsubsection{Model Analysis}\label{model-analysis-1}}
+
+We then modeled a hypothetical scenario where patch 1 is fished sustainably whereas patch 2 is experiencing overfishing and has a higher social sway than patch 1 (Table \ref{DispersionParamTable}). Here, the unsustainable practices of human population 2 are so exploitative, that both fish populations eventually collapse (Figure \ref{DispersionScenario}). We used this parameterization for the rest of the analysis, however the conclusions from each analyses are consistent with the other parameterizations we tested.
+
+
+
+\begin{figure}
+\centering
+\includegraphics{Wulfing_Thesis_files/figure-latex/DispersionScenario-1.pdf}
+\caption{\label{fig:DispersionScenario}Representation of the dynamics of both the fish populations (\(F_i\)) and human conservationists (\(X_i\)) in each patch with default parameters from table \ref{DispersionParamTable} after 1000 years. \label{DispersionScenario}}
+\end{figure}
+
+Next, we ran our model with incrementally higher \(\rho\) values in both populations and observed how this affected the final population of each fish patch (Figure \ref{rhoExploreGraph}). We found that under different parameterizations, \(\rho\) rarely had an effect on the final fish populations. However, there were some instances where \(\rho\) acted as a tipping point for population dynamics where instead of continuously changing the final fish populations, the \(\rho\) parameter either resulted in stable fish populations or both stocks collapsed once \(\rho\) increased past this point.
+
+
+
+\begin{figure}
+\centering
+\includegraphics{Wulfing_Thesis_files/figure-latex/rhoExploreGraph-1.pdf}
+\caption{\label{fig:rhoExploreGraph}Final fish populations after 100 years in the two-patch fishing model where the \(F_1\) population in patch 1 is fished sustainably but human population 1 has a lower social influence than humans in patch 2, where \(F_2\) is being fished unsustainably. Both \(\rho_1\) and \(\rho_2\) were increased simultaneously. \label{rhoExploreGraph}}
+\end{figure}
+
+We then ran the same analysis with the fish dispersal parameter, \(m\). Contrary to the effect \(\rho\) had on the model, dispersal had a more direct and continuous effect on the final population of fish in each patch. For example, as fish movement from patch 2 to patch 1 increased (i.e.~from the unsustainable patch to the sustainable patch), this actually maintained low fish populations in both patches (Figure \ref{mExploreGraph} a). However, if the fish movement was increased from patch 1 to patch 2 (from the sustainable fishing to unsustainable), both patches eventually collapsed to zero (Figure \ref{mExploreGraph} b).
+
+
+
+\begin{figure}
+\includegraphics[width=0.5\linewidth]{Wulfing_Thesis_files/figure-latex/mExploreGraph-1} \includegraphics[width=0.5\linewidth]{Wulfing_Thesis_files/figure-latex/mExploreGraph-2} \caption{Final fish populations after 100 years in the two-patch fishing model where patch 1 (\(F_1\)) is fished sustainably but human population 1 has a lower social influence than patch 2, where \(F_2\) is being fished unsustainably. a) shows how increases in fish movement into patch 1 (\(m_1\)) affect final populations and b) shows how increases in fish movement into patch 2 (\(m_2\)) affect final populations. \label{mExploreGraph}}\label{fig:mExploreGraph}
+\end{figure}
+
+We then conducted sensitivity analysis on the \(m\) and \(\rho\) parameters to confirm the conclusions from the previous two analyses and further test if the fish diffusion parameter has a higher influence on fish population dynamics than the outside social influence parameter (Table \ref{Sensitivity}). We used the R package FME (Soetaert \& Petzoldt, 2010) and found that \(F_1\) and \(F_2\) dynamics are consistently more sensitive to perturbations in the \(m\) parameter than to perturbations in the \(\rho\) parameter. This table shows the L1 sensitivity as it is less sensitive to outliers, however all measures of sensitivity taken showed that the \(F_1\) and \(F_2\) variables are more sensitive to the \(m\) parameters than the \(\rho\).
+
+
+
+\begin{longtable}[]{@{}lr@{}}
+\caption{\label{tab:Sensitivty}L1 Sensitivity analysis of the \(m\) and \(\rho\) parameters on \(F_1\) and \(F_2\) variables. \label{Sensitivity}}\tabularnewline
+\toprule()
+Parameter & Sensitivity \\
+\midrule()
+\endfirsthead
+\toprule()
+Parameter & Sensitivity \\
+\midrule()
+\endhead
+m\textsubscript{1} & 0.0072569 \\
+m\textsubscript{2} & 0.0072569 \\
+\(\rho\)\textsubscript{1} & 0.0010693 \\
+\(\rho\)\textsubscript{2} & 0.0010693 \\
+\bottomrule()
+\end{longtable}
+
+Finally, to confirm that \(\rho\) has a small effect on the overall dynamics of the fish population model, we generated a series of parameter planes, which show how dynamics change based on variations of two different parameters (Figure \ref{rhoParamPlane}). Each axis represents a new value for parameter and then the final dynamics of the system were analyzed. If the final fish population was greater than 0.2, this was considered stable whereas below 0.2 was considered population collapse (Pinsky et al., 2011). The result of this analysis showed that \(\rho\) had little direct effect on the final fish population's sustainability.
+
+
+
+\begin{figure}
+\centering
+\includegraphics{Wulfing_Thesis_files/figure-latex/rhoParamPlane-1.pdf}
+\caption{\label{fig:rhoParamPlane}Parameter plans of perturbations of each parameter compared to perturbations in \(\rho\). Changes in \(\rho\) were compared to changes in, fish net growth (r), supply and demand (s), harvesting efficiency (h), social learning rate (k), conservation cost (\(\omega\)), rarity valuation (c), social norm strength (d), and fish movement (m). Each fish population was evaluated after 100 years and if the final population was under 0.2, this patch's stocks were considered to be collapsed. The corresponding color in the graph represents how each patch fared after 100 years under each parameter combination, with green referring to both patches being sustained above a 0.2 population, orange and yellow show scenarios where only patch 1 or patch 2 are sustainable, respectively, and black is when both patches are considered collapsed after 100 years. \label{rhoParamPlane}}
+\end{figure}
+
+\hypertarget{discussion-1}{%
+\subsection{DISCUSSION}\label{discussion-1}}
+
+We extended previous models on replicator dynamics to two-patch fishing scenarios with social hierarchy in the human population. Firstly, we compared the results of our model to previous replicator equation models such as Thampi et al. (2018) and Bauch et al. (2016) (Figure \ref{uncoupledFishModel} a). Mainly, both models found oscillations under certain parameterizations. This is in contrast to our model, where we found no scenarios that exhibit this behavior (Figure \ref{uncoupledFishModel} b). This is likely due to the fact that the linear aspects of the fish dispersal term eventually overpowers the non-linear components of the model. Further, because of the outside human influence term, \(\rho_i\), people are not responding directly to their respective fishing patch, but also to the conservation opinion of the other group. This indicates that the inclusion of the immigration term from each patch overcame the non-linear components of the model because this is a linear term that had a major effect on the dynamics of the model. This shows that adding a spatial component to socio-ecological models can greatly change their dynamics and therefore how people are expected to act under certain environmental conditions. In our model, this shows that the dispersion of fish populations must be well understood in order to institute effective conservation practices. This is also because any decision made by one group of people to conserve resources may be rendered ineffective if this species is highly migratory and the other group of harvesters is using unsustainable conservation practices. Further, because of the outside influences from the other human patch, fishers are no longer responding directly to fish levels in their respective patch, \(i\), but are also influenced by the number of fishers in the other patch, \(j\). In a scenario where fish is abundant in one patch, this will also encourage fishing in the other patch because this will increase the incentive to fish from the outside influence parameter. Past research has exemplified how multi-patch models and the addition of spatial components change the dynamics of systems, especially in fisheries (Auger et al., 2022; Cai et al., 2008; Mchich et al., 2000; Moeller \& Neubert, 2015). This highlights the importance of including spatial components to socio-ecological models.
+
+For the remainder of the analyses, we simulated a scenario where patch 1 was being fished sustainably and patch 2 was experiencing overfishing with social hierarchy, which resulted in the whole system experiencing collapse (Table \ref{DispersionParamTable} and Figure \ref{DispersionScenario}). Next, we tested the effect of external social influence on this model and how social hierarchy in decision making would influence dynamics. Contrary to our hypothesis, this parameter often had very little overall effect on the model (Figure \ref{rhoParamPlane}). Figure \ref{rhoExploreGraph} showed how fish population dynamics typically crashed when \(\rho\) passed a tipping point, showing that high levels of cooperation between groups actually crashed both populations of fish. Instead of modeling a cohesive system where communication fostered effective conservation, we created a tragedy of the commons scenario, where each community raced to fish each patch as opposed to coming to common understanding of sustainable fishing practices. This is because in our model, the only information being passed on to the outside group is the general opinion regarding fishing versus conservation instead of what sustainable fishing practices were used in order to achieve this benefit. As a result, when one patch \(i\) is overfished and the other patch \(j\) is fished sustainably, the group \(i\) will continue to overfish their own resources because the opposite patch \(j\) is encouraging this group to continue fishing. Therefore, this further highlights that the content of the information being disseminated matters in successful conservation (Gray et al., 2012). This confirms previous research on co-management strategies in that despite the fact they are a growing method in meeting social and ecological goals in small-scale fisheries, they are prone to fail and groups can come to management decisions that are unsuccessful (Cinner et al., 2012). This aligns with previous social-ecological research that shows that the structure of a social network should be taken into consideration when the community manages a resource (Bodin et al., 2014; Grafton, 2005; Newman \& Dale, 2007). This is because people who interact differently with the environment or within a society have to consider different tradeoffs in conservation (Cumming et al., 2017).
+
+Instead of social norms controlling a lot of the dynamics of this model, we found that the dispersal of fish between patches was a major driver of population sustainability or collapse (Table \ref{Sensitivity}). As we increased the movement of fish into the sustainable patch (Figure \ref{mExploreGraph} a), this increased populations in that respective patch because humans in population 1 continued to fish sustainably. Further, as those in population 2 decreased fishing rates, this influenced population 1 to also decrease their number of fishers. As a result, population 1 maintained high fishing levels while population 2 had low stocks. On the contrary, as fish immigrated from the sustainable patch 1 to the unsustainable patch 2 (Figure \ref{mExploreGraph} b), both fish populations collapsed as \(m_2\) increased. This is because fish movement from patch 1 eventually grew to be too great for human population 1 to fish sustainably and human population 2 continued to overfish. High migration has been shown to be an essential part of maximizing economic benefit from fishing in multi-patch models (Moeller \& Neubert, 2015). Because fish are generally migratory and therefore can be difficult to track, constraining fishing to one group of people is more challenging (Grafton, 2005). This is especially important for fish species that exhibit different movement patterns based on life stage, and requires more management coordination (Siddons et al., 2017).
+
+The decision to include the external social influence term in our model within the injunctive social norms \(X(1-X)\) implies that external influence can still change an opinion for or against conservation. However, an individual's willingness to take up a new opinion is still dictated by the overall opinion of their own population. This exemplifies homophily, a concept in sociology where humans tend to take information and the opinions from subgroups similar to them before listening to subgroups of different social standing (Brechwald \& Prinstein, 2011). Social network based conservation, like in our model, can replace `top-down' regulation which can exclude stakeholders. However, this method of conservation has been shown to be susceptible to homophily (Newman \& Dale, 2007). Conservation has been shown to be more effective when human populations are more cohesive and that those with subgroups experience more barriers to effective conservation (Bodin \& Crona, 2009). Solutions to this issue could be to institute some form of liason that serves as cross-group communicators (Guerrero et al., 2015).
+
+Further research on this model could consider an open system, where fish diffusion doesn't necessarily have to pass between patches and could diffuse into non-fished areas. Also, stronger social networks have been shown to be more adaptable to environmental change (Grafton, 2005), therefore further studies could evaluate the effect of climate change or extreme events on this social system. The specific way we chose to incorporate social hierarchy into the model could be changed as well, for example by testing a model that includes the outside social influence outside of the \(X(1-X)\) term. There are many ways to model social systems so another further application of this study would be to compare different models that incorporate social hierarchy to the results of this one. Next, further work on parameterizing this model to a real-world system could help understand if this model is properly capturing the underlying dynamics of two-patch fishing systems with social hierarchy. Finally, this model assumed that the uptake of opinions happens solely through social networks and weighing costs of conservation against the benefits. In reality, there may be more factors that influence one's harvesting decisions such as governing bodies or media consumption. Further research could look into the other components that form decision-making.
+
+\newpage
+
+\hypertarget{conclusion}{%
+\section{CONCLUSION}\label{conclusion}}
+
+In these two chapters, we demonstrated how mechanistic modeling can be used to assess the status of small-scale fisheries when available data are limited. In chapter 1, we were able to take monthly landing data to assess the health of the small-scale blue octopus fishery in southwest Madagascar. We were also able to assess various life history traits of this species such as per-stage duration, reproductive value, survivability, as well as the stable stage distribution of this population. Finally, we showed how different closure scenarios would affect this population's sustainability. We were able to infer more about the biology of this important species as well as provide various management scenarios that should be effective in preserving populations. In chapter 2, we created a socio-ecological model where we coupled a human decision-making system with social hierarchy with a two-patch fish model in order to understand how the addition of space and human inequality affects fishing and fishery dynamics. We found that the fish movement parameter had a large effect on the dynamics of the system and that the parameter that symbolized the social pressure from the outside group had more of a ``tipping point'' effect on the model where low values maintained stable fish populations but once this parameter reached a certain point, the whole system crashed. This exemplified the importance of fish movement when instituting conservation strategies. Further, this shows how the content of information being communicated must include successful fishing strategies when collaborating with other groups to make management choices, not just whether one group is successful in fishing efforts.
+
+This work could be expanded by first collecting data to confirm or enhance the results of these studies. For example, understanding how much fishing pressure is affecting the overall mortality rate of blue octopus would allow us to better understand how these closures are affecting this population. Next, spatial variability could be an important factor in blue octopus dynamics so research into how space affects selective pressure would provide further insight into the status of this species. As for the socio-ecological model, we conducted an exploratory analysis of the underlying dynamics of this model, but future research could parameterize this model into a real-world system. This would involve assessing the biology of the harvest species in question, but also conducting user surveys about fishing perception, fishing rates, and the amount of interconnectivity between people in these groups. Data collection can also produce a valuable check into the accuracy of mechanistic models. However, mechanistic models do provide insight into ecological and social dynamics and allow us to conduct hypothetical experiments that would otherwise be impossible or costly to conduct empirically.
+
+\newpage
+
+\hypertarget{supplementary-material-for-chapter-i-using-mechanistic-models-to-assess-temporary-closure-strategies-for-small-scale-fisheries}{%
+\section{SUPPLEMENTARY MATERIAL FOR CHAPTER I: Using mechanistic models to assess temporary closure strategies for small-scale fisheries}\label{supplementary-material-for-chapter-i-using-mechanistic-models-to-assess-temporary-closure-strategies-for-small-scale-fisheries}}
+
+\hypertarget{data-1}{%
+\subsection{Data}\label{data-1}}
+
+Table \ref{RabData} shows data used to parameterize matrix model from Raberinary \& Benbow (2012). Data was extracted from Figure 7 of this paper using WebPlotDigitizer (\url{https://automeris.io/WebPlotDigitizer/})
+
+
+
+\begin{table}
+
+\caption{\label{tab:RabData}Data collected in Raberinary \& Benbow (2012). \label{RabData}}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{rrrrrr}
+\toprule
+T & Stage1 & Stage2 & Stage3 & Stage4 & Total\\
+\midrule
+1 & 10.40119 & 5.200594 & 0.000000 & 1.1144131 & 16.71620\\
+2 & 76.52303 & 27.860327 & 2.228826 & 1.8573551 & 108.46954\\
+3 & 57.57801 & 37.890045 & 1.857355 & 0.0000000 & 97.32541\\
+4 & 40.49034 & 50.891531 & 3.343239 & 0.0000000 & 94.72511\\
+5 & 71.69391 & 16.716196 & 8.172363 & 1.1144131 & 97.69688\\
+\addlinespace
+6 & 121.09955 & 28.974740 & 5.572065 & 2.2288262 & 157.87519\\
+7 & 119.98514 & 52.005944 & 6.686478 & 0.7429421 & 179.42051\\
+8 & 78.75186 & 41.604755 & 14.487370 & 1.1144131 & 135.95840\\
+9 & 118.87073 & 53.491828 & 14.487370 & 1.1144131 & 187.96434\\
+10 & 119.98514 & 39.004458 & 10.772660 & 1.1144131 & 170.87667\\
+\addlinespace
+11 & 73.55126 & 26.374443 & 4.457652 & 2.2288262 & 106.61218\\
+12 & NA & NA & NA & NA & NA\\
+13 & 83.58098 & 111.069837 & 21.545320 & 1.1144131 & 217.31055\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\newpage
+
+\hypertarget{supplementary-material-for-chapter-ii-social-ecological-models-with-social-hierarchy-and-space-applied-to-small-scale-fisheries}{%
+\section{SUPPLEMENTARY MATERIAL FOR CHAPTER II: Social-ecological models with social hierarchy and space applied to small-scale fisheries}\label{supplementary-material-for-chapter-ii-social-ecological-models-with-social-hierarchy-and-space-applied-to-small-scale-fisheries}}
+
+Equations 2), 4), and 5) are as follows:
+
+\begin{equation}
+\tag{2}
+\frac{dX_i}{dt} = k_iX_i(1-X_i)[U_{A,i} - U_{B,i}]
+\end{equation}
+
+\begin{equation}
+\tag{4}
+U_{A,i} = \frac{1}{(F_i + c_i)} + d_iX_i + \rho_i X_j
+\end{equation}
+
+\begin{equation}
+\tag{5}
+U_{B,i} = \omega_i + d_i(1-X_i) + \rho_i(1-X_j)
+\end{equation}
+
+Substituting equations 4) and 5) into equation 2 Gives:
+
+\(\frac{dX_i}{dt} = k_iX_i(1-X_i)[\frac{1}{(F_i + c_i)} + d_iX_i + \rho_i X_j - \omega_i - d_i(1-X_i) - \rho_i(1-X_j)]\)
+
+\(\frac{dX_i}{dt} = k_iX_i(1-X_i)[\frac{1}{(F_i + c_i)} - \omega_i + d_i(X_i-1+X_i) + \rho_i(X_j-1+X_j)]\)
+
+\(\frac{dX_i}{dt} = k_iX_i(1-X_i) [\frac{1}{F_i+c_i} - \omega_i + d_i(2X_i - 1) + \rho_i(2X_j - 1)]\)
+
+\newpage
+
+\hypertarget{references}{%
+\section*{REFERENCES}\label{references}}
+\addcontentsline{toc}{section}{REFERENCES}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-ainaManagementOctopusFishery2009}{}}%
+Aina, T. A. N. (2009). Management of octopus fishery off {Southwest} {Madagascar}. \emph{United Nations University Fisheries Training Programme, Iceland {[}Final Project}, 39. \url{http://www.unuftp.is/static/fellows/document/tantely09prf.pdf}
+
+\leavevmode\vadjust pre{\hypertarget{ref-allisonVulnerabilityNationalEconomies2009}{}}%
+Allison, E. H., Perry, A. L., Badjeck, M.-C., Neil Adger, W., Brown, K., Conway, D., Halls, A. S., Pilling, G. M., Reynolds, J. D., Andrew, N. L., \& Dulvy, N. K. (2009). Vulnerability of national economies to the impacts of climate change on fisheries. \emph{Fish and Fisheries}, \emph{10}(2), 173--196. \url{https://doi.org/10.1111/j.1467-2979.2008.00310.x}
+
+\leavevmode\vadjust pre{\hypertarget{ref-andreModellingClimatechangeinducedNonlinear2010}{}}%
+André, J., Haddon, M., \& Pecl, G. T. (2010). Modelling climate-change-induced nonlinear thresholds in cephalopod population dynamics: {Climate} change and octopus population dynamics. \emph{Global Change Biology}, \emph{16}(10), 2866--2875. \url{https://doi.org/10.1111/j.1365-2486.2010.02223.x}
+
+\leavevmode\vadjust pre{\hypertarget{ref-augerIncreaseMaximumSustainable2022}{}}%
+Auger, P., Kooi, B., \& Moussaoui, A. (2022). Increase of maximum sustainable yield for fishery in two patches with fast migration. \emph{Ecological Modelling}, \emph{467}, 109898. \url{https://doi.org/10.1016/j.ecolmodel.2022.109898}
+
+\leavevmode\vadjust pre{\hypertarget{ref-baker-medardGenderingMarineConservation2017}{}}%
+Baker-Médard, M. (2017). Gendering {Marine} {Conservation}: {The} {Politics} of {Marine} {Protected} {Areas} and {Fisheries} {Access}. \emph{Society \& Natural Resources}, \emph{30}(6), 723--737. \url{https://doi.org/10.1080/08941920.2016.1257078}
+
+\leavevmode\vadjust pre{\hypertarget{ref-baker-medardClassedConservationSocioeconomic2021}{}}%
+Baker-Médard, M., Gantt, C., \& White, E. R. (2021). Classed conservation: {Socio}-economic drivers of participation in marine resource management. \emph{Environmental Science \& Policy}, \emph{124}, 156--162. \url{https://doi.org/10.1016/j.envsci.2021.06.007}
+
+\leavevmode\vadjust pre{\hypertarget{ref-banSocialEcologicalApproach2013}{}}%
+Ban, N. C., Mills, M., Tam, J., Hicks, C. C., Klain, S., Stoeckl, N., Bottrill, M. C., Levine, J., Pressey, R. L., Satterfield, T., \& Chan, K. M. (2013). A social--ecological approach to conservation planning: Embedding social considerations. \emph{Frontiers in Ecology and the Environment}, \emph{11}(4), 194--202. \url{https://doi.org/10.1890/110205}
+
+\leavevmode\vadjust pre{\hypertarget{ref-barlowModellingInteractionsForest2014}{}}%
+Barlow, L.-A., Cecile, J., Bauch, C. T., \& Anand, M. (2014). Modelling {Interactions} between {Forest} {Pest} {Invasions} and {Human} {Decisions} {Regarding} {Firewood} {Transport} {Restrictions}. \emph{PLoS ONE}, \emph{9}(4), e90511. \url{https://doi.org/10.1371/journal.pone.0090511}
+
+\leavevmode\vadjust pre{\hypertarget{ref-barnesSocialecologicalAlignmentEcological2019}{}}%
+Barnes, M. L., Bodin, Ö., McClanahan, T. R., Kittinger, J. N., Hoey, A. S., Gaoue, O. G., \& Graham, N. A. J. (2019). Social-ecological alignment and ecological conditions in coral reefs. \emph{Nature Communications}, \emph{10}(1), 2039. \url{https://doi.org/10.1038/s41467-019-09994-1}
+
+\leavevmode\vadjust pre{\hypertarget{ref-barnes-mautheTotalEconomicValue2013}{}}%
+Barnes-Mauthe, M. (2013). The total economic value of small-scale fisheries with a characterization of post-landing trends: {An} application in {Madagascar} with global relevance. \emph{Fisheries Research}, 11.
+
+\leavevmode\vadjust pre{\hypertarget{ref-barnes-mautheInfluenceEthnicDiversity2013}{}}%
+Barnes-Mauthe, M., Arita, S., Allen, S. D., Gray, S. A., \& Leung, P. (2013). The {Influence} of {Ethnic} {Diversity} on {Social} {Network} {Structure} in a {Common}-{Pool} {Resource} {System}: {Implications} for {Collaborative} {Management}. \emph{Ecology and Society}, \emph{18}(1), art23. \url{https://doi.org/10.5751/ES-05295-180123}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bauchImitationDynamicsPredict2005}{}}%
+Bauch, C. T. (2005). Imitation dynamics predict vaccinating behaviour. \emph{Proceedings of the Royal Society B: Biological Sciences}, \emph{272}(1573), 1669--1675. \url{https://doi.org/10.1098/rspb.2005.3153}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bauchEvolutionaryGameTheory2012}{}}%
+Bauch, C. T., \& Bhattacharyya, S. (2012). Evolutionary {Game} {Theory} and {Social} {Learning} {Can} {Determine} {How} {Vaccine} {Scares} {Unfold}. \emph{PLoS Computational Biology}, \emph{8}(4), e1002452. \url{https://doi.org/10.1371/journal.pcbi.1002452}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bauchEarlyWarningSignals2016}{}}%
+Bauch, C. T., Sigdel, R., Pharaon, J., \& Anand, M. (2016). Early warning signals of regime shifts in coupled human--environment systems. \emph{Proceedings of the National Academy of Sciences}, \emph{113}(51), 14560--14567. \url{https://doi.org/10.1073/pnas.1604978113}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bavinckMegaengineeringOceanFisheries2011}{}}%
+Bavinck, M. (2011). The {Megaengineering} of {Ocean} {Fisheries}: {A} {Century} of {Expansion} and {Rapidly} {Closing} {Frontiers}. In S. D. Brunn (Ed.), \emph{Engineering {Earth}} (pp. 257--273). Springer Netherlands. \url{https://doi.org/10.1007/978-90-481-9920-4_16}
+
+\leavevmode\vadjust pre{\hypertarget{ref-benbowManagingMadagascarOctopus2011}{}}%
+Benbow, S., \& Harris, A. (2011). \emph{Managing {Madagascar}'s octopus fisheries. {Proceedingsof} the workshop on {Octopuscyanea} fisheries, 5-6 {April} 2011, {Toliara}}. Blue Ventures Conservation Report.
+
+\leavevmode\vadjust pre{\hypertarget{ref-benbowLessonsLearntExperimental2014}{}}%
+Benbow, S., Humber, F., Oliver, T., Oleson, K., Raberinary, D., Nadon, M., Ratsimbazafy, H., \& Harris, A. (2014). Lessons learnt from experimental temporary octopus fishing closures in south-west {Madagascar}: Benefits of concurrent closures. \emph{African Journal of Marine Science}, \emph{36}(1), 31--37. \url{https://doi.org/10.2989/1814232X.2014.893256}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bethoneyComparisonDropCamera2019}{}}%
+Bethoney, N. D., \& Cleaver, C. (2019). A {Comparison} of {Drop} {Camera} and {Diver} {Survey} {Methods} to {Monitor} {Atlantic} {Sea} {Scallops} ({Placopecten} magellanicus) in a {Small} {Fishery} {Closure}. \emph{Journal of Shellfish Research}, \emph{38}(1), 43. \url{https://doi.org/10.2983/035.038.0104}
+
+\leavevmode\vadjust pre{\hypertarget{ref-billeIntegratedCoastalManagement2002}{}}%
+Billé, R., \& Mermet, L. (2002). Integrated coastal management at the regional level: Lessons from {Toliary}, {Madagascar}. \emph{Ocean \& Coastal Management}, \emph{45}(1), 41--58. \url{https://doi.org/10.1016/S0964-5691(02)00048-0}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bodinRoleSocialNetworks2009}{}}%
+Bodin, Ö., \& Crona, B. I. (2009). The role of social networks in natural resource governance: {What} relational patterns make a difference? \emph{Global Environmental Change}, \emph{19}(3), 366--374. \url{https://doi.org/10.1016/j.gloenvcha.2009.05.002}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bodinConservationSuccessFunction2014}{}}%
+Bodin, Ö., Crona, B., Thyresson, M., Golz, A.-L., \& Tengö, M. (2014). Conservation {Success} as a {Function} of {Good} {Alignment} of {Social} and {Ecological} {Structures} and {Processes}: {Social}-{Ecological} {Fit} and {Conservation}. \emph{Conservation Biology}, \emph{28}(5), 1371--1379. \url{https://doi.org/10.1111/cobi.12306}
+
+\leavevmode\vadjust pre{\hypertarget{ref-borgattiNetworkParadigmOrganizational2003}{}}%
+Borgatti, S. (2003). The {Network} {Paradigm} in {Organizational} {Research}: {A} {Review} and {Typology}. \emph{Journal of Management}, \emph{29}(6), 991--1013. \url{https://doi.org/10.1016/S0149-2063(03)00087-4}
+
+\leavevmode\vadjust pre{\hypertarget{ref-brechwaldHomophilyDecadeAdvances2011}{}}%
+Brechwald, W. A., \& Prinstein, M. J. (2011). Beyond {Homophily}: {A} {Decade} of {Advances} in {Understanding} {Peer} {Influence} {Processes}: {Beyond} {Homophily}. \emph{Journal of Research on Adolescence}, \emph{21}(1), 166--179. \url{https://doi.org/10.1111/j.1532-7795.2010.00721.x}
+
+\leavevmode\vadjust pre{\hypertarget{ref-briggs-gonzalezLifeHistoriesConservation2016}{}}%
+Briggs-Gonzalez, V., Bonenfant, C., Basille, M., Cherkiss, M., Beauchamp, J., \& Mazzotti, F. (2016). Life histories and conservation of long‐lived reptiles, an illustration with the {American} crocodile ({Crocodylus} acutus). \emph{Journal of Animal Ecology}, \emph{1365}(2656.12723), 12.
+
+\leavevmode\vadjust pre{\hypertarget{ref-caiModelingAnalysisHarvesting2008}{}}%
+Cai, L., Li, X., \& Song, X. (2008). Modeling and analysis of a harvesting fishery model in a two-patch environment. \emph{International Journal of Biomathematics}, \emph{01}(03), 287--298. \url{https://doi.org/10.1142/S1793524508000242}
+
+\leavevmode\vadjust pre{\hypertarget{ref-campEvaluatingShortOpenings2015}{}}%
+Camp, E. V., Poorten, B. T. van, \& Walters, C. J. (2015). Evaluating {Short} {Openings} as a {Management} {Tool} to {Maximize} {Catch}-{Related} {Utility} in {Catch}-and-{Release} {Fisheries}. \emph{North American Journal of Fisheries Management}, \emph{35}(6), 1106--1120. \url{https://doi.org/10.1080/02755947.2015.1083495}
+
+\leavevmode\vadjust pre{\hypertarget{ref-caswell2001matrix}{}}%
+Caswell, H. (2001). \emph{Matrix population models: {Construction}, analysis, and interpretation}. Sinauer Associates. \url{https://books.google.com/books?id=CPsTAQAAIAAJ}
+
+\leavevmode\vadjust pre{\hypertarget{ref-catalanSpatialTemporalChanges2006}{}}%
+Catalán, I. A., Jiménez, M. T., Alconchel, J. I., Prieto, L., \& Muñoz, J. L. (2006). Spatial and temporal changes of coastal demersal assemblages in the {Gulf} of {Cadiz} ({SW} {Spain}) in relation to environmental conditions. \emph{Deep Sea Research Part II: Topical Studies in Oceanography}, \emph{53}(11-13), 1402--1419. \url{https://doi.org/10.1016/j.dsr2.2006.04.005}
+
+\leavevmode\vadjust pre{\hypertarget{ref-chuenpagdeeTransformingGovernanceSmallscale2018}{}}%
+Chuenpagdee, R., \& Jentoft, S. (2018). Transforming the governance of small-scale fisheries. \emph{Maritime Studies}, \emph{17}(1), 101--115. \url{https://doi.org/10.1007/s40152-018-0087-7}
+
+\leavevmode\vadjust pre{\hypertarget{ref-chuenpagdeeGlobalInformationSystem2019}{}}%
+Chuenpagdee, R., Rocklin, D., Bishop, D., Hynes, M., Greene, R., Lorenzi, M. R., \& Devillers, R. (2019). The global information system on small-scale fisheries ({ISSF}): {A} crowdsourced knowledge platform. \emph{Marine Policy}, \emph{101}, 158--166. \url{https://doi.org/10.1016/j.marpol.2017.06.018}
+
+\leavevmode\vadjust pre{\hypertarget{ref-cinnerBuildingAdaptiveCapacity2018}{}}%
+Cinner, J. E., Adger, W. N., Allison, E. H., Barnes, M. L., Brown, K., Cohen, P. J., Gelcich, S., Hicks, C. C., Hughes, T. P., Lau, J., Marshall, N. A., \& Morrison, T. H. (2018). Building adaptive capacity to climate change in tropical coastal communities. \emph{Nature Climate Change}, \emph{8}(2), 117--123. \url{https://doi.org/10.1038/s41558-017-0065-x}
+
+\leavevmode\vadjust pre{\hypertarget{ref-cinnerComanagementCoralReef2012}{}}%
+Cinner, J. E., McClanahan, T. R., MacNeil, M. A., Graham, N. A. J., Daw, T. M., Mukminin, A., Feary, D. A., Rabearisoa, A. L., Wamukota, A., Jiddawi, N., Campbell, S. J., Baird, A. H., Januchowski-Hartley, F. A., Hamed, S., Lahari, R., Morove, T., \& Kuange, J. (2012). Comanagement of coral reef social-ecological systems. \emph{Proceedings of the National Academy of Sciences}, \emph{109}(14), 5219--5222. \url{https://doi.org/10.1073/pnas.1121215109}
+
+\leavevmode\vadjust pre{\hypertarget{ref-cinnerInstitutionsCommunitybasedManagement2009}{}}%
+Cinner, J. E., Wamukota, A., Randriamahazo, H., \& Rabearisoa, A. (2009). Toward institutions for community-based management of inshore marine resources in the {Western} {Indian} {Ocean}. \emph{Marine Policy}, \emph{33}(3), 489--496. \url{https://doi.org/10.1016/j.marpol.2008.11.001}
+
+\leavevmode\vadjust pre{\hypertarget{ref-cohenSustainingSmallscaleFisheries2013}{}}%
+Cohen, P. J., \& Foale, S. J. (2013). Sustaining small-scale fisheries with periodically harvested marine reserves. \emph{Marine Policy}, \emph{37}, 278--287. \url{https://doi.org/10.1016/j.marpol.2012.05.010}
+
+\leavevmode\vadjust pre{\hypertarget{ref-cozziAfricanWildDog2020}{}}%
+Cozzi, G., Behr, D. M., Webster, H. S., Claase, M., Bryce, C. M., Modise, B., Mcnutt, J. W., \& Ozgul, A. (2020). African {Wild} {Dog} {Dispersal} and {Implications} for {Management}. \emph{The Journal of Wildlife Management}, \emph{84}(4), 614--621. \url{https://doi.org/10.1002/jwmg.21841}
+
+\leavevmode\vadjust pre{\hypertarget{ref-cressmanIdealFreeDistributions2004}{}}%
+Cressman, R., Křivan, V., \& Garay, J. (2004). \emph{Ideal {Free} {Distributions}, {Evolutionary} {Games}, and {Population} {Dynamics} in {Multiple}-{Species} {Environments}}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-cronaWhatYouKnow2006}{}}%
+Crona, B., \& Bodin, Ö. (2006). What {You} {Know} is {Who} {You} {Know}? {Communication} {Patterns} {Among} {Resource} {Users} as a {Prerequisite} for {Co}-management. \emph{Ecology and Society}, \emph{11}(2), art7. \url{https://doi.org/10.5751/ES-01793-110207}
+
+\leavevmode\vadjust pre{\hypertarget{ref-crouseStageBasedPopulationModel1987}{}}%
+Crouse, D. T., Crowder, L. B., \& Caswell, H. (1987). A {Stage}-{Based} {Population} {Model} for {Loggerhead} {Sea} {Turtles} and {Implications} for {Conservation}. \emph{Ecology}, \emph{68}(5), 1412--1423. \url{https://doi.org/10.2307/1939225}
+
+\leavevmode\vadjust pre{\hypertarget{ref-cummingNewDirectionsUnderstanding2017}{}}%
+Cumming, G. S., Morrison, T. H., \& Hughes, T. P. (2017). New {Directions} for {Understanding} the {Spatial} {Resilience} of {Social}--{Ecological} {Systems}. \emph{Ecosystems}, \emph{20}(4), 649--664. \url{https://doi.org/10.1007/s10021-016-0089-5}
+
+\leavevmode\vadjust pre{\hypertarget{ref-domainGrowthOctopusVulgaris2000}{}}%
+Domain, F., Jouffre, D., \& Caverivière, A. (2000). Growth of {\textless{}}span class="nocase"{\textgreater{}}\emph{{Octopus} vulgaris}{\textless{}}/span{\textgreater{}} from tagging in {Senegalese} waters. \emph{Journal of the Marine Biological Association of the United Kingdom}, \emph{80}(4), 699--705. \url{https://doi.org/10.1017/S0025315400002526}
+
+\leavevmode\vadjust pre{\hypertarget{ref-emeryManagementIssuesOptions2016}{}}%
+Emery, T. J., Hartmann, K., \& Gardner, C. (2016). Management issues and options for small scale holobenthic octopus fisheries. \emph{Ocean \& Coastal Management}, \emph{120}, 180--188. \url{https://doi.org/10.1016/j.ocecoaman.2015.12.004}
+
+\leavevmode\vadjust pre{\hypertarget{ref-faoStateWorldFisheries2020}{}}%
+FAO. (2020). \emph{The {State} of {World} {Fisheries} and {Aquaculture} 2020}. Food; Agriculture Organization of the United Nations. \url{https://doi.org/10.4060/ca9229en}
+
+\leavevmode\vadjust pre{\hypertarget{ref-felipe-luciaConceptualizingEcosystemServices2022}{}}%
+Felipe-Lucia, M. R., Guerrero, A. M., Alexander, S. M., Ashander, J., Baggio, J. A., Barnes, M. L., Bodin, Ö., Bonn, A., Fortin, M.-J., Friedman, R. S., Gephart, J. A., Helmstedt, K. J., Keyes, A. A., Kroetz, K., Massol, F., Pocock, M. J. O., Sayles, J., Thompson, R. M., Wood, S. A., \& Dee, L. E. (2022). Conceptualizing ecosystem services using social--ecological networks. \emph{Trends in Ecology \& Evolution}, \emph{37}(3), 211--222. \url{https://doi.org/10.1016/j.tree.2021.11.012}
+
+\leavevmode\vadjust pre{\hypertarget{ref-freeBloodStonePerformance2020}{}}%
+Free, C. M., Jensen, O. P., Anderson, S. C., Gutierrez, N. L., Kleisner, K. M., Longo, C., Minto, C., Osio, G. C., \& Walsh, J. C. (2020). Blood from a stone: {Performance} of catch-only methods in estimating stock biomass status. \emph{Fisheries Research}, \emph{223}, 105452. \url{https://doi.org/10.1016/j.fishres.2019.105452}
+
+\leavevmode\vadjust pre{\hypertarget{ref-freedmanMathematicalModelsPopulation1977}{}}%
+Freedman, H. I., \& Waltman, P. (1977). Mathematical {Models} of {Population} {Interactions} with {Dispersal}. {I}: {Stability} of {Two} {Habitats} with and without a {Predator}. \emph{SIAM Journal on Applied Mathematics}, \emph{32}(3), 631--648. \url{https://doi.org/10.1137/0132052}
+
+\leavevmode\vadjust pre{\hypertarget{ref-garrone-netoUsingSameFish2018}{}}%
+Garrone-Neto, D., Sanches, E. A., Daros, F. A. L. de M., Imanobu, C. M. R., \& Moro, P. S. (2018). Using the same fish with different rules: {A} science-based approach for improving management of recreational fisheries in a biodiversity hotspot of the {Western} {South} {Atlantic}. \emph{Fisheries Management and Ecology}, \emph{25}(4), 253--260. \url{https://doi.org/10.1111/fme.12288}
+
+\leavevmode\vadjust pre{\hypertarget{ref-gelcichIncentivizingBiodiversityConservation2015}{}}%
+Gelcich, S., \& Donlan, C. J. (2015). Incentivizing biodiversity conservation in artisanal fishing communities through territorial user rights and business model innovation. \emph{Conservation Biology}, \emph{29}(4), 1076--1085. \url{https://doi.org/10.1111/cobi.12477}
+
+\leavevmode\vadjust pre{\hypertarget{ref-gerberTwosexMatrixModels2014}{}}%
+Gerber, L. R., \& White, E. R. (2014). Two-sex matrix models in assessing population viability: When do male dynamics matter? \emph{Journal of Applied Ecology}, \emph{51}(1), 270--278. \url{https://doi.org/10.1111/1365-2664.12177}
+
+\leavevmode\vadjust pre{\hypertarget{ref-gervasiCompensatoryImmigrationCounteracts2015}{}}%
+Gervasi, V., Brøseth, H., Nilsen, E. B., Ellegren, H., Flagstad, Ø., \& Linnell, J. D. C. (2015). Compensatory immigration counteracts contrasting conservation strategies of wolverines ( {Gulo} gulo ) within {Scandinavia}. \emph{Biological Conservation}, \emph{191}, 632--639. \url{https://doi.org/10.1016/j.biocon.2015.07.024}
+
+\leavevmode\vadjust pre{\hypertarget{ref-gharouniSensitivityInvasionSpeed2015}{}}%
+Gharouni, A., Barbeau, M., Locke, A., Wang, L., \& Watmough, J. (2015). Sensitivity of invasion speed to dispersal and demography: An application of spreading speed theory to the green crab invasion on the northwest {Atlantic} coast. \emph{Marine Ecology Progress Series}, \emph{541}, 135--150. \url{https://doi.org/10.3354/meps11508}
+
+\leavevmode\vadjust pre{\hypertarget{ref-gilchristReefFishBiomass2020}{}}%
+Gilchrist, H., Rocliffe, S., Anderson, L. G., \& Gough, C. L. A. (2020). Reef fish biomass recovery within community-managed no take zones. \emph{Ocean \& Coastal Management}, \emph{192}, 105210. \url{https://doi.org/10.1016/j.ocecoaman.2020.105210}
+
+\leavevmode\vadjust pre{\hypertarget{ref-gnanalingamFlexibilityTemporaryFisheries2015}{}}%
+Gnanalingam, G., \& Hepburn, C. (2015). Flexibility in temporary fisheries closure legislation is required to maximise success. \emph{Marine Policy}, \emph{61}, 39--45. \url{https://doi.org/10.1016/j.marpol.2015.06.033}
+
+\leavevmode\vadjust pre{\hypertarget{ref-govanStatusPotentialLocallymanaged2010}{}}%
+Govan, H. (2010). Status and potential of locally-managed marine areas in the {South} {Pacific}: \emph{Munich Personal RePEc Archive}, \emph{23828}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-graftonSocialCapitalFisheries2005}{}}%
+Grafton, R. Q. (2005). Social capital and fisheries governance. \emph{Ocean \& Coastal Management}, \emph{48}(9-10), 753--766. \url{https://doi.org/10.1016/j.ocecoaman.2005.08.003}
+
+\leavevmode\vadjust pre{\hypertarget{ref-grayModelingIntegrationStakeholder2012}{}}%
+Gray, S., Chan, A., Clark, D., \& Jordan, R. (2012). Modeling the integration of stakeholder knowledge in social--ecological decision-making: {Benefits} and limitations to knowledge diversity. \emph{Ecological Modelling}, \emph{229}, 88--96. \url{https://doi.org/10.1016/j.ecolmodel.2011.09.011}
+
+\leavevmode\vadjust pre{\hypertarget{ref-grimmPatternOrientedModelingAgentBased2005}{}}%
+Grimm, V., Revilla, E., Berger, U., Jeltsch, F., Mooij, W. M., Railsback, S. F., Thulke, H.-H., Weiner, J., Wiegand, T., \& DeAngelis, D. L. (2005). Pattern-{Oriented} {Modeling} of {Agent}-{Based} {Complex} {Systems}: {Lessons} from {Ecology}. \emph{Science}, \emph{310}(5750), 987--991. \url{https://doi.org/10.1126/science.1116681}
+
+\leavevmode\vadjust pre{\hypertarget{ref-grorud-colvertMPAGuideFramework2021}{}}%
+Grorud-Colvert, K., Sullivan-Stack, J., Roberts, C., Constant, V., Horta e Costa, B., Pike, E. P., Kingston, N., Laffoley, D., Sala, E., Claudet, J., Friedlander, A. M., Gill, D. A., Lester, S. E., Day, J. C., Gonçalves, E. J., Ahmadia, G. N., Rand, M., Villagomez, A., Ban, N. C., \ldots{} Lubchenco, J. (2021). The {MPA} {Guide}: {A} framework to achieve global goals for the ocean. \emph{Science (New York, N.Y.)}, \emph{373}(6560), eabf0861. \url{https://doi.org/10.1126/science.abf0861}
+
+\leavevmode\vadjust pre{\hypertarget{ref-guardBiologyFisheriesStatus2009}{}}%
+Guard, M. (2009). \emph{Biology and fisheries status of octopus in the {Western} {Indian} {Ocean} and the {Suitability} for marine stewardship council certification} (p. 22). e United Nations Environment Programme.
+
+\leavevmode\vadjust pre{\hypertarget{ref-guardArtisanalFisheryOctopus2003}{}}%
+Guard, M., \& Mgaya, Y. D. (2003). The {Artisanal} {Fishery} for {Octopus} cyanea {Gray} in {Tanzania}. \emph{AMBIO: A Journal of the Human Environment}, \emph{31}(7), 528--536. \url{https://doi.org/10.1579/0044-7447-31.7.528}
+
+\leavevmode\vadjust pre{\hypertarget{ref-guerreroAchievingCrossScaleCollaboration2015}{}}%
+Guerrero, A. M., Mcallister, R. R. J., \& Wilson, K. A. (2015). Achieving {Cross}-{Scale} {Collaboration} for {Large} {Scale} {Conservation} {Initiatives}: {Cross}-scale collaboration in conservation. \emph{Conservation Letters}, \emph{8}(2), 107--117. \url{https://doi.org/10.1111/conl.12112}
+
+\leavevmode\vadjust pre{\hypertarget{ref-gutierrezLeadershipSocialCapital2011}{}}%
+Gutiérrez, N. L., Hilborn, R., \& Defeo, O. (2011). Leadership, social capital and incentives promote successful fisheries. \emph{Nature}, \emph{470}(7334), 386--389. \url{https://doi.org/10.1038/nature09689}
+
+\leavevmode\vadjust pre{\hypertarget{ref-hebblewhiteWolvesBordersTransboundary2020}{}}%
+Hebblewhite, M., \& Whittington, J. (2020). Wolves without borders: {Transboundary} survival of wolves in {Banff} {National} {Park} over three decades. \emph{Global Ecology and Conservation}, \emph{24}, e01293. \url{https://doi.org/10.1016/j.gecco.2020.e01293}
+
+\leavevmode\vadjust pre{\hypertarget{ref-herwigUsingAgeBasedLife2012}{}}%
+Herwig, J. N., Depczynski, M., Roberts, J. D., Semmens, J. M., Gagliano, M., \& Heyward, A. J. (2012). Using {Age}-{Based} {Life} {History} {Data} to {Investigate} the {Life} {Cycle} and {Vulnerability} of {Octopus} cyanea. \emph{PLoS ONE}, \emph{7}(8), e43679. \url{https://doi.org/10.1371/journal.pone.0043679}
+
+\leavevmode\vadjust pre{\hypertarget{ref-heukelemGrowthBioenergeticsLifespan1976}{}}%
+Heukelem, W. F. V. (1976). Growth, bioenergetics, and life-span of {Octopus} cyanea and {Octopus} maya. \emph{A Dissertation Submitted to the Graduate Division of the University of Hawaii in Partial Fulfillment of the Requirements for the Degree of Doctor of Philosophy in Zoology}, 232.
+
+\leavevmode\vadjust pre{\hypertarget{ref-hiddinkPredictingEffectsArea2006}{}}%
+Hiddink, J. G., Hutton, T., Jennings, S., \& Kaiser, M. J. (2006). Predicting the effects of area closures and fishing effort restrictions on the production, biomass, and species richness of benthic invertebrate communities. \emph{ICES Journal of Marine Science}, \emph{63}(5), 822--830. \url{https://doi.org/10.1016/j.icesjms.2006.02.006}
+
+\leavevmode\vadjust pre{\hypertarget{ref-hortaecostaRegulationbasedClassificationSystem2016}{}}%
+Horta e Costa, B., Claudet, J., Franco, G., Erzini, K., Caro, A., \& Gonçalves, E. J. (2016). A regulation-based classification system for {Marine} {Protected} {Areas} ({MPAs}). \emph{Marine Policy}, \emph{72}, 192--198. \url{https://doi.org/10.1016/j.marpol.2016.06.021}
+
+\leavevmode\vadjust pre{\hypertarget{ref-humberSeasonalClosuresNoTake2006}{}}%
+Humber, F., Harris, A., Raberinary, D., \& Nadon, M. (2006). \emph{Seasonal {Closures} of {No}-{Take} {Zones} to promote {A} {Sustainable} {Fishery} for {Octopus} {Cyanea} ({Gray}) in {South} {West} {Madagascar}.} Blue Ventures Conservation Report. \url{https://blueventures.org/publications/seasonal-closures-of-no-take-zones-to-promote-a-sustainable-fishery-for-octopus-cyanea-gray-in-south-west-madagascar/}
+
+\leavevmode\vadjust pre{\hypertarget{ref-ibanezZoogeographicPatternsPelagic2019}{}}%
+Ibáñez, C. M., Braid, H. E., Carrasco, S. A., López‐Córdova, D. A., Torretti, G., \& Camus, P. A. (2019). Zoogeographic patterns of pelagic oceanic cephalopods along the eastern {Pacific} {Ocean}. \emph{Journal of Biogeography}, \emph{46}(6), 1260--1273. \url{https://doi.org/10.1111/jbi.13588}
+
+\leavevmode\vadjust pre{\hypertarget{ref-innesImpactHumanenvironmentInteractions2013a}{}}%
+Innes, C., Anand, M., \& Bauch, C. T. (2013). The impact of human-environment interactions on the stability of forest-grassland mosaic ecosystems. \emph{Scientific Reports}, \emph{3}(1), 2689. \url{https://doi.org/10.1038/srep02689}
+
+\leavevmode\vadjust pre{\hypertarget{ref-jensenLocalManagementHighly2010}{}}%
+Jensen, O. P., Ortega-Garcia, S., Martell, S. J. D., Ahrens, R. N. M., Domeier, M. L., Walters, C. J., \& Kitchell, J. F. (2010). Local management of a {``highly migratory species''}: {The} effects of long-line closures and recreational catch-and-release for {Baja} {California} striped marlin fisheries. \emph{Progress in Oceanography}, \emph{86}(1-2), 176--186. \url{https://doi.org/10.1016/j.pocean.2010.04.020}
+
+\leavevmode\vadjust pre{\hypertarget{ref-jentoftPovertyMosaicsRealities2011}{}}%
+Jentoft, S., \& Eide, A. (Eds.). (2011). \emph{Poverty {Mosaics}: {Realities} and {Prospects} in {Small}-{Scale} {Fisheries}}. Springer Netherlands. \url{https://doi.org/10.1007/978-94-007-1582-0}
+
+\leavevmode\vadjust pre{\hypertarget{ref-rage}{}}%
+Jones, O. R., Barks, P., Stott, I. M., James, T. D., Levin, S. C., Petry, W. K., Capdevila, P., Che-Castaldo, J., Jackson, J., Römer, G., Schuette, C., Thomas, C. C., \& Salguero-Gómez, R. (2021). Rcompadre and rage - two {R} packages to facilitate the use of the {COMPADRE} and {COMADRE} databases and calculation of life history traits from matrix population models. \emph{bioRxiv}, 2021.04.26.441330. \url{https://doi.org/10.1101/2021.04.26.441330}
+
+\leavevmode\vadjust pre{\hypertarget{ref-kadfakInvestigatingWaterfrontEntangled2017}{}}%
+Kadfak, A., \& Knutsson, P. (2017). Investigating the {Waterfront}: {The} {Entangled} {Sociomaterial} {Transformations} of {Coastal} {Space} in {Karnataka}, {India}. \emph{Society \& Natural Resources}, \emph{30}(6), 707--722. \url{https://doi.org/10.1080/08941920.2016.1273418}
+
+\leavevmode\vadjust pre{\hypertarget{ref-katikiroChallengesFacingLocal2015}{}}%
+Katikiro, R. E., Macusi, E. D., \& Ashoka Deepananda, K. H. M. (2015). Challenges facing local communities in {Tanzania} in realising locally-managed marine areas. \emph{Marine Policy}, \emph{51}, 220--229. \url{https://doi.org/10.1016/j.marpol.2014.08.004}
+
+\leavevmode\vadjust pre{\hypertarget{ref-katsanevakisSeasonalPopulationDynamics2006}{}}%
+Katsanevakis, S., \& Verriopoulos, G. (2006). Seasonal population dynamics of {Octopus} vulgaris in the eastern {Mediterranean}. \emph{ICES Journal of Marine Science}, \emph{63}(1), 151--160. \url{https://doi.org/10.1016/j.icesjms.2005.07.004}
+
+\leavevmode\vadjust pre{\hypertarget{ref-kawakaDevelopingLocallyManaged2017}{}}%
+Kawaka, J. A., Samoilys, M. A., Murunga, M., Church, J., Abunge, C., \& Maina, G. W. (2017). Developing locally managed marine areas: {Lessons} learnt from {Kenya}. \emph{Ocean \& Coastal Management}, \emph{135}, 1--10. \url{https://doi.org/10.1016/j.ocecoaman.2016.10.013}
+
+\leavevmode\vadjust pre{\hypertarget{ref-kosamuConditionsSustainabilitySmallscale2015}{}}%
+Kosamu, I. B. M. (2015). Conditions for sustainability of small-scale fisheries in developing countries. \emph{Fisheries Research}, \emph{161}, 365--373. \url{https://doi.org/10.1016/j.fishres.2014.09.002}
+
+\leavevmode\vadjust pre{\hypertarget{ref-krackhardtInformalNetworksOrganizational1988}{}}%
+Krackhardt, D., \& Stern, R. N. (1988). Informal {Networks} and {Organizational} {Crises}: {An} {Experimental} {Simulation}. \emph{Social Psychology Quarterly}, \emph{51}(2), 123. \url{https://doi.org/10.2307/2786835}
+
+\leavevmode\vadjust pre{\hypertarget{ref-ladeRegimeShiftsSocialecological2013}{}}%
+Lade, S. J., Tavoni, A., Levin, S. A., \& Schlüter, M. (2013). Regime shifts in a social-ecological system. \emph{Theoretical Ecology}, \emph{6}(3), 359--372. \url{https://doi.org/10.1007/s12080-013-0187-3}
+
+\leavevmode\vadjust pre{\hypertarget{ref-larocheReefFisheriesSurrounding1997}{}}%
+Laroche, J., Razanoelisoa, J., Fauroux, E., \& Rabenevanana, M. W. (1997). The reef fisheries surrounding the south‐west coastal cities of {Madagascar}. \emph{Fisheries Management and Ecology}, \emph{4}(4), 285--299. \url{https://doi.org/10.1046/j.1365-2400.1997.00051.x}
+
+\leavevmode\vadjust pre{\hypertarget{ref-leeBenefitsRisksIncorporating2018}{}}%
+Lee, Q., Thorson, J. T., Gertseva, V. V., \& Punt, A. E. (2018). The benefits and risks of incorporating climate-driven growth variation into stock assessment models, with application to {Splitnose} {Rockfish} ({Sebastes} diploproa). \emph{ICES Journal of Marine Science}, \emph{75}(1), 245--256. \url{https://doi.org/10.1093/icesjms/fsx147}
+
+\leavevmode\vadjust pre{\hypertarget{ref-liuCoupledHumanNatural2007}{}}%
+Liu, J., Redman, C. L., Schneider, S. H., Ostrom, E., Pell, A. N., Lubchenco, J., Taylor, W. W., Ouyang, Z., Deadman, P., Kratz, T., \& Provencher, W. (2007). \emph{Coupled {Human} and {Natural} {Systems}}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-mayolMadagascarNascentLocally2013}{}}%
+Mayol, T. (2013). Madagascar's nascent locally managed marine area network. \emph{Madagascar Conservation \& Development}, \emph{8}(2), 91--95. \url{https://doi.org/10.4314/mcd.v8i2.8}
+
+\leavevmode\vadjust pre{\hypertarget{ref-mcclanahanResponseCoralReef2008}{}}%
+McClanahan, T. R. (2008). Response of the coral reef benthos and herbivory to fishery closure management and the 1998 {ENSO} disturbance. \emph{Oecologia}, \emph{155}(1), 169--177. \url{https://doi.org/10.1007/s00442-007-0890-0}
+
+\leavevmode\vadjust pre{\hypertarget{ref-mchichDynamicsFishStock2000}{}}%
+Mchich, R., Auger, P., \& Raïssi, N. (2000). The dynamics of a fish stock exploited in two fishing zones. \emph{Acta Biotheoretica}, \emph{48}, 201--218.
+
+\leavevmode\vadjust pre{\hypertarget{ref-mcphersonBirdsFeatherHomophily2001}{}}%
+McPherson, M., Smith-Lovin, L., \& Cook, J. M. (2001). Birds of a {Feather}: {Homophily} in {Social} {Networks}. \emph{Annual Review of Sociology}, \emph{27}(1), 415--444. \url{https://doi.org/10.1146/annurev.soc.27.1.415}
+
+\leavevmode\vadjust pre{\hypertarget{ref-meisingsetSpatialMismatchManagement2018}{}}%
+Meisingset, E. L., Loe, L. E., Brekkum, Ø., Bischof, R., Rivrud, I. M., Lande, U. S., Zimmermann, B., Veiberg, V., \& Mysterud, A. (2018). Spatial mismatch between management units and movement ecology of a partially migratory ungulate. \emph{Journal of Applied Ecology}, \emph{55}(2), 745--753. \url{https://doi.org/10.1111/1365-2664.13003}
+
+\leavevmode\vadjust pre{\hypertarget{ref-millsUnderreportedUndervaluedSmallscale2011}{}}%
+Mills, D. J., Westlund, L., Graff, G. de, Kura, Y., Willman, R., \& Kelleher, K. (2011). Under-reported and {Undervalued}: {Small}-scale {Fisheries} in the {Developing} {World}. In \emph{Small-scale {Fisheries} {Management}: {Frameworks} and approaches for the {Developing} {World}} (pp. 1--15). CAB International.
+
+\leavevmode\vadjust pre{\hypertarget{ref-misundFishCaptureDevices2002}{}}%
+Misund, O. A., Kolding, J., \& Fréon, P. (2002). Fish {Capture} {Devices} in {Industrial} and {Artisanal} {Fisheries} and their {Influence} on {Management}. In P. J. B. Hart \& J. D. Reynolds (Eds.), \emph{Handbook of {Fish} {Biology} and {Fisheries}, {Volume} 2} (pp. 13--36). Blackwell Science Ltd. \url{https://doi.org/10.1002/9780470693919.ch2}
+
+\leavevmode\vadjust pre{\hypertarget{ref-moellerEconomicallyOptimalMarine2015}{}}%
+Moeller, H. V., \& Neubert, M. G. (2015). Economically optimal marine reserves without spatial heterogeneity in a simple two-patch model: {Economically} optimal marine reserves. \emph{Natural Resource Modeling}, \emph{28}(3), 244--255. \url{https://doi.org/10.1111/nrm.12066}
+
+\leavevmode\vadjust pre{\hypertarget{ref-newmanHomophilyAgencyCreating2007}{}}%
+Newman, L., \& Dale, A. (2007). Homophily and {Agency}: {Creating} {Effective} {Sustainable} {Development} {Networks}. \emph{Environment, Development and Sustainability}, \emph{9}(1), 79--90. \url{https://doi.org/10.1007/s10668-005-9004-5}
+
+\leavevmode\vadjust pre{\hypertarget{ref-nowlisShortLongtermEffects2000}{}}%
+Nowlis, J. S. (2000). Short- and long-term effects of three fishery-management tools on depleted fisheries. \emph{Bulletin of Marine Science}, \emph{66}(3), 12.
+
+\leavevmode\vadjust pre{\hypertarget{ref-ogburnAddressingChallengesApplication2017}{}}%
+Ogburn, M. B., Harrison, A.-L., Whoriskey, F. G., Cooke, S. J., Mills Flemming, J. E., \& Torres, L. G. (2017). Addressing {Challenges} in the {Application} of {Animal} {Movement} {Ecology} to {Aquatic} {Conservation} and {Management}. \emph{Frontiers in Marine Science}, \emph{4}. \url{https://doi.org/10.3389/fmars.2017.00070}
+
+\leavevmode\vadjust pre{\hypertarget{ref-okafor-yarwoodSurvivalRichestNot2022}{}}%
+Okafor-Yarwood, I., Kadagi, N. I., Belhabib, D., \& Allison, E. H. (2022). Survival of the {Richest}, not the {Fittest}: {How} attempts to improve governance impact {African} small-scale marine fisheries. \emph{Marine Policy}, \emph{135}, 104847. \url{https://doi.org/10.1016/j.marpol.2021.104847}
+
+\leavevmode\vadjust pre{\hypertarget{ref-oliverPositiveCatchEconomic2015}{}}%
+Oliver, T. A., Oleson, K. L. L., Ratsimbazafy, H., Raberinary, D., Benbow, S., \& Harris, A. (2015). Positive {Catch} \& {Economic} {Benefits} of {Periodic} {Octopus} {Fishery} {Closures}: {Do} {Effective}, {Narrowly} {Targeted} {Actions} {``{Catalyze}''} {Broader} {Management}? \emph{PLOS ONE}, \emph{10}(6), e0129075. \url{https://doi.org/10.1371/journal.pone.0129075}
+
+\leavevmode\vadjust pre{\hypertarget{ref-orabyInfluenceSocialNorms2014}{}}%
+Oraby, T., Thampi, V., \& Bauch, C. T. (2014). The influence of social norms on the dynamics of vaccinating behaviour for paediatric infectious diseases. \emph{Proceedings of the Royal Society B: Biological Sciences}, \emph{281}(1780), 20133172. \url{https://doi.org/10.1098/rspb.2013.3172}
+
+\leavevmode\vadjust pre{\hypertarget{ref-pinskyUnexpectedPatternsFisheries2011}{}}%
+Pinsky, M. L., Jensen, O. P., Ricard, D., \& Palumbi, S. R. (2011). Unexpected patterns of fisheries collapse in the world's oceans. \emph{Proceedings of the National Academy of Sciences}, \emph{108}(20), 8317--8322. \url{https://doi.org/10.1073/pnas.1015313108}
+
+\leavevmode\vadjust pre{\hypertarget{ref-plumptreTransboundaryConservationGreater2007}{}}%
+Plumptre, A. J., Kujirakwinja, D., Treves, A., Owiunji, I., \& Rainer, H. (2007). Transboundary conservation in the greater {Virunga} landscape: {Its} importance for landscape species. \emph{Biological Conservation}, \emph{134}(2), 279--287. \url{https://doi.org/10.1016/j.biocon.2006.08.012}
+
+\leavevmode\vadjust pre{\hypertarget{ref-pomeroyFishWarsConflict2007}{}}%
+Pomeroy, R., Parks, J., Pollnac, R., Campson, T., Genio, E., Marlessy, C., Holle, E., Pido, M., Nissapa, A., Boromthanarat, S., \& Thu Hue, N. (2007). Fish wars: {Conflict} and collaboration in fisheries management in {Southeast} {Asia}. \emph{Marine Policy}, \emph{31}(6), 645--656. \url{https://doi.org/10.1016/j.marpol.2007.03.012}
+
+\leavevmode\vadjust pre{\hypertarget{ref-pomeroyHowYourMPA2004}{}}%
+Pomeroy, R., Parks, J., \& Watson, L. (2004). \emph{How is your {MPA} doing? {AGuidebook} of {Natural} and {Social} {Indicators} for {Evaluating} {Marine} {Protected} {AreaManagement} {Effectiveness}}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-princeSpawningPotentialSurveys2021}{}}%
+Prince, J., Lalavanua, W., Tamanitoakula, J., Tamata, L., Green, S., Radway, S., Loganimoce, E., Vodivodi, T., Marama, K., Waqainabete, P., Jeremiah, F., Nalasi, D., Naleba, M., Naisilisili, W., Kaloudrau, U., Lagi, L., Logatabua, K., Dautei, R., Tikaram, R., \ldots{} Mangubhai, S. (2021). Spawning potential surveys in {Fiji}: {A} new song of change for {\textless{}}span style="font-variant:small-caps;"{\textgreater{}}small‐scale{\textless{}}/span{\textgreater{}} fisheries in the {Pacific}. \emph{Conservation Science and Practice}, \emph{3}(2). \url{https://doi.org/10.1111/csp2.273}
+
+\leavevmode\vadjust pre{\hypertarget{ref-raberinaryPeriodePontePoulpe2007}{}}%
+Raberinary, D. (2007). \emph{Periode de ponte du poulpe ({Octopus} cyanea) {D}'{Andavadoaka} dans la region sud oest de {Madagascar}}. Blue Ventures Conservation.
+
+\leavevmode\vadjust pre{\hypertarget{ref-raberinaryReproductiveCycleOctopus2012}{}}%
+Raberinary, D., \& Benbow, S. (2012). The reproductive cycle of {Octopus} cyanea in southwest {Madagascar} and implications for fisheries management. \emph{Fisheries Research}, \emph{125-126}, 190--197. \url{https://doi.org/10.1016/j.fishres.2012.02.025}
+
+\leavevmode\vadjust pre{\hypertarget{ref-ramirez-valdezAsymmetryInternationalBorders2021}{}}%
+Ramírez‐Valdez, A., Rowell, T. J., Dale, K. E., Craig, M. T., Allen, L. G., Villaseñor‐Derbez, J. C., Cisneros‐Montemayor, A. M., Hernández‐Velasco, A., Torre, J., Hofmeister, J., \& Erisman, B. E. (2021). Asymmetry across international borders: {Research}, fishery and management trends and economic value of the giant sea bass ( \emph{{Stereolepis} gigas} ). \emph{Fish and Fisheries}, \emph{22}(6), 1392--1411. \url{https://doi.org/10.1111/faf.12594}
+
+\leavevmode\vadjust pre{\hypertarget{ref-rodhouseRoleConsumers1996}{}}%
+Rodhouse, P. G., \& Nigmatullin, M. (1996). Role as consumers. \emph{Royal Society Publishing}, 20. https://doi.org/\url{https://doi.org/10.1098/rstb.1996.0090}
+
+\leavevmode\vadjust pre{\hypertarget{ref-russNaturalFishingExperiments1998}{}}%
+Russ, G. R., \& Alcala, A. C. (1998). Natural fishing experiments in marine reserves 1983-1993: Community and trophic responses. \emph{Coral Reefs (Online)}, \emph{17}(4), 383--397. \url{https://doi.org/10.1007/s003380050144}
+
+\leavevmode\vadjust pre{\hypertarget{ref-salasViabilitySustainabilitySmallScale2019}{}}%
+Salas, S., Barragán-Paladines, M. J., \& Chuenpagdee, R. (Eds.). (2019). \emph{Viability and {Sustainability} of {Small}-{Scale} {Fisheries} in {Latin} {America} and {The} {Caribbean}} (Vol. 19). Springer International Publishing. \url{https://doi.org/10.1007/978-3-319-76078-0}
+
+\leavevmode\vadjust pre{\hypertarget{ref-santosAssessingImportanceCephalopods2001a}{}}%
+Santos, M. B., Clarke, M. R., \& Pierce, G. J. (2001). Assessing the importance of cephalopods in the diets of marine mammals and other top predators: Problems and solutions. \emph{Fisheries Research}, \emph{52}(1-2), 121--139. \url{https://doi.org/10.1016/S0165-7836(01)00236-3}
+
+\leavevmode\vadjust pre{\hypertarget{ref-sariMonitoringSmallscaleFisheries2021}{}}%
+Sari, I., Ichsan, M., White, A., Raup, S. A., \& Wisudo, S. H. (2021). Monitoring small-scale fisheries catches in {Indonesia} through a fishing logbook system: {Challenges} and strategies. \emph{Marine Policy}, \emph{134}, 104770. \url{https://doi.org/10.1016/j.marpol.2021.104770}
+
+\leavevmode\vadjust pre{\hypertarget{ref-siddonsBordersBarriersChallenges2017}{}}%
+Siddons, S. F., Pegg, M. A., \& Klein, G. M. (2017). Borders and {Barriers}: Challenges of {Fisheries} {Management} and {Conservation} in {Open} {Systems}: {Challenges} of {Fisheries} {Management} and {Conservation} in {Open} {Systems}. \emph{River Research and Applications}, \emph{33}(4), 578--585. \url{https://doi.org/10.1002/rra.3118}
+
+\leavevmode\vadjust pre{\hypertarget{ref-sigdelCompetitionInjunctiveSocial2017a}{}}%
+Sigdel, R. P., Anand, M., \& Bauch, C. T. (2017). Competition between injunctive social norms and conservation priorities gives rise to complex dynamics in a model of forest growth and opinion dynamics. \emph{Journal of Theoretical Biology}, \emph{432}, 132--140. \url{https://doi.org/10.1016/j.jtbi.2017.07.029}
+
+\leavevmode\vadjust pre{\hypertarget{ref-smithDefiningSmallScaleFisheries2019}{}}%
+Smith, H. (2019). Defining {Small}-{Scale} {Fisheries} and {Examining} the {Role} of {Science} in {Shaping} {Perceptions} of {Who} and {What} {Counts}: {A} {Systematic} {Review}. \emph{Frontiers in Marine Science}, \emph{6}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-FME}{}}%
+Soetaert, K., \& Petzoldt, T. (2010). Inverse modelling, sensitivity and monte carlo analysis in {R} using package {FME}. \emph{Journal of Statistical Software}, \emph{33}(3), 1--28. \url{https://doi.org/10.18637/jss.v033.i03}
+
+\leavevmode\vadjust pre{\hypertarget{ref-popbio}{}}%
+Stubben, C. J., \& Milligan, B. G. (2007). Estimating and analyzing demographic models using the popbio package in r. \emph{Journal of Statistical Software}, \emph{22}(11).
+
+\leavevmode\vadjust pre{\hypertarget{ref-thampiSocioecologicalDynamicsCaribbean2018}{}}%
+Thampi, V. A., Anand, M., \& Bauch, C. T. (2018). Socio-ecological dynamics of {Caribbean} coral reef ecosystems and conservation opinion propagation. \emph{Scientific Reports}, \emph{8}(1), 2597. \url{https://doi.org/10.1038/s41598-018-20341-0}
+
+\leavevmode\vadjust pre{\hypertarget{ref-theworldbankSavingFishFishers2004}{}}%
+The World Bank. (2004). \emph{Saving {Fish} and {Fishers}: {Toward} {Sustainable} and {Equitable} {Governance} of the {Global} {Fishing} {Sector}} (29090-GLB). The World Bank. \url{http://hdl.handle.net/10986/14391}
+
+\leavevmode\vadjust pre{\hypertarget{ref-theworldbankHIDDENHARVESTTheGlobal2012}{}}%
+The World Bank. (2012). \emph{{HIDDEN} {HARVEST}-{The} {Global} {Contribution} of {Capture} {Fisheries}} (66469-GLB). The World Bank. \url{https://documents1.worldbank.org/curated/en/515701468152718292/pdf/664690ESW0P1210120HiddenHarvest0web.pdf}
+
+\leavevmode\vadjust pre{\hypertarget{ref-quadprog}{}}%
+Turlach, B. A., \& Weingessel, A. (2019). \emph{Quadprog: Functions to solve quadratic programming problems}. \url{https://CRAN.R-project.org/package=quadprog}
+
+\leavevmode\vadjust pre{\hypertarget{ref-vannieuwenhoveCrypticDiversityLimited2019}{}}%
+Van Nieuwenhove, A. H. M., Ratsimbazafy, H. A., \& Kochzius, M. (2019). Cryptic diversity and limited connectivity in octopuses: {Recommendations} for fisheries management. \emph{PLOS ONE}, \emph{14}(5), e0214748. \url{https://doi.org/10.1371/journal.pone.0214748}
+
+\leavevmode\vadjust pre{\hypertarget{ref-vaseAcetesKeystoneSpecies2021}{}}%
+Vase, V. K., Koya, M. K., Dash, G., Dash, S., Sreenath, K. R., Divu, D., Kumar, R., Rahangdale, S., Pradhan, R. K., Azeez, A., Sukhdhane, K. S., \& Jayshree, K. G. (2021). Acetes as a {Keystone} {Species} in the {Fishery} and {Trophic} {Ecosystem} {Along} {Northeastern} {Arabian} {Sea}. \emph{Thalassas: An International Journal of Marine Sciences}, \emph{37}(1), 367--377. \url{https://doi.org/10.1007/s41208-020-00276-y}
+
+\leavevmode\vadjust pre{\hypertarget{ref-wellsObservationsFeedingGrowth1970}{}}%
+Wells, M. J., \& Wells, J. (1970). Observations on the feeding, growth rate and habits of newly settled {\textless{}}span class="nocase"{\textgreater{}}\emph{{Octopus} cyanea}{\textless{}}/span{\textgreater{}}. \emph{Journal of Zoology}, \emph{161}(1), 65--74. \url{https://doi.org/10.1111/j.1469-7998.1970.tb02170.x}
+
+\leavevmode\vadjust pre{\hypertarget{ref-westermanRoleWomenCommunitybased2014}{}}%
+Westerman, K., \& Benbow, S. (2014). The {Role} of {Women} in {Community}-based {Small}-{Scale} {Fisheries} {Management}: {The} {Case} of the {South} {West} {Madagascar} {Octopus} {Fishery}. \emph{Western Indian Ocean Journal of Marine Science}, \emph{12}(2), 119--132.
+
+\leavevmode\vadjust pre{\hypertarget{ref-westlundMarineProtectedAreas2017}{}}%
+Westlund, L. (Ed.). (2017). \emph{Marine protected areas: Interactions with fishery livelihoods and food security}. Food; Agriculture Organization of the United Nations.
+
+\leavevmode\vadjust pre{\hypertarget{ref-whiteSeasonalityEcologyProgress2020}{}}%
+White, E. R., \& Hastings, A. (2020). Seasonality in ecology: {Progress} and prospects in theory. \emph{Ecological Complexity}, \emph{44}, 100867. \url{https://doi.org/10.1016/j.ecocom.2020.100867}
+
+\leavevmode\vadjust pre{\hypertarget{ref-youngSolvingCrisisOcean2007}{}}%
+Young, O. R., Osherenko, G., Ekstrom, J., Crowder, L. B., Ogden, J., Wilson, J. A., Day, J. C., Douvere, F., Ehler, C. N., McLeod, K. L., Halpren, B. S., \& Peach, R. (2007). Solving the {Crisis} in {Ocean} {Governance}: {Place}-{Based} {Management} of {Marine} {Ecosystems}. \emph{Environment: Science and Policy for Sustainable Development}, \emph{49}(4), 20--32. \url{https://doi.org/10.3200/ENVT.49.4.20-33}
+
+\end{CSLReferences}
+
+\end{document}

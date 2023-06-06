@@ -1,19 +1,20 @@
 ---
 output:
-  bookdown::pdf_document2:
-    fig_caption: yes
-    toc: no
+  word_document: default
   pdf_document:
     toc: no
   bookdown::html_document2:
     fig_caption: yes
     toc: no
-  word_document: default
+  bookdown::pdf_document2:
+    fig_caption: yes
+    toc: no
 bibliography:
 - Ch2_citations.bib
 - R_Citations.bib
-header-includes: \usepackage{setspace}\doublespacing \usepackage{lineno} \usepackage{placeins}
 ---
+
+<!-- header-includes: \usepackage{setspace}\doublespacing \usepackage{lineno} \usepackage{placeins} -->
 
 \setcounter{page}{28}
 
@@ -47,7 +48,7 @@ setwd("C:/Users/sophi/Documents/GitHub/UNH_Docs/Proposal/Soc_Ecol_Model")
 ```{r, include=FALSE}
 options(tinytex.verbose = TRUE)
 ```
-\linenumbers
+<!-- \linenumbers -->
 
 # ABSTRACT
 
@@ -409,16 +410,19 @@ for(i in 1:length(param_seq)){
 
 ```{r rhoExploreGraph, fig.cap = '(ref:rhoexploregraph) \\label{rhoExploreGraph}'}
 
+patchcolors <- c("#0096FF", "#ff4040")
+
 finalDynamics_long <- gather(finalDynamics, plot, Population, F1:F2, factor_key=TRUE)
 
 finalDynamics_long %>%
   ggplot(aes(Parameter_New, Population, color=plot)) +
   geom_line() +
   geom_point(alpha=0.5, size=1) +
-  labs(y="Final Population", x="\u03C1 Value") +
+  scale_color_manual(values = patchcolors) +
+  labs(y="Final Fish Population", x="\u03C1 Value") +
   theme_classic() +
   theme(legend.title=element_blank()) +
-  scale_colour_discrete(labels=c(expression('F'[1]), expression('F'[2])))
+  scale_colour_manual(values = patchcolors, labels=c(expression('F'[1]), expression('F'[2])))
 
 
 
@@ -486,18 +490,23 @@ for(i in 1:length(param_seq)){
 
 ```{r mExploreGraph, results = 'asis', echo = FALSE, fig.show = "hold", out.width = "50%", fig.cap = '(ref:mExploregraph) \\label{mExploreGraph}'}
 
+patchcolors <- c("#0096FF", "#ff4040")
+
 finalDynamics1_long <- gather(finalDynamics1, plot, Population, F1:F2, factor_key=TRUE)
 
 finalDynamics1_long %>%
   ggplot(aes(Parameter_New, Population, color=plot)) +
   geom_line() +
   geom_point(alpha=0.5, size=1) +
+  scale_color_manual(values = patchcolors) +
   ggtitle('a)') +
-  labs(y="Final Population", x="m Value") +
+  labs(y="Final Fish Population", x="m Value") +
   theme_classic() +  
   theme(legend.position = "none")
 
 #Scatter plot
+
+patchcolors <- c("#0096FF", "#ff4040")
 
 finalDynamics2_long <- gather(finalDynamics2, plot, Population, F1:F2, factor_key=TRUE)
 
@@ -506,10 +515,20 @@ finalDynamics2_long %>%
   geom_line() +
   geom_point(alpha=0.5, size=1) +
   ggtitle('b)') +
-  labs(y="Final Population", x="m Value") +
+  labs(y="Final Fish Population", x="m Value") +
   theme_classic() +
   theme(legend.title=element_blank()) +
-  scale_colour_discrete(labels=c(expression('F'[1]), expression('F'[2])))
+  scale_colour_manual(values = patchcolors, labels=c(expression('F'[1]), expression('F'[2])))
+
+# finalDynamics2_long %>%
+#   ggplot(aes(Parameter_New, Population, color=plot)) +
+#   geom_line() +
+#   geom_point(alpha=0.5, size=1) +
+#   ggtitle('b)') +
+#   labs(y="Final Population", x="m Value") +
+#   theme_classic() +
+#   theme(legend.title=element_blank()) +
+#   scale_colour_discrete(labels=c(expression('F'[1]), expression('F'[2])))
 
 
 ```

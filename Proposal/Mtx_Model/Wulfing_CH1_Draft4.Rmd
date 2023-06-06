@@ -1,15 +1,15 @@
 ---
 output:
-  bookdown::pdf_document2:
-    fig_caption: yes
-    toc: no
-    keep_tex: yes
+  word_document: default
   pdf_document:
     toc: no
   bookdown::html_document2:
     fig_caption: yes
     toc: no
-  word_document: default
+  bookdown::pdf_document2:
+    fig_caption: yes
+    toc: no
+    keep_tex: yes
 bibliography:
 - Ch1_Citations.bib
 - R_Citations.bib
