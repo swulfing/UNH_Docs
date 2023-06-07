@@ -15,7 +15,7 @@ output:
 bibliography:
 - Thesis_Citations.bib
 - R_Citations.bib
-csl: apa.csl
+csl: apa_1.csl
 header-includes: \usepackage{setspace}\doublespacing \usepackage{lineno} \usepackage{placeins} \usepackage[nottoc,notlof,notlot]{tocbibind} \renewcommand{\contentsname}{} \renewcommand{\listfigurename}{} \renewcommand{\listtablename}{}
 ---
 
@@ -340,7 +340,7 @@ knitr::kable(LifeHistory, format = "latex", booktabs = TRUE, caption = "(ref:lif
 ```
 
 
-(ref:lifehistory) Existing research and information on the per-stage duration of *O. cyanea*. All existing estimates are from @heukelemGrowthBioenergeticsLifespan1976, @guardArtisanalFisheryOctopus2003, @humberSeasonalClosuresNoTake2006, @ainaManagementOctopusFishery2009. Note: Heukelem and Fred (1976) estimate the time to maturity to be 10-13 months (i.e. stages 1-3 combined).
+(ref:lifehistory) Existing research and information on the per-stage duration of *O. cyanea*. All existing estimates are from @heukelemGrowthBioenergeticsLifespan1976, @guardArtisanalFisheryOctopus2003, @humberSeasonalClosuresNoTake2006, @ainaManagementOctopusFishery2009. Note: @heukelemGrowthBioenergeticsLifespan1976 estimate the time to maturity to be 10-13 months (i.e. stages 1-3 combined).
 
 
 ## RESULTS
