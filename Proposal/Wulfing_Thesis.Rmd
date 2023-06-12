@@ -16,8 +16,10 @@ bibliography:
 - Thesis_Citations.bib
 - R_Citations.bib
 csl: apa_1.csl
-header-includes: \usepackage{setspace}\doublespacing \usepackage{lineno} \usepackage{placeins} \usepackage[nottoc,notlof,notlot]{tocbibind} \renewcommand{\contentsname}{} \renewcommand{\listfigurename}{} \renewcommand{\listtablename}{}
+header-includes: \usepackage{setspace} \usepackage{lineno} \usepackage{placeins} \usepackage[nottoc,notlof,notlot]{tocbibind} \renewcommand{\contentsname}{} \renewcommand{\listfigurename}{} \renewcommand{\listtablename}{}
 ---
+
+\doublespacing
 
 \pagenumbering{gobble}
 
@@ -39,6 +41,11 @@ header-includes: \usepackage{setspace}\doublespacing \usepackage{lineno} \usepac
 
 \newpage
 
+This thesis has been examined and approved in partial fulfillment of the requirements for the
+degree of Master of Science in Marine Biology by:
+
+
+
 \pagenumbering{roman}
 
 ```{r setup, include=FALSE}
@@ -53,9 +60,29 @@ setwd("C:/Users/sophi/Documents/GitHub/UNH_Docs/Proposal")
 options(tinytex.verbose = TRUE)
 ```
 
+\newpage
+
 # ACKNOWLEDGEMENTS
 
-I will include acknowledgements in the final manuscript, I just didn't want yall to read them before :)
+I would first like to thank my advisor, Dr. Easton White. Thank you for answering a cold-call email from a random lab tech in Louisiana who wasn’t even asking about the position you were posting for. I didn’t think grad school was the right move for me at the time, and I could not have been more wrong. This opportunity has been exactly what I needed and I am so thankful for the constant enthusiasm and encouragement. I would also like to thank my committee members, Dr. Julia Novak Colwell and Dr. Elizabeth Fairchild for their expertise and making sure my research didn’t go too far into the theoretical rabbit hole and kept me in the real world.
+
+
+I of course have to give a huge thank you to my collaborators on my first chapter. Ahilya, your background research was essential to this project, thank you so much. And thank you to Mez Baker-Médard. Your expertise in this fishery gave us key real-world context for the research we were conducting.
+
+
+And then thank you so much to my fellow labmates in the Quantitative Marine Ecology Lab. Especially Ana, Drew, Barbara, Julia, and Wilton. During my time as a grad student, I needed your support and humor more than you know. Whether I needed a movie night, a quick coffee break, or just someone to joke around in the office with, you all were there for all of it. Y’all make me laugh so much and I hope we keep in touch moving forward.
+
+
+I have had the wonderful opportunity to live in many amazing places and meet so many people that I can write a whole other thesis about how these experiences have shaped me. Thank you to all my friends in Washington, Colorado, Colombia, Louisiana, and everywhere else. Thank you to Hannah, for always answering the phone even after all this time. I can talk to you about anything. Thank you to all my teachers both in and outside the classroom. Thank you, thank you, thank you to Melissa Head. This was my first internship in fisheries as well as my first exposure to coding and data science. You wanted to make sure that internship was a valuable experience for me and it ended up changing my life. You gave me such a unique perspective into all sides of the fishing industry. You even have let me come back to volunteer from time to time, and working with you is so much fun. I hope we continue to do so in the future.
+
+
+I would also like to thank the Department of Biological Sciences here at UNH. I know this department has been through a lot of changes over the past few years, but I also have felt nothing but love and support from both the graduate students and faculty here. Thank you all so much. And a special shoutout to Caitlin Shanahan for all your advice and providing countless resources regarding Madagascar’s fisheries. 
+
+
+I of course have to give a huge thanks to everyone in my family (and yes, I’m going to give a shoutout to every sibling). Rina, thank you for always checking in and making sure I’m eating/sleeping/living well. Bridget, it has been so great living close to you again. Hanging out with you as adults has been so much fun. Joe, you never fail to make me laugh and I am so inspired by your resilience. Caroline, my partner in crime, my evil twin. I know I can always joke around with you and thank you for sharing your music taste. Adam, I am so proud of you. I love it when you call on a Sunday just to watch football, play minecraft, whatever. All of that got me through the pandemic. I love you all so so so much. I am surrounded by so much love all the time and I’m so proud of all of you.
+
+
+And finally to my mom and my dad. All my friends who know me well know that I draw so much of my personality from the combination of the two of you, and I think that goes for who I am as a scientist as well. Dad, you taught me so much about the love of science and discovery. I love whenever I find a math video that makes my jaw drop, I can always shoot an email to someone who understands how beautiful and amazing the world of math really is. And my mom. We always talk about how some of our fondest memories are working in the garden together when I was young. I don’t say this enough, but I think that was such a formative time for me and I think that’s why I’ve always had a love for the environment and always knew I would spend my life trying to preserve it. 
 
 \newpage
 
@@ -340,7 +367,7 @@ knitr::kable(LifeHistory, format = "latex", booktabs = TRUE, caption = "(ref:lif
 ```
 
 
-(ref:lifehistory) Existing research and information on the per-stage duration of *O. cyanea*. All existing estimates are from @heukelemGrowthBioenergeticsLifespan1976, @guardArtisanalFisheryOctopus2003, @humberSeasonalClosuresNoTake2006, @ainaManagementOctopusFishery2009. Note: @heukelemGrowthBioenergeticsLifespan1976 estimate the time to maturity to be 10-13 months (i.e. stages 1-3 combined).
+(ref:lifehistory) Existing research and information on the per-stage duration of *O. cyanea*. All existing estimates are from @heukelemGrowthLifeSpan1973, @heukelemGrowthBioenergeticsLifespan1976, @guardArtisanalFisheryOctopus2003, @humberSeasonalClosuresNoTake2006, @ainaManagementOctopusFishery2009. Note: @heukelemGrowthBioenergeticsLifespan1976 estimate the time to maturity to be 10-13 months (i.e. stages 1-3 combined).
 
 
 ## RESULTS
@@ -606,7 +633,7 @@ When implemented deliberately, establishing periodic closures is an effective an
 
 The mechanistic methods used in this study allowed us to gain a baseline understanding of the growth rate and mortality of this population despite the limited data used to parameterize the model. Limitations of this study include the data collection process. Even though daily collections occurred daily within a two-hour window, catch was not standardized by effort and therefore there could be catch fluctuations between months that are not captured in the data. As stage 1 had a high survival rate yet low duration, this challenges the assumption that the octopus caught are an accurate ratio of the octopus at each stage in the wild. Further, matrix population models will converge or diverge based on their dominant eigenvalue, regardless of the initial population inputted in the model. Therefore, we can still conclude that the population at this time was in an overall decline, despite not knowing the exact number of individuals in this population. Another shortcoming of this study is that the only available stage data for this species and region were collected in 2006, and the community of southwest Madagascar has implemented several strategies since that time to improve the sustainability of their fish stocks in the region [@humberSeasonalClosuresNoTake2006; @raberinaryReproductiveCycleOctopus2012]. Due to the time of data collection, this study does not reflect the current status of *Octopus cyanea*, but outlines the underlying population dynamics and serves to indicate the need for a more current assessment of *O. cyanea* stocks in the region.
 
-Finally, as we are using a Lefkovitch matrix to simulate population fluctuations, these models inherently make simplifying assumptions about the biology of the study species. For example, these models assume that all individuals within a stage are subject to the same growth and mortality rates. As this study uses data collected from a large geographic range [@raberinaryReproductiveCycleOctopus2012], different individuals nesting in different regions may be subject to different selective pressures. Further, this population of blue octopus has been shown to exhibit spatial variability depending on their life stage. Younger individuals tend to live in the shallow inner zone of the reef and larger individuals, which are able to withstand stronger currents better, move to deeper waters for more suitable habitats for nesting [@raberinaryPeriodePontePoulpe2007]. Despite these limitations, the data provided are the best data available for fitting a Lefkovitch matrix to this species. Future extensions of this work could include exploring the dynamics of both sexes in the population [@gerberTwosexMatrixModels2014] as male octopus have different growth rates and spatial dynamics [@heukelemGrowthBioenergeticsLifespan1976]. Further, a better understanding of the seasonal breeding dynamics of this population of blue octopus could give better insight into the health of this fishery [@whiteSeasonalityEcologyProgress2020]. Cephalopod juveniles (a key life stage in understanding future population dynamics) often have two seasonal peaks per year, indicating biannual spawning periods [@humberSeasonalClosuresNoTake2006; @katsanevakisSeasonalPopulationDynamics2006]. This is related to seasonal fluctuations in temperature, as cephalopod growth is related to environmental temperature [@domainGrowthOctopusVulgaris2000]. However, this relationship is subject to a lot of variation [@heukelemGrowthBioenergeticsLifespan1976; @herwigUsingAgeBasedLife2012]. Further, as Madagascar is a tropical climate, this trend may be different in our region of study, as suggested by @raberinaryReproductiveCycleOctopus2012, where all life stages of *O. cyanea* were observed year round, suggesting continuous breeding.
+Finally, as we are using a Lefkovitch matrix to simulate population fluctuations, these models inherently make simplifying assumptions about the biology of the study species. For example, these models assume that all individuals within a stage are subject to the same growth and mortality rates. As this study uses data collected from a large geographic range [@raberinaryReproductiveCycleOctopus2012], different individuals nesting in different regions may be subject to different selective pressures. Further, this population of blue octopus has been shown to exhibit spatial variability depending on their life stage. Younger individuals tend to live in the shallow inner zone of the reef and larger individuals, which are able to withstand stronger currents better, move to deeper waters for more suitable habitats for nesting [@raberinaryPeriodePontePoulpe2007]. Despite these limitations, the data provided are the best data available for fitting a Lefkovitch matrix to this species. Future extensions of this work could include exploring the dynamics of both sexes in the population [@gerberTwosexMatrixModels2014] as male octopus have different growth rates and spatial dynamics [@heukelemGrowthBioenergeticsLifespan1976]. Further, a better understanding of the seasonal breeding dynamics of this population of blue octopus could give better insight into the health of this fishery [@whiteSeasonalityEcologyProgress2020]. Cephalopod juveniles (a key life stage in understanding future population dynamics) often have two seasonal peaks per year, indicating biannual spawning periods [@humberSeasonalClosuresNoTake2006; @katsanevakisSeasonalPopulationDynamics2006]. This is related to seasonal fluctuations in temperature, as cephalopod growth is related to environmental temperature [@heukelemGrowthLifeSpan1973; @domainGrowthOctopusVulgaris2000]. However, this relationship is subject to a lot of variation [@heukelemGrowthBioenergeticsLifespan1976; @herwigUsingAgeBasedLife2012]. Further, as Madagascar is a tropical climate, this trend may be different in our region of study, as suggested by @raberinaryReproductiveCycleOctopus2012, where all life stages of *O. cyanea* were observed year round, suggesting continuous breeding.
 
 With a short generation time, cephalopod species respond more quickly to new management strategies. Future work on other fished species in the region is necessary to understand the effectiveness of temporary closures. This study also highlights the need for further research into the life history patterns of *Octopus cyanea*. Specifically, studies on the natural mortality rate of this species, both in the larval and benthic stages, could better inform both our model and the greater understanding of how populations of this species grow. Further, a more contemporary study on the status of the octopus fishery of southwest Madagascar will paint a more accurate picture of how this population is faring under the current fishing pressure. These studies can also be used to build off of this one as more in depth data collection could be used to add spatial variability to our model, where we then can evaluate the accuracy of the assumption that every individual within a stage is subject to the same selective pressure. Finally, as the people of southwestern Madagascar are actively taking steps to preserve the health of their fisheries, we hope that studies such as these can serve to facilitate informed decision making when choosing how and when to impose fishing restrictions.
 
@@ -1428,3 +1455,6 @@ $\frac{dX_i}{dt} =  k_iX_i(1-X_i) [\frac{1}{F_i+c_i} - \omega_i + d_i(2X_i - 1) 
 \newpage
 
 # REFERENCES
+
+\singlespacing
+
