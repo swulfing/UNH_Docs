@@ -3,6 +3,7 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
+  12pt,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
@@ -84,7 +85,7 @@
 \newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
-\usepackage{setspace} \usepackage{lineno} \usepackage{placeins} \usepackage[nottoc,notlof,notlot]{tocbibind} \renewcommand{\contentsname}{} \renewcommand{\listfigurename}{} \renewcommand{\listtablename}{}
+\usepackage{setspace} \usepackage{lineno} \usepackage{placeins} \usepackage[nottoc,notlof,notlot]{tocbibind} \renewcommand{\contentsname}{} \renewcommand{\listfigurename}{} \renewcommand{\listtablename}{} \usepackage{sectsty} \sectionfont{\centering}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
@@ -130,18 +131,47 @@
 \textsc{THESIS}
 
 \vspace{3 mm}
-\textsc{Submitted to the University of New Hampshire \\ in Partial Fulfillment of \\ the Requirements of the Degree of \\ Master of Science \\ in \\ Marine Biology \\ May 2023}
+\textsc{Submitted to the University of New Hampshire \\ in Partial Fulfillment of \\ the Requirements of the Degree of \\ Master of Science \\ in \\ Marine Biology \\ September 2023}
 
 \end{center}
+
+\thispagestyle{empty}
+\pagenumbering{roman}
 
 \newpage
 
 This thesis has been examined and approved in partial fulfillment of the requirements for the
 degree of Master of Science in Marine Biology by:
 
-\pagenumbering{roman}
+\vspace{3.5 mm}
+
+\begin{tabbing}
+
+\hspace{30pt}\=\hspace{30pt}\=\kill
+
+\> Thesis Director, \textbf{Dr. Easton White,} Assistant Professor  \\
+\> Biological Sciences, University of New Hampshire  \\
+\> \textbf{Dr. Elizabeth Fairchild,} Research Associate Professor \\
+\> Biological Sciences, University of New Hampshire  \\
+\> \textbf{Dr. Julia Novak Colwell,} Lecturer  \\
+\> Natural Resources and the Environment, University of New Hampshire \\
+
+\end{tabbing}
+
+\begin{tabbing}
+
+\hspace{30pt}\=\hspace{30pt}\=\kill
+
+\> Defense on May 15, 2023
+
+\end{tabbing}
+
+\vspace{3 mm}
+
+Approval signatures are on file with the University of New Hampshire Graduate School
 
 \newpage
+\setlength\parindent{24pt}
 
 \hypertarget{acknowledgements}{%
 \section{ACKNOWLEDGEMENTS}\label{acknowledgements}}
@@ -211,7 +241,7 @@ Mechanistic models are one way in which we can study small-scale fisheries despi
 \newpage
 
 \hypertarget{chapter-i-using-mechanistic-models-to-assess-temporary-closure-strategies-for-small-scale-fisheries}{%
-\section{CHAPTER I: Using mechanistic models to assess temporary closure strategies for small-scale fisheries}\label{chapter-i-using-mechanistic-models-to-assess-temporary-closure-strategies-for-small-scale-fisheries}}
+\section{CHAPTER I: Using Mechanistic Models to Assess Temporary Closure Strategies for Small-Scale Fisheries}\label{chapter-i-using-mechanistic-models-to-assess-temporary-closure-strategies-for-small-scale-fisheries}}
 
 \hypertarget{abstract-1}{%
 \subsection{ABSTRACT}\label{abstract-1}}
@@ -253,8 +283,10 @@ As \emph{O. cyanea} has an extended larval phase and there are no existing data 
 
 To inform our model, we used data collected by Raberinary \& Benbow (2012) from Madagascar landings ranging from the villages of Ampasilava in the south to Andragnombala in the north which spans about 30 kilometers of coastline. Here, fishers usually fish along both reef flats and deeper barrier reefs. Fishers bring catch onshore either for household consumption or to sell to buyers for international export. Raberinary \& Benbow (2012) collected landing data from February 2005 to February 2006 through daily surveying of fishers as they landed onshore within a two hour window. Octopus were separated into five age classes: immature, incipient maturity, maturity, full maturity, and post laying. In this paper we omitted stage five, post laying, from this model as blue octopus only brood once, and stage five individuals therefore do not contribute to population growth. Raberinary \& Benbow (2012) recorded octopus weight, weight and length of gonads, sex, and a visual assessment of maturity class. A subsample of octopus was also collected for octopus length, and laboratory assessment of gonads for a confirmation of maturity class. Data were collected from a total of 3,253 octopuses. For the purposes of this study, we modeled from the 1,578 females collected by Raberinary \& Benbow (2012). Despite the lack of standardized catch effort in this dataset, no other maturity stage study has been conducted on this population of \emph{O. cyanea} and, therefore, these are the best available data to fit a Lefkovitch matrix. As there is no previous estimate of the natural death rate of this population, survival estimates and growth rate calculations for the Lefkovitch model also included the influence of fishing pressure. These data are reported in the appendix.
 
+
+
 \begin{figure}
-\includegraphics[width=1\linewidth]{MtxFilled} \caption{Stage-based population matrix calculated using Wood's quadratic programming method and parameterized using data from @raberinaryReproductiveCycleOctopus2012. \label{WriteMtxRounded}}\label{fig:WriteMtxRounded}
+\includegraphics[width=1\linewidth]{MtxFilled} \caption{Stage-based population matrix calculated using Wood's quadratic programming method and parameterized using data from Raberinary \& Benbow (2012). \label{WriteMtxRounded}}\label{fig:WriteMtxRounded}
 \end{figure}
 
 \hypertarget{model-parameterization}{%
@@ -370,7 +402,7 @@ With a short generation time, cephalopod species respond more quickly to new man
 \newpage
 
 \hypertarget{chapter-ii-social-ecological-models-with-social-hierarchy-and-space-applied-to-small-scale-fisheries}{%
-\section{CHAPTER II: Social-ecological models with social hierarchy and space applied to small-scale fisheries}\label{chapter-ii-social-ecological-models-with-social-hierarchy-and-space-applied-to-small-scale-fisheries}}
+\section{CHAPTER II: Social-Ecological Models With Social Hierarchy and Space Applied to Small-Scale Fisheries}\label{chapter-ii-social-ecological-models-with-social-hierarchy-and-space-applied-to-small-scale-fisheries}}
 
 \hypertarget{abstract-2}{%
 \subsection{ABSTRACT}\label{abstract-2}}
@@ -622,19 +654,20 @@ This work could be expanded by first collecting data to confirm or enhance the r
 
 \newpage
 
-\hypertarget{supplementary-material-for-chapter-i-using-mechanistic-models-to-assess-temporary-closure-strategies-for-small-scale-fisheries}{%
-\section{SUPPLEMENTARY MATERIAL FOR CHAPTER I: Using mechanistic models to assess temporary closure strategies for small-scale fisheries}\label{supplementary-material-for-chapter-i-using-mechanistic-models-to-assess-temporary-closure-strategies-for-small-scale-fisheries}}
+\hypertarget{appendix}{%
+\section{APPENDIX}\label{appendix}}
+
+\hypertarget{appendix-i-supplementary-material-for-chapter-i-using-mechanistic-models-to-assess-temporary-closure-strategies-for-small-scale-fisheries}{%
+\subsection{APPENDIX I: SUPPLEMENTARY MATERIAL FOR CHAPTER I: Using Mechanistic Models to Assess Temporary Closure Strategies for Small-Scale Fisheries}\label{appendix-i-supplementary-material-for-chapter-i-using-mechanistic-models-to-assess-temporary-closure-strategies-for-small-scale-fisheries}}
 
 \hypertarget{data-1}{%
-\subsection{Data}\label{data-1}}
-
-Table \ref{RabData} shows data used to parameterize matrix model from Raberinary \& Benbow (2012). Data was extracted from Figure 7 of this paper using WebPlotDigitizer (\url{https://automeris.io/WebPlotDigitizer/})
+\subsubsection{Data}\label{data-1}}
 
 
 
-\begin{table}
+\begin{table}[!h]
 
-\caption{\label{tab:RabData}Data collected in Raberinary \& Benbow (2012). \label{RabData}}
+\caption{\label{tab:RabData}Data collected in Raberinary \& Benbow (2012). Data were extracted from Figure 7 of this paper using WebPlotDigitizer (\url{https://automeris.io/WebPlotDigitizer/}) and were used to parameterize the matrix model. \label{RabData}}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{rrrrrr}
@@ -662,8 +695,8 @@ T & Stage1 & Stage2 & Stage3 & Stage4 & Total\\
 
 \newpage
 
-\hypertarget{supplementary-material-for-chapter-ii-social-ecological-models-with-social-hierarchy-and-space-applied-to-small-scale-fisheries}{%
-\section{SUPPLEMENTARY MATERIAL FOR CHAPTER II: Social-ecological models with social hierarchy and space applied to small-scale fisheries}\label{supplementary-material-for-chapter-ii-social-ecological-models-with-social-hierarchy-and-space-applied-to-small-scale-fisheries}}
+\hypertarget{appendix-ii-supplementary-material-for-chapter-ii-social-ecological-models-with-social-hierarchy-and-space-applied-to-small-scale-fisheries}{%
+\subsection{APPENDIX II: SUPPLEMENTARY MATERIAL FOR CHAPTER II: Social-Ecological Models with Social Hierarchy and Space Applied to Small-Scale Fisheries}\label{appendix-ii-supplementary-material-for-chapter-ii-social-ecological-models-with-social-hierarchy-and-space-applied-to-small-scale-fisheries}}
 
 Equations 2), 4), and 5) are as follows:
 

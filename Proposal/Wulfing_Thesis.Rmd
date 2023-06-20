@@ -12,11 +12,13 @@ output:
     fig_caption: yes
     toc: no
   word_document: default
+geometry: margin=1in
+fontsize: 12pt
 bibliography:
 - Thesis_Citations.bib
 - R_Citations.bib
 csl: apa_1.csl
-header-includes: \usepackage{setspace} \usepackage{lineno} \usepackage{placeins} \usepackage[nottoc,notlof,notlot]{tocbibind} \renewcommand{\contentsname}{} \renewcommand{\listfigurename}{} \renewcommand{\listtablename}{}
+header-includes: \usepackage{setspace} \usepackage{lineno} \usepackage{placeins} \usepackage[nottoc,notlof,notlot]{tocbibind} \renewcommand{\contentsname}{} \renewcommand{\listfigurename}{} \renewcommand{\listtablename}{} \usepackage{sectsty} \sectionfont{\centering}
 ---
 
 \doublespacing
@@ -35,18 +37,46 @@ header-includes: \usepackage{setspace} \usepackage{lineno} \usepackage{placeins}
 \textsc{THESIS}
 
 \vspace{3 mm}
-\textsc{Submitted to the University of New Hampshire \\ in Partial Fulfillment of \\ the Requirements of the Degree of \\ Master of Science \\ in \\ Marine Biology \\ May 2023}
+\textsc{Submitted to the University of New Hampshire \\ in Partial Fulfillment of \\ the Requirements of the Degree of \\ Master of Science \\ in \\ Marine Biology \\ September 2023}
 
 \end{center}
+
+\thispagestyle{empty}
+\pagenumbering{roman}
 
 \newpage
 
 This thesis has been examined and approved in partial fulfillment of the requirements for the
 degree of Master of Science in Marine Biology by:
 
+\vspace{3.5 mm}
 
+\begin{tabbing}
 
-\pagenumbering{roman}
+\hspace{30pt}\=\hspace{30pt}\=\kill
+
+\> Thesis Director, \textbf{Dr. Easton White,} Assistant Professor  \\
+\> Biological Sciences, University of New Hampshire  \\
+\> \textbf{Dr. Elizabeth Fairchild,} Research Associate Professor \\
+\> Biological Sciences, University of New Hampshire  \\
+\> \textbf{Dr. Julia Novak Colwell,} Lecturer  \\
+\> Natural Resources and the Environment, University of New Hampshire \\
+
+\end{tabbing}
+
+<!-- \vspace{2 mm} -->
+
+\begin{tabbing}
+
+\hspace{30pt}\=\hspace{30pt}\=\kill
+
+\> Defense on May 15, 2023
+
+\end{tabbing}
+
+\vspace{3 mm}
+
+Approval signatures are on file with the University of New Hampshire Graduate School
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev="cairo_pdf")
@@ -61,6 +91,7 @@ options(tinytex.verbose = TRUE)
 ```
 
 \newpage
+\setlength\parindent{24pt}
 
 # ACKNOWLEDGEMENTS
 
@@ -129,7 +160,7 @@ Mechanistic models are one way in which we can study small-scale fisheries despi
 
 \newpage
 	
-# CHAPTER I: Using mechanistic models to assess temporary closure strategies for small-scale fisheries
+# CHAPTER I: Using Mechanistic Models to Assess Temporary Closure Strategies for Small-Scale Fisheries
 
 
 ```{r setup1, include=FALSE}
@@ -297,7 +328,9 @@ A <- matrix(c(qp$solution[1], 0, 0, qp$solution[7],
 #A
 ```
 
-```{r WriteMtxRounded, results = 'asis', echo = FALSE, out.width="100%", fig.cap = "Stage-based population matrix calculated using Wood's quadratic programming method and parameterized using data from @raberinaryReproductiveCycleOctopus2012. \\label{WriteMtxRounded}"}
+(ref:writemtxrounded) Stage-based population matrix calculated using Wood's quadratic programming method and parameterized using data from @raberinaryReproductiveCycleOctopus2012. 
+
+```{r WriteMtxRounded, results = 'asis', echo = FALSE, out.width="100%", fig.cap = '(ref:writemtxrounded) \\label{WriteMtxRounded}'}
 
 A_round <- matrix( , byrow = TRUE, nrow = 4, ncol = 4)
 
@@ -643,7 +676,7 @@ With a short generation time, cephalopod species respond more quickly to new man
 
 \newpage
 
-# CHAPTER II: Social-ecological models with social hierarchy and space applied to small-scale fisheries
+# CHAPTER II: Social-Ecological Models With Social Hierarchy and Space Applied to Small-Scale Fisheries
 
 ```{r setup2, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev="cairo_pdf", cache = TRUE)
@@ -1347,7 +1380,9 @@ This work could be expanded by first collecting data to confirm or enhance the r
 
 \newpage
 
-# SUPPLEMENTARY MATERIAL FOR CHAPTER I: Using mechanistic models to assess temporary closure strategies for small-scale fisheries
+# APPENDIX
+
+## APPENDIX I: SUPPLEMENTARY MATERIAL FOR CHAPTER I: Using Mechanistic Models to Assess Temporary Closure Strategies for Small-Scale Fisheries
 
 ```{r setup1s, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev="cairo_pdf", cache = FALSE)
@@ -1388,24 +1423,25 @@ observedData <- as.matrix(data.frame(read.csv("RaberinaryBenbow2012Calcs.csv")))
 observedStageMatrix <- observedData[1:13, 2:5]
 ```
 
-## Data
+### Data
 
-Table \ref{RabData} shows data used to parameterize matrix model from @raberinaryReproductiveCycleOctopus2012. Data was extracted from Figure 7 of this paper using WebPlotDigitizer (https://automeris.io/WebPlotDigitizer/) 
+<!-- Table \ref{RabData} shows data used to parameterize matrix model from @raberinaryReproductiveCycleOctopus2012. Data was extracted from Figure 7 of this paper using WebPlotDigitizer (https://automeris.io/WebPlotDigitizer/)  -->
 
-(ref:rabdata) Data collected in @raberinaryReproductiveCycleOctopus2012.
+(ref:rabdata) Data collected in @raberinaryReproductiveCycleOctopus2012. Data were extracted from Figure 7 of this paper using WebPlotDigitizer (https://automeris.io/WebPlotDigitizer/) and were used to parameterize the matrix model.
 
 ```{r RabData, results = 'asis', echo = FALSE, fig.cap = '(ref:rabdata) \\label{RabData}'}
 
 RaberinaryData <- read.csv("RaberinaryBenbow2012Calcs.csv")
 #LifeHistory
 knitr::kable(RaberinaryData, format = "latex", booktabs = TRUE, caption = "(ref:rabdata) \\label{RabData}") %>%
-  kable_styling(latex_options="scale_down")
+  kable_styling(latex_options="scale_down") %>%
+   kable_styling(latex_options = "hold_position") 
 
 ```
 
 \newpage
 
-# SUPPLEMENTARY MATERIAL FOR CHAPTER II: Social-ecological models with social hierarchy and space applied to small-scale fisheries
+## APPENDIX II: SUPPLEMENTARY MATERIAL FOR CHAPTER II: Social-Ecological Models with Social Hierarchy and Space Applied to Small-Scale Fisheries
 
 ```{r setup2s, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev="cairo_pdf", cache = TRUE)
