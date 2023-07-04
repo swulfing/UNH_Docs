@@ -26,8 +26,11 @@ library(kableExtra)
 # params_list <-  data.frame(r_1 = 0.06, s_1 = 0.8, h_1 = 0.1, k_1 = 0.17, w_1 = 1, c_1 = 0.6, d_1 = 0.3, i_1 = 0.2, rho_1 = 0.3,
 #                            r_2 = 0.06, s_2 = 0.8, h_2 = 0.1, k_2 = 0.17, w_2 = 1, c_2 = 0.6, d_2 = 0.3, i_2 = 0.2, rho_2 = 0.3)
 
-params_list <- data.frame(r_1 = 0.40, s_1 = 0.8, h_1 = 0.25, k_1 = 1.014, w_1 = 0.2, c_1 = 1.5, d_1 = 0.5, i_1 = 0.2, rho_1 = 0.5,
-                               r_2 = 0.35, s_2 = 0.8, h_2 = 0.5, k_2 = 1.014, w_2 = 0.35, c_2 = 1.5, d_2 = 0.5, i_2 = 0.2, rho_2 = 0.5)
+# params_list <- data.frame(r_1 = 0.40, s_1 = 0.8, h_1 = 0.25, k_1 = 1.014, w_1 = 0.2, c_1 = 1.5, d_1 = 0.5, i_1 = 0.2, rho_1 = 0.5,
+#                                r_2 = 0.35, s_2 = 0.8, h_2 = 0.5, k_2 = 1.014, w_2 = 0.35, c_2 = 1.5, d_2 = 0.5, i_2 = 0.2, rho_2 = 0.5)
+
+params_list <- data.frame(r_1 = 0.06, s_1 = 0.8, h_1 = 0.1, k_1 = 0.17, w_1 = 1, c_1 = 0.6, d_1 = 0.3, i_1 = 0, rho_1 = 0,
+                                 r_2 = 0.06, s_2 = 0.8, h_2 = 0.1, k_2 = 0.17, w_2 = 1, c_2 = 0.6, d_2 = 0.3, i_2 = 0, rho_2 = 0)
 
 xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
 timespan <- seq(from = 0, to = 1000, by = 1)
@@ -92,7 +95,7 @@ out1 %>%
 
 \newpage
 
-# SCENARIO: DEFAULTS PARAMS HIGH MOVEMENT
+# SCENARIO: OSCILLATIONS
 
 Function:
 
@@ -351,13 +354,13 @@ param_ranges(7, 1, 0)
 \newpage
 
 ```{r i, fig.cap = "i - fish immigration", warning = FALSE}
-param_ranges(8, 1, 0)
+param_ranges(8, .1, 0)
 ```
 
 \newpage
 
 ```{r prop, fig.cap = "rho - Population influence on the other", warning = FALSE}
-param_ranges(9, 1, 0)
+param_ranges(9, .1, 0)
 ```
 
 ```{r fxnparamplane_diffparams, warning = FALSE}
@@ -450,9 +453,19 @@ paramplane_testing <- function(boop){
   param_tests <- param_tests %>%
     filter(firstParam != secondParam) %>%
     filter(firstParam == boop)
+  
 
   for(i in 1:nrow(param_tests)){
-    pl[[i]] <- paramplane(param_tests$firstParam[i], param_tests$secondParam[i], 1, 1)
+    if(param_tests$firstParam[i] == 8 | param_tests$firstParam[i] == 9){
+      xmax <- .1
+    }
+    else{xmax <- 1}
+    
+    if(param_tests$secondParam[i] == 8 | param_tests$secondParam[i] == 9){
+      ymax <- .1
+    }
+    else{ymax <- 1}
+    pl[[i]] <- paramplane(param_tests$firstParam[i], param_tests$secondParam[i], xmax, ymax)
   }
 
   do.call("grid.arrange", c(pl,  ncol=2))
@@ -550,7 +563,8 @@ popplane <- function(param, max){
   #Dumb but it throws an error if S = 0
   start <- 0
   if(param == 2){start <- .001}
-  #if(param == 3){max <- .1}
+  if(param == 8){max <- .1}
+  if(param == 9){max <- .1}
   
   #Create list of all combinations of the two paramters
   paramcombos <- expand.grid(pop1_parameter = seq(from = start, to = max, length.out = 10),
