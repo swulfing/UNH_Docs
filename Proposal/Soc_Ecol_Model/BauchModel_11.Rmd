@@ -29,8 +29,11 @@ library(kableExtra)
 # params_list <- data.frame(r_1 = 0.40, s_1 = 0.8, h_1 = 0.25, k_1 = 1.014, w_1 = 0.2, c_1 = 1.5, d_1 = 0.5, i_1 = 0.2, rho_1 = 0.5,
 #                                r_2 = 0.35, s_2 = 0.8, h_2 = 0.5, k_2 = 1.014, w_2 = 0.35, c_2 = 1.5, d_2 = 0.5, i_2 = 0.2, rho_2 = 0.5)
 
-params_list <- data.frame(r_1 = 0.06, s_1 = 0.8, h_1 = 0.1, k_1 = 0.17, w_1 = 1, c_1 = 0.6, d_1 = 0.3, i_1 = 0, rho_1 = 0,
-                                 r_2 = 0.06, s_2 = 0.8, h_2 = 0.1, k_2 = 0.17, w_2 = 1, c_2 = 0.6, d_2 = 0.3, i_2 = 0, rho_2 = 0)
+# params_list <- data.frame(r_1 = 0.06, s_1 = 0.8, h_1 = 0.1, k_1 = 0.17, w_1 = 1, c_1 = 0.6, d_1 = 0.3, i_1 = 0, rho_1 = 0,
+#                                  r_2 = 0.06, s_2 = 0.8, h_2 = 0.1, k_2 = 0.17, w_2 = 1, c_2 = 0.6, d_2 = 0.3, i_2 = 0, rho_2 = 0)
+
+params_list <- data.frame(r_1 = 0.16, s_1 = 0.8, h_1 = .25, k_1 = 0.17, w_1 = 1.44, c_1 = 0.5, d_1 = 0.3, i_1 = 0, rho_1 = 0,
+                          r_2 = 0.16, s_2 = 0.8, h_2 = .25, k_2 = 0.17, w_2 = 1.44, c_2 = 0.5, d_2 = 0.3, i_2 = 0, rho_2 = 0)
 
 xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
 timespan <- seq(from = 0, to = 1000, by = 1)
@@ -217,7 +220,7 @@ out_Coupled %>%
   ggplot(aes(x=time,y=value,color=variable))+
   geom_line(size=1)+
   theme_classic()+
-  labs(x='time (yr)',y='pop')
+  labs(x='time (yr)',y='pop') 
 
 ```
 
@@ -231,7 +234,7 @@ out_Coupled %>%
  # i <- 1
  # param <- 8
 
-
+suppressWarnings({
 #Note: in this function, I am changing BOTH populations' paramters. Should I try just changing one?
 param_ranges <- function(param, max, min){
   #Generate list of ranges
@@ -267,6 +270,7 @@ param_ranges <- function(param, max, min){
       ggplot(aes(x=time,y=value,color=variable))+
       geom_line(size=1)+
       theme_classic()+
+      ggtitle(paste0(new_param[i])) +
       labs(x='time (yr)',y='pop')
     plotList[[i]] <- p
   }
@@ -307,63 +311,79 @@ param_ranges <- function(param, max, min){
   
   do.call("grid.arrange", c(plotList, ncol=2))
 }
-  
+})  
 
 ```
 
-```{r R, fig.cap= "r - Net growth/fecundity, range 0 to 1", warning = FALSE}
-param_ranges(1, 1, 0)
+```{r R, fig.cap= "r - Net growth/fecundity, range 0.1 to .2", warning = FALSE}
+suppressWarnings({
+param_ranges(1, .2, .1)
+  
+})
 ```
 
 \newpage
 
 ```{r s, fig.cap = "s - supply and demand, range 0.1 to 1", warning = FALSE}
-param_ranges(2, 1, 0.1)
+
+suppressWarnings({
+param_ranges(2, 0.1, 0.01)
+})
 ```
 
 \newpage
 
 ```{r h, fig.cap = "h - Harvesting efficiency, range 0 to 0.1. Note, default is .075", warning = FALSE}
-param_ranges(3, .1, 0)
+suppressWarnings({
+param_ranges(3, .3, .2)
+})
 ```
 
 \newpage
 
 ```{r k, fig.cap = "K - Social learning rate 0 to 1", warning = FALSE}
-param_ranges(4, 1, 0)
+suppressWarnings({
+param_ranges(4, .2, 0)
+})
 ```
 
 \newpage
 
 ```{r w, fig.cap = "w - conservation costs", warning = FALSE}
-param_ranges(5, 1, 0)
+suppressWarnings({
+param_ranges(5, 2, 1)})
 ```
 
 \newpage
 
 ```{r c, fig.cap = "c - rarity valuation param", warning = FALSE}
-param_ranges(6, 1, 0)
+suppressWarnings({
+param_ranges(6, 1, 0)})
 ```
 
 \newpage
 
 ```{r d, fig.cap = "d - social norm strength", warning = FALSE}
-param_ranges(7, 1, 0)
+suppressWarnings({
+param_ranges(7, 0.5, 0)})
 ```
 
 \newpage
 
 ```{r i, fig.cap = "i - fish immigration", warning = FALSE}
-param_ranges(8, .1, 0)
+suppressWarnings({
+param_ranges(8, .1, 0)})
 ```
 
 \newpage
 
 ```{r prop, fig.cap = "rho - Population influence on the other", warning = FALSE}
-param_ranges(9, .1, 0)
+suppressWarnings({
+param_ranges(9, .1, 0)})
 ```
 
 ```{r fxnparamplane_diffparams, warning = FALSE}
+suppressWarnings({
 
 paramplane <- function(paramx, paramy, maxx, maxy){
   #Create empty dataframe to fill
@@ -376,6 +396,8 @@ paramplane <- function(paramx, paramy, maxx, maxy){
   starty <- 0
   if(paramx == 2){startx <- .001}
   if(paramy == 2){starty <- .001}
+  if(paramx == 8){maxx <- .1}
+  if(paramx == 9){maxx <- .1}
   
   # 
   # #Can comment this part out if using other H vals
@@ -437,13 +459,13 @@ ggplot(finalDynamics, aes(XParameter, YParameter, fill = Result)) + geom_tile(wi
   ylab(paramlist[paramy])
 }
 
-
+})
 #paramplane(1, 3, 1, 1)
 
 ```
 
-```{r paramplane_testing, warning = FALSE}
-
+```{r fxnparamplane_testing, warning = FALSE}
+suppressWarnings({
 paramplane_testing <- function(boop){
 
   pl <- list()
@@ -471,80 +493,80 @@ paramplane_testing <- function(boop){
   do.call("grid.arrange", c(pl,  ncol=2))
 
 }
-
+})
 #grid.expand stuff
 
 ```
 
-```{r paramplane_testingr, fig.cap = "R parameter planes", warning = FALSE}
-
+```{r paramplane_testingr, fig.cap = "R parameter planes", warning = FALSE, eval = FALSE}
+suppressWarnings({
 paramplane_testing(1)
-
+})
 ```
 
 \newpage
 
-```{r paramplane_testings, fig.cap = "S parameter planes", warning = FALSE}
-
+```{r paramplane_testings, fig.cap = "S parameter planes", warning = FALSE, eval = FALSE}
+suppressWarnings({
 paramplane_testing(2)
-
+})
 ```
 
 \newpage
 
-```{r paramplane_testingh, fig.cap = "h parameter planes", warning = FALSE}
-
+```{r paramplane_testingh, fig.cap = "h parameter planes", warning = FALSE, eval = FALSE}
+suppressWarnings({
 paramplane_testing(3)
-
+})
 ```
 
 \newpage
 
-```{r paramplane_testingk, fig.cap = "K parameter planes ranging from 0-1", warning = FALSE}
-
+```{r paramplane_testingk, fig.cap = "K parameter planes ranging from 0-1", warning = FALSE, eval = FALSE}
+suppressWarnings({
 paramplane_testing(4)
-
+})
 ```
 
 
 \newpage
 
-```{r paramplane_testingw, fig.cap = "w parameter planes", warning = FALSE}
-
+```{r paramplane_testingw, fig.cap = "w parameter planes", warning = FALSE, eval = FALSE}
+suppressWarnings({
 paramplane_testing(5)
-
+})
 ```
 
 \newpage
 
-```{r paramplane_testingc, fig.cap = "c parameter planes", warning = FALSE}
-
+```{r paramplane_testingc, fig.cap = "c parameter planes", warning = FALSE, eval = FALSE}
+suppressWarnings({
 paramplane_testing(6)
-
+})
 ```
 
 \newpage
 
-```{r paramplane_testingd, fig.cap = "d parameter planes", warning = FALSE}
-
+```{r paramplane_testingd, fig.cap = "d parameter planes", warning = FALSE, eval = FALSE}
+suppressWarnings({
 paramplane_testing(7)
-
+})
 ```
 
 \newpage
 
-```{r paramplane_testingi, fig.cap = "i parameter planes", warning = FALSE}
-
+```{r paramplane_testingi, fig.cap = "i parameter planes", warning = FALSE, eval = FALSE}
+suppressWarnings({
 paramplane_testing(8)
-
+})
 ```
 
 \newpage
 
-```{r paramplane_testingrho, fig.cap = "rho parameter planes", warning = FALSE}
-
+```{r paramplane_testingrho, fig.cap = "rho parameter planes", warning = FALSE, eval = FALSE}
+suppressWarnings({
 paramplane_testing(9)
-
+})
 ```
 
 \newpage
@@ -553,7 +575,7 @@ paramplane_testing(9)
 
 # param <- 1
 # max <- 1
-
+suppressWarnings({
 popplane <- function(param, max){
   #Create empty dataframe to fill
   paramlist <- c("r", "s", "h", "k", "s", "c", "d", "i", "rho")
@@ -623,50 +645,156 @@ ggplot(finalDynamics, aes(Pop1Parameter, Pop2Parameter, fill = Result)) + geom_t
   xlab(paste0(paramlist[param], " Population 1")) +
   ylab(paste0(paramlist[param], " Population 2"))
 }
+})
 ```
 
-```{r popplane_testingr, fig.cap = "r population planes", warning = FALSE}
+```{r popplane_testingr, fig.cap = "r population planes", warning = FALSE, eval = FALSE}
+suppressWarnings({
 popplane(1, 1)
-
+})
 ```
 
-```{r popplane_testings, fig.cap = "s population planes", warning = FALSE}
+```{r popplane_testings, fig.cap = "s population planes", warning = FALSE, eval = FALSE}
+suppressWarnings({
 popplane(2, 1)
+})
 
 ```
 
-```{r popplane_testingh, fig.cap = "h population planes", warning = FALSE}
+```{r popplane_testingh, fig.cap = "h population planes", warning = FALSE, eval = FALSE}
+suppressWarnings({
 popplane(3, .1)
-
+})
 ```
 
-```{r popplane_testingk, fig.cap = "k population planes 0 to 1", warning = FALSE}
+```{r popplane_testingk, fig.cap = "k population planes 0 to 1", warning = FALSE, eval = FALSE}
+suppressWarnings({
 popplane(4, 1)
-
+})
 ```
 
-```{r popplane_testingw, fig.cap = "w population planes", warning = FALSE}
+```{r popplane_testingw, fig.cap = "w population planes", warning = FALSE, eval = FALSE}
+suppressWarnings({
 popplane(5, 1)
-
+})
 ```
 
-```{r popplane_testingc, fig.cap = "c population planes", warning = FALSE}
+```{r popplane_testingc, fig.cap = "c population planes", warning = FALSE, eval = FALSE}
+suppressWarnings({
 popplane(6, 1)
-
+})
 ```
 
-```{r popplane_testingd, fig.cap = "d population planes", warning = FALSE}
+```{r popplane_testingd, fig.cap = "d population planes", warning = FALSE, eval = FALSE}
+suppressWarnings({
 popplane(7, 1)
-
+})
 ```
 
 
-```{r popplane_testingi, fig.cap = "i population planes", warning = FALSE}
-popplane(8, 1)
+```{r popplane_testingi, fig.cap = "i population planes", warning = FALSE, eval = FALSE}
+suppressWarnings({
+popplane(8, .1)
+})
+```
+
+```{r popplane_testingrho, fig.cap = "rho population planes", warning = FALSE, eval = FALSE}
+suppressWarnings({
+popplane(9, .1)
+})
 
 ```
 
-```{r popplane_testingrho, fig.cap = "rho population planes", warning = FALSE}
-popplane(9, 1)
+```{r fxnchange1param, warning = FALSE}
+suppressWarnings({
+#Note: in this function, I am changing BOTH populations' paramters. Should I try just changing one?
+param_ranges_1param <- function(param, max, min){
+  #Generate list of ranges
+  new_param <- seq(from=min, to=max, length.out=5)
+  plotList <- list()
+  
+  #Change params to each quartile for graphs 1-5
+  for(i in 1:length(new_param)){
+    params_Default <- params_list
+    #ASSIGN OLD PARAMS TO BE NEW SEQUENCE
+    #params_Default[param] <- new_param[i]
+    params_Default[(param + 9)] <- new_param[i]
+    # params_model <- c(r_1 = params_Default$r_1, s_1 = params_Default$s_1, h_1 = params_Default$h_1, k_1 = params_Default$k_1,
+    #                   w_1 = params_Default$w_1, c_1 = params_Default$c_1, d_1 = params_Default$d_1, i_1 = params_Default$i_1,
+    #                   rho_1 =  params_Default$rho_1,
+    #                   r_2 = params_Default$R_2, s_2 = params_Default$s_2, h_2 = params_Default$h_2, k_2 = params_Default$k_2,
+    #                   w_2 = params_Default$w_2, c_2 = params_Default$c_2, d_2 = params_Default$d_2, i_2 = params_Default$i_2,
+    #                   rho_2 = params_Default$rho_2)
+    
+    times <- timespan
+    xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24) #See supplemental for other starting params
 
+    ode(
+      func=Bauch.Coupled,
+      y=xstart,
+      times=times,
+      parms=params_Default
+    ) %>%
+      as.data.frame() -> out_Diff
+
+    p <- out_Diff %>%
+      gather(variable,value,-time) %>%
+      ggplot(aes(x=time,y=value,color=variable))+
+      geom_line(size=1)+
+      theme_classic()+
+      labs(x='time (yr)',y='pop')
+    plotList[[i]] <- p
+  }
+  
+  #Now assigning the final graph to give the two populations the max and min of the paramters
+    params_Default <- params_list
+    params_Default[param] <- max
+    params_Default[(param + 9)] <- min
+    #ASSIGN OLD PARAMS TO BE NEW SEQUENCE
+    # params_model <- c(r_1 = params_Default$r_1, s_1 = params_Default$s_1, h_1 = params_Default$h_1, k_1 = params_Default$k_1,
+    #                   w_1 = params_Default$w_1, c_1 = params_Default$c_1, d_1 = params_Default$d_1, i_1 = params_Default$i_1,
+    #                   rho_1 =  params_Default$rho_1,
+    #                   r_2 = params_Default$R_2, s_2 = params_Default$s_2, h_2 = params_Default$h_2, k_2 = params_Default$k_2,
+    #                   w_2 = params_Default$w_2, c_2 = params_Default$c_2, d_2 = params_Default$d_2, i_2 = params_Default$i_2,
+    #                   rho_2 = params_Default$rho_2)
+
+    
+    times <- timespan
+    xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
+
+    ode(
+      func=Bauch.Coupled,
+      y=xstart,
+      times=times,
+      parms=params_Default
+    ) %>%
+      as.data.frame() -> out_Diff
+
+    p <- out_Diff %>%
+      gather(variable,value,-time) %>%
+      ggplot(aes(x=time,y=value,color=variable))+
+      geom_line(size=1)+
+      theme_classic()+
+      labs(x='time (yr)',y='pop')
+    plotList[[6]] <- p
+  
+  
+  
+  do.call("grid.arrange", c(plotList, ncol=2))
+}
+})  
+```
+
+```{r change1i, fig.cap = "increasing only the i2 parameter"}
+suppressWarnings({
+param_ranges_1param(8, .1, 0)
+  
+})
+```
+
+```{r change1rho, fig.cap = "increasing only the rho2 parameter"}
+suppressWarnings({
+param_ranges_1param(9, .1, 0)
+  
+})
 ```

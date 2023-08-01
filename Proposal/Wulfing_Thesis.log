@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.6.26)  27 JUN 2023 17:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.6.26)  5 JUL 2023 15:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -675,7 +675,12 @@ Overfull \hbox (5.20058pt too wide) in alignment at lines 527--538
  [] [] [] [] 
  []
 
-[34] [35]
+[34]
+Underfull \hbox (badness 1107) in paragraph at lines 548--549
+\T1/lmr/m/n/12 de-fault model. Here, they cal-cu-lated this pa-ram-e-ter by fit-ting con-ser-va-tion opin-
+ []
+
+[35]
 <Wulfing_Thesis_files/figure-latex/uncoupledFishModel-1.pdf, id=580, 469.755pt x 325.215pt>
 File: Wulfing_Thesis_files/figure-latex/uncoupledFishModel-1.pdf Graphic file (type pdf)
 <use Wulfing_Thesis_files/figure-latex/uncoupledFishModel-1.pdf>
@@ -788,7 +793,7 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  66i,12n,67p,3195b,553s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb>
-Output written on Wulfing_Thesis.pdf (74 pages, 699137 bytes).
+Output written on Wulfing_Thesis.pdf (74 pages, 698986 bytes).
 PDF statistics:
  1230 PDF objects out of 1440 (max. 8388607)
  1076 compressed objects within 11 object streams
