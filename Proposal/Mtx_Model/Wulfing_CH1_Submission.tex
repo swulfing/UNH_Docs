@@ -5,16 +5,19 @@
 \documentclass[
 ]{article}
 \usepackage{amsmath,amssymb}
-\usepackage{lmodern}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -104,7 +107,7 @@
 \fi
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
+\urlstyle{same}
 \hypersetup{
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
@@ -114,11 +117,9 @@
 
 \begin{document}
 
-\setcounter{page}{7}
-
 \begin{center}
     
-\textbf{\Large CHAPTER I: Using mechanistic models to assess temporary closure strategies for small scale fisheries}
+\textbf{\Large Using mechanistic models to assess temporary closure strategies for small scale fisheries}
     
 \textsc{Sophie Wulfing$^{1*}$, Ahilya Sudarshan Kadba$^{1}$, Mez Baker-Médard$^{2}$, and Easton R. White$^{1}$}
 \vspace{3 mm}
@@ -207,7 +208,7 @@ Larval & 28-56 days & NA & NA\\
 \addlinespace
 4: Fully Mature & No existing estimate & 1.494651 & 0.7393301\\
 5: Post Laying & 45-61 days & NA & NA\\
-Post larval Phase (stage 1-5) & 9-18 months & NA & NA\\
+Post Larval Phase (Stage 1-5) & 9-18 months & NA & NA\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -227,7 +228,7 @@ Our analysis of different closure scenarios (Figure \ref{closures}) indicates cl
 
 \begin{figure}
 \centering
-\includegraphics{Wulfing_CH1_Draft4_files/figure-latex/projection-1.pdf}
+\includegraphics{Wulfing_CH1_Submission_files/figure-latex/projection-1.pdf}
 \caption{\label{fig:projection}Projection of \emph{O. cyanea} population based off of our calculated Lefkovitch matrix through the present. \label{projection}}
 \end{figure}
 
@@ -252,7 +253,7 @@ Stage & Stable Stage Distribution (Dominant Eigenvector) & Reproductive Value (L
 
 \begin{figure}
 \centering
-\includegraphics{Wulfing_CH1_Draft4_files/figure-latex/stages-1.pdf}
+\includegraphics{Wulfing_CH1_Submission_files/figure-latex/stages-1.pdf}
 \caption{\label{fig:stages}Minimum percent of per-stage survivability change needed to create population increase. Each stage was increased by higher percentages until the eigenvalue of the overall system became greater than zero. \label{stages}}
 \end{figure}
 
@@ -260,7 +261,7 @@ Stage & Stable Stage Distribution (Dominant Eigenvector) & Reproductive Value (L
 
 \begin{figure}
 \centering
-\includegraphics{Wulfing_CH1_Draft4_files/figure-latex/closures-1.pdf}
+\includegraphics{Wulfing_CH1_Submission_files/figure-latex/closures-1.pdf}
 \caption{\label{fig:closures}Analysis of different management scenarios. The black line separates the scenarios that succeed in sustaining the population from the scenarios that don't. Green and white squares indicate theoretically successful management scenarios where red refers to the strategies that will not result in overall population growth. \label{closures}}
 \end{figure}
 

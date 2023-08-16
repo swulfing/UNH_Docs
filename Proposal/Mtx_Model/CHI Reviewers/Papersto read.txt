@@ -1,0 +1,83 @@
+Papers:
+
+Ruben H Roa Ureta 2022
+	See if this provides more recent assessment
+		This study has a wider range than the R&B paper. Goes over whole coast instead of centering in Andavadoaka
+		Octopus fished are a part of a sub pop that go into deeper waters
+		Does have a natural mortality estimate (M) but not for the years our data was collected (See pg 13 but ranged from 0.0127 per week to 0.0498 per week)
+		Total catch in 2018 and 2019 reported but not useful
+		"The fishing has been conducted mostly with sustainable exploitation rates over the period of 2015 to 2017 and it appears to be currently operating above maximum capacity." Also saying overfishing
+		Management advice section: "3. Create a fourth database of biological characteristics such as sex, mantle length, and reproductive condition, by sampling a low percentage of fishing trips, to better understand the population dynamics of the stock." So they don't currently have a stage based database
+
+OTHER BV INFORMATION
+		Found a french paper looking at company collections from 1996 to 2004 - but I didn't bother to translate much of it
+		Le Manach et al quantifies total cephalopod catch from 1950 - 2008 but groups all cephs together
+		Rocliffe and Harris 2016 "The status of ctopus fisheries in the	Western	Indian Ocean. "Also has trends of export quantities from 1990 to 2010 in total catch but groups all octopus together
+		Rocliffe and Harrris 2016 "Experiences of periodic closures in small-scale invertebrate fisheries" - "closures began in Madagascar in 2003, typically cover 25% of a community's overall octopus fishing groudns and are in place form 2-3 months at various times of year" See pg 3
+		Rocliffe and Harris 2015 - Scaling success in octopus fisheries management in the Western Indian Ocean Feb 2015 - Need to contact BV for full report but seems to be whole Western Ocean, not just Madagascar CONTACT https://blueventures.org/publications/scaling-success-in-octopus-fisheries-management-in-the-western-indian-ocean/
+		Raberinary et al 2012 Octopus fishery management in SW Madagascar: has local fishing closures at 2.5 months while the national is 1.5 months (might be what reviewer 1 is talking about). This also has a graphic implying that fisherman salary does go down during scarcity of octopus but no info on changes of pricing based on scarcity https://blueventures.org/publications/octopus-fishery-management-in-southwest-madagascar/
+		Gough et al 2020 - classifies catch by method. groups all octoups together.
+		
+
+		
+		
+
+
+
+
+
+
+
+Van Nieuwenhove 2019 
+	Larval dispersal?
+	"Because connectivity relies on dispersal of pelagic larvae, patterns are likely to be influenced by sea surface currents, moving larvae in aspecific direction." 
+	Shows that currents in the M. Channel are cyclic, not directional, but specifies that this is during a monsoon. SEE SOURCES IF EDDIES STAY THROUGHOUT YEAR
+	These eddies could potentially be acting as genetic barriers (but that was in the vulgaris discussion)
+	Restricted gene flow in and out of SW Madagascar: Andavadoaka, Salary, Maromena, Beheloke, and Besambay
+	"Differentiation between southwestern sites and other localities may therefore be due to trapping, isolation and retention of the larvae inside southward propagating eddies."
+	"Asimilar pattern was found for the skunk clownfish, Amphiprion akallopisos, for which the population from Sm was significantly differentiated from the other WIO populations [68]"
+	O. Cyanea don't move very much: "Even though no records are available of the average distance between old and new dens for O. cyanea, itisknown for other octopus species that this distance isaround 15 m [74]. Ifthese distances would also apply for O. cyanea then the species appears to be relatively resident and migration of adult O. cyanea is negligible. However, research needs to be done to confirm this hypothesis."
+	
+	
+	
+	
+	
+	
+	
+
+Zeller et al 2021 
+	May have fisher income convo
+
+Hilborn and Mangel (The Ecological Detective) - need to find
+	Difference between mechanistic and phenomenological models
+
+Nowlis 2000, Emery, Hartmann, and Gardner 2016
+	See if they're really saying "Size limits have been shown to be the most effective method of conservation for cephalopods in general as it ensures individuals will breed before being harvested" and then rephrase
+
+Benbow and harris 2011
+	Look for three month closure
+
+Westerman and benbow 2014
+	Look for three month closure
+
+Humber 2006
+	Fisher income - Does more scarcity lead to higher prices? or has income decreased
+	Has octopus become the largest class of exports since globalization?
+
+Benbow 2014
+	Fisher income - Does more scarcity lead to higher prices? or has income decreased
+	"there is a fundamental flaw in my interpretation of closure models" Should provide more insight on closure timings
+
+Oliver 2015
+	"there is a fundamental flaw in my interpretation of closure models" Should provide more insight on closure timings
+	Says periods of 3-7 month closures ideal for fast-growing cephs
+
+Grorud-Colvert et al 2021
+	Find if temp closures are a type of MPA
+
+Aina 2009
+	Has octopus become the largest class of exports since globalization?
+
+Barnes Mauthe 2013
+	Has octopus become the largest class of exports since globalization?
+

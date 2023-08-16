@@ -1,0 +1,25 @@
+BIG PICURE EDITS:
+
+Data used:
+ - Only one year
+ - Too old (2005 to 2006) - Reviewers keep saying this could be an issue with framing, not data
+ - Above applies for this technique, octopus pop dynamics are too variable
+ - Doing the above may also help determine timing of closures
+ - BV has more recent data from 2012  or 2013 to present
+
+Larval movement
+ - More discussion needed
+ - High distance of dispersal likely, most likely from somwhere else. Have authors considered how we're defining population
+ - Include larval dispersal rate and distances
+ - Questions use of the term population
+
+Framing
+ - This fishery has now been managed for almost 20 years. Is this research adding to broader science with current framing
+ - Very much agree with your recommendations and conclusions but think you would be better of focusing on the biological/reproductive results from the modelling
+ - Conclusion that the fishery was in decline from 17 year old data seems weak, and I am unsure what value this adds to the scientific community unless you can follow this up and repeat it with newer data which eg shows the results of the fisheries management has now resulted in x (hopefully long term maintenance of the fishery).
+
+Other
+ - No attempt to come up with natural mortality rate to compare to total
+ - Overall lamda needs to incorporate more sources of uncertainty before the next step of seeing what it takes to get it above 1
+ - There is also a fundamental flaw in your interpretation of the closure models. Further reading of Benbow et al 2014 or Oliver et al 2015 should provide more info on the closure timings.
+
