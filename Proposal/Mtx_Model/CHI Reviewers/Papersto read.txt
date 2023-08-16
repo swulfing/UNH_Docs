@@ -17,15 +17,6 @@ OTHER BV INFORMATION
 		Rocliffe and Harris 2015 - Scaling success in octopus fisheries management in the Western Indian Ocean Feb 2015 - Need to contact BV for full report but seems to be whole Western Ocean, not just Madagascar CONTACT https://blueventures.org/publications/scaling-success-in-octopus-fisheries-management-in-the-western-indian-ocean/
 		Raberinary et al 2012 Octopus fishery management in SW Madagascar: has local fishing closures at 2.5 months while the national is 1.5 months (might be what reviewer 1 is talking about). This also has a graphic implying that fisherman salary does go down during scarcity of octopus but no info on changes of pricing based on scarcity https://blueventures.org/publications/octopus-fishery-management-in-southwest-madagascar/
 		Gough et al 2020 - classifies catch by method. groups all octoups together.
-		
-
-		
-		
-
-
-
-
-
 
 
 Van Nieuwenhove 2019 
@@ -35,43 +26,80 @@ Van Nieuwenhove 2019
 	These eddies could potentially be acting as genetic barriers (but that was in the vulgaris discussion)
 	Restricted gene flow in and out of SW Madagascar: Andavadoaka, Salary, Maromena, Beheloke, and Besambay
 	"Differentiation between southwestern sites and other localities may therefore be due to trapping, isolation and retention of the larvae inside southward propagating eddies."
-	"Asimilar pattern was found for the skunk clownfish, Amphiprion akallopisos, for which the population from Sm was significantly differentiated from the other WIO populations [68]"
+	"A similar pattern was found for the skunk clownfish, Amphiprion akallopisos, for which the population from Sm was significantly differentiated from the other WIO populations [68]"
 	O. Cyanea don't move very much: "Even though no records are available of the average distance between old and new dens for O. cyanea, itisknown for other octopus species that this distance isaround 15 m [74]. Ifthese distances would also apply for O. cyanea then the species appears to be relatively resident and migration of adult O. cyanea is negligible. However, research needs to be done to confirm this hypothesis."
-	
-	
-	
-	
-	
-	
+
+Papers confirming these currents:
+	Schott FA, McCreary JP. The monsoon circulationofthe Indian Ocean. Prog. Oceanogr. 2001; 51: 1123. - Eddies during monsoon season. No strong throughflow in M. Channel detected
+	Hancke L,Roberts MJ, Ternon JF. Surface drifter trajectories highlight flow pathwaysinthe Mozambique Channel. Deep Res Part IITop Stud Oceanogr. 2014; 100: 27–37. - Found no seasonality in currents in M. Channel. Also saw eddies in certain parts. A little bit of southward flow
+	LutjeharmsJRE, Biastoch A, Van Der Werf PM, Ridderinkhof H, De Ruijter WPM. On the discontinuous nature ofthe mozambique current. SAfr JSci. 2012; 108. - 	Also saw eddies in certain parts. A little bit of southward flow but largely negligable
 	
 
 Zeller et al 2021 
 	May have fisher income convo
+	Effort vs CPUE - Effort increaed 60 times from 1950 to 2016 while CPUE declined by 91%. But no info on income and groups all fishing activity together
+
 
 Hilborn and Mangel (The Ecological Detective) - need to find
 	Difference between mechanistic and phenomenological models
+	"A statistical model foregoes any attempt to explain why the variables interact the way they do, and simply attempts to describe the relationship, with the assumption that the relationship extends past the measured values. Regression models are the standard form of such descriptions, and Peters (1991) argued that the only predictive models in ecology should be statistical ones; we consider this an overly narrow viewpoint."
+	Mechanistic  - Variables are hypothesized and describe biological processes
+	Phenomenological - Attempts to explain data using linear estimations of different variables. Variables are estimated to describe the data.
+	
 
-Nowlis 2000, Emery, Hartmann, and Gardner 2016
+Nowlis 2000
 	See if they're really saying "Size limits have been shown to be the most effective method of conservation for cephalopods in general as it ensures individuals will breed before being harvested" and then rephrase
+	Minimum size limits shown to be most effective in long term sustainable yield than with reserves in species that are harvested before maturity (like octopus) - but mentions that this does not work if those harvested too small are thrown back dead (also like octopus)
+	
+
+Emery, Hartmann, and Gardner 2016
+	See if they're really saying "Size limits have been shown to be the most effective method of conservation for cephalopods in general as it ensures individuals will breed before being harvested" and then rephrase
+	Even though minimum size limits are a commonly used strategy in octopus conservation globally, not very effective and that an overall cap on total effort (like limiting numbers of fishers or fishing season) could be more effective
+	Uses "effort rotation" as potential soltion
+	Rotating closures have bben shown to be effective, but presents the issue of demarcating those lines in the fishery
+
 
 Benbow and harris 2011
 	Look for three month closure
+	"Results also confirm fisheries benefits from western Madagascar’s six-week regional fishery closure (15 December – 31 January). This legislation was created following the 2005 octopus fishery workshop."
+	"The key recommendation from this group was the removal of the minimum size and the implementation of a second closed season during the austral winter, from July to August."
+	"Analyses of the effect of duration, season and repetition of closures (repeated closure of one site) showed that: a. a closure period of 2-3 months appears to maximise fishing yield (CPUE) b. all seasons of closure show benefits, however winter shows stronger benefits c. there is no noticeable negative impact (on either landings or yield) of repeated closures; indeed evidence suggests repeated closures may in fact improve reserve yield."
+	"Participants also proposed shortening the current regional closure from six weeks (15 December – 31 January) to four weeks (15 December – 15 January) and adding a second subsequent four week national closure in the austral winter (July-August)."
+	"It was noted that the current minimum catch size limit for octopus (350 g) is poorly enforced and hard for collectors to comply with. One suggestion was to discontinue the use of the minimum size limit and instead implement a second regional closure period over the austral winter months."
+
 
 Westerman and benbow 2014
 	Look for three month closure
-
-Humber 2006
-	Fisher income - Does more scarcity lead to higher prices? or has income decreased
-	Has octopus become the largest class of exports since globalization?
+	"Further research has demonstrated that only three months of closure are needed to achieve such benefits and are much more socially acceptable to fishing communities (Benbow & Harris, 2011) and, today, most coastal villages with access to suitable reef flats within Velondriake routinely implement annual temporary closures during the austral winter months (June-August)."
+	"Results also show that village revenue does not decline during closure periods, and that the majority of closures increased profit by nearly 500 USD (Purchasing Power Parity: Blue Ventures, unpublished data)"
 
 Benbow 2014
-	Fisher income - Does more scarcity lead to higher prices? or has income decreased
-	"there is a fundamental flaw in my interpretation of closure models" Should provide more insight on closure timings
+	-Fisher income - Does more scarcity lead to higher prices? or has income decreased
+	Doesn't say anything about that but fisher income was increased after closures
+	-"there is a fundamental flaw in my interpretation of closure models" Should provide more insight on closure timings
+	Based on data from 2004-2006
+	Has good sources on when size limits were implemented and why quotas would be difficult
+	"As a result of the success of the first regional closure at Ankereo (reported below), the state enacted a south-west, region-wide octopus fishery closure from 15 December 2005 until 31 January 2006 (48 days)."
+	"we suggest that closures of less than four months would produce desired fisheries results." without overburdenign fishers with too long a closure
+
 
 Oliver 2015
 	"there is a fundamental flaw in my interpretation of closure models" Should provide more insight on closure timings
 	Says periods of 3-7 month closures ideal for fast-growing cephs
+	Closures result in higher village fishery income
+	"Upon instituting an octopus closure, villagers typically close about one fifth of their village’s octopus harvest area (~124 ha +/- 45 CI95), for a period between 2–7 months, sometimes repeatedly"
+	CHECK S2 TABLE FOR CHANGES IN PRICES
+	"On average, neither implementing nor control villages experienced a consistent, significant decline in octopus income during the closure periods relative to the 30 days before"
+	"Closures also showed positive net economic benefits at the site level using a conservative cost model that does not allow income from displaced effort to offset costs from foregone catch."
+	"Models show that rapid growth and short lifespans allow for shorter optimal closure times [31,32,43]"
+	
+	
 
+Humber 2006
+	Fisher income - Does more scarcity lead to higher prices? or has income decreased
+	Has octopus become the largest class of exports since globalization?
+	Also on that paragraph that's confusing, Benbow 2014 also confirms that closures increase yeild but that can be offset by fishing frenzies the next day
+	
 Grorud-Colvert et al 2021
 	Find if temp closures are a type of MPA
 
