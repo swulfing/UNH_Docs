@@ -14,7 +14,13 @@ OTHER BV INFORMATION
 		Le Manach et al quantifies total cephalopod catch from 1950 - 2008 but groups all cephs together
 		Rocliffe and Harris 2016 "The status of ctopus fisheries in the	Western	Indian Ocean. "Also has trends of export quantities from 1990 to 2010 in total catch but groups all octopus together
 		Rocliffe and Harrris 2016 "Experiences of periodic closures in small-scale invertebrate fisheries" - "closures began in Madagascar in 2003, typically cover 25% of a community's overall octopus fishing groudns and are in place form 2-3 months at various times of year" See pg 3
-		Rocliffe and Harris 2015 - Scaling success in octopus fisheries management in the Western Indian Ocean Feb 2015 - Need to contact BV for full report but seems to be whole Western Ocean, not just Madagascar CONTACT https://blueventures.org/publications/scaling-success-in-octopus-fisheries-management-in-the-western-indian-ocean/
+		Rocliffe and Harris 2015 - Scaling success in octopus fisheries management in the Western Indian Ocean Feb 2015 - Starting in 2004, short-term octopus closures have been replicated more than 200 times. Typically close 25% of a community's octopus fishing grounds closed for 3-7 montns at various times of year, have now been established along the country's south, west and north coasts
+		- "Having witnessed the effectiveness of this approach in improving octopus production, the govt of Madagascar passed new fisheries legislation in 2004 to close the fishery for 6 weeks from mid-December each year, a national management measure that continues in tandem with the more ad hoc locally led closures"
+		- Dr Oliver’s analysis is considered crucial to understanding the effectiveness of both western Madagascar’s annual, regional six-week (15 December– 31 January) fishery closure and the temporary, spatially discrete (‘reserve’) closure system, since until now no empirical evidence has been available to support the perceived success of either management approach.
+		- 36 periodic closures tested, lasted a range of 2-7 months
+		- Goes through good summary of this paper
+See: https://exeter.academia.edu/SteveRocliffe for more BV stuff
+
 		Raberinary et al 2012 Octopus fishery management in SW Madagascar: has local fishing closures at 2.5 months while the national is 1.5 months (might be what reviewer 1 is talking about). This also has a graphic implying that fisherman salary does go down during scarcity of octopus but no info on changes of pricing based on scarcity https://blueventures.org/publications/octopus-fishery-management-in-southwest-madagascar/
 		Gough et al 2020 - classifies catch by method. groups all octoups together.
 
@@ -99,13 +105,36 @@ Humber 2006
 	Fisher income - Does more scarcity lead to higher prices? or has income decreased
 	Has octopus become the largest class of exports since globalization?
 	Also on that paragraph that's confusing, Benbow 2014 also confirms that closures increase yeild but that can be offset by fishing frenzies the next day
+	IN ANDAVADOAKA - octopus represent 70% of marine produce bought by collection companies
+	"At present, fishermen are paid a set price per kg for octopus depending on whether they are greater or less than 1500g" But present means 2006 so who knows
+	7 month closure resulted in greater abundance than 4.5 month closure
+(Copefrito, pers. comm) - paper that states octopus are 70% export - personal communication so let's just cite Humber
+	
+Langley 2006 (cited in Humber)
+	Fisher in come - Does more scarcity lead to higher prices? or has income decreased?
+	"However, octopus catches are the most economically important fishery for the Andavadoaka region, providing 48% of the total catch by weight in 2004 for Copefrito, which has since increased to 71% in 2005 for the Nord IV region."
+	" some of the variation in fish price paid to fishers by collectors. The price varies depending on whether the equipment belongs to the fishers, how many people fish together (in the case of net fishing) and the collector (e.g., Copefrito, Murex etc.)." No mention of scarcity
+	"The first national octopus closure on the west coast of Madagascar took place between December 2005 and January 2006."
 	
 Grorud-Colvert et al 2021
 	Find if temp closures are a type of MPA
+	Doesn't have temp closures
+	A Systematic Review of the Socioeconomic Factors that Influence How Marine Protected Areas Impact on Ecosystems and Livelihoods Mizrahi et al 2019 says they don't fit classical MPA definition but still include it in protection analyses
+	^Same with Marine conservation beyond MPAs: Towards the recognition of other effective area-based conservation measures (OECMs) in Indonesia. Estradivari et al 2022
+	But this says it is a type of MPA:https://nmsmarineprotectedareas.blob.core.windows.net/marineprotectedareas-prod/media/archive/pdf/helpful-resources/factsheets/mpa_classification_may2011.pdf
+	I guess it has to do with the fact that the goals are not entirely biological - https://nmsmarineprotectedareas.blob.core.windows.net/marineprotectedareas-prod/media/docs/2020-mpa-building-effective-conservation-networks.pdf
+	https://www.iucn.org/our-union/commissions/group/iucn-wcpa-other-effective-area-based-conservation-measures-specialist
+	I guess we're going that route then
+
 
 Aina 2009
 	Has octopus become the largest class of exports since globalization?
+	No. Take that out.
+	"This success led to the implementation of new national fisheries regulations on octopus fishing in 2005, after consultation of all the actors in this activity (fishermen, Regional Department of Fisheries, and conservation NGOs). This regulation includes a specified minimum catch size and a regional closure season in southwest Madagascar between 15th December and 31st January each year. The text regulating the octopus fishery in octopus is not yet put into effect."
+	
 
 Barnes Mauthe 2013
 	Has octopus become the largest class of exports since globalization?
+	This actually says it's sea cucumber lol. Maybe check out (Harris, 2007, 2011; Epps, 2007) or just say they're a key species economically
+	
 
