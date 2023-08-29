@@ -234,14 +234,14 @@ Our within stage analysis showed that Stage 1 needed the smallest percent increa
 ## DISCUSSION
 The results of our per-stage analysis showed that focusing on protecting individuals in stage 1 would be the most effective form of management if size could be determined before capture in this fishery. It is a common trend that individuals that survive long larval stages that have high death rates are the most valuable in terms of contributions to overall population growth. However, this is not a realistic management suggestion, as it is difficult to assess the size of octopus before catch, which is often fatal to the individual. This could suggest, however, that the establishment of aquaculture of *Octopus cyanea* could have benefits to the overall population if octopus are reared until passing this first stage of development. However, further research is needed on cephalopod aquaculture in order to be effective and reduce pollutants in the surrounding waters [@jacquetCaseOctopusFarming2023].
 
-(ref:stagemos) Different fishing scenarios based on increasing survivability of one stage. 
+(ref:stagemos) Different fishing scenarios based on increasing survivability of one stage. Note: because of the high survivability of stage 1 individuals, only a 10% increase in survivability is biologically possible given the larval output.
 
 ```{r stagemo, fig.cap = '(ref:stagemos) \\label{stagemo}'}
 pickstage <- function(stage){
   modeled_data <- data.frame(matrix(ncol=9,nrow=0, dimnames=list(NULL, c("Stage_1", "Stage_2", "Stage_3", "Stage_4", "month", "pop", "Closure", "PercentChange", "Stage"))))
   months <- seq(1,12,1)
-  freqs <- seq(0,.1,0.01)
-  for (i in 1:length(months)){
+  if(stage == 1){freqs <- seq(0,.1,0.01)}else{freqs <- seq(0,1,0.1)}
+    for (i in 1:length(months)){
     for(j in 1:length(freqs)){
       #Creating the closure matrices for stage 4, then all the other stages (else statement)
       if(stage == 4){
@@ -314,10 +314,10 @@ ggplot(growthRate, aes(Closure, PercentChange, fill = lambda_new)) + geom_tile(w
   scale_x_continuous(name = "Length of closure (months)", expand=c(0,0), breaks = c(1, 3, 6, 9, 12)) +
   scale_y_continuous(name = "Percent change in survival", expand=c(0,0), labels = mult_format()) +
   ggtitle(paste0(stage)) +
-  labs(fill = "Eigenvalue") +
+  labs(fill = "Eigenvalue")
   # geom_segment(aes(x = 2.5, y = .075, xend = 2.5, yend = 0.105), size = .5, color = "#5A5A5A") +
   # geom_segment(aes(x = 11.5, y = .015, xend = 12.5, yend = 0.015), size = .5, color = "#5A5A5A") +
-  geom_step(data = paretospagheto , aes(x=Closure, y=PercentChange), size = .5, color = "#5A5A5A") 
+  #geom_step(data = paretospagheto , aes(x=Closure, y=PercentChange), size = .5, color = "#5A5A5A") 
   # geom_text(x=8, y=.07, label="Population Increasing") +
   # geom_text(x=3.5, y=.015, label="Population Decreasing")  
 }
