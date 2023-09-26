@@ -8,9 +8,9 @@ output:
 ---
 
 ```{r setup, include=FALSE, warning = FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, cache = TRUE)
 
-setwd("C:/Users/sophi/Documents/GitHub/UNH_Docs/Proposal/Soc_Ecol_Model")
+setwd("C:/Users/Sophi/Documents/GitHub/UNH_Docs/Proposal/Soc_Ecol_Model")
 
 library(deSolve)
 library(tidyverse)
