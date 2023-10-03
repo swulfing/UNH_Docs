@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.20)  20 SEP 2023 13:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.20)  2 OCT 2023 20:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -600,12 +600,12 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {c:/Users/Sophi/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/Users/Sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/Sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/Sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}] [2] [3] [4] [5] [6]
-<CoupledModelConceptual.png, id=80, 963.6pt x 542.025pt>
+<CoupledModelConceptual.png, id=84, 963.6pt x 542.025pt>
 File: CoupledModelConceptual.png Graphic file (type png)
 <use CoupledModelConceptual.png>
 Package pdftex.def Info: CoupledModelConceptual.png  used on input line 161.
 (pdftex.def)             Requested size: 469.75679pt x 264.23819pt.
-[7{c:/Users/Sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}] [8 <./CoupledModelConceptual.png>] [9] [10]
+[7] [8{c:/Users/Sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc} <./CoupledModelConceptual.png>] [9] [10] [11]
 Overfull \hbox (5.20058pt too wide) in alignment at lines 246--251
  [] [] [] [] 
  []
@@ -625,82 +625,157 @@ Overfull \hbox (5.20058pt too wide) in alignment at lines 257--267
  [] [] [] [] 
  []
 
-[11] [12] [13]
-<Wulfing_CH2_Draft4_files/figure-latex/uncoupledFishModel-1.pdf, id=141, 469.755pt x 325.215pt>
-File: Wulfing_CH2_Draft4_files/figure-latex/uncoupledFishModel-1.pdf Graphic file (type pdf)
-<use Wulfing_CH2_Draft4_files/figure-latex/uncoupledFishModel-1.pdf>
-Package pdftex.def Info: Wulfing_CH2_Draft4_files/figure-latex/uncoupledFishModel-1.pdf  used on input line 297.
+[12] [13]
+Overfull \hbox (5.20058pt too wide) in alignment at lines 285--290
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (5.20058pt too wide) in alignment at lines 290--294
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (5.20058pt too wide) in alignment at lines 294--296
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (5.20058pt too wide) in alignment at lines 296--306
+ [] [] [] [] 
+ []
+
+[14]
+<Wulfing_CH2_Draft4_files/figure-latex/movement-1.pdf, id=148, 469.755pt x 325.215pt>
+File: Wulfing_CH2_Draft4_files/figure-latex/movement-1.pdf Graphic file (type pdf)
+<use Wulfing_CH2_Draft4_files/figure-latex/movement-1.pdf>
+Package pdftex.def Info: Wulfing_CH2_Draft4_files/figure-latex/movement-1.pdf  used on input line 319.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Wulfing_CH2_Draft4_files/figure-latex/mBifCurve-1.pdf, id=149, 469.755pt x 325.215pt>
+File: Wulfing_CH2_Draft4_files/figure-latex/mBifCurve-1.pdf Graphic file (type pdf)
+<use Wulfing_CH2_Draft4_files/figure-latex/mBifCurve-1.pdf>
+Package pdftex.def Info: Wulfing_CH2_Draft4_files/figure-latex/mBifCurve-1.pdf  used on input line 324.
 (pdftex.def)             Requested size: 234.87692pt x 162.6071pt.
-<Wulfing_CH2_Draft4_files/figure-latex/uncoupledFishModel-2.pdf, id=142, 469.755pt x 325.215pt>
-File: Wulfing_CH2_Draft4_files/figure-latex/uncoupledFishModel-2.pdf Graphic file (type pdf)
-<use Wulfing_CH2_Draft4_files/figure-latex/uncoupledFishModel-2.pdf>
-Package pdftex.def Info: Wulfing_CH2_Draft4_files/figure-latex/uncoupledFishModel-2.pdf  used on input line 297.
+<Wulfing_CH2_Draft4_files/figure-latex/mBifCurve-2.pdf, id=150, 469.755pt x 325.215pt>
+File: Wulfing_CH2_Draft4_files/figure-latex/mBifCurve-2.pdf Graphic file (type pdf)
+<use Wulfing_CH2_Draft4_files/figure-latex/mBifCurve-2.pdf>
+Package pdftex.def Info: Wulfing_CH2_Draft4_files/figure-latex/mBifCurve-2.pdf  used on input line 324.
 (pdftex.def)             Requested size: 234.87692pt x 162.6071pt.
 
-Overfull \hbox (2.6099pt too wide) in paragraph at lines 297--297
+Overfull \hbox (2.6099pt too wide) in paragraph at lines 324--324
 [][] [] 
  []
 
-[14 <./Wulfing_CH2_Draft4_files/figure-latex/uncoupledFishModel-1.pdf> <./Wulfing_CH2_Draft4_files/figure-latex/uncoupledFishModel-2.pdf
-
-pdfTeX warning: pdflatex.exe (file ./Wulfing_CH2_Draft4_files/figure-latex/uncoupledFishModel-2.pdf): PDF inclusion: multiple pdfs with page group included in a single page
->]
-<Wulfing_CH2_Draft4_files/figure-latex/DispersionScenario-1.pdf, id=170, 469.755pt x 325.215pt>
+<Wulfing_CH2_Draft4_files/figure-latex/influenceAsym-1.pdf, id=151, 469.755pt x 325.215pt>
+File: Wulfing_CH2_Draft4_files/figure-latex/influenceAsym-1.pdf Graphic file (type pdf)
+<use Wulfing_CH2_Draft4_files/figure-latex/influenceAsym-1.pdf>
+Package pdftex.def Info: Wulfing_CH2_Draft4_files/figure-latex/influenceAsym-1.pdf  used on input line 334.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Wulfing_CH2_Draft4_files/figure-latex/DispersionScenario-1.pdf, id=154, 469.755pt x 325.215pt>
 File: Wulfing_CH2_Draft4_files/figure-latex/DispersionScenario-1.pdf Graphic file (type pdf)
 <use Wulfing_CH2_Draft4_files/figure-latex/DispersionScenario-1.pdf>
-Package pdftex.def Info: Wulfing_CH2_Draft4_files/figure-latex/DispersionScenario-1.pdf  used on input line 309.
+Package pdftex.def Info: Wulfing_CH2_Draft4_files/figure-latex/DispersionScenario-1.pdf  used on input line 347.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraph-1.pdf, id=174, 469.755pt x 325.215pt>
-File: Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraph-1.pdf Graphic file (type pdf)
-<use Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraph-1.pdf>
-Package pdftex.def Info: Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraph-1.pdf  used on input line 319.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[15 <./Wulfing_CH2_Draft4_files/figure-latex/DispersionScenario-1.pdf>] [16 <./Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraph-1.pdf>]
-<Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-1.pdf, id=209, 469.755pt x 325.215pt>
-File: Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-1.pdf Graphic file (type pdf)
-<use Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-1.pdf>
-Package pdftex.def Info: Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-1.pdf  used on input line 328.
+[15] [16 <./Wulfing_CH2_Draft4_files/figure-latex/movement-1.pdf> <./Wulfing_CH2_Draft4_files/figure-latex/mBifCurve-1.pdf
+
+pdfTeX warning: pdflatex.exe (file ./Wulfing_CH2_Draft4_files/figure-latex/mBifCurve-1.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+> <./Wulfing_CH2_Draft4_files/figure-latex/mBifCurve-2.pdf
+
+pdfTeX warning: pdflatex.exe (file ./Wulfing_CH2_Draft4_files/figure-latex/mBifCurve-2.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+>] [17 <./Wulfing_CH2_Draft4_files/figure-latex/influenceAsym-1.pdf>] [18 <./Wulfing_CH2_Draft4_files/figure-latex/DispersionScenario-1.pdf>]
+<Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraphEach-1.pdf, id=235, 469.755pt x 325.215pt>
+File: Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraphEach-1.pdf Graphic file (type pdf)
+<use Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraphEach-1.pdf>
+Package pdftex.def Info: Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraphEach-1.pdf  used on input line 356.
 (pdftex.def)             Requested size: 234.87692pt x 162.6071pt.
-<Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-2.pdf, id=210, 469.755pt x 325.215pt>
-File: Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-2.pdf Graphic file (type pdf)
-<use Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-2.pdf>
-Package pdftex.def Info: Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-2.pdf  used on input line 328.
+<Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraphEach-2.pdf, id=236, 469.755pt x 325.215pt>
+File: Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraphEach-2.pdf Graphic file (type pdf)
+<use Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraphEach-2.pdf>
+Package pdftex.def Info: Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraphEach-2.pdf  used on input line 356.
 (pdftex.def)             Requested size: 234.87692pt x 162.6071pt.
 
-Overfull \hbox (2.6099pt too wide) in paragraph at lines 328--328
+Overfull \hbox (2.6099pt too wide) in paragraph at lines 356--356
 [][] [] 
  []
 
-[17 <./Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-1.pdf> <./Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-2.pdf
+
+LaTeX Warning: Reference `:' on page 19 undefined on input line 356.
+
+
+LaTeX Warning: Reference `:' on page 19 undefined on input line 356.
+
+<Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraph-1.pdf, id=237, 469.755pt x 325.215pt>
+File: Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraph-1.pdf Graphic file (type pdf)
+<use Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraph-1.pdf>
+Package pdftex.def Info: Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraph-1.pdf  used on input line 363.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-1.pdf, id=240, 469.755pt x 325.215pt>
+File: Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-1.pdf Graphic file (type pdf)
+<use Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-1.pdf>
+Package pdftex.def Info: Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-1.pdf  used on input line 372.
+(pdftex.def)             Requested size: 234.87692pt x 162.6071pt.
+<Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-2.pdf, id=241, 469.755pt x 325.215pt>
+File: Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-2.pdf Graphic file (type pdf)
+<use Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-2.pdf>
+Package pdftex.def Info: Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-2.pdf  used on input line 372.
+(pdftex.def)             Requested size: 234.87692pt x 162.6071pt.
+
+Overfull \hbox (2.6099pt too wide) in paragraph at lines 372--372
+[][] [] 
+ []
+
+<Wulfing_CH2_Draft4_files/figure-latex/mExploreGraphBoth-1.pdf, id=242, 469.755pt x 325.215pt>
+File: Wulfing_CH2_Draft4_files/figure-latex/mExploreGraphBoth-1.pdf Graphic file (type pdf)
+<use Wulfing_CH2_Draft4_files/figure-latex/mExploreGraphBoth-1.pdf>
+Package pdftex.def Info: Wulfing_CH2_Draft4_files/figure-latex/mExploreGraphBoth-1.pdf  used on input line 379.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+LaTeX Warning: Reference `uncoupledFishModel' on page 19 undefined on input line 386.
+
+
+LaTeX Warning: Reference `uncoupledFishModel' on page 19 undefined on input line 386.
+
+[19 <./Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraphEach-1.pdf> <./Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraphEach-2.pdf
+
+pdfTeX warning: pdflatex.exe (file ./Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraphEach-2.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+>] [20 <./Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraph-1.pdf>] [21 <./Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-1.pdf> <./Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-2.pdf
 
 pdfTeX warning: pdflatex.exe (file ./Wulfing_CH2_Draft4_files/figure-latex/mExploreGraph-2.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+> <./Wulfing_CH2_Draft4_files/figure-latex/mExploreGraphBoth-1.pdf
+
+pdfTeX warning: pdflatex.exe (file ./Wulfing_CH2_Draft4_files/figure-latex/mExploreGraphBoth-1.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 >]
-<Wulfing_CH2_Draft4_files/figure-latex/rhoParamPlane-1.pdf, id=234, 469.755pt x 325.215pt>
-File: Wulfing_CH2_Draft4_files/figure-latex/rhoParamPlane-1.pdf Graphic file (type pdf)
-<use Wulfing_CH2_Draft4_files/figure-latex/rhoParamPlane-1.pdf>
-Package pdftex.def Info: Wulfing_CH2_Draft4_files/figure-latex/rhoParamPlane-1.pdf  used on input line 359.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[18] [19 <./Wulfing_CH2_Draft4_files/figure-latex/rhoParamPlane-1.pdf>] [20] [21] [22] [23] [24] [25] [26] [27] [28] [29] [30] [31] (./Wulfing_CH2_Draft4.aux)
+
+LaTeX Warning: Reference `rhoParamPlane' on page 22 undefined on input line 388.
+
+[22] [23]
+
+LaTeX Warning: Reference `Sensitivity' on page 24 undefined on input line 390.
+
+[24] [25] [26] [27] [28] [29] [30] [31] [32] [33] (./Wulfing_CH2_Draft4.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `Wulfing_CH2_Draft4.out' has not changed.
-(rerunfilecheck)             Checksum: 4609CA60A1D02D8D4E1A630292714FF1;1319.
+(rerunfilecheck)             Checksum: 92AB8808320DE943CD84A44630FA7145;1533.
  ) 
 Here is how much of TeX's memory you used:
- 13261 strings out of 476894
- 211447 string characters out of 5807539
- 1929785 words of memory out of 5000000
- 34178 multiletter control sequences out of 15000+600000
- 599526 words of font info for 64 fonts, out of 8000000 for 9000
+ 13310 strings out of 476894
+ 213655 string characters out of 5807539
+ 1928785 words of memory out of 5000000
+ 34221 multiletter control sequences out of 15000+600000
+ 602541 words of font info for 65 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 66i,8n,67p,2735b,553s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 66i,7n,67p,2737b,561s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/Users/Sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/Sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/Users/Sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/Users/Sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb><c:/Users/Sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/Sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/Sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/Sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/Sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/Sophi/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb>
-Output written on Wulfing_CH2_Draft4.pdf (31 pages, 479500 bytes).
+Output written on Wulfing_CH2_Draft4.pdf (33 pages, 1162564 bytes).
 PDF statistics:
- 531 PDF objects out of 1000 (max. 8388607)
- 444 compressed objects within 5 object streams
- 129 named destinations out of 1000 (max. 500000)
- 129 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 571 PDF objects out of 1000 (max. 8388607)
+ 469 compressed objects within 5 object streams
+ 134 named destinations out of 1000 (max. 500000)
+ 157 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -3,8 +3,19 @@ title: "BauchRhoMFig"
 author: "Sophie Wulfing"
 date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
 output:
-  pdf_document: default
-  html_document: default
+  bookdown::pdf_document2:
+    fig_caption: yes
+    toc: no
+    lof: yes
+    lot: yes
+    keep_tex: yes
+  pdf_document:
+    toc: no
+  bookdown::html_document2:
+    fig_caption: yes
+    toc: no
+  word_document: default
+
 ---
 
 ```{r setup, include=FALSE, warning = FALSE}
@@ -322,7 +333,7 @@ bifCurve <- function(parameter, variable, paramrange, paramletter, paramno, vari
 
 <!-- (ref:mbifcurve) , fig.cap = '(ref:mbifcurve) \\label{mBifCurve}' -->
 
-```{r mBifCurve, results = 'asis', echo = FALSE, fig.show = "hold", out.width = "50%", fig.cap = 'Bifurcation curves of fish pops in response to changes in m1 paramter'}
+```{r mBifCurve, results = 'asis', echo = FALSE, fig.show = "hold", out.width = "50%", fig.cap = 'Bifurcation curves of fish pops in response to changes in m1 paramter. Shows how high m parameters eliminates oscillations.'}
 
 #Below is for calcualting all of the bifurcation curves. We're only going to look at m vs the two F's
 # BifParams <- c("rho_1", "rho_2", "m_1", "m_2") 
@@ -343,10 +354,12 @@ bifCurve("m_1", "F_1", 1, 'm', 1, 'F', 1)
 bifCurve("m_1", "F_2", 1, 'm', 1, 'F', 2)
 
 ```
-Shows how high m parameters eliminates oscillations.
 
 # SOCIAL INFLUENCE STUFF
-```{r influenceAsym, warning = FALSE, fig.cap = "This shows the difference between a pop 1 listening to themselves vs. other pop. Looking at red line (which is fish in pop 1), CHANGE INTERPRETATION. SEE ANNOTATED"}
+
+(ref:influenceasym) This shows the difference between a pop 1 listening to themselves vs. other pop. Looking at red line (which is fish in pop 1), this demonstrates that a portfolio effect can smooth over variation in dynamics. See how red line levels out when rho is high but with a low d. high d and low rho results in high fluctuations in stocks
+
+```{r influenceAsym, warning = FALSE, fig.cap = '(ref:influenceasym) \\label{influenceAsym}'}
 
 rhoparams <- c(0, 0.05, 0.1, 0.5)
 dparams <- c(0, 0.05, 0.1, 0.5)
@@ -379,9 +392,10 @@ for(i in 1:length(dparams)){
       ggplot(aes(x=time,y=value,color=variable))+
       geom_line(size=1)+
       theme_classic()+
-      labs(x='time (yr)',y='pop') +
+      labs(x='Time (yr)',y='Population') +
       theme(legend.position = "none") +
-      ggtitle(paste("d = ", params_Default[7], "rho = ", params_Default[9]))
+      ggtitle(paste("d = ", params_Default[7], "rho = ", params_Default[18])) +
+      theme(plot.title = element_text(size=7))
     plotList[[k]] <- p
   }
 }
@@ -390,13 +404,14 @@ for(i in 1:length(dparams)){
   do.call("grid.arrange", c(plotList, ncol=4))
 
 ```
-This is showing that a portfolio effect can smooth over variation in dynamics. See how red line levels out when rho is high but with a low d. high d and low rho results in high fluctuations in stocks
 
-#SCENARIOS
+
+
+# SCENARIOS
 
 (ref:dispersionparamtable) Parameter values used to simulate sustainable fishing practices in patch 1 and overfishing in patch 2.
 
-```{r DispersionParamTable, results = 'asis', echo = FALSE}
+```{r DispersionParamTable, results = 'asis', echo = FALSE, fig.cap = '(ref:dispersionparamtable) \\label{DispersionParamTable}'}
 
 
 
@@ -430,7 +445,7 @@ knitr::kable(giveparams, format = "pandoc", booktabs = TRUE, caption = "(ref:dis
 ```
 
 
-(ref:dispersionscenario) Representation of the dynamics of both the fish populations ($F_i$) and human conservationists ($X_i$) in each patch with default parameters from table \ref{DispersionParamTable} after 1000 years. 
+(ref:dispersionscenario) Representation of the dynamics of both the fish populations ($F_i$) and human conservationists ($X_i$) in each patch with default parameters from table \ref{DispersionParamTable} after 1000 years. This just shows how the unsustainable fishing results in the whole thing collapsing
 
 ```{r DispersionScenario, fig.cap = '(ref:dispersionscenario) \\label{DispersionScenario}'}
 
@@ -556,7 +571,9 @@ for(i in 1:length(param_seq)){
 
 ```
 
-```{r rhoExploreGraphEach, results = 'asis', echo = FALSE, fig.show = "hold", out.width = "50%", fig.cap = 'each rho individually'}
+(ref:rhoexploregrapheach) Each rho individually. Ok so here's my confusion, above in \ref:influenceasym I say that incorporating new information will increase stability but here, as pop 2 (which is unsustainable) listens to pop 1 more, the whole thing crashes. Earlier we said this was because pop 1 is continuing to fish, so therefore encouraging pop 2 to fish more (looking at graph a)
+
+```{r rhoExploreGraphEach, results = 'asis', echo = FALSE, fig.show = "hold", out.width = "50%", fig.cap = '(ref:rhoexploregrapheach) \\label{rhoExploreGraphEach}'}
 
 patchcolors <- c("#0096FF", "#ff4040")
 
@@ -697,7 +714,7 @@ for(i in 1:length(param_seq)){
 
 ```
 
-(ref:mExploregraph)  Final fish populations after 100 years in the two-patch fishing model where patch 1 ($F_1$) is fished sustainably but human population 1 has a lower social influence than patch 2, where $F_2$ is being fished unsustainably. a) shows how increases in fish movement into patch 1 ($m_1$) affect final populations and b) shows how increases in fish movement into patch 2 ($m_2$) affect final populations.
+(ref:mExploregraph)  Final fish populations after 100 years in the two-patch fishing model where patch 1 ($F_1$) is fished sustainably but human population 1 has a lower social influence than patch 2, where $F_2$ is being fished unsustainably. a) shows how increases in fish movement into patch 1 ($m_1$) affect final populations and b) shows how increases in fish movement into patch 2 ($m_2$) affect final populations. More fish moving to sustainable patch (a). Will result in both grousps increasing fish. Showing how one patch CAN save whole system if enough fish are subject to their fishing. b) shows how if more fish move to unsustained patch, whole system will crash.
 
 ```{r mExploreGraph, results = 'asis', echo = FALSE, fig.show = "hold", out.width = "50%", fig.cap = '(ref:mExploregraph) \\label{mExploreGraph}'}
 
@@ -744,7 +761,9 @@ finalDynamics2_long %>%
 
 ```
 
-```{r mExploreGraphBoth, fig.cap = 'Both ms changing' }
+(ref:mExploregraphboth)  Both ms changing. Increasing both ms results in fishery crashes. Probably due to more fish entering F2 to be overfished more?
+
+```{r mExploreGraphBoth, fig.cap = '(ref:mExploregraphboth) \\label{mExploreGraphBoth}' }
 
 patchcolors <- c("#0096FF", "#ff4040")
 
@@ -767,6 +786,8 @@ finalDynamics3_long %>%
 
 # APPENDIX STUFF
 ```{r influenceBoth, warning = FALSE, fig.cap = "This is just demonstrating that with symmetry in conditions, d and rho actually have the same affect. APPENDIX MATERIAL"}
+
+timespan <- seq(from = 0, to = 1000, by = 1)
 
 rhoparams <- c(0.01, 0.05, 0.1, 0.5)
 dparams <- c(0.01, 0.05, 0.1, 0.5)
@@ -801,7 +822,8 @@ for(i in 1:length(dparams)){
       theme_classic()+
       labs(x='time (yr)',y='pop') +
       theme(legend.position = "none") +
-      ggtitle(paste("d = ", params_Default[7], "rho = ", params_Default[9]))
+      ggtitle(paste("d = ", params_Default[7], "rho = ", params_Default[9])) +
+      theme(plot.title = element_text(size=7))
     plotList[[k]] <- p
   }
 }
