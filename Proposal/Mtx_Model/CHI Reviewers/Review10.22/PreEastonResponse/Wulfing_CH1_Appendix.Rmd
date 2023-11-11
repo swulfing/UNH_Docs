@@ -1,0 +1,445 @@
+---
+output:
+  bookdown::pdf_document2:
+    fig_caption: yes
+    toc: no
+    keep_tex: yes
+  pdf_document:
+    toc: no
+  bookdown::html_document2:
+    fig_caption: yes
+    toc: no
+  word_document: default
+bibliography:
+- Ch1_Citations.bib
+- R_Citations.bib
+header-includes: \usepackage{setspace}\doublespacing \usepackage{lineno} \usepackage{placeins}
+---
+\begin{center}
+Supplementary Material for:
+	
+\textbf{\Large Using mechanistic models to assess temporary closure strategies for small scale fisheries}
+	
+\textsc{Sophie Wulfing$^{1*}$, Ahilya Sudarshan Kadba$^{1}$, Mez Baker-Médard$^{2}$, and Easton R. White$^{1}$}
+\vspace{3 mm}
+\normalsize{\indent $^1$Department of Biological Sciences, University of New Hampshire, 03824, NH, USA \\ $^2$Department of Environmental Studies, Middlebury College, Middlebury, VT 05753\\}
+$\text{*}$ Corresponding authors: Sophie Wulfing (SophieWulfing@gmail.com) and Dr. Easton White (Easton.White@unh.edu)
+\end{center}
+
+\pagebreak
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev="cairo_pdf")
+#knitr::write_bib look into
+setwd("C:/Users/sophi/Documents/GitHub/UNH_Docs/Proposal/Mtx_Model")
+
+library(tinytex)
+library(matlib)
+library(ggplot2)
+library(quadprog) #cite
+library(gridtext)
+library(popbio) #cite
+library(knitr)
+library(gridExtra)
+library(RColorBrewer) 
+#library(rPref) #Double check what this is doing. Maybe cite?
+library(tidyr)
+library(dplyr)
+library(ggpubr)
+library(bookdown)
+library(kableExtra)
+library(grid)
+library(Rage)
+
+
+# #Raw data n supplemental. ASK
+# in-stage bar graph goes in paper
+# in stage management scenarios will definitely be supplemental
+# Check out ecological modelling journal
+# Write about stable stage cause I don't think you do
+# Citations! Also check ahilya table
+# APPENDIX!
+# MAKE FIG CAPS FOR EVERYTHING AND EDIT FIGS.
+
+
+
+observedData <- as.matrix(data.frame(read.csv("RaberinaryBenbow2012Calcs.csv")))
+observedStageMatrix <- observedData[1:13, 2:5]
+```
+
+```{r FXNoverallsurvive}
+survivability <- function(increase){
+    #Calculate survivability for each staege and increase by x%
+    NewMtx <- (A * increase) + A
+    
+    for(i in 1:ncol(NewMtx)-1){
+      if(sum(NewMtx[,i]) > 1 | NewMtx[4,4] > 1){
+        return(NA)
+      }}
+    return(NewMtx)
+}
+
+
+#This is stupid but it just forces R to stop writing things as complex numbers
+f <- function(x) {
+   if (all(Im(z <- zapsmall(x))==0)) as.numeric(z) else x
+}
+
+real_check <- function(mtx){
+  if(sum(mtx[,1]) > 1 | sum(mtx[,2]) > 1 | sum(mtx[,3]) > 1 | mtx[4,4] > 1){
+    return(NA)
+  }
+  else{return(mtx)}
+}
+
+```
+
+```{r QuadProg, echo = FALSE}
+#Make Z
+z <- matrix(t(observedStageMatrix[2:11,]), ncol = 1, nrow = 40, byrow = TRUE)
+#z
+
+#Make M
+m <- matrix(, nrow = nrow(z) , ncol = 8)
+for(i in 1:(nrow(observedStageMatrix)-3)){
+  m[(4 * (i-1) + 1):(4 * i),] <- matrix(c(observedStageMatrix[i,1], 0, 0, 0, 0, 0, observedStageMatrix[i,4], 0,
+                                          0, observedStageMatrix[i,1], observedStageMatrix[i,2], 0, 0, 0, 0, 0,
+                                          0, 0, 0, observedStageMatrix[i,2], observedStageMatrix[i,3], 0, 0, 0,
+                                          0, 0, 0, 0, 0, observedStageMatrix[i,3], 0, observedStageMatrix[i,4]),
+                                        nrow = 4, byrow = TRUE)
+  #m
+}
+
+#Make C
+c <- matrix(c(diag(8) * (-1), 
+              1, 1, 0, 0, 0, 0, 0, 0,
+              0, 0, 1, 1, 0, 0, 0, 0,
+              0, 0, 0, 0, 1, 1, 0, 0,
+              0, 0, 0, 0, 0, 0, 0, 1), nrow = 12, ncol = 8, byrow = TRUE)
+#c
+#Make b
+b <- matrix(c(rep(0,8), rep(1,4)), nrow = 12, ncol = 1, byrow = TRUE)
+
+#Make P
+#p <- matrix(, nrow = 8, ncol = 1, byrow = TRUE) #vector(p1, g1, p2, g2, p3, g3, f4, p4)
+
+#Make mtx G and vector x
+g <- t(m) %*% m
+f_t <- -(t(-z) %*% m)
+
+qp <- solve.QP(Dmat = g, dvec = f_t, Amat = -t(c), bvec = -t(b))#, factorized = FALSE)
+
+
+A <- matrix(c(qp$solution[1], 0, 0, qp$solution[7],
+                 qp$solution[2], qp$solution[3], 0, 0,
+                 0, qp$solution[4], qp$solution[5], 0,
+                 0, 0, qp$solution[6], qp$solution[8]), byrow = TRUE, nrow = 4, ncol = 4)
+#A
+```
+
+\linenumbers
+
+# Data
+
+Table \ref{RabData} shows data used to parameterize matrix model from @raberinaryReproductiveCycleOctopus2012. Data was extracted from Figure 7 of this paper using WebPlotDigitizer (https://automeris.io/WebPlotDigitizer/) 
+
+(ref:rabdata) Data collected in Raberinary and Benbow 2012.
+
+```{r RabData, results = 'asis', echo = FALSE, fig.cap = '(ref:rabdata) \\label{RabData}'}
+
+RaberinaryData <- read.csv("RaberinaryBenbow2012Calcs.csv")
+#LifeHistory
+knitr::kable(RaberinaryData, format = "latex", booktabs = TRUE, caption = "(ref:rabdata) \\label{RabData}") %>%
+  kable_styling(latex_options="scale_down")
+
+```
+
+# Stability and Elasticity analysis
+
+```{r sensitivity, fig.cap = "(ref:sensitive) \\label{sensitivity}"}
+
+cols <- hcl.colors(1000, palette = "Greens 3", alpha = NULL, rev = TRUE, fixup = TRUE)#, end = .85)
+
+sens <- sensitivity(A)
+
+for(i in 1:length(A)){
+  if(A[i] == 0){
+    sens[i] <-  NA
+  }
+}
+
+## IMAGE plot with smaller boxes
+image2(sens, mar=c(1,3.5,5,1), box.offset=.1, border="gray70",col = c("white", cols[150:850]), text.cex = 2)
+ 
+
+## MATPLOT
+# matplot2(sens, log='y', type='b', yaxt='n', ltitle="Fate",
+#  ylab=expression(paste("Sensitivity of ",lambda)),
+#  main="Sensitivity matrix using matplot2")
+# pwrs <- -4:1
+#  #axis(2, 10^pwrs, parse(text=paste("10^", pwrs, sep = "")), las=1)
+
+
+
+#https://rdrr.io/cran/popbio/man/sensitivity.html
+
+#
+```
+
+(ref:sensitive) Sensitivity analysis of our matrix model - the change in the eigenvalue ($\lambda$) as a result of a unit change of each parameter in the model.
+
+```{r elasticity, fig.cap = "(ref:elastic) \\label{elasticity}"}
+
+cols <- hcl.colors(1000, palette = "Greens 3", alpha = NULL, rev = TRUE, fixup = TRUE)#, end = .85)
+
+elas <- elasticity(A)
+
+for(i in 1:length(A)){
+  if(A[i] == 0){
+    elas[i] <-  NA
+  }
+}
+
+image2(elas, mar=c(1,3.5,5,1), border="gray70", col = c("white", cols[150:850]), text.cex = 2 )
+
+# # Summed elasticities for teasel.
+# # fertility in last column, stasis P on diagonal, and growth in bottom-left triangle
+# c(F=sum(elas[,4]), P=sum(diag(elas)), G=sum(elas[row(elas)>col(elas)]))
+# 
+# elas <- elasticity(tortoise[["med.high"]])
+# image2(elas, mar=c(1,3.5,5,1),  log=FALSE)
+#  title("Tortoise elasticity matrix", line=2.5)
+# # Summed elasticities for tortoise (see example 9.4)
+# # fertility in top row, stasis on diagonal, and growth on subdiagonal
+# c(F=sum(elas[1,]), P=sum(diag(elas)), G=sum(elas[row(elas)==col(elas)+1]))
+
+#https://rdrr.io/cran/popbio/man/elasticity.html
+```
+
+(ref:elastic) Elasticity analysis of our matrix model - the change in the eigenvalue ($\lambda$) as a result of a proportional change of each parameter in the model.
+
+Sensitivity analysis (Figure \ref{sensitivity}) showed that within each stage, the growth parameters ($G_1$ - $G_3$) had the largest effect on this growthrate compared to the parameters indicating staying within a stage ($P_1$-$P_4$). However, as all the parameters represent proportions of individuals in a stage and must necessarily be between 0 and 1 with the exception of the $F_4$ parameter, elasticity analysis provides an interpretation that weights all stages equally. The result of this analysis shows that percent changes in the fecundity metric can be as beneficial to the overall population growth as changes in the G parameters (Figure \ref{elasticity}). Further, this analysis indicates that of all the stages, stage 1 has the most overall influence on the overall population growth.
+
+Elasticity analysis shows that conservation of both the growth and reproductive parameters would have equal effect on the overall population growth, with the most influential parameter being the survival of stage 1 individuals. The sensitivity and elasticity analysis indicate which stages will have the greatest effect on the population if they are targeted for preservation practices. Previous research has indicated that catch size limits are very effective in preserving stocks of species with rapid growth and high death rates, but this is only if individuals do not enter the fishery until they have reached maturity [@nowlisShortLongtermEffects2000]. However, the fishing method most commonly employed by the local people is spearfishing, where harvesters will search out octopus dens and spear the den to probe out the octopus [@benbowLessonsLearntExperimental2014]. Because of this, fishing method does not discriminate based on stage, this is not an applicable suggestion for conservation practices. For this reason, even though our analysis of different stage survivabilities indicates that conserving immature individuals would be an effective tool for fostering population growth, this is not a realistic management practice in this fishery for most harvesters.
+
+# Per-stage management scenarios
+
+## METHODS
+Examined how increasing the chance of survival of individuals in each stage class would contribute to population health. This was achieved by isolating the growth ($G_i$) and in-stage survival ($P_i$) for each stage i. We then increased these parameters by 1% and recalculated the overall eigenvalue of the matrix. We then incorporated into different scenarios with different frequencies of fishing restrictions to examine how temporary closures on blue octopus in certain stages would affect the population.
+
+## RESULTS 
+Our within stage analysis showed that Stage 1 needed the smallest percent increase in survival to result in overall population growth (Figure \ref{stagemo}). Stage 4 and larval survivability would be the highest needed increase, with stage 4 needing a 25% increase and larval needing a 15% increase in order for the overall population to be stable. Further, when examining the different frequencies of fishing closures, we found that, for any scenario, no closure would be effective if it was less frequent than every other month. As exemplified by the previous analysis, closures focusing on either stage 4 or larval individuals required the most increase in survivorship and highest frequencies of closures in order to result in population growth.
+
+
+## DISCUSSION
+The results of our per-stage analysis showed that focusing on protecting individuals in stage 1 would be the most effective form of management if size could be determined before capture in this fishery. It is a common trend that individuals that survive long larval stages that have high death rates are the most valuable in terms of contributions to overall population growth. However, this is not a realistic management suggestion, as it is difficult to assess the size of octopus before catch, which is often fatal to the individual. This could suggest, however, that the establishment of aquaculture of *Octopus cyanea* could have benefits to the overall population if octopus are reared until passing this first stage of development. However, further research is needed on cephalopod aquaculture in order to be effective and reduce pollutants in the surrounding waters [@jacquetCaseOctopusFarming2023].
+
+(ref:stagemos) Different fishing scenarios based on increasing survivability of one stage. Note: because of the high survivability of stage 1 individuals, only a 10% increase in survivability is biologically possible given the larval output.
+
+```{r stagemo, fig.cap = '(ref:stagemos) \\label{stagemo}'}
+pickstage <- function(stage){
+  modeled_data <- data.frame(matrix(ncol=9,nrow=0, dimnames=list(NULL, c("Stage_1", "Stage_2", "Stage_3", "Stage_4", "month", "pop", "Closure", "PercentChange", "Stage"))))
+  months <- seq(1,12,1)
+  if(stage == 1){freqs <- seq(0,.1,0.01)}else{freqs <- seq(0,1,0.1)}
+    for (i in 1:length(months)){
+    for(j in 1:length(freqs)){
+      #Creating the closure matrices for stage 4, then all the other stages (else statement)
+      if(stage == 4){
+        if((A[4,4] + A[4,4] * freqs[j]) <= 1){
+        newMtx <- A
+        newMtx[4,4] <- A[4,4] + A[4,4] * freqs[j]
+      }}else{
+        if((sum(A[,stage] + A[,stage] * freqs[j])) <= 1){
+        newMtx <- A
+        newMtx[,stage] <- A[,stage] + A[,stage] * freqs[j]  
+      }}
+      
+      #now make projections
+      pop <- observedStageMatrix[13,]
+      N <- list()
+       for (k in 1:120){
+      if(k %% 12 %in% c(seq(1, months[i]))){
+      N[[1]] <- pop
+      N[[k+1]] <- newMtx %*% N[[k]]
+      }
+    else{
+       N[[1]] <- pop
+      N[[k+1]] <- A %*% N[[k]]
+      }}
+      
+      
+      
+    new_data <- t(as.data.frame(do.call(cbind, N)))
+  colnames(new_data) <- c("Stage_1", "Stage_2", "Stage_3", "Stage_4")
+  new_data <- data.frame(cbind(new_data, month = 0:120, pop = rowSums(new_data[,1:4]), Closure = months[i], PercentChange = freqs[j], Stage = stage))
+  modeled_data <- rbind(modeled_data, new_data)  
+    }
+  }
+#### CALCULATE GROWTH RATE BASED ON LAST POP-FIRST POP/FIRST POP FOR EACH FREQ/PERCENT COMBINATION
+growthRate <- modeled_data %>%
+  select(month, pop, Closure, PercentChange) %>%
+  filter(month == 0 | month == 120) %>%
+  pivot_wider(names_from = month, values_from = pop) %>%
+  rename(month_0 = 3,
+         month_120 = 4) %>%
+  mutate(Mu_New = log(month_120/month_0)/120) %>% #See Crouse paper. From Nt = N0e^(rt)
+  mutate(lambda_new = exp(Mu_New)) %>%
+  select(Closure, PercentChange, Mu_New, lambda_new)
+
+  
+
+#### COPY PARETTO GRAPH FROM OTHER ANALYSIS
+paretospagheto <- growthRate %>% 
+  filter(lambda_new >= 1) %>%
+  group_by(Closure) %>%
+  filter(lambda_new == min(lambda_new))
+
+paretospagheto$Closure <- paretospagheto$Closure - 0.5
+paretospagheto$PercentChange <- paretospagheto$PercentChange - 0.005
+
+mult_format <- function() {
+     function(x) format(100*x,digits = 2) 
+}
+
+#Continuous Colors
+ggplot(growthRate, aes(Closure, PercentChange, fill = lambda_new)) + geom_tile(width=1) +
+  scale_fill_gradient2(
+  low = "red",
+  mid = "white",
+  high = "green",
+  #limits = c(1, max(growthRate$lambda_new)),
+  midpoint = 1,
+  space = "Lab",
+  na.value = "grey50") +
+  scale_x_continuous(name = "Length of closure (months)", expand=c(0,0), breaks = c(1, 3, 6, 9, 12)) +
+  scale_y_continuous(name = "Percent change in survival", expand=c(0,0), labels = mult_format()) +
+  ggtitle(paste0(stage)) +
+  labs(fill = "Eigenvalue")
+  # geom_segment(aes(x = 2.5, y = .075, xend = 2.5, yend = 0.105), size = .5, color = "#5A5A5A") +
+  # geom_segment(aes(x = 11.5, y = .015, xend = 12.5, yend = 0.015), size = .5, color = "#5A5A5A") +
+  #geom_step(data = paretospagheto , aes(x=Closure, y=PercentChange), size = .5, color = "#5A5A5A") 
+  # geom_text(x=8, y=.07, label="Population Increasing") +
+  # geom_text(x=3.5, y=.015, label="Population Decreasing")  
+}
+
+
+pl <- list()
+for(i in 1:nrow(A)){
+    pl[[i]] <- pickstage(i)
+  }
+  
+  #do.call("grid.arrange", c(pl,  ncol=2))
+  
+  ggarrange(plotlist = pl, ncol = 2, nrow = 2, legend = "right", common.legend = TRUE)
+
+```
+
+# Rage package analysis
+
+```{r ragepackage, echo = FALSE}
+library(Rage)
+matU <- mpm_split(A)$matU
+matU[1,1] <- A[1,1]
+
+matR <- mpm_split(A)$matF
+matR[1,1] <- 0
+
+#mpm_standardize is the opposite of mpm_split
+
+```
+
+## Age specific Calculations
+
+<!-- (ref:AgeFromStage) Reproduction rates, Survivorship, Survival Probability, and Mortality Hazard for each month of the blue octopus's life history calculated using the Rage Package. -->
+
+<!-- ```{r agefromstage, results = 'asis', echo = FALSE, fig.cap = '(ref:AgeFromStage) \\label{agefromstage}'} -->
+
+<!-- #make mtx with 1_13 rows and each col is vector below -->
+<!-- agefromstage <- data.frame(matrix(, nrow = 13, ncol = 5)) -->
+<!-- colnames(agefromstage) <- c("Age", "Reproduction", "Survivorship", "SurvivalProbability", "MortalityHazard") -->
+
+<!-- agefromstage$Age <- c(seq(1, 13)) -->
+
+<!-- #Age Specific reproduction -->
+<!-- mx <- c(mpm_to_mx(matU, matR, start = 1L, xmax = 1000, lx_crit = 0.01, tol = 1e-04)) -->
+<!-- #Age Specific Survivorship -->
+<!-- lx <- c(mpm_to_lx(matU, start = 1L, xmax = 1000, lx_crit = 0.01, tol = 1e-04)) -->
+<!-- #Age Specific Survival probability -->
+<!-- px <- c(mpm_to_px(matU, start = 1L, xmax = 1000, lx_crit = 0.01, tol = 1e-04)) -->
+<!-- #Age Specific Mortality Hazard -->
+<!-- hx <- c(mpm_to_hx(matU, start = 1L, xmax = 1000, lx_crit = 0.01, tol = 1e-04)) -->
+
+
+<!-- agefromstage$Reproduction <- mx -->
+<!-- agefromstage$Survivorship <- lx -->
+<!-- agefromstage$SurvivalProbability <- px -->
+<!-- agefromstage$MortalityHazard <- hx -->
+
+<!-- colnames(agefromstage) <- c("Age (month)", "Reproduction", "Survivorship", "Survival Probability", "Mortality Hazard") -->
+
+<!--   knitr::kable(agefromstage, format = "latex", booktabs = TRUE) #%>% -->
+<!--   # column_spec(2:3, width = "4.5cm") %>% -->
+<!--   # kable_styling(latex_options="scale_down") -->
+<!-- ``` -->
+
+Table \ref{LifeTable} shows age specific life-history traits of *Octopus cyanea* as calculated by the Rage package from our matrix. Expected number of offspring is reported per original cohort number.
+
+(ref:lifetable) Life table of *O. cyanea* as calculated from our Lefkovitch matrix.
+
+<!-- * x: age in months at the start of the age interval [x, x+1) -->
+<!-- * lx: survivorship, or the proportion of initial cohort surviving to the start of age interval [x, x+1) -->
+<!-- * dx: proportion of original cohort dying in the age interval [x, x+1) -->
+<!-- * hx: force of mortality (hazard) during the age interval [x, x+1) -->
+<!-- * qx: probability of death during the interval [x, x+1) for those entering the interval -->
+<!-- * px: probability of survival for the interval [x, x+1) for those entering the interval -->
+<!-- * ex: remaining life expectancy at age x -->
+<!-- * mx: per-capita rate of sexual reproduction during the interval [x, x+1) -->
+<!-- * lxmx: expected number of sexual offspring per original cohort member produced during the interval [x, x+1) -->
+
+```{r LifeTable, results = 'asis', echo = FALSE, fig.cap = '(ref:lifetable) \\label{LifeTable}'}
+lifetable <- data.frame(mpm_to_table(
+matU,
+matF = matR,
+matC = NULL,
+start = 1L,
+xmax = 1000,
+lx_crit = 0.01,
+radix = 1
+))
+
+#colnames(lifetable) <- c("Age (months)", "Survivorship", "Proportion of orginal cohort dying", "Mortality hazard", "Probability of death", "Probability of survival", "Remaining life expectancy", "Per-capita reproduction rate", "Expected number of offspring")
+
+knitr::kable(lifetable, format = "latex", booktabs = TRUE, col.names = c("Age (months)", "Survivorship", "Proportion of orginal cohort dying", "Mortality hazard", "Probability of death", "Probability of survival", "Remaining life expectancy", "Per-capita reproduction rate", "Expected number of offspring"), caption = "(ref:lifetable) \\label{LifeTable}") %>%
+  column_spec(1:9, width = "1.5cm")
+
+
+```
+
+\newpage
+
+**References**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
