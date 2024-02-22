@@ -1,4 +1,5 @@
 ---
+graphics: yes
 output:
   bookdown::pdf_document2:
     fig_caption: yes
@@ -8,6 +9,7 @@ output:
     keep_tex: yes
   pdf_document:
     toc: no
+    keep_tex: true
   bookdown::html_document2:
     fig_caption: yes
     toc: no
@@ -39,7 +41,7 @@ $\text{*}$ Corresponding authors: Sophie Wulfing (SophieWulfing@gmail.com) and D
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev="cairo_pdf", cache = TRUE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev="cairo_pdf", cache = FALSE)
 
 library(deSolve)
 library(tidyverse)
@@ -699,7 +701,7 @@ out_dispersion %>%
 Next, we ran our model with the parameterization outlined in table \ref{DispersionParamTable} with incrementally higher external social influence values ($\rho$) in both populations and observed how this affected the final population of each fish patch (Figure  \ref{rhoExploreGraph}). We found that under different parameterizations, there were often instances where $\rho$ acted as a tipping point for population dynamics where instead of continuously changing the final fish populations, the $\rho$ parameter either resulted in stable fish populations or both stocks collapsed once $\rho$ increased past this tipping point.
 
 
-```{r rhoExplore, cache = TRUE}
+```{r rhoExplore}
 
 param_seq <- seq(0, .5, by = .01)
 finalDynamics <- data.frame(matrix(, nrow = (length(param_seq)), ncol = 3))
@@ -866,7 +868,7 @@ finalDynamics_long %>%
 
 We then ran the same analysis with the fish dispersal parameter, $m$, by changing $m_1$ and $m_2$ individually. Contrary to the effect external social influence ($\rho$) had on the model, dispersal had a more direct and continuous effect on the final population of fish in each patch. For example, as fish movement from patch 2 to patch 1 increased (i.e. from the unsustainable patch to the sustainable patch), this actually maintained low fish populations the sustainable patch, but resulted in crashed populations in the unsustainable (Figure  \ref{mExploreGraph} a). However, if the fish movement was increased from patch 1 to patch 2 (from the sustainable fishing to unsustainable), both patches eventually collapsed to zero (Figure  \ref{mExploreGraph} b).
 
-```{r mExplore, cache = TRUE}
+```{r mExplore}
 
 param_seq <- seq(0, 1, by = .01)
 finalDynamics1 <- data.frame(matrix(, nrow = (length(param_seq)), ncol = 3))

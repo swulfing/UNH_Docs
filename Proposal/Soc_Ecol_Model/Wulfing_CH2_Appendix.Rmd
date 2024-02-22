@@ -1,10 +1,13 @@
 ---
+graphics: yes
 output:
   bookdown::pdf_document2:
     fig_caption: yes
     toc: no
+    keep_tex: true
   pdf_document:
     toc: no
+    keep_tex: true
   bookdown::html_document2:
     fig_caption: yes
     toc: no
