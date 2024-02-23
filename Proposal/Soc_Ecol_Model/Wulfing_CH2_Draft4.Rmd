@@ -41,7 +41,7 @@ $\text{*}$ Corresponding authors: Sophie Wulfing (SophieWulfing@gmail.com) and D
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev="cairo_pdf", cache = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev="cairo_pdf", cache = TRUE)
 
 library(deSolve)
 library(tidyverse)
@@ -269,8 +269,6 @@ giveparams$Definition <- c("Fish net growth",
 knitr::kable(giveparams, format = "pandoc", booktabs = TRUE, caption = "(ref:dispersionparamtable) \\label{DispersionParamTable}")
 
 ```
-
-<!-- DO I NEED ANY OF THIS First, we compare the model from @bauchEarlyWarningSignals2016 to that of our model by setting our parameters $m_1 = m_2 = \rho_1 = \rho_2 = 0$ and comparing the results. We then run different simulations of this model with different parameterizations in order to understand how fish population dynamics are affected by two-patch socio-ecological models with social hierarchy. Next, we incrementally increase the parameters $m$ and $\rho$ and simulated this system for 100 years in order to assess how increasing each new parameter would affect the overall dynamics of the system. Sensitivity analysis is conducted with the R package FME on these parameters [@FME]. Finally, we create parameter planes of each pair of variables in order to assess how altering two parameters at a time would affect the system. -->
 
 # RESULTS
 
@@ -1035,7 +1033,11 @@ The decision to include the external social influence term in our model within t
 
 Further research on the model used in this study could consider an open system, where fish diffusion does not necessarily have to pass between patches and could diffuse into non-fished areas. Further, extensions of this work could observe model dynamics with fish species with a long lifespan or fast reproduction rates. Also, stronger social ties have been shown to be more adaptable to environmental change [@graftonSocialCapitalFisheries2005], therefore further studies could evaluate the effect of climate change or extreme events on this social system  [@whiteExtremeEventsCoupled2023]. The specific way we chose to incorporate social hierarchy into the model could be changed. There are many ways to model social systems so another application of this study would be to compare its results to models that incorporate social hierarchy differently. Next, further work on parameterizing our model to a real-world system could help understand if our model is properly capturing the underlying dynamics of two-patch fishing systems with social hierarchy. Our model only incorporates public opinion, fishing rates, and financial gains from fisheries as aspects that could cause fishery failure. In practice, other issues such as non-compliance to fishing regulations, hyper-stability, and regulation lag time could all be additional factors that result in fishery collapse but are not incorporated in this model [@erismanIllusionPlentyHyperstability2011; @pinskyLaggedSocialecologicalResponses2012; @belhabibFisheriesCatchMisreporting2014]. Further, this study does not consider Allee effects in the fish populations, which may alter how spatial dynamics interacts with management practices [@whiteCatastrophesConnectivityAllee2021]. Finally, our model assumed that the uptake of opinions happens solely through social networks and weighing costs of conservation against the benefits. In reality, there may be more factors that influence one's harvesting decisions such as governing bodies or media consumption.
 
-*Acknowledgements* - This research was supported in part by NSF grant #1923707.
+*Funding* - This research was supported in part by NSF grant #1923707.
+
+*Data Availability* - All supplemental material and code for this project are available at https://github.com/swulfing/SocEco.
+
+*Competing interests* - None.
 
 \newpage
 
