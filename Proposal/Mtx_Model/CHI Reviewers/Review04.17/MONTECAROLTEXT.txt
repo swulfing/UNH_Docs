@@ -1,0 +1,36 @@
+METHODS
+
+In order to incorporate uncertainty in the model, we use a Monte Carlo simulation to draw 1,000 new matrix entries from a normal distribution centered on our default estimate for that matrix entry. We test different levels of variablity by increasing the standard deviation used in the random draws for each entry. We then calculate and evaluate the resulting dominant eigenvalues for the new matrices.
+
+Results:
+The resulting analysis the Monte Carlo simulation shows that the resulting dominant eigenvalues are still below 1 on average, but there is a lot of variability around the mean of 0.98. As the standard deviation increases in the simulation, the proportion of matrices with dominent eigenvalues above one also increases.
+
+In particular, we show that (see above figure in editor comments section) uncertainty in model parameters can lead to situations where the the population would be assessed as increasing in 2006. The model uncertainty in model parameters, the more simulations that would have an eigenvalue above 1 (i.e., positive growth rate). In all cases, the mean growth rate is still negative, but we think this new result (and additional text) does highlight the importance of addressing uncertainty in model parameters
+
+The result of the Monte Carlo simulation shows that uncertainties in the matrix entries  
+
+- on average above 1
+- but sometimes calculates a growth rate of greater than one
+
+FIG CAP:
+Monte Carlo simulation where matrix entries are drawn from a normal distribution centered on the default matrix at standard deviations of 0.01 (left), 0.02 (middle), and 0.03 (right). Eigenvalues are then calculated from each of the resulting matrices and plotted in a histogram after 1,000 simulations. The verticle dashed line indicates $lambda = 1$, or where the eigenvalue indicates an increasing octopus population.
+
+Discussion:
+Uncertainty in model parameters can lead to situations where the the population would be assessed as increasing in 2006, as demonstrated by the Monte Carlo simulation (Figure \figure{MonteUncertainty}), even though the average eigenvalue of these simulations remain below 1. This demonstrates the need for further investigation into this fishery, as octopus population dynamics are highly variable (langley humber), and therefore a Lefkovitch matrix may not be able to capture all of the nuances of blue octopus population dynamics.
+
+SHORTCOMINGS - As octopus population dynamics are extremely variable, one year of data collection may not be sufficient to get a comprehensive understanding of this population's growth rate, as shown by the uncertainty analysis in this paper, where some simulations of uncertainty resulted in stable populations.
+
+FUTURE DIRECTIONS - Further, explorations into uncertainty analysis of this population would help better understand the sustainability of this fishery.
+
+
+
+
+
+
+
+
+
+
+
+
+
