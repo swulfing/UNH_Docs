@@ -14,7 +14,7 @@ bibliography:
 - Ch1_Citations.bib
 - R_Citations.bib
 csl: apa_1.csl
-header-includes: \usepackage{setspace}\doublespacing \usepackage{lineno} \usepackage{placeins}
+header-includes:  \usepackage{lineno} \usepackage{placeins} \usepackage{setspace}\doublespacing
 editor_options: 
   chunk_output_type: console
 ---
@@ -314,7 +314,7 @@ ggplot(modeled_data) +
 
 (ref:monteuncertainty) Monte Carlo simulation where matrix entries are drawn from a normal distribution centered on the default matrix at standard deviations of 0.01 (left), 0.02 (middle), and 0.03 (right). Eigenvalues are then calculated from each of the resulting matrices and plotted in a histogram after 1,000 simulations. The vertical dashed line indicates $\lambda = 1$, or where the eigenvalue indicates an increasing octopus population.
 
-```{r MonteUncertainty, fig.cap = "(ref:monteuncertainty) \\label{MonteUncertainty}", cache = TRUE}
+```{r MonteUncertainty, fig.cap = "(ref:monteuncertainty) \\label{MonteUncertainty}", cache = FALSE}
 
 MtxValidU <- function(NewMtx){
   
