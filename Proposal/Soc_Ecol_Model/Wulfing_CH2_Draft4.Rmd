@@ -217,7 +217,7 @@ giveparams$Definition <- c("Fish net growth",
                     "Rarity valuation",
                     "Strength of social influence (within population)",
                     "Fish movement (from opposite patch)",
-                    "Strength of social influence (opposite population)")
+                    "Strength of social influence (from opposite population)")
 
 knitr::kable(giveparams, format = "pandoc", booktabs = TRUE, caption = "(ref:defaultparamtable) \\label{DefaultParamTable}")
 
@@ -264,7 +264,7 @@ giveparams$Definition <- c("Fish net growth",
                     "Rarity valuation",
                     "Strength of social influence (within population)",
                     "Fish movement (from opposite patch)",
-                    "Strength of social influence (opposite population)")
+                    "Strength of social influence (from opposite population)")
 
 knitr::kable(giveparams, format = "pandoc", booktabs = TRUE, caption = "(ref:dispersionparamtable) \\label{DispersionParamTable}")
 
@@ -576,7 +576,7 @@ bifCurve("m_1", "F_2", 1, 'm', 1, 'F', 2)
 In figure \ref{influenceAsym}, we can see that increases in $d_1$ result in higher amplitude oscillations, where $F_1$ will dip to almost 0 for many years then recover back to 1. Increases in $d_1$ affect the model differently than increases in $\rho_2$, the influence of the other human population. Here, the population dynamics of $F_1$ stay relatively constant around 0.2, and only have very small oscillations around this number, therefore increases in $d_1$ can result extreme booms and busts of resource populations while increases in $\rho_2$ results in limited populations, but these but the resulting dynamics oscillate less, which indicates more stable dynamics. Increases in either $d_1$ or $\rho_2$ result in less frequent oscillations, meaning humans are slower to change population levels and that plot 1's resource populations spend more time at the peaks of their oscillations before either recovering from 0 or decreasing from 1.
 
 
-(ref:influenceasym) The difference in increasing social pressure within population 1 (the $d_1$ parameter is increased down the columns of graphs) versus increasing social pressure from population 1 onto population 1 (the $\rho_2$ parameter is increased across rows of graphs). 
+(ref:influenceasym) The difference in increasing social pressure within population 1 (the $d_1$ parameter is increased down the columns of graphs) versus increasing social pressure from population 1 onto population 2 (the $\rho_2$ parameter is increased across rows of graphs) which models increasing the social pressure of the . 
 
 ```{r influenceAsym, warning = FALSE, fig.cap = '(ref:influenceasym) \\label{influenceAsym}'}
 
