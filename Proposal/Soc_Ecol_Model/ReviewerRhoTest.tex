@@ -71,56 +71,48 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  pdftitle={ReviewerSymTest},
+  pdftitle={Reveiwer1\_RhoQ},
   pdfauthor={Sophie Wulfing},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
-\title{ReviewerSymTest}
+\title{Reveiwer1\_RhoQ}
 \author{Sophie Wulfing}
 \date{2024-06-20}
 
 \begin{document}
 \maketitle
 
-\begin{equation}
-\frac{dF_1}{dt} = r_1F_1(1-F_1)-\frac{h_1*F_1(1-X_1)}{F_1 + s_1} -m_2F_1 + m_1F_2
-  \label{eq:FishWhole1}
-\end{equation}
-
-\begin{equation}
-\frac{dF_2}{dt} = r_2F_2(1-F_2)-\frac{h_2*F_2(1-X_2)}{F_2 + s_2} -m_1F_2 + m_2F_1
-  \label{eq:FishWhole2}
-\end{equation}
-
-\begin{equation}
-\frac{dX_1}{dt} =  k_1X_1(1-X_1) [\frac{1}{F_1+c_1} - \omega_1 + d_1(2X_1 - 1) + \rho_1(2X_2 - 1)]
-  \label{eq:SocWhole1}
-\end{equation}
-
-\begin{equation}
-\frac{dX_2}{dt} = k_2X_2(1-X_2)  [\frac{1}{F_2+c_2} - \omega_2 + d_2(2X_2 - 1) +  \rho_2(2X_1 - 1)]
-  \label{eq:SocWhole2}
-\end{equation}
-
-\includegraphics{ReviewerSystemTest_files/figure-latex/Bauch.Coupled-1.pdf}
+\includegraphics{ReviewerRhoTest_files/figure-latex/Bauch.Coupled-1.pdf}
 
 
 
 \begin{figure}
 \centering
-\includegraphics{ReviewerSystemTest_files/figure-latex/influenceAsym-1.pdf}
-\caption{The difference in increasing social pressure within population 1 (the \(d_1\) parameter is increased down the columns of graphs) versus increasing social pressure from population 1 onto population 2 (the \(\rho_2\) parameter is increased across rows of graphs) which compares self-pressure to pressuring the other gropu. \label{influenceAsym}}
+\includegraphics{ReviewerRhoTest_files/figure-latex/influencerho2-1.pdf}
+\caption{\label{fig:influencerho2}The difference in increasing social pressure within population 1 (the \(d_1\) parameter is increased down the columns of graphs) versus increasing social pressure from population 1 onto population 2 (the \(\rho_2\) parameter is increased across rows of graphs) which models increasing the social pressure of the sustainable population onto the unsustainable. \label{influenceRho2}}
 \end{figure}
 
-\newpage
+
+
+\begin{figure}
+\centering
+\includegraphics{ReviewerRhoTest_files/figure-latex/influencerho1-1.pdf}
+\caption{\label{fig:influencerho1}The difference in increasing social pressure within population 2 (the \(d_2\) parameter is increased down the columns of graphs) versus increasing social pressure from population 2 onto population 1 (the \(\rho_1\) parameter is increased across rows of graphs) which models increasing the social pressure of the unsustainable population on the sustainable. \label{influenceRho1}}
+\end{figure}
+
+
+
+\begin{figure}
+\includegraphics[width=0.5\linewidth]{ReviewerRhoTest_files/figure-latex/rhoExploreGraphEach-1} \includegraphics[width=0.5\linewidth]{ReviewerRhoTest_files/figure-latex/rhoExploreGraphEach-2} \caption{Each rho individually. Ok so here's my confusion, above in \ref{influenceAsym} I say that incorporating new information will increase stability but here, as pop 2 (which is unsustainable) listens to pop 1 more, the whole thing crashes. Earlier we said this was because pop 1 is continuing to fish, so therefore encouraging pop 2 to fish more (looking at graph a) \label{rhoExploreGraphEach}}\label{fig:rhoExploreGraphEach}
+\end{figure}
 
 
 
 \begin{figure}
 \centering
-\includegraphics{ReviewerSystemTest_files/figure-latex/influenceAsymOther-1.pdf}
-\caption{The difference in increasing social pressure within population 1 (the \(d_1\) parameter is increased down the columns of graphs) versus increasing social pressure from population 2 onto population 1 (the \(\rho_1\) parameter is increased across rows of graphs) which compares self-pressure to outside pressure. \label{influenceAsymOther}}
+\includegraphics{ReviewerRhoTest_files/figure-latex/rhoExploreGraph-1.pdf}
+\caption{\label{fig:rhoExploreGraph}Final fish populations after 100 years in the two-patch fishing model where the \(F_1\) population in patch 1 is fished sustainably but human population 1 has a lower social influence than humans in patch 2, where \(F_2\) is being fished unsustainably. Both \(\rho_1\) and \(\rho_2\) were increased simultaneously. \label{rhoExploreGraph}}
 \end{figure}
 
 \end{document}

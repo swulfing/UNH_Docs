@@ -2,7 +2,15 @@
 title: "Reveiwer1_RhoQ"
 author: "Sophie Wulfing"
 date: "`r Sys.Date()`"
-output: html_document
+output:
+  bookdown::pdf_document2:
+    fig_caption: true
+    toc: false
+    lof: true
+    lot: true
+    keep_tex: true
+  pdf_document:
+    toc: false
 ---
 
 
@@ -27,16 +35,16 @@ params_dispersal <- data.frame(r_1 = 0.40, s_1 = 0.8, h_1 = 0.25, k_1 = 1.014, w
 cbbPalette <- c("#E69F00", "#009E73", "#567de9", "#D55E00") #F_1, F_2, X_1, X_2
 
 # #WORKED - MINIMUM GROWTH RATE USED IN THAMPI
-# params_list <- data.frame(r_1 = 0.16, s_1 = 0.8, h_1 = 0.5, k_1 = 0.17, w_1 = 1.44, c_1 = 0.6, d_1 = 0.3, m_1 = 0, rho_1 = 0,
+# params_dispersal <- data.frame(r_1 = 0.16, s_1 = 0.8, h_1 = 0.5, k_1 = 0.17, w_1 = 1.44, c_1 = 0.6, d_1 = 0.3, m_1 = 0, rho_1 = 0,
 #                           r_2 = 0.16, s_2 = 0.8, h_2 = 0.5, k_2 = 0.17, w_2 = 1.44, c_2 = 0.6, d_2 = 0.3, m_2 = 0, rho_2 = 0)
 
 #Extensions of Bauch Default but with my params I want changed. Goal: get this to oscillate
-# params_list <- data.frame(r_1 = 0.35, s_1 = 0.8, h_1 = 0.5, k_1 = 0.17, w_1 = 1, c_1 = 1.68, d_1 = 0.3, m_1 = 0, rho_1 = 0,
+# params_dispersal <- data.frame(r_1 = 0.35, s_1 = 0.8, h_1 = 0.5, k_1 = 0.17, w_1 = 1, c_1 = 1.68, d_1 = 0.3, m_1 = 0, rho_1 = 0,
 #                           r_2 = 0.35, s_2 = 0.8, h_2 = 0.5, k_2 = 0.17, w_2 = 1, c_2 = 1.68, d_2 = 0.3, m_2 = 0, rho_2 = 0)
 
 
 #Extension of Bauch Default
-# params_list <- data.frame(r_1 = 0.06, s_1 = 0.8, h_1 = 0.1, k_1 = 0.17, w_1 = 1, c_1 = 0.6, d_1 = 0.3, m_1 = 0, rho_1 = 0,
+# params_dispersal <- data.frame(r_1 = 0.06, s_1 = 0.8, h_1 = 0.1, k_1 = 0.17, w_1 = 1, c_1 = 0.6, d_1 = 0.3, m_1 = 0, rho_1 = 0,
 #                           r_2 = 0.06, s_2 = 0.8, h_2 = 0.1, k_2 = 0.17, w_2 = 1, c_2 = 0.6, d_2 = 0.3, m_2 = 0, rho_2 = 0)
 
 
@@ -111,14 +119,14 @@ ode(
 ) %>%
   as.data.frame() -> out_Coupled
 
-# out_Coupled %>%
-#   gather(variable,value,-time) %>%
-#   ggplot(aes(x=time,y=value,color=variable))+
-#   geom_line(size=1)+
-#   theme_classic()+
-#   labs(x='Time (Year)',y='Population') +
-#   theme(legend.title=element_blank()) +
-#   scale_colour_discrete(labels=c(expression('F'[1]), expression('F'[2]), expression('X'[1]), expression('X'[2])))
+out_Coupled %>%
+  gather(variable,value,-time) %>%
+  ggplot(aes(x=time,y=value,color=variable))+
+  geom_line(size=1)+
+  theme_classic()+
+  labs(x='Time (Year)',y='Population') +
+  theme(legend.title=element_blank()) +
+  scale_colour_discrete(labels=c(expression('F'[1]), expression('F'[2]), expression('X'[1]), expression('X'[2])))
 
 
 ```
@@ -134,7 +142,7 @@ plotList <- list()
 k <- 0
 
 for(i in 1:length(dparams)){
-  params_Default <- params_list
+  params_Default <- params_dispersal
   params_Default[7] <- dparams[i]
   #params_Default[16] <- dparams[i]
   
@@ -224,7 +232,7 @@ plotList <- list()
 k <- 0
 
 for(i in 1:length(dparams)){
-  params_Default <- params_list
+  params_Default <- params_dispersal
   #params_Default[7] <- dparams[i]
   params_Default[16] <- dparams[i]
   
@@ -256,7 +264,7 @@ for(i in 1:length(dparams)){
       # scale_x_discrete(name = "Time (Year)", limits = c(0,750)) +
       # scale_y_discrete(name = "Population", limits = c(0, 0.5, 1)) +
       scale_discrete_manual(values=cbbPalette, aesthetics = "colour", name = "Variable", labels=c(expression('F'[1]), expression('F'[2]), expression('X'[1]), expression('X'[2]))) +
-      ggtitle(paste("\u03B4 = ", params_Default[7], "\u03C1 = ", params_Default[18])) +
+      ggtitle(paste("\u03B4 = ", params_Default[9], "\u03C1 = ", params_Default[16])) +
       theme(plot.title = element_text(size=7))
     plotList[[k]] <- p
     
@@ -272,7 +280,7 @@ for(i in 1:length(dparams)){
         # scale_x_discrete(name = "Time (Year)", limits = c(0,750)) +
         # scale_y_discrete(name = "Population", limits = c(0, 0.5, 1)) +
         #theme(legend.position = "none") +
-        ggtitle(paste("\u03B4 = ", params_Default[7], "\u03C1 = ", params_Default[18])) +
+        ggtitle(paste("\u03B4 = ", params_Default[9], "\u03C1 = ", params_Default[16])) +
         theme(plot.title = element_text(size=7))
       plotList[[k]] <- p
     }

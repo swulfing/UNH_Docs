@@ -57,6 +57,26 @@ timespan <- seq(from = 0, to = 1000, by = 1)
 options(tinytex.verbose = TRUE)
 ```
 
+\begin{equation}
+\frac{dF_1}{dt} = r_1F_1(1-F_1)-\frac{h_1*F_1(1-X_1)}{F_1 + s_1} -m_2F_1 + m_1F_2
+  (\#eq:FishWhole1)
+\end{equation}
+
+\begin{equation}
+\frac{dF_2}{dt} = r_2F_2(1-F_2)-\frac{h_2*F_2(1-X_2)}{F_2 + s_2} -m_1F_2 + m_2F_1
+  (\#eq:FishWhole2)
+\end{equation}
+
+\begin{equation}
+\frac{dX_1}{dt} =  k_1X_1(1-X_1) [\frac{1}{F_1+c_1} - \omega_1 + d_1(2X_1 - 1) + \rho_1(2X_2 - 1)]
+  (\#eq:SocWhole1)
+\end{equation}
+
+\begin{equation}
+\frac{dX_2}{dt} = k_2X_2(1-X_2)  [\frac{1}{F_2+c_2} - \omega_2 + d_2(2X_2 - 1) +  \rho_2(2X_1 - 1)]
+  (\#eq:SocWhole2)
+\end{equation}
+
 ```{r Bauch.Coupled, warning = FALSE}
 
 
