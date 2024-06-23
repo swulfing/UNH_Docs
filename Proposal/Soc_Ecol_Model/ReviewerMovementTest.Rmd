@@ -434,3 +434,96 @@ grid.arrange(arrangeGrob(plotList[[1]] + theme(legend.position="none"),
 
 ```
 
+\newpage
+
+# Looking at rho params in symmetrical case
+
+(ref:influenceasym) Listening to yourself ($d_1$) vs other pop ($\rho_1$)
+
+```{r influenceAsym, warning = FALSE, fig.cap = '(ref:influenceasym) \\label{influenceAsym}'}
+
+rhoparams <- c(0.01, 0.25, 0.5)
+dparams <- c(0.01, 0.25, 0.5)
+
+plotList <- list()
+k <- 0
+
+for(i in 1:length(dparams)){
+  params_Default <- params_list
+  params_Default[7] <- dparams[i]
+  #params_Default[16] <- dparams[i]
+  
+  for(j in 1:length(rhoparams)){
+    k <- k+1
+    params_Default[9] <- rhoparams[j]
+    #params_Default[18] <- rhoparams[j]
+  
+   times <- timespan
+    xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
+
+    ode(
+      func=Bauch.Coupled,
+      y=xstart,
+      times=times,
+      parms=params_Default
+    ) %>%
+      as.data.frame() -> out_Diff
+    
+    if(k ==1){
+      p <- out_Diff %>%
+      gather(variable,value,-time) %>%
+      ggplot(aes(x=time,y=value,color=variable))+
+      geom_line(size=1)+
+      theme_classic()+
+      scale_colour_manual(values=cbbPalette) +
+      scale_x_discrete(name = "", limits = c(0, 500, 950)) +
+      scale_y_discrete(name = "", limits = c(0, 0.5, 0.95)) +
+      # scale_x_discrete(name = "Time (Year)", limits = c(0,750)) +
+      # scale_y_discrete(name = "Population", limits = c(0, 0.5, 1)) +
+      scale_discrete_manual(values=cbbPalette, aesthetics = "colour", name = "Variable", labels=c(expression('F'[1]), expression('F'[2]), expression('X'[1]), expression('X'[2]))) +
+      ggtitle(paste("\u03B4 = ", params_Default[7], "\u03C1 = ", params_Default[9])) +
+      theme(plot.title = element_text(size=7))
+    plotList[[k]] <- p
+    
+    }else{
+      p <- out_Diff %>%
+        gather(variable,value,-time) %>%
+        ggplot(aes(x=time,y=value,color=variable))+
+        geom_line(size=1)+
+        theme_classic()+
+        scale_colour_manual(values=cbbPalette) +
+        scale_x_discrete(name = "", limits = c(0, 500, 950)) +
+        scale_y_discrete(name = "", limits = c(0, 0.5, 0.95)) +
+        # scale_x_discrete(name = "Time (Year)", limits = c(0,750)) +
+        # scale_y_discrete(name = "Population", limits = c(0, 0.5, 1)) +
+        #theme(legend.position = "none") +
+        ggtitle(paste("\u03B4 = ", params_Default[7], "\u03C1 = ", params_Default[9])) +
+        theme(plot.title = element_text(size=7))
+      plotList[[k]] <- p
+    }
+  }
+}
+
+yleft = richtext_grob("Population", rot=90)
+
+bottom = richtext_grob(
+  text = 'Time (year)'
+)
+  
+
+  p_legend <- get_legend(plotList[[1]])
+
+grid.arrange(arrangeGrob(plotList[[1]] + theme(legend.position="none"),
+                         plotList[[2]] + theme(legend.position="none"),
+                         plotList[[3]] + theme(legend.position="none"),
+                         plotList[[4]] + theme(legend.position="none"),
+                         plotList[[5]] + theme(legend.position="none"),
+                         plotList[[6]] + theme(legend.position="none"),
+                         plotList[[7]] + theme(legend.position="none"),
+                         plotList[[8]] + theme(legend.position="none"),
+                         plotList[[9]] + theme(legend.position="none"),
+                         nrow=3, left = yleft, bottom = bottom),
+             p_legend, 
+             ncol=2,widths=c(2, 0.3))
+
+```
