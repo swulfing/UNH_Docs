@@ -48,8 +48,8 @@ cbbPalette <- c("#E69F00", "#009E73", "#567de9", "#D55E00") #F_1, F_2, X_1, X_2
 #                           r_2 = 0.06, s_2 = 0.8, h_2 = 0.1, k_2 = 0.17, w_2 = 1, c_2 = 0.6, d_2 = 0.3, m_2 = 0, rho_2 = 0)
 
 
-xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
-timespan <- seq(from = 0, to = 1000, by = 1)
+#xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
+#timespan <- seq(from = 0, to = 100, by = 1)
 
 ```
 
@@ -77,7 +77,7 @@ options(tinytex.verbose = TRUE)
   (\#eq:SocWhole2)
 \end{equation}
 
-```{r Bauch.Coupled, warning = FALSE}
+```{r Bauch.Coupled, warning = FALSE, eval = TRUE}
 
 
 ##Maybe see what proportion of people can actually be fishing in this system to make it sustainable
@@ -126,57 +126,59 @@ Bauch.Coupled <- function (t, y, params) {
   list(dydt)
 }
 
-params_Bauch2 <- params_list
+# params_Bauch2 <- params_list
+# 
+# times <- timespan
+# xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
 
-times <- timespan
-xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
-
-ode(
-  func=Bauch.Coupled,
-  y=xstart,
-  times=times,
-  parms=params_Bauch2
-) %>%
-  as.data.frame() -> out_Coupled
-
-out_Coupled %>%
-  gather(variable,value,-time) %>%
-  ggplot(aes(x=time,y=value,color=variable))+
-  geom_line(size=1)+
-  theme_classic()+
-  labs(x='Time (Year)',y='Population') +
-  theme(legend.title=element_blank()) +
-  scale_colour_discrete(labels=c(expression('F'[1]), expression('F'[2]), expression('X'[1]), expression('X'[2])))
+# ode(
+#   func=Bauch.Coupled,
+#   y=xstart,
+#   times=times,
+#   parms=params_Bauch2
+# ) %>%
+#   as.data.frame() -> out_Coupled
+# 
+# out_Coupled %>%
+#   gather(variable,value,-time) %>%
+#   ggplot(aes(x=time,y=value,color=variable))+
+#   geom_line(size=1)+
+#   theme_classic()+
+#   labs(x='Time (Year)',y='Population') +
+#   theme(legend.title=element_blank()) +
+#   scale_colour_discrete(labels=c(expression('F'[1]), expression('F'[2]), expression('X'[1]), expression('X'[2])))
 
 
 ```
 
-(ref:influenceasym) The difference in increasing outside social pressure on population 1 (the $\rho_1$ parameter is increased down the columns of graphs) versus increasing social pressure from population 1 onto population 2 (the $\rho_2$ parameter is increased across rows of graphs) which compares self-pressure to pressuring the other gropu. 
+(ref:influenceasym) The difference in increasing outside social pressure on population 1 (the $\rho_1$ parameter is increased down the columns of graphs) versus increasing social pressure from population 1 onto population 2 (the $\rho_2$ parameter is increased across rows of graphs) which compares self-pressure to pressuring the other gropu.
 
 ```{r influenceAsym, warning = FALSE, fig.cap = '(ref:influenceasym) \\label{influenceAsym}'}
-
-rhoparams <- c(0.01, 0.25, 0.5)
-dparams <- c(0.01, 0.25, 0.5)
 
 plotList <- list()
 k <- 0
 
-for(i in 1:length(dparams)){
+rhoS <- c(0.01, 0.25, 0.5)
+dS <- c(0.01, 0.25, 0.5)
+
+timespan <- seq(from = 0, to = 150, by = 1)
+
+for(i in 1:length(dS)){
   params_Default <- params_list
-  params_Default[7] <- dparams[i]
-  #params_Default[16] <- dparams[i]
+  params_Default[9] <- dS[i]
+  #params_Default[16] <- dS[i]
   
-  for(j in 1:length(rhoparams)){
+  for(j in 1:length(rhoS)){
     k <- k+1
-    #params_Default[9] <- rhoparams[j]
-    params_Default[16] <- rhoparams[j]
+    #params_Default[9] <- rhoS[j]
+    params_Default[18] <- rhoS[j]
   
    times <- timespan
-    xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
+   yStart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
 
     ode(
       func=Bauch.Coupled,
-      y=xstart,
+      y=yStart,
       times=times,
       parms=params_Default
     ) %>%
@@ -210,7 +212,7 @@ for(i in 1:length(dparams)){
         # scale_x_discrete(name = "Time (Year)", limits = c(0,750)) +
         # scale_y_discrete(name = "Population", limits = c(0, 0.5, 1)) +
         #theme(legend.position = "none") +
-        ggtitle(paste("\u03C1", " 1 = ", params_Default[7], "\u03C1", " 2 = ", params_Default[16])) +
+        ggtitle(paste("\u03C1", "1=", params_Default[9], "\u03C1", "2=", params_Default[18])) +
         theme(plot.title = element_text(size=7))
       plotList[[k]] <- p
     }
@@ -220,7 +222,7 @@ for(i in 1:length(dparams)){
 yleft = richtext_grob("Population", rot=90)
 
 bottom = richtext_grob(
-  text = 'Time (year)'
+  text = paste('Time (year)',  " F=", yStart[1], "X=", yStart[3])
 )
   
 
@@ -238,6 +240,129 @@ grid.arrange(arrangeGrob(plotList[[1]] + theme(legend.position="none"),
                          nrow=3, left = yleft, bottom = bottom),
              p_legend, 
              ncol=2,widths=c(2, 0.3))
+
+
+
+```
+
+```{r testFxn, warning = FALSE}
+
+gridFxn <- function(xstart, rhoparams, dparams){
+
+plotList <- list()
+k <- 0
+
+for(i in 1:length(dparams)){
+  params_Default <- params_list
+  params_Default[9] <- dparams[i]
+  #params_Default[16] <- dparams[i]
+  
+  for(j in 1:length(rhoparams)){
+    k <- k+1
+    #params_Default[9] <- rhoparams[j]
+    params_Default[18] <- rhoparams[j]
+  
+   times <- timespan
+    #xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
+
+    ode(
+      func=Bauch.Coupled,
+      y=xstart,
+      times=times,
+      parms=params_Default
+    ) %>%
+      as.data.frame() -> out_Diff
+    
+    if(k ==1){
+      p <- out_Diff %>%
+      gather(variable,value,-time) %>%
+      ggplot(aes(x=time,y=value,color=variable))+
+      geom_line(size=1)+
+      theme_classic()+
+      scale_colour_manual(values=cbbPalette) +
+      scale_x_discrete(name = "", limits = c(0, 500, 950)) +
+      scale_y_discrete(name = "", limits = c(0, 0.5, 0.95)) +
+      # scale_x_discrete(name = "Time (Year)", limits = c(0,750)) +
+      # scale_y_discrete(name = "Population", limits = c(0, 0.5, 1)) +
+      scale_discrete_manual(values=cbbPalette, aesthetics = "colour", name = "Variable", labels=c(expression('F'[1]), expression('F'[2]), expression('X'[1]), expression('X'[2]))) +
+      ggtitle(paste("\u03C1", " 1 = ", params_Default[9], "\u03C1", " 2 = ", params_Default[18])) +
+      theme(plot.title = element_text(size=7))
+    plotList[[k]] <- p
+    
+    }else{
+      p <- out_Diff %>%
+        gather(variable,value,-time) %>%
+        ggplot(aes(x=time,y=value,color=variable))+
+        geom_line(size=1)+
+        theme_classic()+
+        scale_colour_manual(values=cbbPalette) +
+        scale_x_discrete(name = "", limits = c(0, 500, 950)) +
+        scale_y_discrete(name = "", limits = c(0, 0.5, 0.95)) +
+        # scale_x_discrete(name = "Time (Year)", limits = c(0,750)) +
+        # scale_y_discrete(name = "Population", limits = c(0, 0.5, 1)) +
+        #theme(legend.position = "none") +
+        ggtitle(paste("\u03C1", "1=", params_Default[7], "\u03C1", "2=", params_Default[16])) +
+        theme(plot.title = element_text(size=7))
+      plotList[[k]] <- p
+    }
+  }
+}
+
+yleft = richtext_grob("Population", rot=90)
+
+bottom = richtext_grob(
+  text = paste('Time (year)',  " X1=", xstart[3], "X2=", xstart[4])
+)
+  
+
+  p_legend <- get_legend(plotList[[1]])
+
+grid.arrange(arrangeGrob(plotList[[1]] + theme(legend.position="none"),
+                         plotList[[2]] + theme(legend.position="none"),
+                         plotList[[3]] + theme(legend.position="none"),
+                         plotList[[4]] + theme(legend.position="none"),
+                         plotList[[5]] + theme(legend.position="none"),
+                         plotList[[6]] + theme(legend.position="none"),
+                         plotList[[7]] + theme(legend.position="none"),
+                         plotList[[8]] + theme(legend.position="none"),
+                         plotList[[9]] + theme(legend.position="none"),
+                         nrow=3, left = yleft, bottom = bottom),
+             p_legend, 
+             ncol=2,widths=c(2, 0.3))
+
+}
+
+```
+
+```{r changingXStarts}
+
+fStarts <- c(0.25, 0.5, 0.75)
+xStarts <- c(0.10, 0.25, 0.5)
+
+rhoS <- c(0.01, 0.25, 0.5)
+dS <- c(0.01, 0.25, 0.5)
+
+timespan <- seq(from = 0, to = 150, by = 1)
+
+for(i in 1:length(xStarts)){
+  
+  for (j in 1:length(xStarts)){
+    
+    StartParams <- c(F_1 = 0.406, F_2 = 0.406, X_1 = xStarts[i], X_2 = xStarts[j])
+    
+    gridFxn(StartParams, rhoS, dS)
+
+    
+  }
+  
+}
+
+# xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
+# timespan <- seq(from = 0, to = 100, by = 1)
+# 
+# rhoparams <- c(0.01, 0.25, 0.5)
+# dparams <- c(0.01, 0.25, 0.5)
+
 
 ```
 
