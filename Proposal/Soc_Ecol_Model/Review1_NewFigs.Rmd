@@ -1,0 +1,293 @@
+---
+title: "Review1_NewFigs"
+author: "Sophie Wulfing"
+date: "`r Sys.Date()`"
+output:
+  bookdown::pdf_document2:
+    fig_caption: true
+    toc: false
+    lof: true
+    lot: true
+    keep_tex: true
+  pdf_document:
+    toc: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev="cairo_pdf", cache = TRUE)
+
+library(deSolve)
+library(tidyverse)
+library(ggplot2)
+library(gridExtra)
+#library(kableExtra)
+library(FME)
+library(ggpubr)
+library(gridtext)
+
+#setwd("C:/Users/sophi/Documents/GitHub/UNH_Docs/Proposal/Soc_Ecol_Model")
+
+params_list <- data.frame(r_1 = 0.40, s_1 = 0.8, h_1 = 0.25, k_1 = 1.014, w_1 = 0.2, c_1 = 1.5, d_1 = 0.5, m_1 = 0.2, rho_1 = 0.5,
+                               r_2 = 0.35, s_2 = 0.8, h_2 = 0.5, k_2 = 1.014, w_2 = 0.35, c_2 = 1.5, d_2 = 0.5, m_2 = 0.2, rho_2 = 0.1)
+
+
+cbbPalette <- c("#E69F00", "#009E73", "#567de9", "#D55E00") #F_1, F_2, X_1, X_2
+
+xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
+timespan <- seq(from = 0, to = 1000, by = 1)
+
+```
+
+```{r, include=FALSE}
+options(tinytex.verbose = TRUE)
+```
+
+```{r Bauch.Coupled, warning = FALSE}
+
+
+##Maybe see what proportion of people can actually be fishing in this system to make it sustainable
+
+Bauch.Coupled <- function (t, y, params) {
+  ## first extract the state variables
+  F_1 <- y[1] #Fish Pop var
+  F_2 <- y[2] #Fish Pop var
+  X_1 <- y[3] #conservationist var
+  X_2 <- y[4] #conservationist var
+
+  #TT <- y[5]
+  
+  ## now extract the parameters
+  r_1 <- params["r_1"] # Net growth/fecundity
+  s_1 <- params["s_1"] # supply and demand
+  h_1 <- params["h_1"] # Harvesting efficiency
+  k_1 <- params["k_1"] # Social learning rate
+  w_1 <- params["w_1"] # conservation costs
+  c_1 <- params["c_1"] # rarity valuation param
+  d_1 <- params["d_1"] # social norm strength
+  m_1 <- params["m_1"] # Inflow of fish from pop 2 to pop 1
+  rho_1 <- params["rho_1"] # Influence of pop 2 on pop 1
+  
+  r_2 <- params["r_2"] # Net growth/fecundity
+  s_2 <- params["s_2"] # supply and demand
+  h_2 <- params["h_2"] # Harvesting efficiency
+  k_2 <- params["k_2"] # Social learning rate
+  w_2 <- params["w_2"] # conservation costs
+  c_2 <- params["c_2"] # rarity valuation param
+  d_2 <- params["d_2"] # social norm strength 
+  m_2 <- params["m_2"] # Inflow of fish from pop 1 to pop 2
+  rho_2 <- params["rho_2"] # Influence of pop 1 on pop 2
+  
+  ## now code the model equations
+  dF_1dt <-  r_1 * F_1 * (1-F_1) - (h_1 * F_1 * (1-X_1))/(F_1+s_1) - m_2 * F_1 + m_1 * F_2
+  dF_2dt <-  r_2 * F_2 * (1-F_2) - (h_2 * F_2 * (1-X_2))/(F_2+s_2) - m_1 * F_2 + m_2 * F_1
+  
+  dX_1dt <- k_1 * X_1 * (1-X_1) *(1/(F_1 + c_1) - w_1 + d_1*(2*X_1 - 1) + rho_1 * (2*X_2 - 1))
+  dX_2dt <- k_2 * X_2 * (1-X_2) *(1/(F_2 + c_2) - w_2 + d_2*(2*X_2 - 1) + rho_2 * (2*X_1 - 1))
+  
+  ## combine results into a single vector
+  dydt <- c(dF_1dt, dF_2dt, dX_1dt, dX_2dt)
+  ## return result as a list!
+  
+  list(dydt)
+}
+
+params_Bauch2 <- params_list
+
+times <- timespan
+xstart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
+
+ode(
+  func=Bauch.Coupled,
+  y=xstart,
+  times=times,
+  parms=params_Bauch2
+) %>%
+  as.data.frame() -> out_Coupled
+
+# out_Coupled %>%
+#   gather(variable,value,-time) %>%
+#   ggplot(aes(x=time,y=value,color=variable))+
+#   geom_line(size=1)+
+#   theme_classic()+
+#   scale_colour_manual(values=cbbPalette) +
+#   labs(x='Time (yr)',y='Population') +
+#   theme(legend.title=element_blank()) +
+#   scale_discrete_manual(values=cbbPalette, aesthetics = "colour",name = "Variable", labels=c(expression('F'[1]), expression('F'[2]), expression('X'[1]), expression('X'[2])))
+
+
+```
+
+```{r NewParamTable, results = 'asis', echo = FALSE}
+
+
+giveparams <- data.frame(matrix(, nrow = 9, ncol = 4))
+colnames(giveparams) <- c("Parameter", "Population_1", "Population_2", "Definition")
+
+giveparams$Parameter <- c("r", "s", "h", "k", "$\\omega$", "c", "d", "m", "$\\rho$")
+giveparams$Population_1 <- c(params_list[1:9])
+giveparams$Population_2 <- c(params_list[10:18])
+colnames(giveparams) <- c("Parameter", "Population 1", "Population 2", "Definition")
+
+giveparams$Definition <- c("Fish net growth",
+                    "Supply and demand",
+                    "Harvesting efficiency",
+                    "Rate of sampling opinions or social interaction",
+                    "Conservation cost",
+                    "Rarity valuation",
+                    "Strength of social influence (within population)",
+                    "Fish movement (from opposite patch)",
+                    "Strength of social influence (from opposite population)")
+
+knitr::kable(giveparams, format = "pandoc", booktabs = TRUE, caption = "(ref:newparamtable) \\label{NewParamTable}")
+
+```
+
+(ref:rhocompare1) The effect of changing rho 1 and rho 2 on final dynamics of F1 (a) and F2 (b) using parameters from Table 2. Data was run for 200 years
+
+
+```{r RhoCompare1, results = 'asis', echo = FALSE, fig.show = "hold", out.width = "50%", fig.cap = '(ref:rhocompare1) \\label{RhoCompare1}'}
+
+#FOR SOME REASON THESE GRAPHS ARE NOT PROPERLY FILTERING 
+
+#modeled_data <- read.csv("rhoModel.csv")
+
+modeled_data <- read.csv("rhoModel.csv")
+
+modeled_GraphDataF <- modeled_data %>%
+  mutate(Status1 = case_when(
+    F1_Final <= 0.1 ~ "StockCrash",
+    F1_Final > 0.1 & F1_Final < 0.99 ~ "SomeFish",
+    F1_Final > 0.99 ~ "AllFish"
+    )) %>%
+  mutate(Status2 = case_when(
+    F2_Final <= 0.1 ~ "StockCrash",
+    F2_Final > 0.1 & F2_Final < 0.99 ~ "SomeFish",
+    F2_Final > 0.99 ~ "AllFish"
+    ))
+
+whereFish <- modeled_GraphDataF %>%
+  filter(Status1 == "SomeFish" | Status2 == "SomeFish")
+
+
+ggplot(modeled_GraphDataF, aes(x = Rho_2, y = Rho_1, fill = Status1)) + geom_tile(width=.05) +
+  # scale_fill_gradient2(
+  # low = "red",
+  # mid = "green",
+  # high = "purple",
+  # #limits = c(1, max(growthRate$lambda_new)),
+  # midpoint = 0.1,
+  # space = "Lab",
+  # na.value = "grey50") +
+  scale_x_continuous(name = "Rho 2", expand=c(0,0)) + #, breaks = c(1, 3, 6, 9, 12)) +
+  scale_y_continuous(name = "Rho 1", expand=c(0,0)) 
+  # labs(fill = "Final Population") +
+  # geom_segment(aes(x = 2.5, y = .075, xend = 2.5, yend = 0.105), size = .5, color = "#5A5A5A") +
+  # geom_segment(aes(x = 11.5, y = .015, xend = 12.5, yend = 0.015), size = .5, color = "#5A5A5A") +
+  # geom_step(data = paretospagheto , aes(x=Frequency, y=PercentChange), size = .5, color = "#5A5A5A") +
+  # geom_text(x=8, y=.07, label="Population Increasing") +
+  # geom_text(x=3.5, y=.015, label="Population Decreasing")
+
+ggplot(modeled_GraphDataF, aes(x = Rho_2, y = Rho_1, fill = Status2)) + geom_tile(width=.05) +
+  # scale_fill_gradient2(
+  # low = "red",
+  # mid = "green",
+  # high = "purple",
+  # #limits = c(1, max(growthRate$lambda_new)),
+  # midpoint = 0.1,
+  # space = "Lab",
+  # na.value = "grey50") +
+  scale_x_continuous(name = "Rho 2", expand=c(0,0)) + #, breaks = c(1, 3, 6, 9, 12)) +
+  scale_y_continuous(name = "Rho 1", expand=c(0,0)) 
+  # labs(fill = "Final Population") +
+  # geom_segment(aes(x = 2.5, y = .075, xend = 2.5, yend = 0.105), size = .5, color = "#5A5A5A") +
+  # geom_segment(aes(x = 11.5, y = .015, xend = 12.5, yend = 0.015), size = .5, color = "#5A5A5A") +
+  # geom_step(data = paretospagheto , aes(x=Frequency, y=PercentChange), size = .5, color = "#5A5A5A") +
+  # geom_text(x=8, y=.07, label="Population Increasing") +
+  # geom_text(x=3.5, y=.015, label="Population Decreasing")
+```
+
+(ref:xcompare) The effect of changing rho 1 and rho 2 on final dynamics of X1 (a) and X2 (b) using parameters from Table 2. Data was run for 200 years
+
+```{r XCompare, results = 'asis', echo = FALSE, fig.show = "hold", out.width = "50%", fig.cap = '(ref:xcompare) \\label{XCompare}'}
+
+#modeled_data <- read.csv("rhoModel.csv")
+
+modeled_data <- read.csv("rhoModel.csv")
+
+modeled_GraphDataX <- modeled_data %>%
+  mutate(Status1 = case_when(
+    X1_Final <= 0.1 ~ "AllFishing",
+    X1_Final > 0.1 & X1_Final < 0.99 ~ "NoneFishing",
+    X1_Final > 0.99 ~ "NoneFishing"
+    )) %>%
+  mutate(Status2 = case_when(
+    X2_Final <= 0.1 ~ "AllFishing",
+    X2_Final > 0.1 & X2_Final < 0.99 ~ "NoneFishing", #All of these eventually go to NoneFishing, changed to NoneFishing
+    X2_Final > 0.99 ~ "NoneFishing"
+    ))
+
+
+ggplot(modeled_GraphDataX, aes(x = Rho_2, y = Rho_1, fill = Status1)) + geom_tile(width=.05) +
+  # scale_fill_gradient2(
+  # low = "red",
+  # mid = "green",
+  # high = "purple",
+  # #limits = c(1, max(growthRate$lambda_new)),
+  # midpoint = 0.1,
+  # space = "Lab",
+  # na.value = "grey50") +
+  scale_x_continuous(name = "Rho 2", expand=c(0,0)) + #, breaks = c(1, 3, 6, 9, 12)) +
+  scale_y_continuous(name = "Rho 1", expand=c(0,0)) 
+  # labs(fill = "Final Population") +
+  # geom_segment(aes(x = 2.5, y = .075, xend = 2.5, yend = 0.105), size = .5, color = "#5A5A5A") +
+  # geom_segment(aes(x = 11.5, y = .015, xend = 12.5, yend = 0.015), size = .5, color = "#5A5A5A") +
+  # geom_step(data = paretospagheto , aes(x=Frequency, y=PercentChange), size = .5, color = "#5A5A5A") +
+  # geom_text(x=8, y=.07, label="Population Increasing") +
+  # geom_text(x=3.5, y=.015, label="Population Decreasing")
+
+ggplot(modeled_GraphDataX, aes(x = Rho_2, y = Rho_1, fill = Status2)) + geom_tile(width=.05) +
+  # scale_fill_gradient2(
+  # low = "red",
+  # mid = "green",
+  # high = "purple",
+  # #limits = c(1, max(growthRate$lambda_new)),
+  # midpoint = 0.1,
+  # space = "Lab",
+  # na.value = "grey50") +
+  scale_x_continuous(name = "Rho 2", expand=c(0,0)) + #, breaks = c(1, 3, 6, 9, 12)) +
+  scale_y_continuous(name = "Rho 1", expand=c(0,0)) 
+  # labs(fill = "Final Population") +
+  # geom_segment(aes(x = 2.5, y = .075, xend = 2.5, yend = 0.105), size = .5, color = "#5A5A5A") +
+  # geom_segment(aes(x = 11.5, y = .015, xend = 12.5, yend = 0.015), size = .5, color = "#5A5A5A") +
+  # geom_step(data = paretospagheto , aes(x=Frequency, y=PercentChange), size = .5, color = "#5A5A5A") +
+  # geom_text(x=8, y=.07, label="Population Increasing") +
+  # geom_text(x=3.5, y=.015, label="Population Decreasing")
+```
+```{r rhoStuffITired}
+
+modeled_data <- read.csv("rhoModel.csv")
+
+fishPalette <- c("#670a1f", "#4393c3", "#053061")
+
+
+modeled_GraphData <- modeled_data %>%
+  mutate(Status = case_when(
+    F2_Final <= 0.1 ~ 0, # Stock Crash, All
+    F2_Final > 0.1 & F2_Final < 0.99 ~ 1, # Some Fish Both Patches, Only X2 Fish
+    F2_Final > 0.99 ~ 2 # Fish full pop, no fishing
+    ))
+
+modeled_GraphData$Status <- as.factor(modeled_GraphData$Status)
+
+
+ggplot(modeled_GraphData, aes(x = Rho_2, y = Rho_1, fill = Status)) + geom_tile(width=.05) +
+  scale_x_continuous(name = expression('\u03C1'[2]), expand=c(0,0)) + 
+  scale_y_continuous(name = expression('\u03C1'[1]), expand=c(0,0)) +
+  scale_fill_manual(values=fishPalette) +
+  theme(legend.position = "none")
+
+
+
+```
+
+

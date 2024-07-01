@@ -433,9 +433,12 @@ grid.arrange(arrangeGrob(plotList[[1]] + theme(legend.position="none"),
 
 ```{r influenceAsym, warning = FALSE, fig.cap = '(ref:influenceasym) \\label{influenceAsym}', eval = FALSE}
 
+params_list <- data.frame(r_1 = 0.40, s_1 = 0.8, h_1 = 0.25, k_1 = 1.014, w_1 = 0.2, c_1 = 1.5, d_1 = 0.5, m_1 = 0.2, rho_1 = 0.5,
+                               r_2 = 0.35, s_2 = 0.8, h_2 = 0.5, k_2 = 1.014, w_2 = 0.35, c_2 = 1.5, d_2 = 0.5, m_2 = 0.2, rho_2 = 0.1)
+
 k <- 0
 
-modeled_data <- data.frame(matrix(ncol=4,nrow=0, dimnames=list(NULL, c("Rho_1", "Rho_2", "F1_Final", "F2_Final"))))
+modeled_data <- data.frame(matrix(ncol=6,nrow=0, dimnames=list(NULL, c("Rho_1", "Rho_2", "F1_Final", "F2_Final", "X1_Final", "X2_Final"))))
 
 rhos <- seq(from = 0, to = .5, by = .01)
 
@@ -462,7 +465,7 @@ for(i in 1:length(rhos)){
       as.data.frame() -> out_Diff
     
     
-    modeled_data[k,] <- c(rhos[i], rhos[j], out_Diff$F_1[max(out_Diff$time)], out_Diff$F_2[max(out_Diff$time)])
+    modeled_data[k,] <- c(rhos[i], rhos[j], out_Diff$F_1[max(out_Diff$time)], out_Diff$F_2[max(out_Diff$time)], out_Diff$X_1[max(out_Diff$time)], out_Diff$X_2[max(out_Diff$time)])
     
   }
 }
@@ -472,22 +475,42 @@ write.csv(modeled_data, "rhoModel.csv")
 
 ```
 
-(ref:twographs) The effect of changing rho 1 and rho 2 on final dynamics of F1 (a) and F2 (b) using parameters from Table 2. Data was run for 200 years
+(ref:rhocompare1) The effect of changing rho 1 and rho 2 on final dynamics of F1 (a) and F2 (b) using parameters from Table 2. Data was run for 200 years
 
 
-```{r TwoGraphs, results = 'asis', echo = FALSE, fig.show = "hold", out.width = "50%", fig.cap = '(ref:twographs) \\label{TwoGraphs}'}
+```{r RhoCompare1, results = 'asis', echo = FALSE, fig.show = "hold", out.width = "50%", fig.cap = '(ref:rhocompare1) \\label{RhoCompare1}'}
+
+#FOR SOME REASON THESE GRAPHS ARE NOT PROPERLY FILTERING 
+
+#modeled_data <- read.csv("rhoModel.csv")
 
 modeled_data <- read.csv("rhoModel.csv")
 
-ggplot(modeled_data, aes(x = Rho_2, y = Rho_1, fill = F1_Final)) + geom_tile(width=.05) +
-  scale_fill_gradient2(
-  low = "red",
-  mid = "white",
-  high = "green",
-  #limits = c(1, max(growthRate$lambda_new)),
-  midpoint = 0.1,
-  space = "Lab",
-  na.value = "grey50") +
+modeled_GraphDataF <- modeled_data %>%
+  mutate(Status1 = case_when(
+    F1_Final <= 0.1 ~ "StockCrash",
+    F1_Final > 0.1 & F1_Final < 1 ~ "SomeFish",
+    F1_Final > 0.99 ~ "AllFish"
+    )) %>%
+  mutate(Status2 = case_when(
+    F2_Final <= 0.1 ~ "StockCrash",
+    F2_Final > 0.1 & F2_Final < 1 ~ "SomeFish",
+    F2_Final > 0.99 ~ "AllFish"
+    ))
+
+whereFish <- modeled_GraphDataF %>%
+  filter(Status1 == "SomeFish" | Status2 == "SomeFish")
+
+
+ggplot(modeled_GraphDataF, aes(x = Rho_2, y = Rho_1, fill = Status1)) + geom_tile(width=.05) +
+  # scale_fill_gradient2(
+  # low = "red",
+  # mid = "green",
+  # high = "purple",
+  # #limits = c(1, max(growthRate$lambda_new)),
+  # midpoint = 0.1,
+  # space = "Lab",
+  # na.value = "grey50") +
   scale_x_continuous(name = "Rho 2", expand=c(0,0)) + #, breaks = c(1, 3, 6, 9, 12)) +
   scale_y_continuous(name = "Rho 1", expand=c(0,0)) 
   # labs(fill = "Final Population") +
@@ -497,15 +520,15 @@ ggplot(modeled_data, aes(x = Rho_2, y = Rho_1, fill = F1_Final)) + geom_tile(wid
   # geom_text(x=8, y=.07, label="Population Increasing") +
   # geom_text(x=3.5, y=.015, label="Population Decreasing")
 
-ggplot(modeled_data, aes(x = Rho_2, y = Rho_1, fill = F2_Final)) + geom_tile(width=.05) +
-  scale_fill_gradient2(
-  low = "red",
-  mid = "white",
-  high = "green",
-  #limits = c(1, max(growthRate$lambda_new)),
-  midpoint = 0.1,
-  space = "Lab",
-  na.value = "grey50") +
+ggplot(modeled_GraphDataF, aes(x = Rho_2, y = Rho_1, fill = Status2)) + geom_tile(width=.05) +
+  # scale_fill_gradient2(
+  # low = "red",
+  # mid = "green",
+  # high = "purple",
+  # #limits = c(1, max(growthRate$lambda_new)),
+  # midpoint = 0.1,
+  # space = "Lab",
+  # na.value = "grey50") +
   scale_x_continuous(name = "Rho 2", expand=c(0,0)) + #, breaks = c(1, 3, 6, 9, 12)) +
   scale_y_continuous(name = "Rho 1", expand=c(0,0)) 
   # labs(fill = "Final Population") +
@@ -515,3 +538,175 @@ ggplot(modeled_data, aes(x = Rho_2, y = Rho_1, fill = F2_Final)) + geom_tile(wid
   # geom_text(x=8, y=.07, label="Population Increasing") +
   # geom_text(x=3.5, y=.015, label="Population Decreasing")
 ```
+
+(ref:xcompare) The effect of changing rho 1 and rho 2 on final dynamics of X1 (a) and X2 (b) using parameters from Table 2. Data was run for 200 years
+
+```{r XCompare, results = 'asis', echo = FALSE, fig.show = "hold", out.width = "50%", fig.cap = '(ref:xcompare) \\label{XCompare}'}
+
+#modeled_data <- read.csv("rhoModel.csv")
+
+modeled_data <- read.csv("rhoModel.csv")
+
+modeled_GraphDataX <- modeled_data %>%
+  mutate(Status1 = case_when(
+    X1_Final <= 0.1 ~ "AllFishing",
+    X1_Final > 0.1 & X1_Final < 1 ~ "SomeFishing",
+    X1_Final == 1 ~ "NoneFishing"
+    )) %>%
+  mutate(Status2 = case_when(
+    X2_Final <= 0.1 ~ "AllFishing",
+    X2_Final > 0.1 & X2_Final < 1 ~ "NoneFishing", #All of these eventually go to NoneFishing
+    X2_Final == 1 ~ "NoneFishing"
+    ))
+
+whyNA <- modeled_GraphDataX %>%
+  filter(is.na(Status2))
+
+modeled_GraphDataX$Status2 <- replace_na(modeled_GraphDataX$Status2, "NoneFishing")
+
+# whereFishing <- modeled_GraphDataX %>%
+#   filter(Status1 == "Some" | Status2 == "SomeFishing")
+  
+
+ggplot(modeled_GraphDataX, aes(x = Rho_2, y = Rho_1, fill = Status1)) + geom_tile(width=.05) +
+  # scale_fill_gradient2(
+  # low = "red",
+  # mid = "green",
+  # high = "purple",
+  # #limits = c(1, max(growthRate$lambda_new)),
+  # midpoint = 0.1,
+  # space = "Lab",
+  # na.value = "grey50") +
+  scale_x_continuous(name = "Rho 2", expand=c(0,0)) + #, breaks = c(1, 3, 6, 9, 12)) +
+  scale_y_continuous(name = "Rho 1", expand=c(0,0)) 
+  # labs(fill = "Final Population") +
+  # geom_segment(aes(x = 2.5, y = .075, xend = 2.5, yend = 0.105), size = .5, color = "#5A5A5A") +
+  # geom_segment(aes(x = 11.5, y = .015, xend = 12.5, yend = 0.015), size = .5, color = "#5A5A5A") +
+  # geom_step(data = paretospagheto , aes(x=Frequency, y=PercentChange), size = .5, color = "#5A5A5A") +
+  # geom_text(x=8, y=.07, label="Population Increasing") +
+  # geom_text(x=3.5, y=.015, label="Population Decreasing")
+
+ggplot(modeled_GraphDataX, aes(x = Rho_2, y = Rho_1, fill = Status2)) + geom_tile(width=.05) +
+  # scale_fill_gradient2(
+  # low = "red",
+  # mid = "green",
+  # high = "purple",
+  # #limits = c(1, max(growthRate$lambda_new)),
+  # midpoint = 0.1,
+  # space = "Lab",
+  # na.value = "grey50") +
+  scale_x_continuous(name = "Rho 2", expand=c(0,0)) + #, breaks = c(1, 3, 6, 9, 12)) +
+  scale_y_continuous(name = "Rho 1", expand=c(0,0)) 
+  # labs(fill = "Final Population") +
+  # geom_segment(aes(x = 2.5, y = .075, xend = 2.5, yend = 0.105), size = .5, color = "#5A5A5A") +
+  # geom_segment(aes(x = 11.5, y = .015, xend = 12.5, yend = 0.015), size = .5, color = "#5A5A5A") +
+  # geom_step(data = paretospagheto , aes(x=Frequency, y=PercentChange), size = .5, color = "#5A5A5A") +
+  # geom_text(x=8, y=.07, label="Population Increasing") +
+  # geom_text(x=3.5, y=.015, label="Population Decreasing")
+```
+
+```{r whereFishingTest}
+
+params_list <- data.frame(r_1 = 0.40, s_1 = 0.8, h_1 = 0.25, k_1 = 1.014, w_1 = 0.2, c_1 = 1.5, d_1 = 0.5, m_1 = 0.2, rho_1 = 0.5,
+                               r_2 = 0.35, s_2 = 0.8, h_2 = 0.5, k_2 = 1.014, w_2 = 0.35, c_2 = 1.5, d_2 = 0.5, m_2 = 0.2, rho_2 = 0.1)
+
+timespan <- seq(from = 0, to = 1000, by = 1)
+
+
+plotList <- list()
+
+
+for(i in 1:length(whereFishing)){
+  params_Default <- params_list
+  params_Default[9] <- whereFishing$Rho_1[i]
+  params_Default[18] <- whereFishing$Rho_2[i]
+  
+
+   times <- timespan
+   yStart <- c(F_1 = 0.406, F_2 = 0.406, X_1 = .24, X_2 = .24)
+
+    ode(
+      func=Bauch.Coupled,
+      y=yStart,
+      times=times,
+      parms=params_Default
+    ) %>%
+      as.data.frame() -> out_Diff
+    
+    if(i ==1){
+      p <- out_Diff %>%
+      gather(variable,value,-time) %>%
+      ggplot(aes(x=time,y=value,color=variable))+
+      geom_line(size=1)+
+      theme_classic()+
+      scale_colour_manual(values=cbbPalette) +
+      scale_x_discrete(name = "", limits = c(0, 500, 950)) +
+      scale_y_discrete(name = "", limits = c(0, 0.5, 0.95)) +
+      # scale_x_discrete(name = "Time (Year)", limits = c(0,750)) +
+      # scale_y_discrete(name = "Population", limits = c(0, 0.5, 1)) +
+      scale_discrete_manual(values=cbbPalette, aesthetics = "colour", name = "Variable", labels=c(expression('F'[1]), expression('F'[2]), expression('X'[1]), expression('X'[2]))) +
+      ggtitle(paste("\u03C1", " 1 = ", params_Default[9], "\u03C1", " 2 = ", params_Default[18])) +
+      theme(plot.title = element_text(size=7))
+    plotList[[i]] <- p
+    
+    }else{
+      p <- out_Diff %>%
+        gather(variable,value,-time) %>%
+        ggplot(aes(x=time,y=value,color=variable))+
+        geom_line(size=1)+
+        theme_classic()+
+        scale_colour_manual(values=cbbPalette) +
+        scale_x_discrete(name = "", limits = c(0, 500, 950)) +
+        scale_y_discrete(name = "", limits = c(0, 0.5, 0.95)) +
+        # scale_x_discrete(name = "Time (Year)", limits = c(0,750)) +
+        # scale_y_discrete(name = "Population", limits = c(0, 0.5, 1)) +
+        #theme(legend.position = "none") +
+        ggtitle(paste("\u03C1", "1=", params_Default[9], "\u03C1", "2=", params_Default[18])) +
+        theme(plot.title = element_text(size=7))
+      plotList[[i]] <- p
+    }
+}
+
+yleft = richtext_grob("Population", rot=90)
+
+bottom = richtext_grob(
+  text = paste('Time (year)',  " F=", yStart[1], "X=", yStart[3])
+)
+  
+
+  p_legend <- get_legend(plotList[[1]])
+
+grid.arrange(arrangeGrob(plotList[[1]] + theme(legend.position="none"),
+                         plotList[[2]] + theme(legend.position="none"),
+                         plotList[[3]] + theme(legend.position="none"),
+                         plotList[[4]] + theme(legend.position="none"),
+                         plotList[[5]] + theme(legend.position="none"),
+                         plotList[[6]] + theme(legend.position="none"),
+                         plotList[[7]] + theme(legend.position="none"),
+                         plotList[[8]] + theme(legend.position="none"),
+                         plotList[[9]] + theme(legend.position="none"),
+                         nrow=3, left = yleft, bottom = bottom),
+             p_legend, 
+             ncol=2,widths=c(2, 0.3))
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
+
+
+
+
+
+
+
+

@@ -65,34 +65,44 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
 \newlength{\cslhangindent}
 \setlength{\cslhangindent}{1.5em}
 \newlength{\csllabelwidth}
 \setlength{\csllabelwidth}{3em}
-\newlength{\cslentryspacingunit} % times entry-spacing
-\setlength{\cslentryspacingunit}{\parskip}
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
   % turn on hanging indent if param 1 is 1
   \ifodd #1
-  \let\oldpar\par
-  \def\par{\hangindent=\cslhangindent\oldpar}
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
   \fi
   % set entry spacing
-  \setlength{\parskip}{#2\cslentryspacingunit}
- }%
- {}
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
 \usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 \usepackage{setspace} \usepackage{lineno} \usepackage{placeins} \usepackage[nottoc,notlof,notlot]{tocbibind} \renewcommand{\contentsname}{} \renewcommand{\listfigurename}{} \renewcommand{\listtablename}{} \usepackage{sectsty} \sectionfont{\centering}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
@@ -120,30 +130,27 @@ $\text{*}$ Corresponding authors: Sophie Wulfing (SophieWulfing@gmail.com) and D
 
 \linenumbers
 
-\hypertarget{abstract}{%
-\section{ABSTRACT}\label{abstract}}
+\section{ABSTRACT}\label{abstract}
 
-Socio-ecological models combine ecological systems with human social dynamics in order to better understand human interactions with the environment. To model human behavior, replicator dynamics can be used to model how societal influence and financial costs can change opinions about resource extraction. Previous research on replicator dynamics has shown how evolving opinions on conservation can change how humans interact with their environment and therefore change population dynamics of the harvested species. However, social-ecological models often assume that human societies are homogeneous with no social structure. Building on previous work on social-ecological models, we develop a two-patch socio-ecological model with social hierarchy in order to study the interactions between spatial dynamics an social inequity. We found that fish movement between patches is a major driver of model dynamics, especially when the two patches exhibit different social equality and fishing practices. Further, we found that the societal influence between groups of harvesters was essential to ensuring stable fishery dynamics. Next, we developed a case-study of a co-managed fishery where one group fishes sustainably while another was over-harvests, resulting in a fishery collapse of both patches. We also found that because social influence only included number of fishers and not effective strategies, increased social pressure actually decreased the sustainability of the fishery. The findings of this study indicate the importance of including spatial components to socio-ecological models and highlights the importance of understanding species movements when making conservation decisions. Further, we demonstrate how incorporating fishing methods from outside sources can result in higher stability of the harvested population, indicating a need for diversified information when managing resources.
+Socio-ecological models combine ecological systems with human social dynamics in order to better understand human interactions with the environment. To model human behavior, replicator dynamics can be used to model how societal influence and financial costs can change opinions about resource extraction. Previous research on replicator dynamics has shown how evolving opinions on conservation can change how humans interact with their environment and therefore change population dynamics of the harvested species. However, social-ecological models often assume that human societies are homogeneous with no social structure. Building on previous work on social-ecological models, we develop a two-patch socio-ecological model with social hierarchy in order to study the interactions between spatial dynamics an social inequity. We found that fish movement between patches is a major driver of model dynamics, especially when the two patches exhibit different social equality and fishing practices. Further, we found that the societal influence between groups of harvesters was essential to ensuring stable fishery dynamics. Next, we developed a case-study of a two independently managed fisheries that were connected by fish movement where one human group fishes sustainably while another was over-harvests, resulting in a fishery collapse of both patches. We also found that because in this model, the influence of one human patch on another only communicates the amount of each catch and not fishing strategies employed, increased social influence decreased the sustainability of the fishery. The findings of this study indicate the importance of including spatial components to socio-ecological models and highlights the importance of understanding species' movements when making conservation decisions. Further, we demonstrate how incorporating fishing methods from outside sources can result in higher stability of the harvested population, demonstrating the need for effective communication across management regimes.
 
 Keywords: two-patch model, replicator dynamics, social hierarchy, socio-ecological model, species movement
 
-\hypertarget{introduction}{%
-\section{INTRODUCTION}\label{introduction}}
+\section{INTRODUCTION}\label{introduction}
 
-Social ecological models treat human behavior as a variable as opposed to a set parameter. Allowing human heavier to be dynamic allows for the study of how human decision making can change in response to environmental factors and, in turn, alter how humans interact with resources and profits (Bauch, 2005; Ostrom, 2009; Innes et al., 2013; Oraby et al., 2014; Bauch et al., 2016; Sigdel et al., 2017; Thampi et al., 2018). As human societies grow increasingly intricate and interconnected, these models can help us to analyze how our social structures can influence the environment around us (Liu et al., 2007). Social ecological modeling provides important insight not only into how human decision making can influence ecological patterns but can also show hidden processes, reveal regime shifts that would otherwise be hidden, and identify vulnerabilities of systems that do not exist within the purely social or ecological models (Liu et al., 2007; Young et al., 2007; Ostrom, 2009; Lade et al., 2013). Socio-ecological models can also be used in systems where data are difficult to collect, as parameters can be changed in order to analyze different hypothetical scenarios. Conservation plans often do not reach their conservation goals, and these setbacks are often attributed to a lack of stakeholder participation (Crona \& Bodin, 2006; Salas et al., 2019; Prince et al., 2021). Socio-ecological models can identify where areas of potential conflict can arise, compromises that can be made in the system, and alternative conservation practices that encourages participation from all stakeholder groups (Ban et al., 2013). Further, as social-ecological models are simulations of human and environmental interactions, they allow flexibility and can be adapted to fit the specific system of study and improve place-based management practices (Young et al., 2007; Liu et al., 2007; Felipe-Lucia et al., 2022)
+Social ecological models treat human behavior as a variable as opposed to a set parameter. Allowing human behavior to be dynamic allows for the study of how decision making can change in response to environmental factors and, in turn, alter how humans interact with resources and profits (Bauch, 2005; Ostrom, 2009; Innes et al., 2013; Oraby et al., 2014; Bauch et al., 2016; Sigdel et al., 2017; Thampi et al., 2018). As human societies grow increasingly intricate and interconnected, these models can help us to analyze how our social structures can influence the environment around us (Liu et al., 2007). Social ecological modeling provides important insight not only into how human decision making can influence ecological patterns but can also show hidden processes, reveal regime shifts, and identify vulnerabilities of systems that do not exist within the purely social or ecological models (Liu et al., 2007; Young et al., 2007; Ostrom, 2009; Lade et al., 2013). Socio-ecological models can also be used in systems where data are difficult to collect, as parameters can be changed in order to analyze different hypothetical scenarios. As social-ecological models are simulations of human and environmental interactions, they allow flexibility and can be adapted to fit the specific system of study and improve place-based management practices (Young et al., 2007; Liu et al., 2007; Felipe-Lucia et al., 2022)
 
 Due to their adaptability, socio-ecological models can use a wide range of strategies to represent human decision making. One such method is replicator dynamics, which model human decision making where an individual makes conservation choices based on weighing the perceived benefits of conservation with the costs, as well as the social pressure to conform to the group's stance on conservation (Bauch, 2005). Individuals will therefore ``replicate'' the behavior of their peers by changing their harvest practices based on the opinion of the majority (Bauch \& Bhattacharyya, 2012). Models that employ replicator dynamics have been used to show how this social learning is a key component to vaccination uptake in public health, and preexisting social norms can actually suppress vaccine uptake despite frequent disease outbreaks (Bauch \& Bhattacharyya, 2012; Oraby et al., 2014). Replicator dynamics can also have conservation applications as pest invasion models have shown ways to simultaneously mitigate pest outbreaks and the cost to address them in the timber industry (Barlow et al., 2014). Further, land use changes have been modeled to have completely different dynamics when human decision making was added to replicator dynamic models (Innes et al., 2013). However, past work on human behavior has generally assumed that human societies are homogeneous, and all people are subject to the same social influence and ecological dynamics.
 
-Instituting effective conservation strategies can be especially difficult if the organism being protected has a migratory pattern that crosses over multiple management jurisdictions such as country borders (Ogburn et al., 2017; Garrone-Neto et al., 2018; Ramírez-Valdez et al., 2021). Borders can also create challenges when gathering population data that require extensive fieldwork (Cozzi et al., 2020; Hebblewhite \& Whittington, 2020). The fragmentation of management can also result in a mismatch of conservation strategies that become ineffective when the distinct management bodies do not coordinate efforts (Siddons et al., 2017). Research on the importance of coordinated research efforts has been conducted on many terrestrial species with large migratory ranges and have consistently shown that cooperation among government bodies is essential to protecting the health of highly migratory species or species whose native ranges expand across multiple countries (Plumptre et al., 2007; Gervasi et al., 2015; Meisingset et al., 2018). Because fish are generally migratory, management coorporation is especially relevant in international waters or waters where different government bodies share jurisdiction (Mchich et al., 2000). Previous research on two-patch fishing models has shown that movement rates between patches can affect population stability when there are different fishing pressures in each patch (Mchich et al., 2000; Cai et al., 2008). Economic output can also be maximized in multi-patch fishing models as high dispersal can result in a higher overall yield of the system than the yield of each patch combined (Auger et al., 2022). High dispersal across patches is commonly found to be an essential component to maximizing population health and economic gain from fishing (Freedman \& Waltman, 1977; Moeller \& Neubert, 2015; Auger et al., 2022). Two-patch models help us to understand the population dynamics of fish species better who face different pressures in each patch and have even resolved conflicts between fishing groups (Mchich et al., 2000).
+Understanding effective conservation strategies can be especially difficult if the organism being protected has a migratory pattern that crosses over multiple management jurisdictions such as country borders (Ogburn et al., 2017; Garrone-Neto et al., 2018; Ramírez-Valdez et al., 2021). Borders can also create challenges when gathering population data that require extensive fieldwork (Cozzi et al., 2020; Hebblewhite \& Whittington, 2020). The fragmentation of management can also result in a mismatch of conservation strategies that become ineffective when the distinct management bodies do not coordinate efforts (Siddons et al., 2017). Research on the importance of coordinated research efforts has been conducted on many terrestrial species with large migratory ranges and have consistently shown that cooperation among government bodies is essential to protecting the health of highly migratory species or species whose native ranges expand across multiple countries (Plumptre et al., 2007; Gervasi et al., 2015; Meisingset et al., 2018). Because fish are generally migratory, management cooperation is especially relevant in international waters or waters where different government bodies share jurisdiction (Mchich et al., 2000). Previous research on two-patch fishing models has shown that fish movement rates between patches can affect population stability when there are different fishing pressures in each patch (Mchich et al., 2000; Cai et al., 2008). Economic output can also be maximized in multi-patch fishing models as high dispersal can result in a higher overall yield of the system than the yield of each patch combined (Auger et al., 2022). High dispersal across patches is commonly found to be an essential component to maximizing population health and economic gain from fishing (Freedman \& Waltman, 1977; Moeller \& Neubert, 2015; Auger et al., 2022). Two-patch models help us to understand the population dynamics of fish species better who face different pressures in each patch and have even resolved conflicts between fishing groups (Mchich et al., 2000).
 
-Contrary to the assumption made by previous models that human groups are homogeneous, the vast majority of real-world societies exhibit some form of hierarchy or inequality. Societies with different social subgroups can often exhibit an ``us vs.~them'' mentality and compete for resources (Borgatti, 2003). People's relationship with the environment has been shown to be influenced by many factors such as social status, wealth, gender, education, and even notions of self-importance (Baker-Médard, Gantt, et al., 2021). Competition over resources has been shown to be exacerbated by social hierarchies and `top-down' regulation whereas when social connectivity is considered in management plans, management outcomes are not only improved, but costs are reduced as well (Krackhardt \& Stern, 1988; Grafton, 2005; Bodin \& Crona, 2009). Further, members of social networks have been shown to have varying levels of connectivity with others in their groups based on attributes such as ethnicity, which can in turn alter an individual's relationship with the environment and their views on conservation (Barnes-Mauthe, 2013; Sari et al., 2021). Barnes-Mauthe (2013) showed that fishing communities can exhibit homophily, which is the tendency for people to obtain information and opinions from those who are similar to themselves before seeking views from those who are perceived as different. Therefore, people in different social groups may be receiving different information and opinions about conservation and acting accordingly (McPherson et al., 2001). For example, in Kenya, communication among fishers has been shown to stay within groups using the same gear type which has inhibited successful regulation of the whole fishery (Crona \& Bodin, 2006). Further, in the southwest Madagascar octopus fishery, fishing method and location typically falls along gendered lines. When fishing restrictions were imposed on tidal flats, women's access to octopus harvest was restricted, while men, who typically fished in deeper waters, were able to maintain their livelihood (Baker-Médard, 2017). In Thailand, ethnicity has been shown to be a source of fishing conflict which has exacerbated resource depletion (Pomeroy et al., 2007). The existence of social structures is extremely prevalent in human societies which can affect how people interact with the environment. However, there is little existing research that uses replicator dynamics study to study how social hierarchies alter harvest practices.
+Homophily is a concept from sociology where humans tend to take information and the opinions from subgroups similar to them before listening to subgroups of different social standing (Brechwald \& Prinstein, 2011). Contrary to the assumption made by previous models that human groups are homogeneous, the vast majority of real-world societies exhibit some form of hierarchy or inequality. Societies with different social subgroups can often exhibit an ``us vs.~them'' mentality and compete for resources (Borgatti, 2003). Barnes-Mauthe (2013) showed that fishing communities can exhibit homophily, which is the tendency for people to obtain information and opinions from those who are similar to themselves before seeking views from those who are perceived as different. Therefore, people in different social groups may be receiving different information and opinions about conservation and acting accordingly (McPherson et al., 2001). For example, in Kenya, communication among fishers has been shown to stay within groups using the same gear type which has inhibited successful regulation of the whole fishery (Crona \& Bodin, 2006). Further, in the southwest Madagascar octopus fishery, fishing method and location typically falls along gendered lines. When fishing restrictions were imposed on tidal flats, women's access to octopus harvest was restricted, while men, who were generally in charge of fishery management typically fished in deeper waters, were able to maintain their livelihood (Baker-Médard, 2017). In Thailand, ethnicity has been shown to be a source of fishing conflict which has exacerbated resource depletion (Pomeroy et al., 2007). The existence of social structures is extremely prevalent in human societies which can affect how people interact with the environment. However, there is little existing research that uses replicator dynamics study to study how social hierarchies alter harvest practices. People's relationship with the environment has been shown to be influenced by many factors such as social status, wealth, gender, education, and even notions of self-importance (Baker-Médard, Gantt, et al., 2021; Sari et al., 2021). Competition over resources has been shown to be exacerbated by social hierarchies and `top-down' regulation whereas when social connectivity is considered in management plans, management outcomes are not only improved, but costs are reduced as well (Krackhardt \& Stern, 1988; Grafton, 2005; Bodin \& Crona, 2009).
 
-Small-scale fisheries are a particularly relevant system to apply replicator dynamics as fishing practices and policies are often made by communal decision makers. Research on small-scale fisheries is a growing and essential field as they are drastically understudied yet affect many people around the globe (The World Bank, 2012). Due to tight social structures, community decision making and strong reliance on the environment, small-scale fisheries are systems that are well represented by socio-ecological models and replicator dynamics (Grafton, 2005; Thampi et al., 2018; Barnes et al., 2019). Governmental bodies or third parties instituting conservation efforts in small-scale fisheries have often been unsuccessful, especially when the social and economic components of the industry have been ignored (Salas et al., 2019; Prince et al., 2021). However, even when human interactions and decision making have been considered, socio-ecological models have often treated individuals in human societies equal in their social standing. As human societies are often complex and hierarchical, the simplistic assumption that everyone interacts with the environment and within their community equally can lead to lack of participation in conservation by some groups within a community (Barnes-Mauthe, 2013; Cumming et al., 2017). Mismanagement of fisheries have even been shown to exacerbate these social inequalities (Cinner et al., 2012; Baker-Médard, 2017). Further, the specific dynamics of the fishery in question have been shown to be important components to models, as models with multiple patches can actually mitigate over-fishing if there is high movement of the harvested species between patches (Cressman et al., 2004). No previous research has combined two-patch fishing models with a hierarchical human decision making model in order to study how space and social dynamics affect fishery dynamics.
+Research on small-scale fisheries is a growing and essential field as they are drastically understudied yet are relied on by many people around the globe (FAO, 2022; FAO et al., 2023). Due to tight social structures, community decision making and strong reliance on the environment, small-scale fisheries are systems that are well represented by socio-ecological models and replicator dynamics (Grafton, 2005; Thampi et al., 2018; Barnes et al., 2019). Successful management of small-scale fisheries has shown to be contingent upon the careful consideration of social dynamics and power structures within the fishery (Alexander et al., 2015; Defeo et al., 2016; Nyikahadzoi et al., 2017). Further, the specific dynamics of the fishery in question have been shown to be important components to models, as models with multiple patches can actually mitigate over-fishing if there is high movement of the harvested species between patches (Cressman et al., 2004). No previous research has combined two-patch fishing models with a hierarchical human decision making model in order to study how space and social dynamics affect fishery dynamics.
 
-In this study, we couple a human-decision replicator dynamics model with social hierarchies with a two-patch resource model in order to understand how decision making is affected by spatial and hierarchical factors. The objectives of this study were: 1) to compare the output of previous replicator dynamics studies with the new two-patch model to understand the affect of species movement on harvesting decisions, 2) understand the effect of social hierarchy and communication across groups on the dynamics of this model, 3) use a co-managed small-scale fishery as a case study to understand how fishery dynamics are driven when one group fishes sustainably while the other over-harvests. We hypothesized that higher cooperation between groups would benefit fish stocks overall and that increased fish movement would increase the health of fish populations.
+In this study, we couple a human-decision replicator dynamics model with social hierarchies with a two-patch resource model in order to understand how decision making is affected by spatial and hierarchical factors. This model reflects two fisheries are connected by the stray rate of two subpopulations of fish, where each subpopulation is independently managed. The two management regimes influence one another based on how many people are fishing in the other group. The objectives of this study were: 1) to compare the output of previous replicator dynamics studies with the new two-patch model to understand the affect of fish movement on harvesting decisions, 2) understand the effect of social hierarchy and communication across groups on the dynamics of this model, 3) use a two patch small-scale fishery as a case study to understand how fishery dynamics are driven when one group fishes sustainably while the other over-harvests. We hypothesized that higher cooperation between groups would benefit fish stocks overall and that increased fish movement would increase the health of fish populations.
 
-\hypertarget{methods}{%
-\section{METHODS}\label{methods}}
+\section{METHODS}\label{methods}
 
 \begin{figure}
 \includegraphics[width=1\linewidth]{CoupledModelConceptual} \caption{A conceptual representation of our model as a two-patch extension of Bauch et al. (2016). Here, each fish population (\(F_i\)) in each patch \(i\) increase through natural growth and movement of fish into the patch. Fish populations are decreased through emigration out of the patch and fishing mortality. The number of fishers (\(X_i\)) in each patch \(i\) change in response to fish population levels, the cost of stopping fishing activity, and the opinions of those in the patch and those in the other patch. \label{Conceptual}}\label{fig:Conceptual}
@@ -151,8 +158,7 @@ In this study, we couple a human-decision replicator dynamics model with social 
 
 
 
-\hypertarget{model-construction}{%
-\subsection{Model Construction}\label{model-construction}}
+\subsection{Model Construction}\label{model-construction}
 
 We build on the work of Bauch et al. (2016) by extending their old-growth forest model to a two-patch model (Figure \ref{Conceptual}). The resource population models adapted from Bauch et al. (2016) are as follows:
 
@@ -161,9 +167,9 @@ We build on the work of Bauch et al. (2016) by extending their old-growth forest
   \label{eq:fish1}
 \end{equation}
 
-where the change in resource populations \(F_i\) is dependent on \(r_i\), the net population growth of each patch \(i\), and both populations follow logistic growth. The second term: \(\frac{h_i*F_i}{F_i + s_i}\), denotes population lost to human activity. \(h_i\) is the harvesting efficiency of the respective human population and \(s_i\) controls the supply and demand of the system. Because we extend this to a two-patch model, the \(m_i\) parameter denotes the movement of the harvested species out of patch \(i\) and into patch \(j\). In this study, we assume a closed population between the two patches. Therefore, individuals move directly from patch to patch and do not disperse elsewhere, nor are individuals immigrating from outside areas.
+where the change in resource populations \(F_i\) is dependent on \(r_i\), the net population growth of each patch \(i\), and both populations follow logistic growth. The second term: \(\frac{h_i*F_i}{F_i + s_i}\), denotes population lost to human activity. \(h_i\) is the harvesting efficiency of the respective human population and \(s_i\) controls the supply and demand of the system. Because we extend this to a two-patch model, the \(m_i\) parameter denotes the stray rate between each of the subpopulations of fish out of patch \(i\) and into patch \(j\). In this study, we assume a closed population between the two patches. Therefore, individual fish move directly from patch to patch and do not disperse elsewhere, nor are individual fish immigrating from outside areas.
 
-For the model of human activity and opinion, we use replicator dynamics from evolutionary game theory to simulate societal influence on an individual's opinion. Humans in this population can either be harvesters (therefore participating in harvesting activity) or conservationists (who do not partake in resource extraction), but can change from their current opinion to the other based on the perceived values and costs of each stance. Social dynamics are represented by the proportion of conservationists in a population (\(X\)) and the proportion of harvesters (\(1-X\)). These two groups of conservationists and harvesters interact with one another using the term \((X)(1-X)\) which simulates individuals ``sampling'' the opinions other individuals in the population. If one opinion dominates in the population (i.e.~\(X >> (1-X)\) or \((1-X) >> X\)), the rate of changing opinions will be slow as the power of societal pressure makes it challenging for the other opinion to gain traction. However, if \(X\) and (\(1-X\)) are close, the rate of change in opinion will be fast as society has a split opinion on conservation versus harvest, so individuals will be quick to take up the opinions of others. In this model, each person holds an opinion (conservation or harvest) by weighing the benefits of conservation (\(U_A\)) against the benefits of harvest (\(U_B\)), resulting in the replicator equation:
+For the model of human activity and opinion, we use replicator dynamics from evolutionary game theory to simulate societal influence on an individual's opinion. Humans in this population can either be harvesters (therefore participating in harvesting activity) or conservationists (who do not partake in resource extraction) in their respective patch, but can change from their current opinion to the other based on the perceived values and costs of each stance. Social dynamics are represented by the proportion of conservationists in a population (\(X\)) and the proportion of harvesters (\(1-X\)). These two groups of conservationists and harvesters interact with one another using the term \((X)(1-X)\) which simulates individuals ``sampling'' the opinions other individuals in the population. If one opinion dominates in the population (i.e.~\(X >> (1-X)\) or \((1-X) >> X\)), the rate of changing opinions will be slow as the power of societal pressure makes it challenging for the other opinion to gain traction. However, if \(X\) and (\(1-X\)) are close, the rate of change in opinion will be fast as society has a split opinion on conservation versus harvest, so individuals will be quick to take up the opinions of others. In this model, each person holds an opinion (conservation or harvest) by weighing the benefits of conservation (\(U_A\)) against the benefits of harvest (\(U_B\)), resulting in the replicator equation:
 
 \begin{equation} 
 \frac{dX_i}{dt} = k_iX_i(1-X_i)[U_{A,i} - U_{B,i}]
@@ -182,7 +188,7 @@ U_{A,i} = \frac{1}{(F_i + c_i)} + d_iX_i + \rho_i X_j
   \label{eq:pros1}
 \end{equation}
 
-where \(\frac{1}{(F_i + c_i)}\) represents the perceived rarity of the harvested population within a patch. As \(F_i\) and \(c_i\) (the rarity valuation parameter) decrease, perceived rarity will increase, therefore adding to the perceived benefit of protecting resources. \(d_i\) refers to the social influence that each population has on itself, and as an individual encounters a conservationist in their own population (\(X_i\)), the social benefit of also being a conservationist is shown in \(d_i\). \(\rho_i\) has this similar effect of social influence, but denotes the social effect of the opposite population on decision making (\(X_j\)). Individuals in each population \(i\) are receiving information about the conservation practices of the other population \(j\), and the influence that this has on each population is encapsulated by \(\rho_i\).
+where \(\frac{1}{(F_i + c_i)}\) represents the perceived rarity of the harvested population within a patch. As \(F_i\) and \(c_i\) (the rarity valuation parameter) decrease, perceived rarity will increase, therefore adding to the perceived benefit of protecting resources. \(d_i\) refers to the social influence that each population has on itself, and as an individual encounters a conservationist in their own population (\(X_i\)), the social benefit of also being a conservationist is shown in \(d_i\). \(\rho_i\) has this similar effect of social influence, but denotes the social effect of the opposite population on decision making (\(X_j\)). Individuals in each population \(i\) are receiving information about the conservation practices of the other population \(j\), and the influence that this has on each population is encapsulated by \(\rho_i\). In other words, higher values of \(\rho\) indicate higher homophily between the groups and lower values of \(\rho\) indicate these groups only adopting fishing practices from within their patch. Also, the only information that is being communicated to human patch \(i\) is how many people from human patch \(j\) are fishing \((1 - X_j)\). Human patch \(i\) is not receiving any information on fishing practices or changes in the opposite patches fish population. Fishers are only fishing in their respective patches and do not move to the other. Instead, they influence fishing in the opposite patch through the outside social influence of \(\rho_i\).
 
 \(U_B\) (the perceived benefits of harvest) is:
 
@@ -227,7 +233,7 @@ where specifics of the derivation are outlined in the supplementary material. Co
   \label{eq:SocWhole2}
 \end{equation}
 
-where the harvesting pressure is now a function of the number of harvesters in a population (\(\frac{h_iF_i(1-X_i)}{F_i + s_i}\)). Further, the opinion of each population will shift based on the perceived population health of their respective patch weighed against the costs and benefits of conservation. As resources decrease, individuals will sway more toward conservation, thereby relieving harvest pressure. However, we now have an external influence in this model: the opinions of people in population \(j\). The strength of this external influence is \(\rho\), and in this study, we plan to simulate inequalities in human societies with this parameter.
+where the harvesting pressure is now a function of the number of harvesters in a population (\(\frac{h_iF_i(1-X_i)}{F_i + s_i}\)). Further, the opinion of each population will shift based on the perceived population health of their respective patch weighed against the costs and benefits of conservation. As resources decrease, individuals will sway more toward conservation, thereby relieving harvest pressure. However, we now have an external influence in this model: the opinions of people in population \(j\). Therefore, if human population \(j\) is continuing to fish, humans in population \(i\) will be more influenced to do so as well. The strength of this external influence is \(\rho\), and in this study, we plan to simulate inequalities in human societies with this parameter.
 
 
 
@@ -250,23 +256,21 @@ k & 0.17 & 0.17 & Rate of sampling opinions or social interaction \\
 \(\omega\) & 1.44 & 1.44 & Conservation cost \\
 c & 0.5 & 0.5 & Rarity valuation \\
 d & 0.3 & 0.3 & Strength of social influence (within population) \\
-m & 0 & 0 & Fish movement (from opposite patch) \\
-\(\rho\) & 0 & 0 & Strength of social influence (opposite population) \\
+m & 0.01 & 0.01 & Fish movement (from opposite patch) \\
+\(\rho\) & 0.01 & 0.01 & Strength of social influence (from opposite population) \\
 \end{longtable}
 
-The default parameters used to analyze the resources movement and human hierarchy parameters were taken from an analyses done in Bauch et al. (2016) and given in Table \ref{DefaultParamTable}. Here, Bauch et al. (2016) found an oscillatory behavior where decreased forest cover resulted in decreased harvest due to the replicator dynamics of the human system which allowed for forest recovery and humans to begin high harvest once again.
+The default parameters used to analyze the fish movement and human hierarchy parameters were taken from an analyses done in Bauch et al. (2016) and given in Table \ref{DefaultParamTable}. Here, Bauch et al. (2016) found an oscillatory behavior where decreased forest cover resulted in decreased harvest due to the replicator dynamics of the human system which allowed for forest recovery and humans to begin high harvest once again.
 
-\hypertarget{parameter-analyses}{%
-\subsection{Parameter Analyses}\label{parameter-analyses}}
+\subsection{Parameter Analyses}\label{parameter-analyses}
 
-In order to understand how resource movement (\(m_1\) and \(m_2\)) affects dynamics, we first compare how the system will change when both patches are equal (i.e.~all of the parameters in each patch is the same) by increasing both \(m_1\) and \(m_2\) incrementally and running the model for 1000 years. We then compare this to the asymmetrical case, where we just increase the \(m_1\) parameter and see the effect on the model for the next 1000 years. We also construct bifurcation curves of the \(m_1\) parameter when compared to resource populations in order to understand their effect on dynamics. Further, to analyze the human hierarchy parameters \(\rho_1\) and \(\rho_2\), we constructed this same analyses of increasing \(\rho_2\), or the amount of influence of human population 2 (\(X_2\)) has on the dynamics of human population 1 (\(X_1\)). We also compared this to the effect on incrementally increasing \(d_1\).
+In order to understand how fish movement (\(m_1\) and \(m_2\)) affects dynamics, we first compare how the system will change when both patches are equal (i.e.~all of the parameters in each patch is the same) by increasing both \(m_1\) and \(m_2\) incrementally and running the model for 1000 years. We then compare this to the asymmetrical case, where we just increase the \(m_1\) parameter and see the effect on the model for the next 1000 years. Further, to analyze the human hierarchy parameters \(\rho_1\) and \(\rho_2\), we constructed this same analyses of increasing \(\rho_2\), or the amount of influence of human population 1 (\(X_1\)) has on the dynamics of human population 2 (\(X_2\)). We also compared this to the effect on incrementally increasing \(d_1\).
 
-\hypertarget{co-managed-small-scale-fishery-case-study}{%
-\subsection{Co-Managed Small Scale Fishery Case Study}\label{co-managed-small-scale-fishery-case-study}}
+\subsection{\texorpdfstring{ Two-Patch Small Scale Fishery Case Study}{ Two-Patch Small Scale Fishery Case Study}}\label{two-patch-small-scale-fishery-case-study}
 
-For a small scale fishery, we choose to model a two-patch fishery where patch 1 is fishing sustainably while patch 2 is over-harvesting. The harvested fish species has a mid-range growth rate and regularly diffuses across the two patches, such as the parrot fish modeled in Thampi et al. (2018), which uses a fish growth rate of is 0.35 fish per year, but alter patch 1's growth rate to be 0.4 fish per year. For the harvesting efficiency, we choose a maximal fishing rate of 0.5. These parameters were adapted from a coral reef fishing model Thampi et al. (2018) where \(r = 0.35\) and \(h = 0.5\) are the mid-level growth rate and max fishing rates analyzed by this paper. For the movement parameters \(m\), we chose 0.2 for each as these are the values used in the two-patch fishing model described in Cai et al. (2008). We used the \(s\) parameter described in the Bauch et al. (2016) model of \(s = 0.8\). For the purposes of our study, we are assuming a constant net growth rate of fish populations and that reproduction happens locally within each patch. The rate at which humans interact with one another is described by the parameter \(k\). In our default model, we use \(k = 1.014\) as adapted from the Thampi et al. (2018) default model. Thampi et al. (2018) calculated this parameter by fitting conservation opinion data in the United States from 1965 to 1990 to coral health data at that time (Thampi et al., 2018). We used the default rarity valuation parameter \(c\) from Thampi et al. (2018) where \(c = 1.68\). The cost of conservation default parameter is \(\omega = 0.35\) from Bauch et al. (2016). Further, as our default model has no human social hierarchy, we set \(d = \rho = 0.5\) for our social norm strengths as adapted from Bauch et al. (2016) which models social decision making regarding deforestation.
+For a small scale fishery, we choose to model a two-patch fishery where patch 1 is fishing sustainably while patch 2 is over-harvesting. The harvested fish species has a mid-range growth rate and regularly diffuses across the two patches, such as the parrot fish modeled in Thampi et al. (2018), which uses a fish growth rate of is 0.35 fish per year, but alter patch 1's growth rate to be 0.4 fish per year. For the harvesting efficiency, we choose a maximal fishing rate of 0.5. These parameters were adapted from a coral reef fishing model Thampi et al. (2018) where \(r = 0.35\) and \(h = 0.5\) are the mid-level growth rate and max fishing rates analyzed by this paper. For the fish movement parameters \(m\), we chose 0.2 for each as these are the values used in the two-patch fishing model described in Cai et al. (2008). We used the \(s\) parameter described in the Bauch et al. (2016) model of \(s = 0.8\). For the purposes of our study, we are assuming a constant net growth rate of fish populations and that reproduction happens locally within each patch. The rate at which humans interact with one another is described by the parameter \(k\). In our default model, we use \(k = 1.014\) as adapted from the Thampi et al. (2018) default model. Thampi et al. (2018) calculated this parameter by fitting conservation opinion data in the United States from 1965 to 1990 to coral health data at that time (Thampi et al., 2018). We used the default rarity valuation parameter \(c\) from Thampi et al. (2018) where \(c = 1.68\). The cost of conservation default parameter is \(\omega = 0.35\) from Bauch et al. (2016). Further, as our default model has no human social hierarchy, we set \(d = \rho = 0.5\) for our social norm strengths as adapted from Bauch et al. (2016) which models social decision making regarding deforestation.
 
-Based off of the default model described above, we then change parameters such that patch 1 is fished sustainably, meaning the fish population in patch 1 is able to persist regardless of the fishing pressure from human population 1. We then set patch 2 to be over-fished, meaning human patch 2 is fishing at too high a rate for the fish population to survive over time (Table \ref{DispersionParamTable}). Further, we add a social hierarchical component where patch 2 has a higher social influence on patch 1. To analyze the overfishing scenario, we incrementally increase the parameters \(m\) and \(\rho\) and simulated this system for 100 years in order to assess how increasing each new parameter would affect the overall dynamics of the system.
+Based off of the default model described above, we then change parameters such that patch 1 is fished sustainably, meaning the fish population in patch 1 is able to persist regardless of the fishing pressure from human population 1. We then set patch 2 to be over-fished, meaning human patch 2 is fishing at too high a rate for the fish population to survive over time (Table \ref{DispersionParamTable}). Further, we add a socially hierarchical component where patch 2 has a higher social influence on patch 1. To analyze the overfishing scenario, we incrementally increase the parameters \(m\) and \(\rho\) and simulated this system for 100 years in order to assess how increasing each new parameter would affect the overall dynamics of the system.
 
 
 
@@ -290,27 +294,24 @@ k & 1.014 & 1.014 & Rate of sampling opinions or social interaction \\
 c & 1.5 & 1.5 & Rarity valuation \\
 d & 0.5 & 0.5 & Strength of social influence (within population) \\
 m & 0.2 & 0.2 & Fish movement (from opposite patch) \\
-\(\rho\) & 0.5 & 0.1 & Strength of social influence (opposite population) \\
+\(\rho\) & 0.5 & 0.1 & Strength of social influence (from opposite population) \\
 \end{longtable}
 
-\hypertarget{results}{%
-\section{RESULTS}\label{results}}
+\section{RESULTS}\label{results}
 
-\hypertarget{movement-parameter}{%
-\subsection{Movement Parameter}\label{movement-parameter}}
+\subsection{\texorpdfstring{ Fish Movement Parameter}{ Fish Movement Parameter}}\label{fish-movement-parameter}
 
-To analyze the result of space on socio-ecological models, we observed the effects of increasing both \(m_1\) and \(m_2\) simultaneously (the symmetrical case) and compared this to the effects of only increasing \(m_1\), or the movement of resources from patch 2 to patch 1 (Figure \ref{Movement}). Here, we find that movement does not change dynamics in the symmetrical case (Figure \ref{Movement} a), b), and c)), showing that if all parameters are the same in each patch, the movement of resources between them does not change dynamics. However, if there are differences between patches (Figure \ref{Movement} d), e), and f)), resource movement will greatly alter dynamics and if the model is undergoing oscillations, the linear aspects of the movement parameters will eventually overcome the non-linear dynamics of oscillations if the movement parameter is sufficiently high.
+To analyze the result of space on socio-ecological models, we observed the effects of increasing both \(m_1\) and \(m_2\) simultaneously (the symmetrical case) and compared this to the effects of only increasing \(m_1\), or the fish movement from patch 2 to patch 1 (Figure \ref{Movement}). Here, we find that fish movement does not change dynamics in the symmetrical case (Figure \ref{Movement} a), b), and c)), showing that if all parameters are the same in each patch, the fish movement between them does not change dynamics. However, if there are differences between patches (Figure \ref{Movement} d), e), and f)), fish movement will greatly alter dynamics and if the model is undergoing oscillations, the linear aspects of the fish movement parameters will eventually overcome the non-linear dynamics of oscillations if the fish movement parameter is sufficiently high.
 
 
 
 \begin{figure}
 \centering
 \includegraphics{Wulfing_CH2_Draft4_files/figure-latex/Movement-1.pdf}
-\caption{\label{fig:Movement}In graphs a), b), and c), both \(m_1\) and \(m_2\) were set to 0.01, 0.05, and 0.1, respectively. The corresponding graphs show the dynamics of these models with the new parameterizations. d), e), and f) show the changes in model dynamics when \(m_2\) is held at 0 and only \(m_1\) (the movement of resources from patch 2 to patch 1) is increased by 0.01, 0.05, and 0.1, respectively. All other parameters were held at the values given in table \ref{DispersionParamTable} \label{Movement}}
+\caption{\label{fig:Movement}In graphs a), b), and c), both \(m_1\) and \(m_2\) were set to 0.01, 0.05, and 0.1, respectively. The corresponding graphs show the dynamics of these models with the new parameterizations. d), e), and f) show the changes in model dynamics when \(m_2\) is held at 0 and only \(m_1\) (the fish movement from patch 2 to patch 1) is increased by 0.01, 0.05, and 0.1, respectively. All other parameters were held at the values given in table \ref{DispersionParamTable} \label{Movement}}
 \end{figure}
 
-\hypertarget{social-hierarchy-parameter}{%
-\subsection{Social Hierarchy Parameter}\label{social-hierarchy-parameter}}
+\subsection{Social Hierarchy Parameter}\label{social-hierarchy-parameter}
 
 In figure \ref{influenceAsym}, we can see that increases in \(d_1\) result in higher amplitude oscillations, where \(F_1\) will dip to almost 0 for many years then recover back to 1. Increases in \(d_1\) affect the model differently than increases in \(\rho_2\), the influence of the other human population. Here, the population dynamics of \(F_1\) stay relatively constant around 0.2, and only have very small oscillations around this number, therefore increases in \(d_1\) can result extreme booms and busts of resource populations while increases in \(\rho_2\) results in limited populations, but these but the resulting dynamics oscillate less, which indicates more stable dynamics. Increases in either \(d_1\) or \(\rho_2\) result in less frequent oscillations, meaning humans are slower to change population levels and that plot 1's resource populations spend more time at the peaks of their oscillations before either recovering from 0 or decreasing from 1.
 
@@ -319,27 +320,26 @@ In figure \ref{influenceAsym}, we can see that increases in \(d_1\) result in hi
 \begin{figure}
 \centering
 \includegraphics{Wulfing_CH2_Draft4_files/figure-latex/influenceAsym-1.pdf}
-\caption{\label{fig:influenceAsym}The difference in increasing social pressure within population 1 (the \(d_1\) parameter is increased down the columns of graphs) versus increasing social pressure from population 1 onto population 1 (the \(\rho_2\) parameter is increased across rows of graphs). \label{influenceAsym}}
+\caption{\label{fig:influenceAsym}The difference in increasing social pressure within population 1 (the \(d_1\) parameter is increased down the columns of graphs) versus increasing social pressure from population 1 onto population 2 (the \(\rho_2\) parameter is increased across rows of graphs) which models increasing the social pressure of the . \label{influenceAsym}}
 \end{figure}
 
-\hypertarget{scenario-analysis}{%
-\subsection{Scenario Analysis}\label{scenario-analysis}}
+\subsection{Scenario Analysis}\label{scenario-analysis}
 
-We then modeled a hypothetical scenario where patch 1 is fished sustainably whereas patch 2 is experiencing over-fishing and has a higher social sway than patch 1. We modeled overfishing by altering fish new growth rates (r), harvesting efficiencies (h), costs of conservation (\(\omega\)), and external social norm strengths (\(\rho\)) (Table \ref{DispersionParamTable}). Here, the unsustainable practices of human population 2 are so exploitative, that both fish populations eventually collapse. We used this overfishing parameterization for the rest of the analysis of a co-managed small-scale fishery.
-
+We then modeled a hypothetical scenario where patch 1 is fished sustainably whereas patch 2 is experiencing over-fishing and has a higher social sway than patch 1. We modeled overfishing by altering fish new growth rates (r), harvesting efficiencies (h), costs of conservation (\(\omega\)), and external social norm strengths (\(\rho\)) (Table \ref{DispersionParamTable}). Here, the unsustainable practices of human population 2 are so exploitative, that both fish populations eventually collapse. We used this overfishing parameterization for the rest of the analysis of a two patch small-scale fishery.
 
 
-Next, we ran our model with the parameterization outlined in table \ref{DispersionParamTable} with incrementally higher external social influence values (\(\rho\)) in both populations and observed how this affected the final population of each fish patch (Figure \ref{rhoExploreGraph}). We found that under different parameterizations, there were often instances where \(\rho\) acted as a tipping point for population dynamics where instead of continuously changing the final fish populations, the \(\rho\) parameter either resulted in stable fish populations or both stocks collapsed once \(\rho\) increased past this tipping point.
+
+Next, we ran our model with the parameterization outlined in table \ref{DispersionParamTable} with incrementally higher external social influence values (\(\rho\)) in each population and observed how this affected the final population of each fish patch (Figure \ref{rhoExploreGraph}). We found that higher values of \(\rho_1\) actually resulted in fish stocks collapsing in both patches whereas increases of \(\rho_2\) maintained fish populations. At low values of \(\rho_2\), \(X_2\) continued fishing but \(X_1\) stopped fishing all together, resulting in stable fish populations. As \(\rho_2\) increased, fishing eventually stopped in both patches and fish populations remained at 1.
 
 
 
 \begin{figure}
 \centering
 \includegraphics{Wulfing_CH2_Draft4_files/figure-latex/rhoExploreGraph-1.pdf}
-\caption{\label{fig:rhoExploreGraph}Final fish populations after 100 years in the two-patch fishing model where the \(F_1\) population in patch 1 is fished sustainably but human population 1 has a lower social influence than humans in patch 2, where \(F_2\) is being fished unsustainably. Both \(\rho_1\) and \(\rho_2\) were increased simultaneously. \label{rhoExploreGraph}}
+\caption{\label{fig:rhoExploreGraph}\(\rho_1\) and \(\rho_2\) were incrementally increased and the model was run 200 years. This graph shows the final dynamics of the system after those 200 years where the red area indicates a fishery collapse, where both patches fish at full capacity until stocks go to 0. The light blue area shows where some fish populations stay at a constant level, and only \(X_2\) continues to fish where as \(X_1\) ceases fishing all together. The darker blue patch shows where both patches stop fishing all together and fish stocks in both patches remain at full capacity. \label{rhoExploreGraph}}
 \end{figure}
 
-We then ran the same analysis with the fish dispersal parameter, \(m\), by changing \(m_1\) and \(m_2\) individually. Contrary to the effect external social influence (\(\rho\)) had on the model, dispersal had a more direct and continuous effect on the final population of fish in each patch. For example, as fish movement from patch 2 to patch 1 increased (i.e.~from the unsustainable patch to the sustainable patch), this actually maintained low fish populations the sustainable patch, but resulted in crashed populations in the unsustainable (Figure \ref{mExploreGraph} a). However, if the fish movement was increased from patch 1 to patch 2 (from the sustainable fishing to unsustainable), both patches eventually collapsed to zero (Figure \ref{mExploreGraph} b).
+We then ran a similar analysis with the fish dispersal parameter, \(m\), by changing \(m_1\) and \(m_2\) individually. Contrary to the effect external social influence (\(\rho\)) had on the model, dispersal had a more direct and continuous effect on the final population of fish in each patch. For example, as fish movement from patch 2 to patch 1 increased (i.e.~from the unsustainable patch to the sustainable patch), this actually maintained low fish populations the sustainable patch, but resulted in crashed populations in the unsustainable (Figure \ref{mExploreGraph} a). However, if the fish movement was increased from patch 1 to patch 2 (from the sustainable fishing to unsustainable), both patches eventually collapsed to zero (Figure \ref{mExploreGraph} b).
 
 
 
@@ -349,20 +349,21 @@ We then ran the same analysis with the fish dispersal parameter, \(m\), by chang
 
 
 
-\hypertarget{discussion}{%
-\section{DISCUSSION}\label{discussion}}
+\section{DISCUSSION}\label{discussion}
 
-Instead of just social norms controlling the dynamics of our model, we found that the movement of the resource species between patches (m) was a major driver of population sustainability or collapse (Figure \ref{mExploreGraph}). As we increased the movement of fish into the sustainable patch in the fishery scenario (Figure \ref{mExploreGraph} a), populations in that respective patch also increased because humans in population 1 continued to fish sustainably. Further, as those in population 2 decreased fishing rates, this influenced population 1 to also decrease their number of fishers. As a result, population 1 maintained high fish stocks while population 2 had low stocks. On the contrary, as fish moved from the sustainable patch 1 to the unsustainable patch 2 (Figure \ref{mExploreGraph} b), both fish populations collapsed as \(m_2\) increased because fish movement away from patch 1 eventually grew to be too great for human population 1 to fish sustainably and human population 2 continued to over-fish in their own patch. When both patches are subject to the same conditions (Figure \ref{Movement} a), b), and c)), resource movement does not affect the dynamics at all. It is only when each patch is subject to different conditions, in the case of figure \ref{Movement} d), e), and f), where only the movement between patches is asymmetrical, does movement become extremely important in dynamics. This finding is especially relevant to co-managed fisheries, where different areas may be subject to different regulation, environmental conditions, or opinions about conservation. High migration has been shown to be an essential part of maximizing economic benefit from fishing in multi-patch models (Moeller \& Neubert, 2015). Because fish are generally migratory and therefore can be difficult to track, constraining fishing to one group of people is more challenging (Grafton, 2005), especially for fish species that exhibit different movement patterns based on life stage, and requires more management coordination (Siddons et al., 2017).
+Instead of just social norms controlling the dynamics of our model, we found that the fish movement between patches (m) was a major driver of population sustainability or collapse (Figure \ref{mExploreGraph}). As we increased the movement of fish into the sustainable patch in the fishery scenario (Figure \ref{mExploreGraph} a), populations in that respective patch also increased because humans in population 1 continued to fish sustainably. Further, as those in population 2 decreased fishing rates, this influenced population 1 to also decrease their number of fishers. As a result, population 1 maintained high fish stocks while population 2 had low stocks. On the contrary, as fish moved from the sustainable patch 1 to the unsustainable patch 2 (Figure \ref{mExploreGraph} b), both fish populations collapsed as \(m_2\) increased because fish movement away from patch 1 eventually grew to be too great for human population 1 to fish sustainably and human population 2 continued to over-fish in their own patch. When both patches are subject to the same conditions (Figure \ref{Movement} a), b), and c)), fish movement does not affect the dynamics at all. It is only when each patch is subject to different conditions, in the case of figure \ref{Movement} d), e), and f), where only the fish movement between patches is asymmetrical, does movement of fish become extremely important in dynamics. This finding is especially relevant to fisheries where different areas where a particular species is fished may be subject to different regulation, environmental conditions, or opinions about conservation. High fish migration has been shown to be an essential part of maximizing economic benefit from fishing in multi-patch models (Moeller \& Neubert, 2015). Because fish are generally migratory and therefore can be difficult to track, constraining fishing to one group of people is more challenging (Grafton, 2005), especially for fish species that exhibit different movement patterns based on life stage, and requires more management coordination (Siddons et al., 2017).
 
-The social hierarchy parameter \(\rho\) can also dictate whether or not patches will be harvested sustainably. Figure \ref{influenceAsym} exemplifies how, when increasing social susceptibility to one's respective patch (increasing the \(d\) parameter), can result in booms and busts of resource availability. On the other hand, increasing social susceptibility to outside social influence (increasing the \(\rho\) parameter) can actually result in more stable dynamics because human population 1 is exhibiting a ``portfolio effect'' of harvest opinion. In other words, population 1 is taking in opinions regarding harvest from different sources, which can dampen extreme reactions to harvest decisions and therefore reduce extreme changes in fishing pressure. Portfolio effects have been shown to be beneficial when fishers diversify the species they catch, which allows them to compensate for lost catch when one species experiences decline (Finkbeiner, 2015; Cline et al., 2017; Robinson et al., 2020). The finding from our study demonstrates that using multiple sources of information regarding adequate fishing pressure from multiple connected fisheries can also mitigate the effects of resource population fluctuations on harvesting levels. However, our scenarios show that the portfolio effect is only effective when both patches are exhibiting sustainable harvest practices. In the case study, patch 1 was being fished sustainably and patch 2 was experiencing over-fishing, and also included social hierarchy by increasing \(\rho_1\), or the social influence that human population 2 has on the human population in the first patch (table \ref{DefaultParamTable}). Despite human population 1's efforts to maintain fish stocks, the unsustainable practices of human population 2 drives the whole fishery to collapse.
+Increases in \(d_1\) and \(\rho_2\) model how dynamics will change if human patch 1 is more influenced by themselves (\(d_1\)) or if they have more influence on the other patch (\(\rho_2\)) (Figure \ref{influenceAsym}). This analysis showed that increasing either parameter maintained the oscillatory behavior of the model, however as either \(d_1\) or \(\rho_2\) increased, the frequency of these oscillations decreased. In other words, as a human population began to incorporate influence more, this resulted in similar dynamics, but over longer timescales. This is an example of how as humans begin to coordinate with the actions of their peers, changes to fishing pressures can also actually be delayed. The dynamics of the model change from individual decisions, which happen almost instantly, to coordinated efforts, which can take longer to implement.
 
-We then tested the effect of external social influence (\(\rho\)) on the case study model and how increasing social influence between human groups would influence the model's dynamics. Contrary to our previous findings, increasing \(\rho\) did not result in higher fish populations (Figure \ref{rhoExploreGraph}). Fish populations crashed when \(\rho\) passed a tipping point, showing that high levels of cooperation between groups resulted in the over-harvest of both populations of fish. At high levels of external social influence, sustainable fishing practices were not achieved because the only information being passed on to the other human population is the number of fishers as opposed to what sustainable fishing practices were used in order to achieve sustainable fishing yields. As a result, when one patch \(i\) is over-fished and the other patch \(j\) is fished sustainably, the group \(i\) will continue to over-fish their own resources because the opposite patch \(j\) is influencing this group to continue fishing through the high external social influence (\(\rho\)). Instead of modeling a cohesive system where communication fostered effective conservation, we created a scenario where each community raced to fish each patch as opposed to coming to common understanding of sustainable fishing practices, further highlighting that the content of the information being disseminated matters in successful conservation (Gray et al., 2012). Previous social-ecological research shows that social structures should be taken into consideration when the community manages a resource or else that community management is prone to fail (Grafton, 2005; Newman \& Dale, 2007; Cinner et al., 2012; Bodin et al., 2014). Unsuccessful co-management can occur because people who interact differently with the environment or within a society have to consider different trade-offs in conservation, and these trade-offs must be understood in order to institute sustainable practices (Cumming et al., 2017; Baker-Médard, Concannon, et al., 2021). The portfolio effect benefits harvested resources only if each group is participating in sustainable practices.
+Increases in the \(\rho_1\) (the human influence of the sustainable patch on the non-sustainable fishers) parameter in the non-symmetric case, contrary to our hypothesis, actually resulted in a collapses of of both fisheries because the only information being passed on to the other human population is the number of fishers in the sustainable patch as opposed to what sustainable fishing practices were used in order to maintain fishing yields (Figure \ref{rhoExploreGraph}). As a result, when patch 2 is over-fished and the other patch 1 is fished sustainably, the human population 2 will continue to over-fish their own resources because the patch 1 is influencing this group to continue fishing through the high external social influence (\(\rho\)). Instead of modeling a cohesive system where communication fostered effective conservation, we created a scenario where each community raced to fish each patch as opposed to coming to common understanding of sustainable fishing practices, further highlighting that the content of the information being disseminated matters in successful conservation (Gray et al., 2012). The importance of information can be reflected in real-world fisheries such as in Lake Kariba between Zambia and Zimbabwe. Here, small scale fishers are reluctant to participate in co-management of this shared resource and have been found to resort to illegal fishing practices in order to maximize fish catch (Nyikahadzoi et al., 2017 ). Clear communication is essential across management regimes. Co-management is an increasingly used strategy in fisheries regulation because it balances power structures with social environmental needs. However, clear and open communication has been shown to be an essential component to successful co-management (Ratner et al., 2012; Alexander et al., 2015; Defeo et al., 2016; Nyikahadzoi et al., 2017; Doria et al., 2020).
 
-Further, because of the outside human influence term, \(\rho_i\), people are not responding directly to their respective fishing patch, but also to the conservation opinion of the other group. The inclusion of the movement term from each patch overcame the non-linear components of the model because movement is a linear term in this model. Adding a spatial component to socio-ecological models can greatly change their dynamics and therefore how people are expected to act under certain environmental conditions. The dispersion of fish populations must be well understood in order to institute effective conservation practices because any decision made by one group of people to conserve resources may be rendered ineffective if this species is highly migratory and the other group of harvesters is using unsustainable conservation practices. Further, because of the outside influences from the other human patch, fishers are no longer responding directly to fish levels in their respective patch, \(i\), but are also influenced by the proportion of fishers in the other patch, \(j\). In a scenario where fish is abundant in one patch, this will also encourage fishing in the other patch because incentive to fish will increase from the outside influence parameter. Past research has exemplified how multi-patch models and the addition of spatial components change the dynamics of systems, especially in fisheries (Mchich et al., 2000; Cai et al., 2008; Moeller \& Neubert, 2015; Auger et al., 2022).
+Further, because of the outside human influence term, \(\rho_i\), people are not responding directly to their respective fishing patch, but also to the conservation opinion of the other group. The inclusion of the fish movement term from each patch overcame the oscillations from the non-linear components of the model because fish movement is a linear term in this model. Adding a spatial component to socio-ecological models can greatly change their dynamics and therefore how people are expected to act in these models. The dispersion of fish populations must be well understood in order to institute effective conservation practices because any decision made by one group of people to conserve resources may be rendered ineffective if this fished species is highly migratory and the other group of harvesters is using unsustainable conservation practices. Further, because of the outside influences from the other human patch, fishers are no longer responding directly to fish levels in their respective patch, \(i\), but are also influenced by the proportion of fishers in the other patch, \(j\). In a scenario where fish is abundant in one patch, this will also encourage fishing in the other patch because incentive to fish will increase from the outside influence parameter. Past research has exemplified how multi-patch models and the addition of spatial components change the dynamics of systems, especially in fisheries (Mchich et al., 2000; Cai et al., 2008; Moeller \& Neubert, 2015; Auger et al., 2022).
 
-The decision to include the external social influence term in our model within the injunctive social norms \(X(1-X)\) implies that external influence can still change an opinion for or against conservation. However, an individual's willingness to take up a new opinion is still dictated by the overall opinion of their own population exemplifies homophily. Homophily is a concept from sociology where humans tend to take information and the opinions from subgroups similar to them before listening to subgroups of different social standing (Brechwald \& Prinstein, 2011). Social network based conservation, like in our model, can replace `top-down' regulation which can exclude stakeholders but has been shown to be susceptible to homophily (Newman \& Dale, 2007). Conservation has been shown to be more effective when human populations are more cohesive and that those with subgroups experience more barriers to effective conservation (Bodin \& Crona, 2009). Solutions to a lack of cohesion could be to institute some form of liaison that serves as cross-group communicators (Guerrero et al., 2015).
+The decision to include the external social influence term in our model within the injunctive social norms \(X(1-X)\) implies that external influence can still change an opinion for or against conservation. However, an individual's willingness to take up a new opinion is still dictated by the overall opinion of their own population exemplifies homophily. Social network based conservation, can replace `top-down' regulation which can exclude stakeholders but has been shown to be susceptible to homophily (Newman \& Dale, 2007). Conservation has been shown to be more effective when human populations are more cohesive and that those with subgroups experience more barriers to effective conservation (Bodin \& Crona, 2009).
 
-Further research on the model used in this study could consider an open system, where fish diffusion does not necessarily have to pass between patches and could diffuse into non-fished areas. Further, extensions of this work could observe model dynamics with fish species with a long lifespan or fast reproduction rates. Also, stronger social ties have been shown to be more adaptable to environmental change (Grafton, 2005), therefore further studies could evaluate the effect of climate change or extreme events on this social system (White \& Wulfing, 2023). The specific way we chose to incorporate social hierarchy into the model could be changed. There are many ways to model social systems so another application of this study would be to compare its results to models that incorporate social hierarchy differently. Next, further work on parameterizing our model to a real-world system could help understand if our model is properly capturing the underlying dynamics of two-patch fishing systems with social hierarchy. Our model only incorporates public opinion, fishing rates, and financial gains from fisheries as aspects that could cause fishery failure. In practice, other issues such as non-compliance to fishing regulations, hyper-stability, and regulation lag time could all be additional factors that result in fishery collapse but are not incorporated in this model (Erisman et al., 2011; Pinsky \& Fogarty, 2012; Belhabib et al., 2014). Further, this study does not consider Allee effects in the fish populations, which may alter how spatial dynamics interacts with management practices (White et al., 2021). Finally, our model assumed that the uptake of opinions happens solely through social networks and weighing costs of conservation against the benefits. In reality, there may be more factors that influence one's harvesting decisions such as governing bodies or media consumption.
+Here, we model individual decisions to fish based on the perceived benefits and costs of fishing activity. It does not account for organized decision making on fishing practices or co-management, and there is no mechanism for dispute resolution and regulation enforcement. Co-management is the organized collaboration between stakeholders to regulate ecological extraction while resolving societal conflicts, and is one such way management can incorporate complex social ecological structures (Armitage et al., 2009). Fisheries are increasingly applying principles of co-management as it creates cooperation and conflict resolution between different stakeholders while focusing on ecological sustainability (Butler et al., 2015; Trimble \& Berkes, 2015; Murunga et al., 2021). Co-management can also be a mechanism for addressing social inequalities in fisheries (Goetze, 2005; Freitas et al., 2020; Haque et al., 2022). However, they can also fail if social structures are ignored when making conservation decisions (Cumming et al., 2017; Baker-Médard, Concannon, et al., 2021). A limitation of this model is that it does not account for this organized decision-making, and only represents fisheries that have not yet instituted these governing mechanisms.
+
+This model does not account for the movement of fishers between patches, which could be a possible extension of this model to represent a fishery where there is overlap between the fishing grounds of the two human groups. Further research on the model could also be used in this study could consider an open system, where fish diffusion does not necessarily have to pass between patches and could diffuse into non-fished areas. Further, extensions of this work could observe model dynamics with fish species with a long lifespan or fast reproduction rates. Also, stronger social ties have been shown to be more adaptable to environmental change (Grafton, 2005), therefore further studies could evaluate the effect of climate change or extreme events on this social system (White \& Wulfing, 2023). The specific way we chose to incorporate social hierarchy into the model could be changed. There are many ways to model social systems so another application of this study would be to compare its results to models that incorporate social hierarchy differently. Next, further work on parameterizing our model to a real-world system could help understand if our model is properly capturing the underlying dynamics of two-patch fishing systems with social hierarchy. Our model only incorporates public opinion, fishing rates, and financial gains from fisheries as aspects that could cause fishery failure. In practice, other issues such as non-compliance to fishing regulations, hyper-stability, and regulation lag time could all be additional factors that result in fishery collapse but are not incorporated in this model (Erisman et al., 2011; Pinsky \& Fogarty, 2012; Belhabib et al., 2014). Further, this study does not consider Allee effects in the fish populations, which may alter how spatial dynamics interacts with management practices (White et al., 2021). Finally, our model assumed that the uptake of opinions happens solely through social networks and weighing costs of conservation against the benefits. In reality, there may be more factors that influence one's harvesting decisions such as governing bodies or media consumption.
 
 \emph{Funding} - This research was supported in part by NSF grant \#1923707.
 
@@ -374,186 +375,198 @@ Further research on the model used in this study could consider an open system, 
 
 \textbf{References}
 
-\hypertarget{refs}{}
+\phantomsection\label{refs}
 \begin{CSLReferences}{1}{2}
-\leavevmode\vadjust pre{\hypertarget{ref-augerIncreaseMaximumSustainable2022}{}}%
+\bibitem[\citeproctext]{ref-alexanderSocialNetworksTransitions2015}
+Alexander, S. M., Armitage, D., \& Charles, A. (2015). Social networks and transitions to co-management in {Jamaican} marine reserves and small-scale fisheries. \emph{Global Environmental Change}, \emph{35}, 213--225. \url{https://doi.org/10.1016/j.gloenvcha.2015.09.001}
+
+\bibitem[\citeproctext]{ref-armitageAdaptiveCoManagement2009}
+Armitage, D. R., Plummer, R., Berkes, F., Arthur, R. I., Charles, A. T., Davidson-Hunt, I. J., Diduck, A. P., Doubleday, N. C., Johnson, D. S., Marschke, M., McConney, P., Pinkerton, E. W., \& Wollenberg, E. K. (2009). Adaptive co-management for social--ecological complexity. \emph{Frontiers in Ecology and the Environment}, \emph{7}(2), 95--102. \url{https://doi.org/10.1890/070089}
+
+\bibitem[\citeproctext]{ref-augerIncreaseMaximumSustainable2022}
 Auger, P., Kooi, B., \& Moussaoui, A. (2022). Increase of maximum sustainable yield for fishery in two patches with fast migration. \emph{Ecological Modelling}, \emph{467}, 109898. \url{https://doi.org/10.1016/j.ecolmodel.2022.109898}
 
-\leavevmode\vadjust pre{\hypertarget{ref-baker-medardGenderingMarineConservation2017}{}}%
+\bibitem[\citeproctext]{ref-baker-medardGenderingMarineConservation2017}
 Baker-Médard, M. (2017). Gendering {Marine Conservation}: {The Politics} of {Marine Protected Areas} and {Fisheries Access}. \emph{Society \& Natural Resources}, \emph{30}(6), 723--737. \url{https://doi.org/10.1080/08941920.2016.1257078}
 
-\leavevmode\vadjust pre{\hypertarget{ref-baker-medardSocialscapeEcologyIntegrating2021}{}}%
-Baker-Médard, M., Concannon, K., Gantt, C., Moen, S., \& White, E. R. (2021). \emph{Socialscape {Ecology}: {Integrating} social factors into spatially-explicit marine conservation planning} {[}Preprint{]}. {SocArXiv}. \url{https://doi.org/10.31235/osf.io/m2kqa}
+\bibitem[\citeproctext]{ref-baker-medardSocialscapeEcologyIntegrating2021}
+Baker-Médard, M., Concannon, K., Gantt, C., Moen, S., \& White, E. R. (2021). \emph{Socialscape {Ecology}: {Integrating} social factors into spatially-explicit marine conservation planning} {[}Preprint{]}. SocArXiv. \url{https://doi.org/10.31235/osf.io/m2kqa}
 
-\leavevmode\vadjust pre{\hypertarget{ref-baker-medardClassedConservationSocioeconomic2021}{}}%
+\bibitem[\citeproctext]{ref-baker-medardClassedConservationSocioeconomic2021}
 Baker-Médard, M., Gantt, C., \& White, E. R. (2021). Classed conservation: {Socio-economic} drivers of participation in marine resource management. \emph{Environmental Science \& Policy}, \emph{124}, 156--162. \url{https://doi.org/10.1016/j.envsci.2021.06.007}
 
-\leavevmode\vadjust pre{\hypertarget{ref-banSocialEcologicalApproach2013}{}}%
-Ban, N. C., Mills, M., Tam, J., Hicks, C. C., Klain, S., Stoeckl, N., Bottrill, M. C., Levine, J., Pressey, R. L., Satterfield, T., \& Chan, K. M. (2013). A social{\textendash}ecological approach to conservation planning: Embedding social considerations. \emph{Frontiers in Ecology and the Environment}, \emph{11}(4), 194--202. \url{https://doi.org/10.1890/110205}
-
-\leavevmode\vadjust pre{\hypertarget{ref-barlowModellingInteractionsForest2014}{}}%
+\bibitem[\citeproctext]{ref-barlowModellingInteractionsForest2014}
 Barlow, L.-A., Cecile, J., Bauch, C. T., \& Anand, M. (2014). Modelling {Interactions} between {Forest Pest Invasions} and {Human Decisions Regarding Firewood Transport Restrictions}. \emph{PLoS ONE}, \emph{9}(4), e90511. \url{https://doi.org/10.1371/journal.pone.0090511}
 
-\leavevmode\vadjust pre{\hypertarget{ref-barnesSocialecologicalAlignmentEcological2019}{}}%
+\bibitem[\citeproctext]{ref-barnesSocialecologicalAlignmentEcological2019}
 Barnes, M. L., Bodin, Ö., McClanahan, T. R., Kittinger, J. N., Hoey, A. S., Gaoue, O. G., \& Graham, N. A. J. (2019). Social-ecological alignment and ecological conditions in coral reefs. \emph{Nature Communications}, \emph{10}(1), 2039. \url{https://doi.org/10.1038/s41467-019-09994-1}
 
-\leavevmode\vadjust pre{\hypertarget{ref-barnes-mautheTotalEconomicValue2013}{}}%
+\bibitem[\citeproctext]{ref-barnes-mautheTotalEconomicValue2013}
 Barnes-Mauthe, M. (2013). The total economic value of small-scale fisheries with a characterization of post-landing trends: {An} application in {Madagascar} with global relevance. \emph{Fisheries Research}, 11.
 
-\leavevmode\vadjust pre{\hypertarget{ref-bauchImitationDynamicsPredict2005}{}}%
+\bibitem[\citeproctext]{ref-bauchImitationDynamicsPredict2005}
 Bauch, C. T. (2005). Imitation dynamics predict vaccinating behaviour. \emph{Proceedings of the Royal Society B: Biological Sciences}, \emph{272}(1573), 1669--1675. \url{https://doi.org/10.1098/rspb.2005.3153}
 
-\leavevmode\vadjust pre{\hypertarget{ref-bauchEvolutionaryGameTheory2012}{}}%
+\bibitem[\citeproctext]{ref-bauchEvolutionaryGameTheory2012}
 Bauch, C. T., \& Bhattacharyya, S. (2012). Evolutionary {Game Theory} and {Social Learning Can Determine How Vaccine Scares Unfold}. \emph{PLoS Computational Biology}, \emph{8}(4), e1002452. \url{https://doi.org/10.1371/journal.pcbi.1002452}
 
-\leavevmode\vadjust pre{\hypertarget{ref-bauchEarlyWarningSignals2016}{}}%
-Bauch, C. T., Sigdel, R., Pharaon, J., \& Anand, M. (2016). Early warning signals of regime shifts in coupled human{\textendash}environment systems. \emph{Proceedings of the National Academy of Sciences}, \emph{113}(51), 14560--14567. \url{https://doi.org/10.1073/pnas.1604978113}
+\bibitem[\citeproctext]{ref-bauchEarlyWarningSignals2016}
+Bauch, C. T., Sigdel, R., Pharaon, J., \& Anand, M. (2016). Early warning signals of regime shifts in coupled human--environment systems. \emph{Proceedings of the National Academy of Sciences}, \emph{113}(51), 14560--14567. \url{https://doi.org/10.1073/pnas.1604978113}
 
-\leavevmode\vadjust pre{\hypertarget{ref-belhabibFisheriesCatchMisreporting2014}{}}%
+\bibitem[\citeproctext]{ref-belhabibFisheriesCatchMisreporting2014}
 Belhabib, D., Koutob, V., Sall, A., Lam, V. W. Y., \& Pauly, D. (2014). Fisheries catch misreporting and its implications: {The} case of {Senegal}. \emph{Fisheries Research}, \emph{151}, 1--11. \url{https://doi.org/10.1016/j.fishres.2013.12.006}
 
-\leavevmode\vadjust pre{\hypertarget{ref-bodinRoleSocialNetworks2009}{}}%
+\bibitem[\citeproctext]{ref-bodinRoleSocialNetworks2009}
 Bodin, Ö., \& Crona, B. I. (2009). The role of social networks in natural resource governance: {What} relational patterns make a difference? \emph{Global Environmental Change}, \emph{19}(3), 366--374. \url{https://doi.org/10.1016/j.gloenvcha.2009.05.002}
 
-\leavevmode\vadjust pre{\hypertarget{ref-bodinConservationSuccessFunction2014}{}}%
-Bodin, Ö., Crona, B., Thyresson, M., Golz, A.-L., \& Tengö, M. (2014). Conservation {Success} as a {Function} of {Good Alignment} of {Social} and {Ecological Structures} and {Processes}: {Social-Ecological Fit} and {Conservation}. \emph{Conservation Biology}, \emph{28}(5), 1371--1379. \url{https://doi.org/10.1111/cobi.12306}
-
-\leavevmode\vadjust pre{\hypertarget{ref-borgattiNetworkParadigmOrganizational2003}{}}%
+\bibitem[\citeproctext]{ref-borgattiNetworkParadigmOrganizational2003}
 Borgatti, S. (2003). The {Network Paradigm} in {Organizational Research}: {A Review} and {Typology}. \emph{Journal of Management}, \emph{29}(6), 991--1013. \url{https://doi.org/10.1016/S0149-2063(03)00087-4}
 
-\leavevmode\vadjust pre{\hypertarget{ref-brechwaldHomophilyDecadeAdvances2011}{}}%
+\bibitem[\citeproctext]{ref-brechwaldHomophilyDecadeAdvances2011}
 Brechwald, W. A., \& Prinstein, M. J. (2011). Beyond {Homophily}: {A Decade} of {Advances} in {Understanding Peer Influence Processes}: {Beyond Homophily}. \emph{Journal of Research on Adolescence}, \emph{21}(1), 166--179. \url{https://doi.org/10.1111/j.1532-7795.2010.00721.x}
 
-\leavevmode\vadjust pre{\hypertarget{ref-caiModelingAnalysisHarvesting2008}{}}%
+\bibitem[\citeproctext]{ref-butlerEvaluatingAdaptiveComanagement2015}
+Butler, J. R. A., Young, J. C., McMyn, I. A. G., Leyshon, B., Graham, I. M., Walker, I., Baxter, J. M., Dodd, J., \& Warburton, C. (2015). Evaluating adaptive co-management as conservation conflict resolution: {Learning} from seals and salmon. \emph{Journal of Environmental Management}, \emph{160}, 212--225. \url{https://doi.org/10.1016/j.jenvman.2015.06.019}
+
+\bibitem[\citeproctext]{ref-caiModelingAnalysisHarvesting2008}
 Cai, L., Li, X., \& Song, X. (2008). Modeling and analysis of a harvesting fishery model in a two-patch environment. \emph{International Journal of Biomathematics}, \emph{01}(03), 287--298. \url{https://doi.org/10.1142/S1793524508000242}
 
-\leavevmode\vadjust pre{\hypertarget{ref-cinnerComanagementCoralReef2012}{}}%
-Cinner, J. E., McClanahan, T. R., MacNeil, M. A., Graham, N. A. J., Daw, T. M., Mukminin, A., Feary, D. A., Rabearisoa, A. L., Wamukota, A., Jiddawi, N., Campbell, S. J., Baird, A. H., Januchowski-Hartley, F. A., Hamed, S., Lahari, R., Morove, T., \& Kuange, J. (2012). Comanagement of coral reef social-ecological systems. \emph{Proceedings of the National Academy of Sciences}, \emph{109}(14), 5219--5222. \url{https://doi.org/10.1073/pnas.1121215109}
-
-\leavevmode\vadjust pre{\hypertarget{ref-clineFisheriesPortfolioDiversification2017}{}}%
-Cline, T. J., Schindler, D. E., \& Hilborn, R. (2017). Fisheries portfolio diversification and turnover buffer {Alaskan} fishing communities from abrupt resource and market changes. \emph{Nature Communications}, \emph{8}(1), 14042. \url{https://doi.org/10.1038/ncomms14042}
-
-\leavevmode\vadjust pre{\hypertarget{ref-cozziAfricanWildDog2020}{}}%
+\bibitem[\citeproctext]{ref-cozziAfricanWildDog2020}
 Cozzi, G., Behr, D. M., Webster, H. S., Claase, M., Bryce, C. M., Modise, B., Mcnutt, J. W., \& Ozgul, A. (2020). African {Wild Dog Dispersal} and {Implications} for {Management}. \emph{The Journal of Wildlife Management}, \emph{84}(4), 614--621. \url{https://doi.org/10.1002/jwmg.21841}
 
-\leavevmode\vadjust pre{\hypertarget{ref-cressmanIdealFreeDistributions2004}{}}%
+\bibitem[\citeproctext]{ref-cressmanIdealFreeDistributions2004}
 Cressman, R., Křivan, V., \& Garay, J. (2004). \emph{Ideal {Free Distributions}, {Evolutionary Games}, and {Population Dynamics} in {Multiple-Species Environments}}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-cronaWhatYouKnow2006}{}}%
+\bibitem[\citeproctext]{ref-cronaWhatYouKnow2006}
 Crona, B., \& Bodin, Ö. (2006). What {You Know} is {Who You Know}? {Communication Patterns Among Resource Users} as a {Prerequisite} for {Co-management}. \emph{Ecology and Society}, \emph{11}(2), art7. \url{https://doi.org/10.5751/ES-01793-110207}
 
-\leavevmode\vadjust pre{\hypertarget{ref-cummingNewDirectionsUnderstanding2017}{}}%
-Cumming, G. S., Morrison, T. H., \& Hughes, T. P. (2017). New {Directions} for {Understanding} the {Spatial Resilience} of {Social}{\textendash}{Ecological Systems}. \emph{Ecosystems}, \emph{20}(4), 649--664. \url{https://doi.org/10.1007/s10021-016-0089-5}
+\bibitem[\citeproctext]{ref-cummingNewDirectionsUnderstanding2017}
+Cumming, G. S., Morrison, T. H., \& Hughes, T. P. (2017). New {Directions} for {Understanding} the {Spatial Resilience} of {Social}--{Ecological Systems}. \emph{Ecosystems}, \emph{20}(4), 649--664. \url{https://doi.org/10.1007/s10021-016-0089-5}
 
-\leavevmode\vadjust pre{\hypertarget{ref-erismanIllusionPlentyHyperstability2011}{}}%
+\bibitem[\citeproctext]{ref-defeoCoManagementAtin2016}
+Defeo, O., Castrejón, M., Pérez-Castañeda, R., Castilla, J. C., Gutiérrez, N. L., Essington, T. E., \& Folke, C. (2016). Co-management in {\textsc{L}} atin {\textsc{A}} merican small-scale shellfisheries: Assessment from long-term case studies. \emph{Fish and Fisheries}, \emph{17}(1), 176--192. \url{https://doi.org/10.1111/faf.12101}
+
+\bibitem[\citeproctext]{ref-doriaChallengesGovernanceSmallScale2020}
+Doria, C. R. C., Athayde, S., Lima, H. M. D., Carvajal-Vallejos, F. M., \& Dutka-Gianelli, J. (2020). Challenges for the {Governance} of {Small-Scale Fisheries} on the {Brazil-Bolivia Transboundary Region}. \emph{Society \& Natural Resources}, \emph{33}(10), 1213--1231. \url{https://doi.org/10.1080/08941920.2020.1771492}
+
+\bibitem[\citeproctext]{ref-erismanIllusionPlentyHyperstability2011}
 Erisman, B. E., Allen, L. G., Claisse, J. T., Pondella, D. J., Miller, E. F., \& Murray, J. H. (2011). The illusion of plenty: Hyperstability masks collapses in two recreational fisheries that target fish spawning aggregations. \emph{Canadian Journal of Fisheries and Aquatic Sciences}, \emph{68}(10), 1705--1716. \url{https://doi.org/10.1139/f2011-090}
 
-\leavevmode\vadjust pre{\hypertarget{ref-felipe-luciaConceptualizingEcosystemServices2022}{}}%
-Felipe-Lucia, M. R., Guerrero, A. M., Alexander, S. M., Ashander, J., Baggio, J. A., Barnes, M. L., Bodin, Ö., Bonn, A., Fortin, M.-J., Friedman, R. S., Gephart, J. A., Helmstedt, K. J., Keyes, A. A., Kroetz, K., Massol, F., Pocock, M. J. O., Sayles, J., Thompson, R. M., Wood, S. A., \& Dee, L. E. (2022). Conceptualizing ecosystem services using social{\textendash}ecological networks. \emph{Trends in Ecology \& Evolution}, \emph{37}(3), 211--222. \url{https://doi.org/10.1016/j.tree.2021.11.012}
+\bibitem[\citeproctext]{ref-StateWorldFisheries2022a}
+FAO. (2022). \emph{The {State} of {World Fisheries} and {Aquaculture} 2022. Towards {Blue Transformation}.} FAO. \url{https://doi.org/10.4060/cc0461en}
 
-\leavevmode\vadjust pre{\hypertarget{ref-finkbeinerRoleDiversificationDynamic2015}{}}%
-Finkbeiner, E. M. (2015). The role of diversification in dynamic small-scale fisheries: {Lessons} from {Baja California Sur}, {Mexico}. \emph{Global Environmental Change}, \emph{32}, 139--152. \url{https://doi.org/10.1016/j.gloenvcha.2015.03.009}
+\bibitem[\citeproctext]{ref-fao1IlluminatingHiddenHarvests2023}
+FAO, Duke University, \& WorldFish. (2023). \emph{Illuminating {Hidden Harvests}: The contributions of small-scale fisheries to sustainable developmentt -- {Executive} summary}. FAO. \url{https://doi.org/10.4060/cc6062en}
 
-\leavevmode\vadjust pre{\hypertarget{ref-freedmanMathematicalModelsPopulation1977}{}}%
+\bibitem[\citeproctext]{ref-felipe-luciaConceptualizingEcosystemServices2022}
+Felipe-Lucia, M. R., Guerrero, A. M., Alexander, S. M., Ashander, J., Baggio, J. A., Barnes, M. L., Bodin, Ö., Bonn, A., Fortin, M.-J., Friedman, R. S., Gephart, J. A., Helmstedt, K. J., Keyes, A. A., Kroetz, K., Massol, F., Pocock, M. J. O., Sayles, J., Thompson, R. M., Wood, S. A., \& Dee, L. E. (2022). Conceptualizing ecosystem services using social--ecological networks. \emph{Trends in Ecology \& Evolution}, \emph{37}(3), 211--222. \url{https://doi.org/10.1016/j.tree.2021.11.012}
+
+\bibitem[\citeproctext]{ref-freedmanMathematicalModelsPopulation1977}
 Freedman, H. I., \& Waltman, P. (1977). Mathematical {Models} of {Population Interactions} with {Dispersal}. {I}: {Stability} of {Two Habitats} with and without a {Predator}. \emph{SIAM Journal on Applied Mathematics}, \emph{32}(3), 631--648. \url{https://doi.org/10.1137/0132052}
 
-\leavevmode\vadjust pre{\hypertarget{ref-garrone-netoUsingSameFish2018}{}}%
+\bibitem[\citeproctext]{ref-freitasResourceComanagementStep2020}
+Freitas, C. T., Espírito-Santo, H. M. V., Campos-Silva, J. V., Peres, C. A., \& Lopes, P. F. M. (2020). Resource co-management as a step towards gender equity in fisheries. \emph{Ecological Economics}, \emph{176}, 106709. \url{https://doi.org/10.1016/j.ecolecon.2020.106709}
+
+\bibitem[\citeproctext]{ref-garrone-netoUsingSameFish2018}
 Garrone-Neto, D., Sanches, E. A., Daros, F. A. L. de M., Imanobu, C. M. R., \& Moro, P. S. (2018). Using the same fish with different rules: {A} science-based approach for improving management of recreational fisheries in a biodiversity hotspot of the {Western South Atlantic}. \emph{Fisheries Management and Ecology}, \emph{25}(4), 253--260. \url{https://doi.org/10.1111/fme.12288}
 
-\leavevmode\vadjust pre{\hypertarget{ref-gervasiCompensatoryImmigrationCounteracts2015}{}}%
+\bibitem[\citeproctext]{ref-gervasiCompensatoryImmigrationCounteracts2015}
 Gervasi, V., Brøseth, H., Nilsen, E. B., Ellegren, H., Flagstad, Ø., \& Linnell, J. D. C. (2015). Compensatory immigration counteracts contrasting conservation strategies of wolverines ( {Gulo} gulo ) within {Scandinavia}. \emph{Biological Conservation}, \emph{191}, 632--639. \url{https://doi.org/10.1016/j.biocon.2015.07.024}
 
-\leavevmode\vadjust pre{\hypertarget{ref-graftonSocialCapitalFisheries2005}{}}%
+\bibitem[\citeproctext]{ref-goetzeEmpoweredCoManagementPowerSharing2005}
+Goetze, T. C. (2005). Empowered {Co-Management}: {Towards Power-Sharing} and {Indigenous Rights} in {Clayoquot Sound}, {BC}. \emph{Anthropologica}, \emph{47}(2), 247--265. \url{https://www.jstor.org/stable/25606239}
+
+\bibitem[\citeproctext]{ref-graftonSocialCapitalFisheries2005}
 Grafton, R. Q. (2005). Social capital and fisheries governance. \emph{Ocean \& Coastal Management}, \emph{48}(9-10), 753--766. \url{https://doi.org/10.1016/j.ocecoaman.2005.08.003}
 
-\leavevmode\vadjust pre{\hypertarget{ref-grayModelingIntegrationStakeholder2012}{}}%
-Gray, S., Chan, A., Clark, D., \& Jordan, R. (2012). Modeling the integration of stakeholder knowledge in social{\textendash}ecological decision-making: {Benefits} and limitations to knowledge diversity. \emph{Ecological Modelling}, \emph{229}, 88--96. \url{https://doi.org/10.1016/j.ecolmodel.2011.09.011}
+\bibitem[\citeproctext]{ref-grayModelingIntegrationStakeholder2012}
+Gray, S., Chan, A., Clark, D., \& Jordan, R. (2012). Modeling the integration of stakeholder knowledge in social--ecological decision-making: {Benefits} and limitations to knowledge diversity. \emph{Ecological Modelling}, \emph{229}, 88--96. \url{https://doi.org/10.1016/j.ecolmodel.2011.09.011}
 
-\leavevmode\vadjust pre{\hypertarget{ref-guerreroAchievingCrossScaleCollaboration2015}{}}%
-Guerrero, A. M., Mcallister, R. R. J., \& Wilson, K. A. (2015). Achieving {Cross-Scale Collaboration} for {Large Scale Conservation Initiatives}: {Cross-scale} collaboration in conservation. \emph{Conservation Letters}, \emph{8}(2), 107--117. \url{https://doi.org/10.1111/conl.12112}
+\bibitem[\citeproctext]{ref-haqueCanAdaptiveComanagement2022}
+Haque, A. B. M. M., Nahiduzzaman, Md., \& Saha, S. M. (2022). Can adaptive co-management reduce poverty and inequality in the coastal fishing community? {An} impact evaluation in the riverine system in {Bangladesh}. \emph{Regional Studies in Marine Science}, \emph{56}, 102721. \url{https://doi.org/10.1016/j.rsma.2022.102721}
 
-\leavevmode\vadjust pre{\hypertarget{ref-hebblewhiteWolvesBordersTransboundary2020}{}}%
+\bibitem[\citeproctext]{ref-hebblewhiteWolvesBordersTransboundary2020}
 Hebblewhite, M., \& Whittington, J. (2020). Wolves without borders: {Transboundary} survival of wolves in {Banff National Park} over three decades. \emph{Global Ecology and Conservation}, \emph{24}, e01293. \url{https://doi.org/10.1016/j.gecco.2020.e01293}
 
-\leavevmode\vadjust pre{\hypertarget{ref-innesImpactHumanenvironmentInteractions2013a}{}}%
+\bibitem[\citeproctext]{ref-innesImpactHumanenvironmentInteractions2013a}
 Innes, C., Anand, M., \& Bauch, C. T. (2013). The impact of human-environment interactions on the stability of forest-grassland mosaic ecosystems. \emph{Scientific Reports}, \emph{3}(1), 2689. \url{https://doi.org/10.1038/srep02689}
 
-\leavevmode\vadjust pre{\hypertarget{ref-krackhardtInformalNetworksOrganizational1988}{}}%
+\bibitem[\citeproctext]{ref-krackhardtInformalNetworksOrganizational1988}
 Krackhardt, D., \& Stern, R. N. (1988). Informal {Networks} and {Organizational Crises}: {An Experimental Simulation}. \emph{Social Psychology Quarterly}, \emph{51}(2), 123. \url{https://doi.org/10.2307/2786835}
 
-\leavevmode\vadjust pre{\hypertarget{ref-ladeRegimeShiftsSocialecological2013}{}}%
+\bibitem[\citeproctext]{ref-ladeRegimeShiftsSocialecological2013}
 Lade, S. J., Tavoni, A., Levin, S. A., \& Schlüter, M. (2013). Regime shifts in a social-ecological system. \emph{Theoretical Ecology}, \emph{6}(3), 359--372. \url{https://doi.org/10.1007/s12080-013-0187-3}
 
-\leavevmode\vadjust pre{\hypertarget{ref-liuCoupledHumanNatural2007}{}}%
+\bibitem[\citeproctext]{ref-liuCoupledHumanNatural2007}
 Liu, J., Redman, C. L., Schneider, S. H., Ostrom, E., Pell, A. N., Lubchenco, J., Taylor, W. W., Ouyang, Z., Deadman, P., Kratz, T., \& Provencher, W. (2007). \emph{Coupled {Human} and {Natural Systems}}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-mchichDynamicsFishStock2000}{}}%
+\bibitem[\citeproctext]{ref-mchichDynamicsFishStock2000}
 Mchich, R., Auger, P., \& Raïssi, N. (2000). The dynamics of a fish stock exploited in two fishing zones. \emph{Acta Biotheoretica}, \emph{48}, 201--218.
 
-\leavevmode\vadjust pre{\hypertarget{ref-mcphersonBirdsFeatherHomophily2001}{}}%
+\bibitem[\citeproctext]{ref-mcphersonBirdsFeatherHomophily2001}
 McPherson, M., Smith-Lovin, L., \& Cook, J. M. (2001). Birds of a {Feather}: {Homophily} in {Social Networks}. \emph{Annual Review of Sociology}, \emph{27}(1), 415--444. \url{https://doi.org/10.1146/annurev.soc.27.1.415}
 
-\leavevmode\vadjust pre{\hypertarget{ref-meisingsetSpatialMismatchManagement2018}{}}%
+\bibitem[\citeproctext]{ref-meisingsetSpatialMismatchManagement2018}
 Meisingset, E. L., Loe, L. E., Brekkum, Ø., Bischof, R., Rivrud, I. M., Lande, U. S., Zimmermann, B., Veiberg, V., \& Mysterud, A. (2018). Spatial mismatch between management units and movement ecology of a partially migratory ungulate. \emph{Journal of Applied Ecology}, \emph{55}(2), 745--753. \url{https://doi.org/10.1111/1365-2664.13003}
 
-\leavevmode\vadjust pre{\hypertarget{ref-moellerEconomicallyOptimalMarine2015}{}}%
+\bibitem[\citeproctext]{ref-moellerEconomicallyOptimalMarine2015}
 Moeller, H. V., \& Neubert, M. G. (2015). Economically optimal marine reserves without spatial heterogeneity in a simple two-patch model: {Economically} optimal marine reserves. \emph{Natural Resource Modeling}, \emph{28}(3), 244--255. \url{https://doi.org/10.1111/nrm.12066}
 
-\leavevmode\vadjust pre{\hypertarget{ref-newmanHomophilyAgencyCreating2007}{}}%
+\bibitem[\citeproctext]{ref-murungaDriversCollectiveAction2021}
+Murunga, M., Partelow, S., \& Breckwoldt, A. (2021). Drivers of collective action and role of conflict in {Kenyan} fisheries co-management. \emph{World Development}, \emph{141}, 105413. \url{https://doi.org/10.1016/j.worlddev.2021.105413}
+
+\bibitem[\citeproctext]{ref-newmanHomophilyAgencyCreating2007}
 Newman, L., \& Dale, A. (2007). Homophily and {Agency}: {Creating Effective Sustainable Development Networks}. \emph{Environment, Development and Sustainability}, \emph{9}(1), 79--90. \url{https://doi.org/10.1007/s10668-005-9004-5}
 
-\leavevmode\vadjust pre{\hypertarget{ref-ogburnAddressingChallengesApplication2017}{}}%
+\bibitem[\citeproctext]{ref-nyikahadzoiDynamicsTransboundaryGovernance2017}
+Nyikahadzoi, K., Mhlanga, W., Madzudzo, E., Tendaupenyu, I., \& Silwimba, E. (2017). Dynamics of transboundary governance and management of small scale fisheries on {Lake Kariba}: Implications for sustainable use. \emph{International Journal of Environmental Studies}, \emph{74}(3), 458--470. \url{https://doi.org/10.1080/00207233.2017.1308159}
+
+\bibitem[\citeproctext]{ref-ogburnAddressingChallengesApplication2017}
 Ogburn, M. B., Harrison, A.-L., Whoriskey, F. G., Cooke, S. J., Mills Flemming, J. E., \& Torres, L. G. (2017). Addressing {Challenges} in the {Application} of {Animal Movement Ecology} to {Aquatic Conservation} and {Management}. \emph{Frontiers in Marine Science}, \emph{4}. \url{https://doi.org/10.3389/fmars.2017.00070}
 
-\leavevmode\vadjust pre{\hypertarget{ref-orabyInfluenceSocialNorms2014}{}}%
+\bibitem[\citeproctext]{ref-orabyInfluenceSocialNorms2014}
 Oraby, T., Thampi, V., \& Bauch, C. T. (2014). The influence of social norms on the dynamics of vaccinating behaviour for paediatric infectious diseases. \emph{Proceedings of the Royal Society B: Biological Sciences}, \emph{281}(1780), 20133172. \url{https://doi.org/10.1098/rspb.2013.3172}
 
-\leavevmode\vadjust pre{\hypertarget{ref-ostromGeneralFrameworkAnalyzing2009}{}}%
+\bibitem[\citeproctext]{ref-ostromGeneralFrameworkAnalyzing2009}
 Ostrom, E. (2009). A {General Framework} for {Analyzing Sustainability} of {Social-Ecological Systems}. \emph{Science}, \emph{325}(5939), 419--422. \url{https://doi.org/10.1126/science.1172133}
 
-\leavevmode\vadjust pre{\hypertarget{ref-pinskyLaggedSocialecologicalResponses2012}{}}%
+\bibitem[\citeproctext]{ref-pinskyLaggedSocialecologicalResponses2012}
 Pinsky, M. L., \& Fogarty, M. (2012). Lagged social-ecological responses to climate and range shifts in fisheries. \emph{Climatic Change}, \emph{115}(3-4), 883--891. \url{https://doi.org/10.1007/s10584-012-0599-x}
 
-\leavevmode\vadjust pre{\hypertarget{ref-plumptreTransboundaryConservationGreater2007}{}}%
+\bibitem[\citeproctext]{ref-plumptreTransboundaryConservationGreater2007}
 Plumptre, A. J., Kujirakwinja, D., Treves, A., Owiunji, I., \& Rainer, H. (2007). Transboundary conservation in the greater {Virunga} landscape: {Its} importance for landscape species. \emph{Biological Conservation}, \emph{134}(2), 279--287. \url{https://doi.org/10.1016/j.biocon.2006.08.012}
 
-\leavevmode\vadjust pre{\hypertarget{ref-pomeroyFishWarsConflict2007}{}}%
+\bibitem[\citeproctext]{ref-pomeroyFishWarsConflict2007}
 Pomeroy, R., Parks, J., Pollnac, R., Campson, T., Genio, E., Marlessy, C., Holle, E., Pido, M., Nissapa, A., Boromthanarat, S., \& Thu Hue, N. (2007). Fish wars: {Conflict} and collaboration in fisheries management in {Southeast Asia}. \emph{Marine Policy}, \emph{31}(6), 645--656. \url{https://doi.org/10.1016/j.marpol.2007.03.012}
 
-\leavevmode\vadjust pre{\hypertarget{ref-princeSpawningPotentialSurveys2021}{}}%
-Prince, J., Lalavanua, W., Tamanitoakula, J., Tamata, L., Green, S., Radway, S., Loganimoce, E., Vodivodi, T., Marama, K., Waqainabete, P., Jeremiah, F., Nalasi, D., Naleba, M., Naisilisili, W., Kaloudrau, U., Lagi, L., Logatabua, K., Dautei, R., Tikaram, R., \ldots{} Mangubhai, S. (2021). Spawning potential surveys in {Fiji}: {A} new song of change for {\textsc{Small-scale}} fisheries in the {Pacific}. \emph{Conservation Science and Practice}, \emph{3}(2). \url{https://doi.org/10.1111/csp2.273}
-
-\leavevmode\vadjust pre{\hypertarget{ref-ramirez-valdezAsymmetryInternationalBorders2021}{}}%
+\bibitem[\citeproctext]{ref-ramirez-valdezAsymmetryInternationalBorders2021}
 Ramírez-Valdez, A., Rowell, T. J., Dale, K. E., Craig, M. T., Allen, L. G., Villaseñor-Derbez, J. C., Cisneros-Montemayor, A. M., Hernández-Velasco, A., Torre, J., Hofmeister, J., \& Erisman, B. E. (2021). Asymmetry across international borders: {Research}, fishery and management trends and economic value of the giant sea bass ( {\emph{Stereolepis}}{ \emph{Gigas}} ). \emph{Fish and Fisheries}, \emph{22}(6), 1392--1411. \url{https://doi.org/10.1111/faf.12594}
 
-\leavevmode\vadjust pre{\hypertarget{ref-robinsonDiversificationInsulatesFisher2020}{}}%
-Robinson, J. P. W., Robinson, J., Gerry, C., Govinden, R., Freshwater, C., \& Graham, N. A. J. (2020). Diversification insulates fisher catch and revenue in heavily exploited tropical fisheries. \emph{Science Advances}, \emph{6}(8), eaaz0587. \url{https://doi.org/10.1126/sciadv.aaz0587}
+\bibitem[\citeproctext]{ref-ratnerNavigatingChangeSecondgeneration2012}
+Ratner, B. D., Oh, E. J. V., \& Pomeroy, R. S. (2012). Navigating change: {Second-generation} challenges of small-scale fisheries co-management in the {Philippines} and {Vietnam}. \emph{Journal of Environmental Management}, \emph{107}, 131--139. \url{https://doi.org/10.1016/j.jenvman.2012.04.014}
 
-\leavevmode\vadjust pre{\hypertarget{ref-salasViabilitySustainabilitySmallScale2019}{}}%
-Salas, S., Barragán-Paladines, M. J., \& Chuenpagdee, R. (Eds.). (2019). \emph{Viability and {Sustainability} of {Small-Scale Fisheries} in {Latin America} and {The Caribbean}} (Vol. 19). {Springer International Publishing}. \url{https://doi.org/10.1007/978-3-319-76078-0}
-
-\leavevmode\vadjust pre{\hypertarget{ref-sariMonitoringSmallscaleFisheries2021}{}}%
+\bibitem[\citeproctext]{ref-sariMonitoringSmallscaleFisheries2021}
 Sari, I., Ichsan, M., White, A., Raup, S. A., \& Wisudo, S. H. (2021). Monitoring small-scale fisheries catches in {Indonesia} through a fishing logbook system: {Challenges} and strategies. \emph{Marine Policy}, \emph{134}, 104770. \url{https://doi.org/10.1016/j.marpol.2021.104770}
 
-\leavevmode\vadjust pre{\hypertarget{ref-siddonsBordersBarriersChallenges2017}{}}%
+\bibitem[\citeproctext]{ref-siddonsBordersBarriersChallenges2017}
 Siddons, S. F., Pegg, M. A., \& Klein, G. M. (2017). Borders and {Barriers}: Challenges of {Fisheries Management} and {Conservation} in {Open Systems}: {Challenges} of {Fisheries Management} and {Conservation} in {Open Systems}. \emph{River Research and Applications}, \emph{33}(4), 578--585. \url{https://doi.org/10.1002/rra.3118}
 
-\leavevmode\vadjust pre{\hypertarget{ref-sigdelCompetitionInjunctiveSocial2017a}{}}%
+\bibitem[\citeproctext]{ref-sigdelCompetitionInjunctiveSocial2017a}
 Sigdel, R. P., Anand, M., \& Bauch, C. T. (2017). Competition between injunctive social norms and conservation priorities gives rise to complex dynamics in a model of forest growth and opinion dynamics. \emph{Journal of Theoretical Biology}, \emph{432}, 132--140. \url{https://doi.org/10.1016/j.jtbi.2017.07.029}
 
-\leavevmode\vadjust pre{\hypertarget{ref-thampiSocioecologicalDynamicsCaribbean2018}{}}%
+\bibitem[\citeproctext]{ref-thampiSocioecologicalDynamicsCaribbean2018}
 Thampi, V. A., Anand, M., \& Bauch, C. T. (2018). Socio-ecological dynamics of {Caribbean} coral reef ecosystems and conservation opinion propagation. \emph{Scientific Reports}, \emph{8}(1), 2597. \url{https://doi.org/10.1038/s41598-018-20341-0}
 
-\leavevmode\vadjust pre{\hypertarget{ref-theworldbankHIDDENHARVESTTheGlobal2012}{}}%
-The World Bank. (2012). \emph{{HIDDEN} {HARVEST}-{The} {Global} {Contribution} of {Capture} {Fisheries}} (66469-GLB). The World Bank. \url{https://documents1.worldbank.org/curated/en/515701468152718292/pdf/664690ESW0P1210120HiddenHarvest0web.pdf}
+\bibitem[\citeproctext]{ref-trimbleAdaptiveComanagementSmallscale2015}
+Trimble, M., \& Berkes, F. (2015). Towards adaptive co-management of small-scale fisheries in {Uruguay} and {Brazil}: Lessons from using {Ostrom}'s design principles. \emph{Maritime Studies}, \emph{14}(1), 14. \url{https://doi.org/10.1186/s40152-015-0032-y}
 
-\leavevmode\vadjust pre{\hypertarget{ref-whiteCatastrophesConnectivityAllee2021}{}}%
+\bibitem[\citeproctext]{ref-whiteCatastrophesConnectivityAllee2021}
 White, E. R., Baskett, M. L., \& Hastings, A. (2021). Catastrophes, connectivity and {Allee} effects in the design of marine reserve networks. \emph{Oikos}, \emph{130}(3), 366--376. \url{https://doi.org/10.1111/oik.07770}
 
-\leavevmode\vadjust pre{\hypertarget{ref-whiteExtremeEventsCoupled2023}{}}%
+\bibitem[\citeproctext]{ref-whiteExtremeEventsCoupled2023}
 White, E. R., \& Wulfing, S. (2023). \emph{Extreme events and coupled socio-ecological systems} {[}Preprint{]}. {Agricultural and Resource Economics}. \url{https://doi.org/10.32942/X29G7W}
 
-\leavevmode\vadjust pre{\hypertarget{ref-youngSolvingCrisisOcean2007}{}}%
+\bibitem[\citeproctext]{ref-youngSolvingCrisisOcean2007}
 Young, O. R., Osherenko, G., Ekstrom, J., Crowder, L. B., Ogden, J., Wilson, J. A., Day, J. C., Douvere, F., Ehler, C. N., McLeod, K. L., Halpren, B. S., \& Peach, R. (2007). Solving the {Crisis} in {Ocean Governance}: {Place-Based Management} of {Marine Ecosystems}. \emph{Environment: Science and Policy for Sustainable Development}, \emph{49}(4), 20--32. \url{https://doi.org/10.3200/ENVT.49.4.20-33}
 
 \end{CSLReferences}
